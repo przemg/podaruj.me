@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Gift, Menu, X, Globe, Check, ChevronDown } from "lucide-react";
+import { UserMenu } from "@/components/auth/user-menu";
 
 const NAV_SECTIONS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -17,7 +18,7 @@ const LOCALES = [
   { code: "pl", label: "Polski", short: "PL" },
 ] as const;
 
-export function Navigation({ locale }: { locale: string }) {
+export function Navigation({ locale, userEmail }: { locale: string; userEmail?: string }) {
   const t = useTranslations("landing.nav");
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -145,9 +146,18 @@ export function Navigation({ locale }: { locale: string }) {
                 </button>
               ))}
             </div>
-            <button className="hidden rounded-xl bg-landing-coral-dark px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg lg:block lg:ml-4">
-              {t("createList")}
-            </button>
+            {userEmail ? (
+              <div className="hidden lg:block lg:ml-4">
+                <UserMenu email={userEmail} />
+              </div>
+            ) : (
+              <Link
+                href="/auth/sign-in"
+                className="hidden rounded-xl bg-landing-coral-dark px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg lg:block lg:ml-4"
+              >
+                {t("createList")}
+              </Link>
+            )}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
               className="rounded-lg p-2 text-landing-text transition-colors hover:bg-landing-peach-wash lg:hidden"
@@ -195,9 +205,26 @@ export function Navigation({ locale }: { locale: string }) {
             </div>
 
             <div className="pb-8">
-              <button className="w-full rounded-xl bg-landing-coral-dark px-6 py-4 text-lg font-semibold text-white transition-all hover:bg-landing-coral-hover">
-                {t("createList")}
-              </button>
+              {userEmail ? (
+                <div className="space-y-3">
+                  <p className="truncate text-sm text-landing-text-muted">{userEmail}</p>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full rounded-xl bg-landing-coral-dark px-6 py-4 text-center text-lg font-semibold text-white transition-all hover:bg-landing-coral-hover"
+                  >
+                    {t("createList")}
+                  </Link>
+                </div>
+              ) : (
+                <Link
+                  href="/auth/sign-in"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full rounded-xl bg-landing-coral-dark px-6 py-4 text-center text-lg font-semibold text-white transition-all hover:bg-landing-coral-hover"
+                >
+                  {t("createList")}
+                </Link>
+              )}
             </div>
           </div>
         </div>

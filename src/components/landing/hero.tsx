@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
+import { useRouter, Link } from "@/i18n/navigation";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
 import { HeroIllustration } from "./hero-illustration";
 
@@ -12,8 +14,10 @@ const BADGE_KEYS = [
   "badgeNoAccount",
 ] as const;
 
-export function Hero() {
+export function Hero({ userEmail }: { userEmail?: string }) {
   const t = useTranslations("landing.hero");
+  const router = useRouter();
+  const [heroEmail, setHeroEmail] = useState("");
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 150 });
 
   return (
@@ -33,15 +37,41 @@ export function Hero() {
             </p>
 
             {/* Email input + CTA */}
-            <div className="scroll-reveal mt-8 flex flex-col gap-3 sm:flex-row sm:gap-0">
-              <input
-                type="email"
-                placeholder={t("emailPlaceholder")}
-                className="w-full rounded-xl border border-landing-text/10 bg-white px-5 py-3.5 text-landing-text placeholder:text-landing-text-muted/50 focus:border-landing-coral focus:ring-2 focus:ring-landing-coral/20 focus:outline-none sm:rounded-r-none sm:flex-1"
-              />
-              <button className="rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none">
-                {t("getStarted")}
-              </button>
+            <div className="scroll-reveal mt-8">
+              {userEmail ? (
+                <Link
+                  href="/dashboard"
+                  className="inline-block rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg"
+                >
+                  {t("goToDashboard")}
+                </Link>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (heroEmail) {
+                      router.push(
+                        `/auth/sign-in?email=${encodeURIComponent(heroEmail)}`
+                      );
+                    }
+                  }}
+                  className="flex flex-col gap-3 sm:flex-row sm:gap-0"
+                >
+                  <input
+                    type="email"
+                    value={heroEmail}
+                    onChange={(e) => setHeroEmail(e.target.value)}
+                    placeholder={t("emailPlaceholder")}
+                    className="w-full rounded-xl border border-landing-text/10 bg-white px-5 py-3.5 text-landing-text placeholder:text-landing-text-muted/50 focus:border-landing-coral focus:ring-2 focus:ring-landing-coral/20 focus:outline-none sm:rounded-r-none sm:flex-1"
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none"
+                  >
+                    {t("getStarted")}
+                  </button>
+                </form>
+              )}
             </div>
 
             {/* Trust badges */}

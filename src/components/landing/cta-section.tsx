@@ -1,9 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
 
-export function CtaSection() {
+export function CtaSection({ userEmail }: { userEmail?: string }) {
   const t = useTranslations("landing.cta");
   const revealRef = useScrollReveal<HTMLDivElement>();
 
@@ -20,9 +21,12 @@ export function CtaSection() {
           {t("subtitle")}
         </p>
         <div className="scroll-reveal mt-8">
-          <button className="animate-pulse-soft rounded-xl bg-landing-coral-dark px-10 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg">
+          <Link
+            href={userEmail ? "/dashboard" : "/auth/sign-in"}
+            className="animate-pulse-soft inline-block rounded-xl bg-landing-coral-dark px-10 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg"
+          >
             {t("button")}
-          </button>
+          </Link>
         </div>
       </div>
     </section>
