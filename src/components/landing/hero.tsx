@@ -41,7 +41,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
               {userEmail ? (
                 <Link
                   href="/dashboard"
-                  className="inline-block rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg"
+                  className="inline-block rounded-xl bg-landing-peach-wash px-8 py-3.5 font-semibold text-landing-coral-dark transition-all hover:bg-landing-coral/10 hover:shadow-md"
                 >
                   {t("goToDashboard")}
                 </Link>
