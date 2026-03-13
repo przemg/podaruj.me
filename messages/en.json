@@ -18,7 +18,8 @@
       "badgeFree": "Free",
       "badgeSecure": "Secure",
       "badgeEasy": "Easy to use",
-      "badgeNoAccount": "No account needed to browse"
+      "badgeNoAccount": "No account needed to browse",
+      "goToDashboard": "Go to Dashboard"
     },
     "howItWorks": {
       "title": "How it works",
@@ -90,5 +91,31 @@
       "title": "Podaruj.me — Gift Lists Made Simple",
       "description": "Create wish lists for any occasion and share them with friends and family. Free, no account needed to browse."
     }
+  },
+  "auth": {
+    "signIn": {
+      "pageTitle": "Sign in — Podaruj.me",
+      "title": "Sign in to your account",
+      "subtitle": "Enter your email and we'll send you a magic link",
+      "emailPlaceholder": "your@email.com",
+      "sendLink": "Send magic link",
+      "sending": "Sending...",
+      "successTitle": "Check your email!",
+      "successMessage": "We sent a magic link to your email. Click it to sign in.",
+      "resendIn": "Resend in {seconds}s",
+      "resend": "Resend magic link",
+      "errorExpired": "Your link has expired. Please request a new one.",
+      "errorInvalid": "This link is no longer valid.",
+      "errorRateLimit": "Too many attempts. Please wait a moment.",
+      "errorGeneric": "Something went wrong. Please try again."
+    },
+    "userMenu": {
+      "dashboard": "Dashboard",
+      "signOut": "Sign out"
+    }
+  },
+  "dashboard": {
+    "pageTitle": "Dashboard — Podaruj.me",
+    "welcome": "Welcome to Podaruj.me!"
   }
 }
