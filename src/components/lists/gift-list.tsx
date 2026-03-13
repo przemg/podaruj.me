@@ -161,25 +161,30 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
         </div>
       )}
 
-      {/* Add gift dialog */}
-      <GiftFormDialog
-        open={addDialogOpen}
-        onOpenChange={setAddDialogOpen}
-        listId={listId}
-        locale={locale}
-      />
+      {/* Add gift dialog — key forces remount to reset form */}
+      {addDialogOpen && (
+        <GiftFormDialog
+          open={addDialogOpen}
+          onOpenChange={setAddDialogOpen}
+          listId={listId}
+          locale={locale}
+        />
+      )}
 
-      {/* Edit gift dialog */}
-      <GiftFormDialog
-        open={editDialogOpen}
-        onOpenChange={(open) => {
-          setEditDialogOpen(open);
-          if (!open) setEditingItem(undefined);
-        }}
-        listId={listId}
-        locale={locale}
-        editItem={editingItem}
-      />
+      {/* Edit gift dialog — key forces remount with new item data */}
+      {editDialogOpen && (
+        <GiftFormDialog
+          key={editingItem?.id}
+          open={editDialogOpen}
+          onOpenChange={(open) => {
+            setEditDialogOpen(open);
+            if (!open) setEditingItem(undefined);
+          }}
+          listId={listId}
+          locale={locale}
+          editItem={editingItem}
+        />
+      )}
 
       {/* Delete confirmation dialog */}
       <DeleteConfirmDialog

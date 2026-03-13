@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -31,31 +31,30 @@ function getMailUrl(email: string): string | null {
 export function SignInForm({ locale }: { locale: string }) {
   const t = useTranslations("auth.signIn");
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [cooldown, setCooldown] = useState(0);
-  const hasAutoSubmitted = useRef(false);
 
-  // Handle error from callback redirect
-  useEffect(() => {
+  // Derive initial error state from URL params (no effect needed)
+  const initialError = useMemo(() => {
     const error = searchParams.get("error");
-    if (error) {
-      setStatus("error");
-      switch (error) {
-        case "expired":
-          setErrorMessage(t("errorExpired"));
-          break;
-        case "invalid":
-          setErrorMessage(t("errorInvalid"));
-          break;
-        default:
-          setErrorMessage(t("errorGeneric"));
-      }
+    if (!error) return null;
+    switch (error) {
+      case "expired":
+        return t("errorExpired");
+      case "invalid":
+        return t("errorInvalid");
+      default:
+        return t("errorGeneric");
     }
   }, [searchParams, t]);
+
+  const [email, setEmail] = useState(
+    () => searchParams.get("email") ?? ""
+  );
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >(initialError ? "error" : "idle");
+  const [errorMessage, setErrorMessage] = useState(initialError ?? "");
+  const [cooldown, setCooldown] = useState(0);
+  const hasAutoSubmitted = useRef(false);
 
   const sendMagicLink = useCallback(
     async (targetEmail: string) => {
@@ -95,13 +94,14 @@ export function SignInForm({ locale }: { locale: string }) {
     [locale, searchParams, t]
   );
 
-  // Auto-fill and auto-submit from hero email param
+  // Auto-submit from hero email param (email is already set via initial state)
   useEffect(() => {
     const emailParam = searchParams.get("email");
     if (emailParam && !hasAutoSubmitted.current) {
-      setEmail(emailParam);
       hasAutoSubmitted.current = true;
-      sendMagicLink(emailParam);
+      // Defer to avoid synchronous setState within effect
+      const id = requestAnimationFrame(() => sendMagicLink(emailParam));
+      return () => cancelAnimationFrame(id);
     }
   }, [searchParams, sendMagicLink]);
 

@@ -19,7 +19,6 @@ import {
   Eye,
   EyeOff,
   CalendarDays,
-  Loader2,
 } from "lucide-react";
 
 type ListData = {

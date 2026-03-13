@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import {
@@ -58,29 +58,19 @@ export function GiftFormDialog({
   const tPriority = useTranslations("items.priority");
   const router = useRouter();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
-  const [price, setPrice] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [priority, setPriority] = useState<string>("nice_to_have");
+  const [name, setName] = useState(editItem?.name ?? "");
+  const [description, setDescription] = useState(editItem?.description ?? "");
+  const [url, setUrl] = useState(editItem?.url ?? "");
+  const [price, setPrice] = useState(
+    editItem?.price != null ? String(editItem.price) : ""
+  );
+  const [imageUrl, setImageUrl] = useState(editItem?.image_url ?? "");
+  const [priority, setPriority] = useState<string>(
+    editItem?.priority ?? "nice_to_have"
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [imageValid, setImageValid] = useState(false);
-
-  // Reset form when dialog opens/closes or editItem changes
-  useEffect(() => {
-    if (open) {
-      setName(editItem?.name ?? "");
-      setDescription(editItem?.description ?? "");
-      setUrl(editItem?.url ?? "");
-      setPrice(editItem?.price != null ? String(editItem.price) : "");
-      setImageUrl(editItem?.image_url ?? "");
-      setPriority(editItem?.priority ?? "nice_to_have");
-      setError(null);
-      setImageValid(false);
-    }
-  }, [open, editItem]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
