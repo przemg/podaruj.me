@@ -1,4 +1,3 @@
-// src/middleware.ts
 import { type NextRequest, NextResponse } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
@@ -8,7 +7,7 @@ const intlMiddleware = createIntlMiddleware(routing);
 
 const PROTECTED_PATHS = ["/dashboard", "/my-lists"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { supabase, applyCookies } = createMiddlewareClient(request);
 
   // Refresh session
