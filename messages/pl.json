@@ -121,5 +121,108 @@
   "dashboard": {
     "pageTitle": "Panel — Podaruj.me",
     "welcome": "Witaj w Podaruj.me!"
+  },
+  "lists": {
+    "create": {
+      "pageTitle": "Utwórz nową listę — Podaruj.me",
+      "title": "Utwórz nową listę",
+      "subtitle": "Przygotuj listę prezentów na każdą okazję",
+      "nameLabel": "Nazwa listy",
+      "namePlaceholder": "np. Lista urodzinowa",
+      "descriptionLabel": "Opis",
+      "descriptionPlaceholder": "Powiedz innym, o czym jest ta lista...",
+      "occasionLabel": "Okazja",
+      "occasionPlaceholder": "Wybierz okazję",
+      "eventDateLabel": "Data wydarzenia",
+      "eventDateHint": "Opcjonalnie — pokażemy odliczanie",
+      "privacyModeLabel": "Prywatność rezerwacji",
+      "submitButton": "Utwórz listę",
+      "creating": "Tworzenie..."
+    },
+    "edit": {
+      "pageTitle": "Edytuj listę — Podaruj.me",
+      "title": "Edytuj listę",
+      "subtitle": "Zaktualizuj szczegóły listy",
+      "submitButton": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "cancel": "Anuluj"
+    },
+    "detail": {
+      "pageTitle": "Szczegóły listy — Podaruj.me",
+      "editButton": "Edytuj",
+      "deleteButton": "Usuń listę",
+      "shareButton": "Udostępnij",
+      "shareComingSoon": "Udostępnianie już wkrótce!",
+      "daysLeft": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dni}}",
+      "today": "Dziś!",
+      "pastEvent": "Wydarzenie minęło",
+      "confirmDelete": "Usunąć tę listę?",
+      "confirmDeleteDescription": "Lista i wszystkie prezenty zostaną trwale usunięte. Tej operacji nie można cofnąć.",
+      "confirmDeleteButton": "Tak, usuń listę",
+      "cancelDelete": "Anuluj",
+      "backToDashboard": "Wróć do panelu"
+    },
+    "notFound": {
+      "title": "Lista nie znaleziona",
+      "description": "Ta lista nie istnieje lub nie masz do niej dostępu.",
+      "backToDashboard": "Wróć do panelu"
+    },
+    "occasions": {
+      "birthday": "Urodziny",
+      "holiday": "Święto",
+      "wedding": "Ślub",
+      "other": "Inne"
+    },
+    "privacyModes": {
+      "buyers_choice": "Wybór kupującego",
+      "buyers_choice_description": "Goście decydują, czy chcą ujawnić swoje imię",
+      "visible": "Widoczne",
+      "visible_description": "Wszyscy widzą, kto co zarezerwował",
+      "full_surprise": "Pełna niespodzianka",
+      "full_surprise_description": "Nie zobaczysz żadnych rezerwacji — maksymalna niespodzianka!"
+    }
+  },
+  "items": {
+    "addButton": "Dodaj prezent",
+    "form": {
+      "addTitle": "Dodaj prezent",
+      "editTitle": "Edytuj prezent",
+      "nameLabel": "Nazwa prezentu",
+      "namePlaceholder": "np. Książka o ogrodnictwie",
+      "descriptionLabel": "Opis",
+      "descriptionPlaceholder": "Jakieś szczegóły o tym, czego szukasz...",
+      "linkLabel": "Link do sklepu",
+      "linkPlaceholder": "https://...",
+      "priceLabel": "Cena",
+      "pricePlaceholder": "0.00",
+      "imageLabel": "URL obrazka",
+      "imagePlaceholder": "https://... (link do obrazka)",
+      "priorityLabel": "Priorytet",
+      "addButton": "Dodaj prezent",
+      "adding": "Dodawanie...",
+      "saveButton": "Zapisz zmiany",
+      "saving": "Zapisywanie...",
+      "cancel": "Anuluj"
+    },
+    "priority": {
+      "nice_to_have": "Miło mieć",
+      "would_love": "Bardzo chcę",
+      "must_have": "Muszę mieć"
+    },
+    "empty": {
+      "title": "Brak prezentów",
+      "description": "Dodaj pierwszy prezent do tej listy!"
+    },
+    "confirmDelete": {
+      "title": "Usunąć ten prezent?",
+      "description": "Prezent zostanie trwale usunięty z listy.",
+      "confirm": "Tak, usuń",
+      "cancel": "Anuluj"
+    },
+    "moveUp": "Przesuń w górę",
+    "moveDown": "Przesuń w dół",
+    "openLink": "Otwórz link",
+    "edit": "Edytuj",
+    "delete": "Usuń"
   }
 }
