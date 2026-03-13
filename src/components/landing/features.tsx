@@ -54,7 +54,7 @@ export function Features() {
             </div>
 
             {/* Right: decorative illustration — 3 mode cards mockup */}
-            <div className="flex items-center justify-center border-t border-landing-lavender/10 bg-landing-lavender-wash/50 px-6 py-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
+            <div className="flex items-center justify-center border-t border-landing-lavender/10 bg-landing-lavender/5 px-6 py-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
               <div className="flex gap-3 lg:flex-col">
                 {/* Mini card: Buyer's Choice */}
                 <div className="flex w-24 flex-col items-center rounded-xl border border-landing-coral/20 bg-white px-3 py-3 shadow-sm lg:w-full lg:flex-row lg:gap-3">
