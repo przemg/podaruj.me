@@ -20,20 +20,31 @@ Podaruj.me — gift list sharing platform. See [PROJECT.md](PROJECT.md) for the 
 - Use shadcn/ui components — don't build custom UI primitives
 - Tailwind for all styling; no CSS modules or styled-components
 - Keep components small and focused; one component per file
-- Use Supabase client from shared utility (don't instantiate in every file)
+- Use Supabase client from `src/lib/supabase/` (don't instantiate in every file)
 - Prefer named exports
+- Use `src/proxy.ts` (Next.js 16 convention), NOT `middleware.ts`
 
 ## Folder Structure (Next.js App Router)
 
 ```
 src/
   app/              # Routes and layouts
-  components/       # Reusable UI components
-  lib/              # Utilities, Supabase client, helpers
+    [locale]/
+      auth/         # Auth pages (sign-in, callback)
+      dashboard/    # Protected dashboard
+  components/
+    auth/           # Auth components (sign-in-form, user-menu)
+    landing/        # Landing page components
+    ui/             # shadcn/ui components
+  lib/
+    supabase/       # Supabase client utilities (client, server, middleware)
+    utils.ts        # General utilities (cn helper)
+  i18n/             # Internationalization config
   types/            # Shared TypeScript types
+  proxy.ts          # Next.js 16 proxy (replaces deprecated middleware.ts)
+supabase/
+  migrations/       # Database migrations (version-controlled SQL)
 ```
-
-This will evolve as the project grows — update this section accordingly.
 
 ## Key Principles
 
@@ -86,3 +97,5 @@ Before finishing any task:
 4. Run `/review` and `/security-review` on all changes
 5. Run `/simplify` on modified files
 6. Update CLAUDE.md if any architectural decisions changed
+7. Push to remote and update PR description
+8. Deploy to Vercel
