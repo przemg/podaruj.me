@@ -22,6 +22,7 @@
     },
     "howItWorks": {
       "title": "How it works",
+      "subtitle": "Three simple steps to a perfect gift experience",
       "step1Title": "Create your list",
       "step1Description": "Add gifts you'd love to receive. Set your privacy preferences.",
       "step2Title": "Share the link",
@@ -31,6 +32,7 @@
     },
     "features": {
       "title": "Everything you need",
+      "subtitle": "Powerful features that make gift giving simple and fun",
       "privacyTitle": "Privacy modes",
       "privacyDescription": "Control who sees what. Full surprise or open coordination — you decide how reservations work.",
       "privacyBuyersChoice": "Buyer's Choice",

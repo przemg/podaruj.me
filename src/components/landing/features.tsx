@@ -14,6 +14,9 @@ export function Features() {
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("title")}
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-landing-text-muted">
+          {t("subtitle")}
+        </p>
 
         <div
           ref={revealRef}

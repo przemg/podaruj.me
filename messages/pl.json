@@ -22,6 +22,7 @@
     },
     "howItWorks": {
       "title": "Jak to działa",
+      "subtitle": "Trzy proste kroki do idealnego prezentu",
       "step1Title": "Stwórz listę",
       "step1Description": "Dodaj prezenty, które chcesz dostać. Ustaw preferencje prywatności.",
       "step2Title": "Udostępnij link",
@@ -31,6 +32,7 @@
     },
     "features": {
       "title": "Wszystko, czego potrzebujesz",
+      "subtitle": "Funkcje, które sprawiają, że obdarowywanie jest proste i przyjemne",
       "privacyTitle": "Tryby prywatności",
       "privacyDescription": "Kontroluj, kto co widzi. Pełna niespodzianka lub otwarta koordynacja — Ty decydujesz, jak działają rezerwacje.",
       "privacyBuyersChoice": "Wybór Kupującego",
