@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 export function useScrollReveal<T extends HTMLElement>(
   options: { threshold?: number; staggerDelay?: number } = {}
 ) {
+  const { threshold = 0.15, staggerDelay = 100 } = options;
   const ref = useRef<T>(null);
 
   useEffect(() => {
@@ -31,8 +32,6 @@ export function useScrollReveal<T extends HTMLElement>(
       }
       return;
     }
-
-    const { threshold = 0.15, staggerDelay = 100 } = options;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -70,7 +69,7 @@ export function useScrollReveal<T extends HTMLElement>(
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, [options.threshold, options.staggerDelay]);
+  }, [threshold, staggerDelay]);
 
   return ref;
 }
