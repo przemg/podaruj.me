@@ -41,7 +41,7 @@ export function UserMenu({ email }: { email: string }) {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-xl bg-landing-peach-wash px-4 py-2.5 text-sm font-medium text-landing-text transition-all hover:bg-landing-coral/10 hover:shadow-sm"
+        className="flex items-center gap-2 rounded-xl bg-landing-coral/10 px-4 py-2.5 text-sm font-medium text-landing-text transition-all hover:bg-landing-coral/15 hover:shadow-sm"
         aria-expanded={isOpen}
         aria-haspopup="menu"
       >
