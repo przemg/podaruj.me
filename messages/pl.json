@@ -1,5 +1,89 @@
 {
   "common": {
     "appName": "Podaruj.me"
+  },
+  "landing": {
+    "nav": {
+      "howItWorks": "Jak to działa",
+      "features": "Funkcje",
+      "testimonials": "Opinie",
+      "faq": "FAQ",
+      "createList": "Stwórz listę"
+    },
+    "hero": {
+      "tagline": "Idealny prezent, za każdym razem",
+      "subtitle": "Stwórz listę życzeń, udostępnij ją bliskim i nigdy więcej nie dostaniesz podwójnego prezentu.",
+      "emailPlaceholder": "Wpisz swój email",
+      "getStarted": "Zacznij",
+      "badgeFree": "Za darmo",
+      "badgeSecure": "Bezpieczne",
+      "badgeEasy": "Łatwe w użyciu",
+      "badgeNoAccount": "Bez konta do przeglądania"
+    },
+    "howItWorks": {
+      "title": "Jak to działa",
+      "step1Title": "Stwórz listę",
+      "step1Description": "Dodaj prezenty, które chcesz dostać. Ustaw preferencje prywatności.",
+      "step2Title": "Udostępnij link",
+      "step2Description": "Wyślij listę przez link, email lub kod QR do rodziny i znajomych.",
+      "step3Title": "Bliscy rezerwują prezenty",
+      "step3Description": "Bez duplikatów, bez psutych niespodzianek. Każdy wybiera coś wyjątkowego."
+    },
+    "features": {
+      "title": "Wszystko, czego potrzebujesz",
+      "privacyTitle": "Tryby prywatności",
+      "privacyDescription": "Kontroluj, kto co widzi. Pełna niespodzianka lub otwarta koordynacja — Ty decydujesz, jak działają rezerwacje.",
+      "privacyBuyersChoice": "Wybór Kupującego",
+      "privacyVisible": "Widoczny",
+      "privacyFullSurprise": "Pełna Niespodzianka",
+      "qrTitle": "Udostępnianie kodem QR",
+      "qrDescription": "Wydrukuj lub udostępnij kod QR. Jedno skanowanie przenosi znajomych do Twojej listy.",
+      "importTitle": "Import z URL",
+      "importDescription": "Wklej link do produktu, a my pobierzemy szczegóły.",
+      "noAccountTitle": "Bez konta",
+      "noAccountDescription": "Goście przeglądają i rezerwują bez rejestracji.",
+      "countdownTitle": "Odliczanie do wydarzenia",
+      "countdownDescription": "Zobacz, ile dni pozostało do wielkiej okazji."
+    },
+    "testimonials": {
+      "title": "Ludzie kochają Podaruj.me",
+      "subtitle": "Zobacz, co mówią nasi użytkownicy o dzieleniu się listami prezentów z bliskimi.",
+      "t1Name": "Anna K.",
+      "t1Occasion": "Lista urodzinowa",
+      "t1Quote": "Udostępniłam listę w rodzinnej grupie na czacie i każdy wybrał coś, czego naprawdę chciałam!",
+      "t2Name": "Tomek R.",
+      "t2Occasion": "Lista ślubna",
+      "t2Quote": "Tryb niespodzianki był idealny. Nie mieliśmy pojęcia, kto co kupił, aż do wielkiego dnia.",
+      "t3Name": "Marta W.",
+      "t3Occasion": "Święta",
+      "t3Quote": "Koniec z podwójnymi prezentami. Moje dzieci miały własne listy i to po prostu działało."
+    },
+    "faq": {
+      "title": "Często zadawane pytania",
+      "q1": "Czy Podaruj.me jest darmowe?",
+      "a1": "Tak, całkowicie za darmo. Tworzenie nieograniczonej liczby list i dzielenie się nimi z każdym.",
+      "q2": "Czy moi znajomi potrzebują konta?",
+      "a2": "Nie. Każdy, kto ma link, może przeglądać listę i rezerwować prezenty bez rejestracji.",
+      "q3": "Jak działa prywatność?",
+      "a3": "Wybierasz jeden z trzech trybów: Wybór Kupującego (goście decydują, czy się ujawnią), Widoczny (każdy widzi, kto co zarezerwował) lub Pełna Niespodzianka (nie widzisz żadnych rezerwacji aż do wielkiego dnia).",
+      "q4": "Czy mogę udostępnić listę w mediach społecznościowych?",
+      "a4": "Tak. Udostępnij przez link, kod QR lub email. Działa w każdym komunikatorze i platformie społecznościowej.",
+      "q5": "Co się dzieje po wydarzeniu?",
+      "a5": "Lista jest automatycznie archiwizowana. Możesz do niej wrócić w dowolnym momencie lub użyć jej ponownie w następnym roku."
+    },
+    "cta": {
+      "title": "Gotowy, by stworzyć swoją pierwszą listę prezentów?",
+      "subtitle": "To darmowe, zajmuje 30 sekund, a Twoi bliscy będą wdzięczni.",
+      "button": "Stwórz listę"
+    },
+    "footer": {
+      "tagline": "Listy prezentów w prosty sposób",
+      "madeWith": "Stworzone z miłością w Polsce",
+      "copyright": "© {year} Podaruj.me. Wszelkie prawa zastrzeżone."
+    },
+    "metadata": {
+      "title": "Podaruj.me — Listy Prezentów w Prosty Sposób",
+      "description": "Tworzenie list życzeń na każdą okazję i dzielenie się nimi z rodziną i znajomymi. Za darmo, bez konta do przeglądania."
+    }
   }
 }

@@ -1,5 +1,89 @@
 {
   "common": {
     "appName": "Podaruj.me"
+  },
+  "landing": {
+    "nav": {
+      "howItWorks": "How it works",
+      "features": "Features",
+      "testimonials": "Testimonials",
+      "faq": "FAQ",
+      "createList": "Create list"
+    },
+    "hero": {
+      "tagline": "The perfect gift, every time",
+      "subtitle": "Create a wish list, share it with friends and family, and never get a duplicate gift again.",
+      "emailPlaceholder": "Enter your email",
+      "getStarted": "Get Started",
+      "badgeFree": "Free",
+      "badgeSecure": "Secure",
+      "badgeEasy": "Easy to use",
+      "badgeNoAccount": "No account needed to browse"
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "step1Title": "Create your list",
+      "step1Description": "Add gifts you'd love to receive. Set your privacy preferences.",
+      "step2Title": "Share the link",
+      "step2Description": "Send your list via link, email, or QR code to friends and family.",
+      "step3Title": "Friends reserve gifts",
+      "step3Description": "No duplicates, no spoiled surprises. Everyone picks something unique."
+    },
+    "features": {
+      "title": "Everything you need",
+      "privacyTitle": "Privacy modes",
+      "privacyDescription": "Control who sees what. Full surprise or open coordination — you decide how reservations work.",
+      "privacyBuyersChoice": "Buyer's Choice",
+      "privacyVisible": "Visible",
+      "privacyFullSurprise": "Full Surprise",
+      "qrTitle": "QR code sharing",
+      "qrDescription": "Print or share a QR code. One scan takes your friends straight to your list.",
+      "importTitle": "Import from URL",
+      "importDescription": "Paste a product link, we grab the details.",
+      "noAccountTitle": "No account needed",
+      "noAccountDescription": "Guests browse and reserve without signing up.",
+      "countdownTitle": "Event countdown",
+      "countdownDescription": "See how many days until the big occasion."
+    },
+    "testimonials": {
+      "title": "People love Podaruj.me",
+      "subtitle": "See what our users say about sharing gift lists with friends and family.",
+      "t1Name": "Anna K.",
+      "t1Occasion": "Birthday list",
+      "t1Quote": "I shared my list in our family group chat and everyone picked something I actually wanted!",
+      "t2Name": "Tomek R.",
+      "t2Occasion": "Wedding registry",
+      "t2Quote": "The surprise mode was perfect. We had no idea who bought what until the big day.",
+      "t3Name": "Marta W.",
+      "t3Occasion": "Christmas",
+      "t3Quote": "Finally no more duplicate gifts. My kids each got their own list and it just worked."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "Is Podaruj.me free?",
+      "a1": "Yes, completely free. Create unlimited lists and share them with anyone.",
+      "q2": "Do my friends need an account?",
+      "a2": "No. Anyone with the link can browse your list and reserve gifts without signing up.",
+      "q3": "How does privacy work?",
+      "a3": "You choose one of three modes: Buyer's Choice (guests decide if they reveal themselves), Visible (everyone sees who reserved what), or Full Surprise (you see nothing until the big day).",
+      "q4": "Can I share my list on social media?",
+      "a4": "Yes. Share via link, QR code, or email. Works in any messenger or social platform.",
+      "q5": "What happens after the event?",
+      "a5": "Your list is archived automatically. You can revisit it anytime or reuse it for next year."
+    },
+    "cta": {
+      "title": "Ready to create your first gift list?",
+      "subtitle": "It's free, takes 30 seconds, and your friends will thank you.",
+      "button": "Create your list"
+    },
+    "footer": {
+      "tagline": "Gift lists made simple",
+      "madeWith": "Made with love in Poland",
+      "copyright": "© {year} Podaruj.me. All rights reserved."
+    },
+    "metadata": {
+      "title": "Podaruj.me — Gift Lists Made Simple",
+      "description": "Create wish lists for any occasion and share them with friends and family. Free, no account needed to browse."
+    }
   }
 }
