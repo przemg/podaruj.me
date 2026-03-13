@@ -33,7 +33,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Claude Code Setup
 
-This project is developed using **Claude Code on the desktop** (not the web version).
+This project is developed using **Claude Code**. Development started on the desktop version but moved to the terminal due to plugin loading issues.
 
 ### Plugins
 
