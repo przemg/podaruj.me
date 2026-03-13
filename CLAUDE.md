@@ -64,6 +64,10 @@ docs/auth/plan.md
 docs/auth/spec.md
 ```
 
+## UI Design
+
+When designing or building UI components, use the **UI UX Pro Max** MCP server to generate design system recommendations (color palettes, typography, UI styles, animations). Always consult it before making visual design decisions.
+
 ## End of Task Checklist
 
 Before finishing any task:
