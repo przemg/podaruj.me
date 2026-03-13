@@ -45,7 +45,7 @@ export function Footer() {
             <p className="text-sm text-landing-footer-text/60">
               {t("footer.madeWith")}
             </p>
-            <p className="mt-1 text-sm text-landing-footer-text/40">
+            <p className="mt-1 text-sm text-landing-footer-text/60">
               {t("footer.copyright", { year: new Date().getFullYear() })}
             </p>
           </div>
