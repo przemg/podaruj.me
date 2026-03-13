@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Shield, QrCode, Link2, UserX, Clock } from "lucide-react";
+import { Shield, QrCode, Link2, UserX, Clock, Eye, EyeOff, HelpCircle } from "lucide-react";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
 
 export function Features() {
@@ -20,30 +20,67 @@ export function Features() {
           className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
           {/* Privacy modes — large card: 2 cols on desktop */}
-          <div className="scroll-reveal-scale flex flex-col rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:col-span-2 lg:col-span-2 lg:row-span-2">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/10">
-              <Shield className="h-6 w-6 text-landing-lavender" />
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md sm:col-span-2 lg:col-span-2 lg:row-span-2">
+            <div className="flex flex-1 flex-col p-6 pb-4">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/10">
+                <Shield className="h-6 w-6 text-landing-lavender" />
+              </div>
+              <h3 className="text-xl font-semibold text-landing-text">
+                {t("privacyTitle")}
+              </h3>
+              <p className="mt-2 text-landing-text-muted">
+                {t("privacyDescription")}
+              </p>
+
+              {/* Privacy modes list */}
+              <ul className="mt-5 space-y-3">
+                {[
+                  { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/10" },
+                  { key: "privacyVisible", descKey: "privacyVisibleDesc", icon: Eye, color: "text-landing-mint", bg: "bg-landing-mint/10" },
+                  { key: "privacyFullSurprise", descKey: "privacyFullSurpriseDesc", icon: EyeOff, color: "text-landing-lavender", bg: "bg-landing-lavender/10" },
+                ].map((mode) => (
+                  <li key={mode.key} className="flex items-start gap-3">
+                    <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}>
+                      <mode.icon className={`h-4 w-4 ${mode.color}`} />
+                    </div>
+                    <div>
+                      <span className="text-sm font-semibold text-landing-text">{t(mode.key)}</span>
+                      <p className="text-xs text-landing-text-muted">{t(mode.descKey)}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 className="text-xl font-semibold text-landing-text">
-              {t("privacyTitle")}
-            </h3>
-            <p className="mt-2 text-landing-text-muted">
-              {t("privacyDescription")}
-            </p>
-            {/* Mini UI mockup of privacy modes */}
-            <div className="mt-6 flex flex-1 flex-col justify-end gap-3">
-              {[
-                { key: "privacyBuyersChoice", color: "bg-landing-coral/10 border-landing-coral/30" },
-                { key: "privacyVisible", color: "bg-landing-mint/10 border-landing-mint/30" },
-                { key: "privacyFullSurprise", color: "bg-landing-lavender/10 border-landing-lavender/30" },
-              ].map((mode) => (
-                <div
-                  key={mode.key}
-                  className={`rounded-xl border px-4 py-3 text-sm font-medium text-landing-text ${mode.color}`}
-                >
-                  {t(mode.key)}
+
+            {/* Decorative illustration — 3 mode cards mockup */}
+            <div className="mt-auto border-t border-landing-lavender/10 bg-landing-lavender-wash/50 px-6 py-5">
+              <div className="flex items-center justify-center gap-3">
+                {/* Mini card: Buyer's Choice */}
+                <div className="flex w-28 flex-col items-center rounded-xl border border-landing-coral/20 bg-white px-3 py-3 shadow-sm">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/10">
+                    <HelpCircle className="h-4 w-4 text-landing-coral" />
+                  </div>
+                  <div className="mt-2 h-1.5 w-14 rounded-full bg-landing-coral/20" />
+                  <div className="mt-1 h-1 w-10 rounded-full bg-landing-text/5" />
                 </div>
-              ))}
+                {/* Mini card: Visible — highlighted */}
+                <div className="flex w-28 flex-col items-center rounded-xl border-2 border-landing-mint/40 bg-white px-3 py-3 shadow-md">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/15">
+                    <Eye className="h-4 w-4 text-landing-mint" />
+                  </div>
+                  <div className="mt-2 h-1.5 w-14 rounded-full bg-landing-mint/30" />
+                  <div className="mt-1 h-1 w-10 rounded-full bg-landing-text/5" />
+                  <div className="mt-2 h-4 w-16 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div>
+                </div>
+                {/* Mini card: Full Surprise */}
+                <div className="flex w-28 flex-col items-center rounded-xl border border-landing-lavender/20 bg-white px-3 py-3 shadow-sm">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/10">
+                    <EyeOff className="h-4 w-4 text-landing-lavender" />
+                  </div>
+                  <div className="mt-2 h-1.5 w-14 rounded-full bg-landing-lavender/20" />
+                  <div className="mt-1 h-1 w-10 rounded-full bg-landing-text/5" />
+                </div>
+              </div>
             </div>
           </div>
 
