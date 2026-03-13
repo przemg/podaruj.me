@@ -1,9 +1,15 @@
+import type { Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+  themeColor: '#FFFBF7',
+};
 
 export default async function LocaleLayout({
   children,

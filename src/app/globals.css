@@ -103,6 +103,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 @layer base {
   * {
     @apply border-border;

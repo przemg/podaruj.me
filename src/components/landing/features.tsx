@@ -14,7 +14,7 @@ export function Features() {
       <div className="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-landing-lavender/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 -bottom-32 h-72 w-72 rounded-full bg-landing-coral/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <h2 className="text-center text-3xl font-bold text-white sm:text-4xl">
           {t("title")}
         </h2>
@@ -63,7 +63,7 @@ export function Features() {
             {/* Right: illustration panel */}
             <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-6 py-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
               <div className="flex gap-3 lg:flex-col">
-                <div className="flex w-24 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 lg:w-full lg:flex-row lg:gap-3">
+                <div className="flex w-20 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 sm:w-24 lg:w-full lg:flex-row lg:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20">
                     <HelpCircle className="h-4 w-4 text-landing-coral" />
                   </div>
@@ -72,7 +72,7 @@ export function Features() {
                     <div className="h-1 w-8 rounded-full bg-white/10 lg:w-14" />
                   </div>
                 </div>
-                <div className="flex w-24 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 lg:w-full lg:flex-row lg:gap-3">
+                <div className="flex w-20 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 sm:w-24 lg:w-full lg:flex-row lg:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
                     <Eye className="h-4 w-4 text-landing-mint" />
                   </div>
@@ -81,7 +81,7 @@ export function Features() {
                     <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white lg:w-16">Active</div>
                   </div>
                 </div>
-                <div className="flex w-24 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 lg:w-full lg:flex-row lg:gap-3">
+                <div className="flex w-20 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 sm:w-24 lg:w-full lg:flex-row lg:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20">
                     <EyeOff className="h-4 w-4 text-landing-lavender" />
                   </div>

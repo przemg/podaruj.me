@@ -75,7 +75,7 @@ export function Navigation({ locale }: { locale: string }) {
   return (
     <>
       <nav
-        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        className={`safe-area-top fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-white/95 shadow-sm backdrop-blur-sm"
             : "bg-transparent"
@@ -162,12 +162,12 @@ export function Navigation({ locale }: { locale: string }) {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-50 bg-white"
+          className="safe-area-top fixed inset-0 z-50 bg-white"
           style={{ animation: "slide-in-overlay 0.3s ease-out" }}
           role="dialog"
           aria-modal="true"
         >
-          <div className="flex h-full flex-col px-6 py-4">
+          <div className="flex h-full flex-col px-6 pt-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xl font-bold text-landing-text">
                 <Gift className="h-6 w-6 text-landing-coral" />
