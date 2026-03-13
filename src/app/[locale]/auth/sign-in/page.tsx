@@ -65,17 +65,7 @@ export default async function SignInPage({
             </Link>
           </div>
 
-          {/* Title */}
-          <div className="mb-8 text-center">
-            <h1 className="text-2xl font-bold tracking-tight text-landing-text sm:text-3xl">
-              {t("title")}
-            </h1>
-            <p className="mt-2 text-landing-text-muted">
-              {t("subtitle")}
-            </p>
-          </div>
-
-          {/* Form */}
+          {/* Form (includes title, hides it on success) */}
           <Suspense>
             <SignInForm locale={locale} />
           </Suspense>

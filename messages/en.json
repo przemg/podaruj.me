@@ -104,6 +104,7 @@
       "successMessage": "We sent a magic link to your email. Click it to sign in.",
       "resendIn": "Resend in {seconds}s",
       "resend": "Resend magic link",
+      "openMail": "Open my mail",
       "errorExpired": "Your link has expired. Please request a new one.",
       "errorInvalid": "This link is no longer valid.",
       "errorRateLimit": "Too many attempts. Please wait a moment.",

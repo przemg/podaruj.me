@@ -104,6 +104,7 @@
       "successMessage": "Wysłaliśmy magiczny link na Twój email. Kliknij go, aby się zalogować.",
       "resendIn": "Wyślij ponownie za {seconds}s",
       "resend": "Wyślij ponownie",
+      "openMail": "Otwórz pocztę",
       "errorExpired": "Twój link wygasł. Poproś o nowy.",
       "errorInvalid": "Ten link jest już nieaktywny.",
       "errorRateLimit": "Za dużo prób. Poczekaj chwilę.",
