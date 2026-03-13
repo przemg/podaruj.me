@@ -19,9 +19,10 @@ export function Features() {
           ref={revealRef}
           className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {/* Privacy modes — large card: 2 cols on desktop */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md sm:col-span-2 lg:col-span-2 lg:row-span-2">
-            <div className="flex flex-1 flex-col p-6 pb-4">
+          {/* Privacy modes — large card: 2 cols, horizontal layout on desktop */}
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow hover:shadow-md sm:col-span-2 lg:col-span-2 lg:row-span-2 lg:flex-row">
+            {/* Left: text content */}
+            <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/10">
                 <Shield className="h-6 w-6 text-landing-lavender" />
               </div>
@@ -52,33 +53,38 @@ export function Features() {
               </ul>
             </div>
 
-            {/* Decorative illustration — 3 mode cards mockup */}
-            <div className="mt-auto border-t border-landing-lavender/10 bg-landing-lavender-wash/50 px-6 py-5">
-              <div className="flex items-center justify-center gap-3">
+            {/* Right: decorative illustration — 3 mode cards mockup */}
+            <div className="flex items-center justify-center border-t border-landing-lavender/10 bg-landing-lavender-wash/50 px-6 py-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
+              <div className="flex gap-3 lg:flex-col">
                 {/* Mini card: Buyer's Choice */}
-                <div className="flex w-28 flex-col items-center rounded-xl border border-landing-coral/20 bg-white px-3 py-3 shadow-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/10">
+                <div className="flex w-24 flex-col items-center rounded-xl border border-landing-coral/20 bg-white px-3 py-3 shadow-sm lg:w-full lg:flex-row lg:gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/10">
                     <HelpCircle className="h-4 w-4 text-landing-coral" />
                   </div>
-                  <div className="mt-2 h-1.5 w-14 rounded-full bg-landing-coral/20" />
-                  <div className="mt-1 h-1 w-10 rounded-full bg-landing-text/5" />
+                  <div className="mt-2 space-y-1 lg:mt-0">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-coral/20 lg:w-20" />
+                    <div className="h-1 w-8 rounded-full bg-landing-text/5 lg:w-14" />
+                  </div>
                 </div>
-                {/* Mini card: Visible — highlighted */}
-                <div className="flex w-28 flex-col items-center rounded-xl border-2 border-landing-mint/40 bg-white px-3 py-3 shadow-md">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/15">
+                {/* Mini card: Visible — highlighted/active */}
+                <div className="flex w-24 flex-col items-center rounded-xl border-2 border-landing-mint/40 bg-white px-3 py-3 shadow-md lg:w-full lg:flex-row lg:gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/15">
                     <Eye className="h-4 w-4 text-landing-mint" />
                   </div>
-                  <div className="mt-2 h-1.5 w-14 rounded-full bg-landing-mint/30" />
-                  <div className="mt-1 h-1 w-10 rounded-full bg-landing-text/5" />
-                  <div className="mt-2 h-4 w-16 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div>
+                  <div className="mt-2 space-y-1 lg:mt-0 lg:flex-1">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-mint/30 lg:w-20" />
+                    <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white lg:w-16">Active</div>
+                  </div>
                 </div>
                 {/* Mini card: Full Surprise */}
-                <div className="flex w-28 flex-col items-center rounded-xl border border-landing-lavender/20 bg-white px-3 py-3 shadow-sm">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/10">
+                <div className="flex w-24 flex-col items-center rounded-xl border border-landing-lavender/20 bg-white px-3 py-3 shadow-sm lg:w-full lg:flex-row lg:gap-3">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/10">
                     <EyeOff className="h-4 w-4 text-landing-lavender" />
                   </div>
-                  <div className="mt-2 h-1.5 w-14 rounded-full bg-landing-lavender/20" />
-                  <div className="mt-1 h-1 w-10 rounded-full bg-landing-text/5" />
+                  <div className="mt-2 space-y-1 lg:mt-0">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-lavender/20 lg:w-20" />
+                    <div className="h-1 w-8 rounded-full bg-landing-text/5 lg:w-14" />
+                  </div>
                 </div>
               </div>
             </div>

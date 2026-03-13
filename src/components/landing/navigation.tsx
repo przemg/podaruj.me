@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Gift, Menu, X, Globe, Check } from "lucide-react";
+import { Gift, Menu, X, Globe, Check, ChevronDown } from "lucide-react";
 
 const NAV_SECTIONS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -92,35 +92,39 @@ export function Navigation({ locale }: { locale: string }) {
               <span>Podaruj.me</span>
             </Link>
 
-            {/* Locale dropdown */}
+            {/* Locale selector */}
             <div className="relative" ref={localeRef}>
               <button
                 onClick={() => setIsLocaleOpen(!isLocaleOpen)}
-                className="flex items-center gap-1.5 rounded-full border border-landing-text/10 px-3 py-1.5 text-xs font-medium text-landing-text-muted transition-colors hover:bg-landing-peach-wash"
+                className="flex items-center gap-1 rounded-lg border border-landing-text/10 py-1.5 pr-1.5 pl-2.5 text-xs text-landing-text-muted transition-colors hover:border-landing-text/20 hover:bg-landing-peach-wash"
                 aria-expanded={isLocaleOpen}
                 aria-haspopup="listbox"
               >
-                <Globe className="h-3.5 w-3.5" />
-                {currentLocale.short}
+                <Globe className="mr-1 h-3.5 w-3.5 opacity-50" />
+                <span className="font-medium">{currentLocale.label}</span>
+                <ChevronDown className={`h-3 w-3 opacity-40 transition-transform ${isLocaleOpen ? "rotate-180" : ""}`} />
               </button>
               {isLocaleOpen && (
-                <div className="absolute top-full left-0 mt-1.5 min-w-[140px] overflow-hidden rounded-xl border border-landing-text/10 bg-white py-1 shadow-lg">
+                <div className="absolute top-full left-0 z-50 mt-1 min-w-[160px] overflow-hidden rounded-lg border border-landing-text/10 bg-white py-1 shadow-lg">
                   {LOCALES.map((l) => (
                     <Link
                       key={l.code}
                       href={pathname}
                       locale={l.code}
                       onClick={() => setIsLocaleOpen(false)}
-                      className={`flex items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-landing-peach-wash ${
+                      className={`flex items-center gap-2.5 px-3 py-2 text-sm transition-colors hover:bg-landing-peach-wash ${
                         l.code === locale
-                          ? "font-medium text-landing-coral"
+                          ? "font-medium text-landing-text"
                           : "text-landing-text-muted"
                       }`}
                     >
+                      <span className="flex h-5 w-5 items-center justify-center">
+                        {l.code === locale && (
+                          <Check className="h-3.5 w-3.5 text-landing-coral" />
+                        )}
+                      </span>
                       {l.label}
-                      {l.code === locale && (
-                        <Check className="h-3.5 w-3.5 text-landing-coral" />
-                      )}
+                      <span className="ml-auto text-xs opacity-40">{l.short}</span>
                     </Link>
                   ))}
                 </div>
