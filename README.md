@@ -30,3 +30,32 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Claude Code Setup
+
+This project is developed using **Claude Code**. Development started on the desktop version but moved to the terminal due to plugin loading issues.
+
+### Plugins
+
+| Plugin | Marketplace | Purpose |
+| --- | --- | --- |
+| `frontend-design` | `claude-plugins-official` | UI design recommendations |
+| `superpowers` | `claude-plugins-official` | Enhanced capabilities & workflow |
+| `context7` | `claude-plugins-official` | Up-to-date documentation lookup |
+| `playwright` | `claude-plugins-official` | Browser automation & E2E testing |
+| `supabase` | `claude-plugins-official` | Database integration |
+| `ui-ux-pro-max` | `ui-ux-pro-max-skill` | Custom UI/UX design skill |
+
+### Skills Used
+
+- `/simplify` — Review code for reuse, quality, and efficiency
+- `/frontend-design` — Generate design system recommendations
+- `/superpowers` — Enhanced planning and spec workflow
+
+### Tools (MCP Servers)
+
+- **Context7** — Library documentation lookup
+- **Playwright** — Browser automation for E2E tests
+- **Supabase** — Database management
+
+> **Note:** Development started on Claude Code desktop, but there were issues with adding/loading plugins. Switched to Claude Code in the terminal to resolve plugin setup. If skills are missing in a session, run `/reload-plugins` or restart the session.

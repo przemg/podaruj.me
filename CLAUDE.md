@@ -6,7 +6,7 @@ Podaruj.me — gift list sharing platform. See [PROJECT.md](PROJECT.md) for the 
 
 ## Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript (strict mode)
 - **Backend:** Supabase (Postgres, Auth, Storage)
 - **Styling:** Tailwind CSS + shadcn/ui
@@ -48,6 +48,7 @@ This will evolve as the project grows — update this section accordingly.
 - Use **Playwright** for all E2E tests
 - Every new feature must have E2E test coverage
 - Tests must pass before any PR
+- **Always run tests after completing all tasks** — never mark work as done without verifying tests pass
 
 ## Superpowers Workflow
 
