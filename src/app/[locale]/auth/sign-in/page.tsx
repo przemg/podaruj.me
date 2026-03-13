@@ -58,11 +58,9 @@ export default async function SignInPage({
           <div className="mb-8 flex justify-center">
             <Link
               href="/"
-              className="flex items-center gap-2.5 text-2xl font-bold text-landing-text transition-opacity hover:opacity-80"
+              className="flex items-center gap-2 text-2xl font-bold text-landing-text transition-opacity hover:opacity-80"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-landing-coral to-landing-coral-dark shadow-md shadow-landing-coral/20">
-                <Gift className="h-6 w-6 text-white" />
-              </div>
+              <Gift className="h-7 w-7 text-landing-coral" />
               <span>Podaruj.me</span>
             </Link>
           </div>
