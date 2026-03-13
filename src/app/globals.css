@@ -103,6 +103,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -110,6 +114,11 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    background-color: var(--landing-coral);
+    color: white;
   }
 
   button,

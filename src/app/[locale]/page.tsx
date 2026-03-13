@@ -7,6 +7,7 @@ import { Faq } from "@/components/landing/faq";
 import { CtaSection } from "@/components/landing/cta-section";
 import { Footer } from "@/components/landing/footer";
 import { getTranslations } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -40,16 +41,22 @@ export default async function Home({
 }) {
   const { locale } = await params;
 
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const userEmail = user?.email;
+
   return (
     <>
-      <Navigation locale={locale} />
+      <Navigation locale={locale} userEmail={userEmail} />
       <main>
-        <Hero />
+        <Hero userEmail={userEmail} />
         <HowItWorks />
         <Features />
         <Testimonials />
         <Faq />
-        <CtaSection />
+        <CtaSection userEmail={userEmail} />
       </main>
       <Footer />
     </>

@@ -18,7 +18,8 @@
       "badgeFree": "Za darmo",
       "badgeSecure": "Bezpieczne",
       "badgeEasy": "Łatwe w użyciu",
-      "badgeNoAccount": "Bez konta do przeglądania"
+      "badgeNoAccount": "Bez konta do przeglądania",
+      "goToDashboard": "Przejdź do panelu"
     },
     "howItWorks": {
       "title": "Jak to działa",
@@ -90,5 +91,35 @@
       "title": "Podaruj.me — Listy Prezentów w Prosty Sposób",
       "description": "Tworzenie list życzeń na każdą okazję i dzielenie się nimi z rodziną i znajomymi. Za darmo, bez konta do przeglądania."
     }
+  },
+  "auth": {
+    "signIn": {
+      "pageTitle": "Zaloguj się — Podaruj.me",
+      "title": "Zaloguj się na swoje konto",
+      "subtitle": "Wyślemy Ci link do zalogowania",
+      "emailPlaceholder": "twoj@email.com",
+      "sendLink": "Wyślij magiczny link",
+      "sending": "Wysyłanie...",
+      "successTitle": "Sprawdź swoją skrzynkę!",
+      "successMessage": "Wysłaliśmy magiczny link na Twój email. Kliknij go, aby się zalogować.",
+      "resendIn": "Wyślij ponownie za {seconds}s",
+      "resend": "Wyślij ponownie",
+      "openMail": "Otwórz pocztę",
+      "errorExpired": "Twój link wygasł. Poproś o nowy.",
+      "errorInvalid": "Ten link jest już nieaktywny.",
+      "errorRateLimit": "Za dużo prób. Poczekaj chwilę.",
+      "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+      "noPassword": "Bez hasła",
+      "backToHome": "Wróć na stronę główną",
+      "footerNote": "Wyślemy Ci magiczny link — hasło nie jest potrzebne"
+    },
+    "userMenu": {
+      "dashboard": "Panel",
+      "signOut": "Wyloguj się"
+    }
+  },
+  "dashboard": {
+    "pageTitle": "Panel — Podaruj.me",
+    "welcome": "Witaj w Podaruj.me!"
   }
 }
