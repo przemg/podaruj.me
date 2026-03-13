@@ -41,6 +41,10 @@ Each list has one of three modes:
 
 ## Access Model
 
+### Authentication
+
+Users sign in via **Google OAuth** (primary) or **magic link** (email-based alternative). Both methods are passwordless. Google sign-in automatically populates the user's display name and avatar from their Google account.
+
 ### Two invitation paths
 
 **Email invitation:**
