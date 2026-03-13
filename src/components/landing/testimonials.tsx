@@ -19,8 +19,8 @@ export function Testimonials() {
     <section id="testimonials" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
-          {/* Left column */}
-          <div className="lg:w-2/5 lg:py-8" ref={leftRef}>
+          {/* Left column — sticky on desktop */}
+          <div className="lg:sticky lg:top-28 lg:w-2/5 lg:self-start lg:py-8" ref={leftRef}>
             <h2 className="scroll-reveal text-3xl font-bold text-landing-text sm:text-4xl">
               {t("title")}
             </h2>

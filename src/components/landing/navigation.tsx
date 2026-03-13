@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Gift, Menu, X } from "lucide-react";
+import { Gift, Menu, X, Globe, Check } from "lucide-react";
 
 const NAV_SECTIONS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -12,11 +12,18 @@ const NAV_SECTIONS = [
   { id: "faq", key: "faq" },
 ] as const;
 
+const LOCALES = [
+  { code: "en", label: "English", short: "EN" },
+  { code: "pl", label: "Polski", short: "PL" },
+] as const;
+
 export function Navigation({ locale }: { locale: string }) {
   const t = useTranslations("landing.nav");
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLocaleOpen, setIsLocaleOpen] = useState(false);
+  const localeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -37,13 +44,23 @@ export function Navigation({ locale }: { locale: string }) {
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
+      if (e.key === "Escape") {
+        if (isLocaleOpen) setIsLocaleOpen(false);
+        if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+      }
+    };
+    const handleClickOutside = (e: MouseEvent) => {
+      if (localeRef.current && !localeRef.current.contains(e.target as Node)) {
+        setIsLocaleOpen(false);
       }
     };
     document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isMobileMenuOpen]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen, isLocaleOpen]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -53,7 +70,7 @@ export function Navigation({ locale }: { locale: string }) {
     setIsMobileMenuOpen(false);
   };
 
-  const otherLocale = locale === "en" ? "pl" : "en";
+  const currentLocale = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
 
   return (
     <>
@@ -74,13 +91,41 @@ export function Navigation({ locale }: { locale: string }) {
               <Gift className="h-6 w-6 text-landing-coral" />
               <span>Podaruj.me</span>
             </button>
-            <Link
-              href={pathname}
-              locale={otherLocale}
-              className="rounded-full border border-landing-text/10 px-2.5 py-1 text-xs font-medium text-landing-text-muted transition-colors hover:bg-landing-peach-wash"
-            >
-              {otherLocale.toUpperCase()}
-            </Link>
+
+            {/* Locale dropdown */}
+            <div className="relative" ref={localeRef}>
+              <button
+                onClick={() => setIsLocaleOpen(!isLocaleOpen)}
+                className="flex items-center gap-1.5 rounded-full border border-landing-text/10 px-2.5 py-1 text-xs font-medium text-landing-text-muted transition-colors hover:bg-landing-peach-wash"
+                aria-expanded={isLocaleOpen}
+                aria-haspopup="listbox"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                {currentLocale.short}
+              </button>
+              {isLocaleOpen && (
+                <div className="absolute top-full left-0 mt-1.5 min-w-[140px] overflow-hidden rounded-xl border border-landing-text/10 bg-white py-1 shadow-lg">
+                  {LOCALES.map((l) => (
+                    <Link
+                      key={l.code}
+                      href={pathname}
+                      locale={l.code}
+                      onClick={() => setIsLocaleOpen(false)}
+                      className={`flex items-center justify-between px-3 py-2 text-sm transition-colors hover:bg-landing-peach-wash ${
+                        l.code === locale
+                          ? "font-medium text-landing-coral"
+                          : "text-landing-text-muted"
+                      }`}
+                    >
+                      {l.label}
+                      {l.code === locale && (
+                        <Check className="h-3.5 w-3.5 text-landing-coral" />
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Center: Section Links (desktop) */}

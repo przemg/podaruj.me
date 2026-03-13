@@ -49,10 +49,10 @@ export function Hero() {
               {BADGE_KEYS.map((key) => (
                 <div
                   key={key}
-                  className="scroll-reveal flex items-center gap-2 text-sm text-landing-text-muted"
+                  className="scroll-reveal flex items-center gap-2 text-sm font-medium text-landing-text"
                 >
-                  <div className="flex h-5 w-5 items-center justify-center rounded-full bg-landing-mint/20">
-                    <Check className="h-3 w-3 text-landing-mint" />
+                  <div className="flex h-5 w-5 items-center justify-center rounded-full bg-landing-mint/30">
+                    <Check className="h-3 w-3 text-landing-mint-hover" />
                   </div>
                   {t(key)}
                 </div>

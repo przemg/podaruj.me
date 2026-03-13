@@ -109,6 +109,14 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  button,
+  [role="button"],
+  a,
+  select,
+  summary {
+    cursor: pointer;
+  }
 }
 
 @keyframes float {

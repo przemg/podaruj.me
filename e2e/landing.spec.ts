@@ -41,7 +41,11 @@ test.describe("Landing page", () => {
   });
 
   test("language switcher navigates to PL", async ({ page }) => {
-    await page.getByRole("link", { name: "PL" }).click();
+    // Open locale dropdown via the nav locale button
+    const localeButton = page.locator("nav button[aria-haspopup='listbox']");
+    await localeButton.click();
+    // Click Polski option
+    await page.getByRole("link", { name: "Polski" }).click();
     await expect(page).toHaveURL(/\/pl/);
     await expect(page.getByText("Idealny prezent, za każdym razem")).toBeVisible();
   });
