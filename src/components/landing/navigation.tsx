@@ -77,7 +77,7 @@ export function Navigation({ locale }: { locale: string }) {
       <nav
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 shadow-md backdrop-blur-sm"
+            ? "bg-white/95 shadow-sm backdrop-blur-sm"
             : "bg-transparent"
         }`}
       >
@@ -132,22 +132,20 @@ export function Navigation({ locale }: { locale: string }) {
             </div>
           </div>
 
-          {/* Center: Section Links (desktop) */}
-          <div className="hidden items-center gap-6 lg:flex">
-            {NAV_SECTIONS.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => scrollToSection(section.id)}
-                className="py-2 text-sm font-medium text-landing-text-muted transition-colors hover:text-landing-coral"
-              >
-                {t(section.key)}
-              </button>
-            ))}
-          </div>
-
-          {/* Right: CTA (desktop) + Hamburger (mobile) */}
+          {/* Right: Section Links + CTA (desktop) + Hamburger (mobile) */}
           <div className="flex items-center gap-3">
-            <button className="hidden rounded-xl bg-landing-coral-dark px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg lg:block">
+            <div className="hidden items-center gap-6 lg:flex">
+              {NAV_SECTIONS.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className="py-2 text-sm font-medium text-landing-text-muted transition-colors hover:text-landing-coral"
+                >
+                  {t(section.key)}
+                </button>
+              ))}
+            </div>
+            <button className="hidden rounded-xl bg-landing-coral-dark px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg lg:block lg:ml-4">
               {t("createList")}
             </button>
             <button
