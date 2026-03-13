@@ -39,6 +39,38 @@ test.describe("Auth - Sign in page", () => {
     await expect(page.getByText("Zaloguj się na swoje konto")).toBeVisible();
     await expect(page.getByPlaceholder("twoj@email.com")).toBeVisible();
   });
+
+  test("renders Google sign-in button", async ({ page }) => {
+    await page.goto("/en/auth/sign-in");
+    await expect(
+      page.getByRole("button", { name: "Sign in with Google" })
+    ).toBeVisible();
+  });
+
+  test("renders separator between Google and email", async ({ page }) => {
+    await page.goto("/en/auth/sign-in");
+    await expect(page.getByText("or continue with email")).toBeVisible();
+  });
+
+  test("Google button renders in Polish", async ({ page }) => {
+    await page.goto("/pl/auth/sign-in");
+    await expect(
+      page.getByRole("button", { name: "Zaloguj się przez Google" })
+    ).toBeVisible();
+    await expect(page.getByText("lub kontynuuj przez email")).toBeVisible();
+  });
+
+  test("Google button initiates OAuth redirect", async ({ page }) => {
+    await page.goto("/en/auth/sign-in");
+    const [request] = await Promise.all([
+      page.waitForRequest((req) =>
+        req.url().includes("/auth/v1/authorize") &&
+        req.url().includes("provider=google")
+      ),
+      page.getByRole("button", { name: "Sign in with Google" }).click(),
+    ]);
+    expect(request.url()).toContain("provider=google");
+  });
 });
 
 test.describe("Auth - Protected routes", () => {

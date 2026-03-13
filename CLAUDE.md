@@ -8,7 +8,7 @@ Podaruj.me — gift list sharing platform. See [PROJECT.md](PROJECT.md) for the 
 
 - **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript (strict mode)
-- **Backend:** Supabase (Postgres, Auth, Storage)
+- **Backend:** Supabase (Postgres, Auth with Google OAuth + magic link, Storage)
 - **Styling:** Tailwind CSS + shadcn/ui
 - **i18n:** next-intl (EN + PL)
 - **Deploy:** Vercel

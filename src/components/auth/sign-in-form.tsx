@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -28,82 +28,125 @@ function getMailUrl(email: string): string | null {
   return MAIL_PROVIDERS[domain] ?? null;
 }
 
+function GoogleIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24">
+      <path
+        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+        fill="#4285F4"
+      />
+      <path
+        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+        fill="#34A853"
+      />
+      <path
+        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+        fill="#FBBC05"
+      />
+      <path
+        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+        fill="#EA4335"
+      />
+    </svg>
+  );
+}
+
+function getCallbackError(
+  errorCode: string | null,
+  t: (key: string) => string
+): string {
+  if (!errorCode) return "";
+  switch (errorCode) {
+    case "expired":
+      return t("errorExpired");
+    case "invalid":
+      return t("errorInvalid");
+    default:
+      return t("errorGeneric");
+  }
+}
+
 export function SignInForm({ locale }: { locale: string }) {
   const t = useTranslations("auth.signIn");
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("");
+  const errorFromCallback = searchParams.get("error");
+  const emailParam = searchParams.get("email");
+  const [email, setEmail] = useState(emailParam ?? "");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  >(errorFromCallback ? "error" : "idle");
+  const [errorMessage, setErrorMessage] = useState(
+    getCallbackError(errorFromCallback, t)
+  );
   const [cooldown, setCooldown] = useState(0);
   const hasAutoSubmitted = useRef(false);
 
-  // Handle error from callback redirect
-  useEffect(() => {
-    const error = searchParams.get("error");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function sendMagicLink(targetEmail: string) {
+    if (!targetEmail) return;
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    const next = searchParams.get("next");
+    const callbackUrl = new URL(
+      `/${locale}/auth/callback`,
+      window.location.origin
+    );
+    if (next) callbackUrl.searchParams.set("next", next);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOtp({
+      email: targetEmail,
+      options: {
+        emailRedirectTo: callbackUrl.toString(),
+      },
+    });
+
     if (error) {
       setStatus("error");
-      switch (error) {
-        case "expired":
-          setErrorMessage(t("errorExpired"));
-          break;
-        case "invalid":
-          setErrorMessage(t("errorInvalid"));
-          break;
-        default:
-          setErrorMessage(t("errorGeneric"));
+      if (error.message?.includes("rate") || error.status === 429) {
+        setErrorMessage(t("errorRateLimit"));
+      } else {
+        setErrorMessage(t("errorGeneric"));
       }
+      return;
     }
-  }, [searchParams, t]);
 
-  const sendMagicLink = useCallback(
-    async (targetEmail: string) => {
-      if (!targetEmail) return;
+    setStatus("success");
+    setCooldown(60);
+  }
 
-      setStatus("loading");
-      setErrorMessage("");
+  async function signInWithGoogle() {
+    const supabase = createClient();
+    const next = searchParams.get("next");
+    const callbackUrl = new URL(
+      `/${locale}/auth/callback`,
+      window.location.origin
+    );
+    if (next) callbackUrl.searchParams.set("next", next);
 
-      const next = searchParams.get("next");
-      const callbackUrl = new URL(
-        `/${locale}/auth/callback`,
-        window.location.origin
-      );
-      if (next) callbackUrl.searchParams.set("next", next);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: callbackUrl.toString(),
+      },
+    });
 
-      const supabase = createClient();
-      const { error } = await supabase.auth.signInWithOtp({
-        email: targetEmail,
-        options: {
-          emailRedirectTo: callbackUrl.toString(),
-        },
-      });
+    if (error) {
+      setStatus("error");
+      setErrorMessage(t("errorGeneric"));
+    }
+  }
 
-      if (error) {
-        setStatus("error");
-        if (error.message?.includes("rate") || error.status === 429) {
-          setErrorMessage(t("errorRateLimit"));
-        } else {
-          setErrorMessage(t("errorGeneric"));
-        }
-        return;
-      }
-
-      setStatus("success");
-      setCooldown(60);
-    },
-    [locale, searchParams, t]
-  );
-
-  // Auto-fill and auto-submit from hero email param
+  // Auto-submit from hero email param via form submit (avoids setState in effect)
   useEffect(() => {
-    const emailParam = searchParams.get("email");
     if (emailParam && !hasAutoSubmitted.current) {
-      setEmail(emailParam);
       hasAutoSubmitted.current = true;
-      sendMagicLink(emailParam);
+      formRef.current?.requestSubmit();
     }
-  }, [searchParams, sendMagicLink]);
+  }, [emailParam]);
 
   // Cooldown timer
   useEffect(() => {
@@ -182,7 +225,38 @@ export function SignInForm({ locale }: { locale: string }) {
         <p className="mt-2 text-landing-text-muted">{t("subtitle")}</p>
       </div>
 
+      {/* Google sign-in button */}
+      <button
+        type="button"
+        onClick={signInWithGoogle}
+        className="flex w-full items-center justify-center gap-3 rounded-xl border border-landing-text/10 bg-white px-8 py-3.5 font-semibold text-landing-text shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
+      >
+        <GoogleIcon className="h-5 w-5" />
+        {t("googleButton")}
+      </button>
+
+      {/* Separator */}
+      <div className="my-6 flex items-center gap-3">
+        <div className="h-px flex-1 bg-landing-text/10" />
+        <span className="text-sm text-landing-text-muted">
+          {t("orContinueWithEmail")}
+        </span>
+        <div className="h-px flex-1 bg-landing-text/10" />
+      </div>
+
+      {/* Error message (show above form, covers both Google and magic link errors) */}
+      {errorMessage && (
+        <div
+          className="mb-4 flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2.5 text-sm text-red-700"
+          style={{ animation: "fade-in-up 0.3s ease-out" }}
+        >
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
       <form
+        ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
           if (status !== "loading" && cooldown <= 0) {
@@ -201,21 +275,9 @@ export function SignInForm({ locale }: { locale: string }) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder={t("emailPlaceholder")}
             required
-            autoFocus
             className="w-full rounded-xl border border-landing-text/10 bg-white py-3.5 pr-5 pl-12 text-landing-text placeholder:text-landing-text-muted/40 focus:border-landing-coral focus:ring-2 focus:ring-landing-coral/20 focus:outline-none"
           />
         </div>
-
-        {/* Error message */}
-        {errorMessage && (
-          <div
-            className="mt-3 flex items-start gap-2 rounded-lg bg-red-50 px-3 py-2.5 text-sm text-red-700"
-            style={{ animation: "fade-in-up 0.3s ease-out" }}
-          >
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
-        )}
 
         {/* Submit button */}
         <button
