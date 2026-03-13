@@ -134,7 +134,7 @@ export function Navigation({ locale, userEmail }: { locale: string; userEmail?: 
           </div>
 
           {/* Right: Section Links + CTA (desktop) + Hamburger (mobile) */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             <div className="hidden items-center gap-6 lg:flex">
               {NAV_SECTIONS.map((section) => (
                 <button
