@@ -107,7 +107,10 @@
       "errorExpired": "Your link has expired. Please request a new one.",
       "errorInvalid": "This link is no longer valid.",
       "errorRateLimit": "Too many attempts. Please wait a moment.",
-      "errorGeneric": "Something went wrong. Please try again."
+      "errorGeneric": "Something went wrong. Please try again.",
+      "noPassword": "No password needed",
+      "backToHome": "Back to home",
+      "footerNote": "We'll send you a magic link — no password required"
     },
     "userMenu": {
       "dashboard": "Dashboard",

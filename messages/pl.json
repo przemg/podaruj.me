@@ -107,7 +107,10 @@
       "errorExpired": "Twój link wygasł. Poproś o nowy.",
       "errorInvalid": "Ten link jest już nieaktywny.",
       "errorRateLimit": "Za dużo prób. Poczekaj chwilę.",
-      "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie."
+      "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+      "noPassword": "Bez hasła",
+      "backToHome": "Wróć na stronę główną",
+      "footerNote": "Wyślemy Ci magiczny link — hasło nie jest potrzebne"
     },
     "userMenu": {
       "dashboard": "Panel",
