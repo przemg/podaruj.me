@@ -61,7 +61,7 @@ export function Features() {
             </div>
 
             {/* Right: illustration panel */}
-            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-6 py-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
+            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 sm:px-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
               <div className="flex gap-3 lg:flex-col">
                 <div className="flex w-20 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 sm:w-24 lg:w-full lg:flex-row lg:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20">

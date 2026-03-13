@@ -116,6 +116,11 @@
     @apply bg-background text-foreground;
   }
 
+  ::selection {
+    background-color: var(--landing-coral);
+    color: white;
+  }
+
   button,
   [role="button"],
   a,
