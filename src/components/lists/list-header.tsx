@@ -177,15 +177,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         onOpenChange={setDeleteOpen}
         title={t("confirmDelete")}
         description={t("confirmDeleteDescription")}
-        confirmLabel={
-          deleting ? (
-            <span className="flex items-center gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" /> {t("confirmDeleteButton")}
-            </span>
-          ) : (
-            t("confirmDeleteButton")
-          ) as unknown as string
-        }
+        confirmLabel={t("confirmDeleteButton")}
         cancelLabel={t("cancelDelete")}
         onConfirm={handleDelete}
         loading={deleting}
