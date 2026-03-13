@@ -24,7 +24,8 @@
   --ring: oklch(0.708 0 0);
   --radius: 0.625rem;
   --landing-coral: #F97066;
-  --landing-coral-hover: #E7635A;
+  --landing-coral-dark: #DC4A3F;
+  --landing-coral-hover: #C9423A;
   --landing-lavender: #A78BFA;
   --landing-lavender-hover: #9175E0;
   --landing-mint: #6EE7B7;
@@ -81,6 +82,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-landing-coral: var(--landing-coral);
+  --color-landing-coral-dark: var(--landing-coral-dark);
   --color-landing-coral-hover: var(--landing-coral-hover);
   --color-landing-lavender: var(--landing-lavender);
   --color-landing-lavender-hover: var(--landing-lavender-hover);

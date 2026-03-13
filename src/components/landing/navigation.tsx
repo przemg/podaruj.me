@@ -147,7 +147,7 @@ export function Navigation({ locale }: { locale: string }) {
 
           {/* Right: CTA (desktop) + Hamburger (mobile) */}
           <div className="flex items-center gap-3">
-            <button className="hidden rounded-xl bg-landing-coral px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg lg:block">
+            <button className="hidden rounded-xl bg-landing-coral-dark px-5 py-2.5 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg lg:block">
               {t("createList")}
             </button>
             <button
@@ -197,7 +197,7 @@ export function Navigation({ locale }: { locale: string }) {
             </div>
 
             <div className="pb-8">
-              <button className="w-full rounded-xl bg-landing-coral px-6 py-4 text-lg font-semibold text-white transition-all hover:bg-landing-coral-hover">
+              <button className="w-full rounded-xl bg-landing-coral-dark px-6 py-4 text-lg font-semibold text-white transition-all hover:bg-landing-coral-hover">
                 {t("createList")}
               </button>
             </div>

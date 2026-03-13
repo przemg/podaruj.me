@@ -20,7 +20,7 @@ export function CtaSection() {
           {t("subtitle")}
         </p>
         <div className="scroll-reveal mt-8">
-          <button className="animate-pulse-soft rounded-xl bg-landing-coral px-10 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg">
+          <button className="animate-pulse-soft rounded-xl bg-landing-coral-dark px-10 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg">
             {t("button")}
           </button>
         </div>

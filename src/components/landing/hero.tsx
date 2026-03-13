@@ -39,7 +39,7 @@ export function Hero() {
                 placeholder={t("emailPlaceholder")}
                 className="w-full rounded-xl border border-landing-text/10 bg-white px-5 py-3.5 text-landing-text placeholder:text-landing-text-muted/50 focus:border-landing-coral focus:ring-2 focus:ring-landing-coral/20 focus:outline-none sm:rounded-r-none sm:flex-1"
               />
-              <button className="rounded-xl bg-landing-coral px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none">
+              <button className="rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none">
                 {t("getStarted")}
               </button>
             </div>
