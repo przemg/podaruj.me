@@ -9,7 +9,7 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="bg-landing-lavender-wash py-20 sm:py-28">
+    <section id="features" className="bg-landing-lavender/10 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("title")}
