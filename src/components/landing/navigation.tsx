@@ -84,19 +84,19 @@ export function Navigation({ locale }: { locale: string }) {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           {/* Left: Logo + Language Switcher */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => scrollToSection("hero")}
+            <Link
+              href="/"
               className="flex items-center gap-2 text-xl font-bold text-landing-text"
             >
               <Gift className="h-6 w-6 text-landing-coral" />
               <span>Podaruj.me</span>
-            </button>
+            </Link>
 
             {/* Locale dropdown */}
             <div className="relative" ref={localeRef}>
               <button
                 onClick={() => setIsLocaleOpen(!isLocaleOpen)}
-                className="flex items-center gap-1.5 rounded-full border border-landing-text/10 px-2.5 py-1 text-xs font-medium text-landing-text-muted transition-colors hover:bg-landing-peach-wash"
+                className="flex items-center gap-1.5 rounded-full border border-landing-text/10 px-3 py-1.5 text-xs font-medium text-landing-text-muted transition-colors hover:bg-landing-peach-wash"
                 aria-expanded={isLocaleOpen}
                 aria-haspopup="listbox"
               >
@@ -129,12 +129,12 @@ export function Navigation({ locale }: { locale: string }) {
           </div>
 
           {/* Center: Section Links (desktop) */}
-          <div className="hidden items-center gap-8 lg:flex">
+          <div className="hidden items-center gap-6 lg:flex">
             {NAV_SECTIONS.map((section) => (
               <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
-                className="text-sm font-medium text-landing-text-muted transition-colors hover:text-landing-coral"
+                className="py-2 text-sm font-medium text-landing-text-muted transition-colors hover:text-landing-coral"
               >
                 {t(section.key)}
               </button>

@@ -33,7 +33,7 @@ export function Footer() {
               <a
                 key={link.id}
                 href={`#${link.id}`}
-                className="text-sm text-landing-footer-text/60 transition-colors hover:text-landing-footer-text"
+                className="py-2 text-sm text-landing-footer-text/60 transition-colors hover:text-landing-footer-text"
               >
                 {t(`nav.${link.key}`)}
               </a>
