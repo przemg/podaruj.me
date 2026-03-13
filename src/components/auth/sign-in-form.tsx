@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -51,74 +51,74 @@ function GoogleIcon({ className }: { className?: string }) {
   );
 }
 
+function getCallbackError(
+  errorCode: string | null,
+  t: (key: string) => string
+): string {
+  if (!errorCode) return "";
+  switch (errorCode) {
+    case "expired":
+      return t("errorExpired");
+    case "invalid":
+      return t("errorInvalid");
+    default:
+      return t("errorGeneric");
+  }
+}
+
 export function SignInForm({ locale }: { locale: string }) {
   const t = useTranslations("auth.signIn");
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState("");
+  const errorFromCallback = searchParams.get("error");
+  const emailParam = searchParams.get("email");
+  const [email, setEmail] = useState(emailParam ?? "");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  >(errorFromCallback ? "error" : "idle");
+  const [errorMessage, setErrorMessage] = useState(
+    getCallbackError(errorFromCallback, t)
+  );
   const [cooldown, setCooldown] = useState(0);
   const hasAutoSubmitted = useRef(false);
 
-  // Handle error from callback redirect
-  useEffect(() => {
-    const error = searchParams.get("error");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function sendMagicLink(targetEmail: string) {
+    if (!targetEmail) return;
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    const next = searchParams.get("next");
+    const callbackUrl = new URL(
+      `/${locale}/auth/callback`,
+      window.location.origin
+    );
+    if (next) callbackUrl.searchParams.set("next", next);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithOtp({
+      email: targetEmail,
+      options: {
+        emailRedirectTo: callbackUrl.toString(),
+      },
+    });
+
     if (error) {
       setStatus("error");
-      switch (error) {
-        case "expired":
-          setErrorMessage(t("errorExpired"));
-          break;
-        case "invalid":
-          setErrorMessage(t("errorInvalid"));
-          break;
-        default:
-          setErrorMessage(t("errorGeneric"));
+      if (error.message?.includes("rate") || error.status === 429) {
+        setErrorMessage(t("errorRateLimit"));
+      } else {
+        setErrorMessage(t("errorGeneric"));
       }
+      return;
     }
-  }, [searchParams, t]);
 
-  const sendMagicLink = useCallback(
-    async (targetEmail: string) => {
-      if (!targetEmail) return;
+    setStatus("success");
+    setCooldown(60);
+  }
 
-      setStatus("loading");
-      setErrorMessage("");
-
-      const next = searchParams.get("next");
-      const callbackUrl = new URL(
-        `/${locale}/auth/callback`,
-        window.location.origin
-      );
-      if (next) callbackUrl.searchParams.set("next", next);
-
-      const supabase = createClient();
-      const { error } = await supabase.auth.signInWithOtp({
-        email: targetEmail,
-        options: {
-          emailRedirectTo: callbackUrl.toString(),
-        },
-      });
-
-      if (error) {
-        setStatus("error");
-        if (error.message?.includes("rate") || error.status === 429) {
-          setErrorMessage(t("errorRateLimit"));
-        } else {
-          setErrorMessage(t("errorGeneric"));
-        }
-        return;
-      }
-
-      setStatus("success");
-      setCooldown(60);
-    },
-    [locale, searchParams, t]
-  );
-
-  const signInWithGoogle = useCallback(async () => {
+  async function signInWithGoogle() {
     const supabase = createClient();
     const next = searchParams.get("next");
     const callbackUrl = new URL(
@@ -138,17 +138,15 @@ export function SignInForm({ locale }: { locale: string }) {
       setStatus("error");
       setErrorMessage(t("errorGeneric"));
     }
-  }, [locale, searchParams, t]);
+  }
 
-  // Auto-fill and auto-submit from hero email param
+  // Auto-submit from hero email param via form submit (avoids setState in effect)
   useEffect(() => {
-    const emailParam = searchParams.get("email");
     if (emailParam && !hasAutoSubmitted.current) {
-      setEmail(emailParam);
       hasAutoSubmitted.current = true;
-      sendMagicLink(emailParam);
+      formRef.current?.requestSubmit();
     }
-  }, [searchParams, sendMagicLink]);
+  }, [emailParam]);
 
   // Cooldown timer
   useEffect(() => {
@@ -258,6 +256,7 @@ export function SignInForm({ locale }: { locale: string }) {
       )}
 
       <form
+        ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
           if (status !== "loading" && cooldown <= 0) {
