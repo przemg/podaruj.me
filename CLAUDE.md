@@ -71,6 +71,6 @@ Before finishing any task:
 1. Run linter and type check
 2. Write E2E tests for new/changed features using Playwright
 3. Run all E2E tests and make sure they pass
-4. Perform full code review of all changes
+4. Run `/review` and `/security-review` on all changes
 5. Run `/simplify` on modified files
 6. Update CLAUDE.md if any architectural decisions changed
