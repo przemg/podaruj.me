@@ -50,6 +50,13 @@ This will evolve as the project grows — update this section accordingly.
 - Tests must pass before any PR
 - **Always run tests after completing all tasks** — never mark work as done without verifying tests pass
 
+## Git Workflow
+
+- Always create a new branch from `master` before starting work on a new feature
+- Branch naming: `feature/<short-description>` (e.g. `feature/auth`, `feature/gift-list`)
+- Commit often with small, focused commits
+- Push and create a PR when the feature is ready
+
 ## Superpowers Workflow
 
 When using Superpowers, save all generated plans, specs, and documents to `docs/<feature_name>/`:
