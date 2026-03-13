@@ -58,4 +58,4 @@ This project is developed using **Claude Code on the desktop** (not the web vers
 - **Playwright** — Browser automation for E2E tests
 - **Supabase** — Database management
 
-> **Note:** Plugins were added via the local desktop terminal using `/plugin` commands, as the web-based Claude Code session had issues loading plugins. If skills are missing in a web session, run `/reload-plugins` or restart the session from the desktop app.
+> **Note:** Development started on Claude Code desktop, but there were issues with adding/loading plugins. Switched to Claude Code in the terminal to resolve plugin setup. If skills are missing in a session, run `/reload-plugins` or restart the session.
