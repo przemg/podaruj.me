@@ -96,7 +96,7 @@
     "signIn": {
       "pageTitle": "Zaloguj się — Podaruj.me",
       "title": "Zaloguj się na swoje konto",
-      "subtitle": "Podaj swój email, a wyślemy Ci magiczny link",
+      "subtitle": "Wyślemy Ci link do zalogowania",
       "emailPlaceholder": "twoj@email.com",
       "sendLink": "Wyślij magiczny link",
       "sending": "Wysyłanie...",
