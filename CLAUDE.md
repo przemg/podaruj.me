@@ -42,3 +42,35 @@ This will evolve as the project grows — update this section accordingly.
 3. **Privacy by design** — reservation modes must be bulletproof
 4. **Simple over clever** — no over-engineering, no premature abstractions
 5. **Vibe coding friendly** — small, well-scoped tasks with clear context for AI
+
+## Testing
+
+- Use **Playwright** for all E2E tests
+- Every new feature must have E2E test coverage
+- Tests must pass before any PR
+
+## Superpowers Workflow
+
+When using Superpowers, save all generated plans, specs, and documents to `docs/<feature_name>/`:
+
+- Always save the initial prompt that started the task as `docs/<feature_name>/prompt.md`
+- Save plans, specs, and other artifacts alongside it
+
+Example — working on auth:
+
+```
+docs/auth/prompt.md
+docs/auth/plan.md
+docs/auth/spec.md
+```
+
+## End of Task Checklist
+
+Before finishing any task:
+
+1. Run linter and type check
+2. Write E2E tests for new/changed features using Playwright
+3. Run all E2E tests and make sure they pass
+4. Run `/review` and `/security-review` on all changes
+5. Run `/simplify` on modified files
+6. Update CLAUDE.md if any architectural decisions changed
