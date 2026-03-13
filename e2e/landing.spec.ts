@@ -16,8 +16,8 @@ test.describe("Landing page", () => {
     await expect(page.getByRole("button", { name: "Get Started" })).toBeVisible();
 
     // How it works
-    await expect(page.getByText("How it works")).toBeVisible();
-    await expect(page.getByText("Create your list")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "How it works" })).toBeVisible();
+    await expect(page.getByText("Create your list").first()).toBeVisible();
     await expect(page.getByText("Share the link")).toBeVisible();
     await expect(page.getByText("Friends reserve gifts")).toBeVisible();
 
@@ -59,10 +59,11 @@ test.describe("Landing page", () => {
   });
 
   test("trust badges are visible in hero", async ({ page }) => {
-    await expect(page.getByText("Free")).toBeVisible();
-    await expect(page.getByText("Secure")).toBeVisible();
-    await expect(page.getByText("Easy to use")).toBeVisible();
-    await expect(page.getByText("No account needed to browse")).toBeVisible();
+    const hero = page.locator("#hero");
+    await expect(hero.getByText("Free", { exact: true })).toBeVisible();
+    await expect(hero.getByText("Secure")).toBeVisible();
+    await expect(hero.getByText("Easy to use")).toBeVisible();
+    await expect(hero.getByText("No account needed to browse")).toBeVisible();
   });
 
   test("mobile menu opens and closes", async ({ page }) => {
