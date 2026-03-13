@@ -116,6 +116,7 @@
       "footerNote": "Sign in with Google or a magic link — no password required"
     },
     "userMenu": {
+      "createList": "Create new list",
       "dashboard": "Dashboard",
       "signOut": "Sign out"
     }

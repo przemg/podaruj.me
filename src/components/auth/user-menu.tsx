@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { User, LogOut, LayoutDashboard, ChevronDown } from "lucide-react";
+import { User, LogOut, LayoutDashboard, Plus, ChevronDown } from "lucide-react";
 
 export function UserMenu({ email }: { email: string }) {
   const t = useTranslations("auth.userMenu");
@@ -58,6 +58,17 @@ export function UserMenu({ email }: { email: string }) {
         >
           <button
             onClick={() => {
+              router.push("/dashboard/lists/new");
+              setIsOpen(false);
+            }}
+            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-coral-dark font-medium transition-colors hover:bg-landing-peach-wash"
+            role="menuitem"
+          >
+            <Plus className="h-4 w-4" />
+            {t("createList")}
+          </button>
+          <button
+            onClick={() => {
               router.push("/dashboard");
               setIsOpen(false);
             }}
@@ -67,6 +78,7 @@ export function UserMenu({ email }: { email: string }) {
             <LayoutDashboard className="h-4 w-4" />
             {t("dashboard")}
           </button>
+          <div className="my-1 h-px bg-landing-text/5" />
           <button
             onClick={handleSignOut}
             className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"

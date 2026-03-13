@@ -116,6 +116,7 @@
       "footerNote": "Zaloguj się przez Google lub magiczny link — bez hasła"
     },
     "userMenu": {
+      "createList": "Utwórz nową listę",
       "dashboard": "Panel",
       "signOut": "Wyloguj się"
     }
