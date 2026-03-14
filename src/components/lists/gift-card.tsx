@@ -21,6 +21,7 @@ type ItemData = {
   image_url: string | null;
   priority: string;
   position: number;
+  created_at?: string;
 };
 
 type ReservationBadge = {
@@ -36,6 +37,7 @@ type GiftCardProps = {
   privacyMode?: string;
   isReserved?: boolean;
   hasAnyReservation?: boolean;
+  isLocked?: boolean;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onEdit: () => void;
@@ -64,6 +66,7 @@ export function GiftCard({
   privacyMode,
   isReserved,
   hasAnyReservation,
+  isLocked,
   onMoveUp,
   onMoveDown,
   onEdit,
@@ -77,7 +80,8 @@ export function GiftCard({
   const isFullSurprise = privacyMode === "full_surprise";
   // Visible / Buyer's Choice: disable when this item is reserved
   // Full Surprise: disable ALL items when any reservation exists (to not reveal which)
-  const actionsDisabled = reservation || (isFullSurprise && hasAnyReservation);
+  // Locked: item existed before publish and cannot be modified
+  const actionsDisabled = isLocked || reservation || (isFullSurprise && hasAnyReservation);
 
   return (
     <div
@@ -181,7 +185,7 @@ export function GiftCard({
                     <Trash2 className="h-3.5 w-3.5" />
                   </span>
                   <div className="pointer-events-none absolute bottom-full right-0 z-10 mb-2 rounded-lg bg-landing-text/90 px-3 py-1.5 text-xs text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity whitespace-nowrap group-hover/actions:opacity-100">
-                    {isFullSurprise ? t("surpriseCannotEdit") : t("reservedCannotEdit")}
+                    {isLocked ? t("publishedCannotEdit") : isFullSurprise ? t("surpriseCannotEdit") : t("reservedCannotEdit")}
                     <div className="absolute -bottom-1 right-4 h-2 w-2 rotate-45 bg-landing-text/90" />
                   </div>
                 </div>

@@ -137,7 +137,8 @@
       "itemCount": "{count, plural, one {# prezent} few {# prezenty} many {# prezentów} other {# prezentów}}",
       "daysLeft": "{count, plural, one {za # dzień} few {za # dni} many {za # dni} other {za # dni}}",
       "today": "Dziś!",
-      "pastEvent": "Wydarzenie minęło"
+      "pastEvent": "Wydarzenie minęło",
+      "draft": "Szkic"
     },
     "reservations": {
       "title": "Moje rezerwacje",
@@ -225,7 +226,14 @@
       "backToDashboard": "Wróć do panelu",
       "shareCopied": "Link skopiowany!",
       "buyersChoiceHint": "Goście wybierają, czy chcą pokazać Ci swoje imię",
-      "fullSurpriseHint": "Rezerwacje są przed Tobą ukryte — maksymalna niespodzianka!"
+      "fullSurpriseHint": "Rezerwacje są przed Tobą ukryte — maksymalna niespodzianka!",
+      "publishButton": "Opublikuj",
+      "publishing": "Publikowanie...",
+      "draftBadge": "Szkic",
+      "confirmPublish": "Opublikować tę listę?",
+      "confirmPublishDescription": "Po opublikowaniu nie będzie można edytować ani usuwać istniejących prezentów. Nowe prezenty nadal można dodawać.",
+      "confirmPublishButton": "Opublikuj listę",
+      "cancelPublish": "Anuluj"
     },
     "notFound": {
       "title": "Lista nie znaleziona",
@@ -289,6 +297,7 @@
       "cancel": "Anuluj"
     },
     "reservedCannotEdit": "Ten prezent jest zarezerwowany i nie można go edytować",
+    "publishedCannotEdit": "Ten prezent został zablokowany po opublikowaniu listy",
     "surpriseCannotEdit": "Edycja wyłączona — ta lista może mieć rezerwacje",
     "moveUp": "Przesuń w górę",
     "moveDown": "Przesuń w dół",

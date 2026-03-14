@@ -119,6 +119,8 @@ export default async function ListDetailPage({
         reservations={reservations}
         privacyMode={list.privacy_mode}
         reservedItemIds={reservedItemIds}
+        isPublished={list.is_published}
+        publishedAt={list.published_at}
       />
     </div>
   );

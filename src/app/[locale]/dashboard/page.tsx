@@ -31,7 +31,7 @@ export default async function DashboardPage() {
 
   const { data: lists, error } = await supabase
     .from("lists")
-    .select("id, slug, name, occasion, event_date, created_at, items(count)")
+    .select("id, slug, name, occasion, event_date, created_at, privacy_mode, is_published, items(count)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -76,12 +76,14 @@ export default async function DashboardPage() {
                   name={list.name}
                   occasion={list.occasion}
                   eventDate={list.event_date}
+                  isDraft={list.privacy_mode === "full_surprise" && !list.is_published}
                   t={{
                     occasion: tOccasions(list.occasion),
                     itemCount: t("itemCount", { count: itemCount }),
                     countdown: list.event_date
                       ? formatCountdown(list.event_date, t)
                       : "",
+                    draft: t("draft"),
                   }}
                 />
               </div>

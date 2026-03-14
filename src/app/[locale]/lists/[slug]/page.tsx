@@ -25,7 +25,7 @@ async function getListBySlug(slug: string) {
   // user_id is fetched for server-side owner check only — never sent to the client
   const { data: list } = await supabase
     .from("lists")
-    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id")
+    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id, is_published")
     .eq("slug", slug)
     .single();
 
@@ -147,6 +147,11 @@ export default async function PublicListPage({ params }: PageProps) {
     }
   } catch {
     // Not authenticated — guest view
+  }
+
+  // Unpublished full_surprise lists are only visible to the owner
+  if (list.privacy_mode === "full_surprise" && !list.is_published && !isOwner) {
+    notFound();
   }
 
   const reservationMap = await getReservationsForList(

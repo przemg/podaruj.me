@@ -54,7 +54,7 @@ export async function reserveItem(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug, user_id")
+    .select("id, slug, user_id, privacy_mode, is_published")
     .eq("slug", listSlug)
     .single();
 
@@ -62,6 +62,9 @@ export async function reserveItem(
     return { error: "Item does not belong to this list" };
 
   if (list.user_id === user.id) return { error: "Cannot reserve your own item" };
+
+  if (list.privacy_mode === "full_surprise" && !list.is_published)
+    return { error: "This list is not yet published" };
 
   if (!(await isItemAvailable(serviceClient, itemId)))
     return { error: "This item is already reserved" };
@@ -109,12 +112,15 @@ export async function reserveItemAsGuest(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug")
+    .select("id, slug, privacy_mode, is_published")
     .eq("slug", listSlug)
     .single();
 
   if (!list || item.list_id !== list.id)
     return { error: "Item does not belong to this list" };
+
+  if (list.privacy_mode === "full_surprise" && !list.is_published)
+    return { error: "This list is not yet published" };
 
   if (!(await isItemAvailable(serviceClient, itemId)))
     return { error: "This item is already reserved" };
