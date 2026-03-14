@@ -1,5 +1,6 @@
 // e2e/auth.spec.ts
 import { test, expect } from "@playwright/test";
+import { mockSupabaseAuth } from "./helpers/mock-supabase";
 
 test.describe("Auth - Sign in page", () => {
   test("renders sign-in form", async ({ page }) => {
@@ -27,11 +28,13 @@ test.describe("Auth - Sign in page", () => {
     ).toBeVisible();
   });
 
-  test("pre-fills email from URL param", async ({ page }) => {
+  test("auto-submits magic link when email param is present", async ({ page }) => {
+    // Mock Supabase to prevent hitting real OTP endpoint
+    await mockSupabaseAuth(page);
     await page.goto("/en/auth/sign-in?email=test@example.com");
-    await expect(page.getByPlaceholder("your@email.com")).toHaveValue(
-      "test@example.com"
-    );
+    // Auto-submit fires → success state shows the email
+    await expect(page.getByText("test@example.com")).toBeVisible();
+    await expect(page.getByText("Check your email!")).toBeVisible();
   });
 
   test("works in Polish", async ({ page }) => {
@@ -114,6 +117,8 @@ test.describe("Auth - Landing page integration", () => {
   test("hero email input navigates to sign-in with email", async ({
     page,
   }) => {
+    // Mock Supabase to prevent auto-submit from hitting real OTP endpoint
+    await mockSupabaseAuth(page);
     await page.goto("/en");
     await page.getByPlaceholder("Enter your email").fill("test@example.com");
     await page.getByRole("button", { name: "Get Started" }).click();

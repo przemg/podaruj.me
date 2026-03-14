@@ -124,5 +124,109 @@
   "dashboard": {
     "pageTitle": "Dashboard — Podaruj.me",
     "welcome": "Welcome to Podaruj.me!"
+  },
+  "lists": {
+    "create": {
+      "pageTitle": "Create a new list — Podaruj.me",
+      "title": "Create a new list",
+      "subtitle": "Set up your gift list for any occasion",
+      "nameLabel": "List name",
+      "namePlaceholder": "e.g. Birthday Wishlist",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Tell people what this list is about...",
+      "occasionLabel": "Occasion",
+      "occasionPlaceholder": "Select an occasion",
+      "eventDateLabel": "Event date",
+      "eventDateHint": "Optional — we'll show a countdown",
+      "privacyModeLabel": "Reservation privacy",
+      "submitButton": "Create list",
+      "creating": "Creating..."
+    },
+    "edit": {
+      "pageTitle": "Edit list — Podaruj.me",
+      "title": "Edit list",
+      "subtitle": "Update your list details",
+      "submitButton": "Save changes",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    },
+    "detail": {
+      "pageTitle": "List details — Podaruj.me",
+      "editButton": "Edit",
+      "deleteButton": "Delete list",
+      "shareButton": "Share",
+      "shareComingSoon": "Sharing is coming soon!",
+      "daysLeft": "{count, plural, one {# day left} other {# days left}}",
+      "today": "Today!",
+      "pastEvent": "Event has passed",
+      "confirmDelete": "Delete this list?",
+      "confirmDeleteDescription": "This will permanently delete the list and all its gifts. This action cannot be undone.",
+      "confirmDeleteButton": "Yes, delete list",
+      "cancelDelete": "Cancel",
+      "backToDashboard": "Back to dashboard"
+    },
+    "notFound": {
+      "title": "List not found",
+      "description": "This list doesn't exist or you don't have access to it.",
+      "backToDashboard": "Back to dashboard"
+    },
+    "occasions": {
+      "birthday": "Birthday",
+      "holiday": "Holiday",
+      "wedding": "Wedding",
+      "other": "Other"
+    },
+    "privacyModes": {
+      "buyers_choice": "Buyer's Choice",
+      "buyers_choice_description": "Guests decide if they want to reveal their name",
+      "visible": "Visible",
+      "visible_description": "Everyone sees who reserved what",
+      "full_surprise": "Full Surprise",
+      "full_surprise_description": "You won't see any reservations — maximum surprise!"
+    }
+  },
+  "items": {
+    "sectionTitle": "Gifts",
+    "addButton": "Add gift",
+    "form": {
+      "addTitle": "Add a gift",
+      "editTitle": "Edit gift",
+      "nameLabel": "Gift name",
+      "namePlaceholder": "e.g. A book about gardening",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Any details about what you'd like...",
+      "linkLabel": "Link to store",
+      "linkPlaceholder": "https://...",
+      "priceLabel": "Price",
+      "pricePlaceholder": "0.00",
+      "imageLabel": "Image URL",
+      "imagePlaceholder": "https://... (link to an image)",
+      "priorityLabel": "Priority",
+      "addButton": "Add gift",
+      "adding": "Adding...",
+      "saveButton": "Save changes",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    },
+    "priority": {
+      "nice_to_have": "Nice to have",
+      "would_love": "Would love",
+      "must_have": "Must have"
+    },
+    "empty": {
+      "title": "No gifts yet",
+      "description": "Add your first gift to this list!"
+    },
+    "confirmDelete": {
+      "title": "Delete this gift?",
+      "description": "This gift will be permanently removed from the list.",
+      "confirm": "Yes, delete",
+      "cancel": "Cancel"
+    },
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "openLink": "Open link",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }

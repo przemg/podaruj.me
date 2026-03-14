@@ -5,7 +5,7 @@ import { createMiddlewareClient } from "@/lib/supabase/middleware";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-const PROTECTED_PATHS = ["/dashboard", "/my-lists"];
+const PROTECTED_PATHS = ["/dashboard"];
 
 export async function proxy(request: NextRequest) {
   const { supabase, applyCookies } = createMiddlewareClient(request);
