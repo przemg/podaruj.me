@@ -1,7 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ExternalLink, Heart } from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import type { ReservationInfo } from "@/app/[locale]/lists/[slug]/page";
+import { ReserveButton } from "@/components/public/reserve-button";
 
 type PublicGiftCardProps = {
   item: {
@@ -15,6 +17,13 @@ type PublicGiftCardProps = {
   };
   locale: string;
   index: number;
+  // Reservation props
+  reservation: ReservationInfo;
+  privacyMode: string;
+  isOwner: boolean;
+  listSlug: string;
+  isAuthenticated: boolean;
+  itemId: string;
 };
 
 const PRIORITY_CONFIG: Record<
@@ -48,8 +57,17 @@ function formatPrice(price: number, locale: string): string {
   }).format(price);
 }
 
-export function PublicGiftCard({ item, locale, index }: PublicGiftCardProps) {
-  const t = useTranslations("public");
+export function PublicGiftCard({
+  item,
+  locale,
+  index,
+  reservation,
+  privacyMode,
+  isOwner,
+  listSlug,
+  isAuthenticated,
+  itemId,
+}: PublicGiftCardProps) {
   const tPriority = useTranslations("items.priority");
 
   const priority =
@@ -123,15 +141,15 @@ export function PublicGiftCard({ item, locale, index }: PublicGiftCardProps) {
 
             <div className="flex-1" />
 
-            {/* Reserve button — warm disabled style */}
-            <button
-              disabled
-              className="inline-flex h-8 cursor-not-allowed items-center gap-1.5 rounded-full bg-landing-coral/8 px-3.5 text-xs font-medium text-landing-coral/50 ring-1 ring-landing-coral/10 transition-colors"
-              title={t("reserveComingSoon")}
-            >
-              <Heart className="h-3.5 w-3.5" />
-              {t("reserveButton")}
-            </button>
+            {/* Reserve button */}
+            <ReserveButton
+              itemId={itemId}
+              listSlug={listSlug}
+              privacyMode={privacyMode}
+              reservation={reservation}
+              isAuthenticated={isAuthenticated}
+              isOwner={isOwner}
+            />
           </div>
         </div>
       </div>
