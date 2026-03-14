@@ -218,7 +218,8 @@
       "confirmDeleteDescription": "Lista i wszystkie prezenty zostaną trwale usunięte. Tej operacji nie można cofnąć.",
       "confirmDeleteButton": "Tak, usuń listę",
       "cancelDelete": "Anuluj",
-      "backToDashboard": "Wróć do panelu"
+      "backToDashboard": "Wróć do panelu",
+      "shareCopied": "Link skopiowany!"
     },
     "notFound": {
       "title": "Lista nie znaleziona",
@@ -283,5 +284,27 @@
     "openLink": "Otwórz link",
     "edit": "Edytuj",
     "delete": "Usuń"
+  },
+  "public": {
+    "pageTitle": "{name} — Podaruj.me",
+    "defaultDescription": "Lista prezentów na Podaruj.me",
+    "listNotFound": "Lista nie znaleziona",
+    "listNotFoundDescription": "Ta lista nie istnieje lub została usunięta.",
+    "backToHome": "Wróć na stronę główną",
+    "eventCountdown": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dni}}",
+    "eventToday": "Dziś!",
+    "eventPassed": "Wydarzenie minęło",
+    "reserveButton": "Zarezerwuj",
+    "reserveComingSoon": "Wkrótce",
+    "ownerBanner": "To jest Twoja lista",
+    "ownerBannerLink": "Zarządzaj w panelu",
+    "ownerBannerDismiss": "Zamknij",
+    "emptyList": "Nie dodano jeszcze prezentów do tej listy",
+    "poweredBy": "Stworzone przez Podaruj.me",
+    "createYourOwn": "Stwórz swoją listę prezentów",
+    "gifts": "Prezenty",
+    "errorTitle": "Coś poszło nie tak",
+    "errorDescription": "Nie udało się załadować listy. Spróbuj ponownie.",
+    "errorRetry": "Spróbuj ponownie"
   }
 }
