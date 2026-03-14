@@ -13,12 +13,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Menu, List, Gift, LogOut, User } from "lucide-react";
-
-const NAV_ITEMS = [
-  { href: "/dashboard" as const, labelKey: "myLists" as const, icon: List },
-  { href: "/dashboard/reservations" as const, labelKey: "myReservations" as const, icon: Gift },
-];
+import { Menu, LogOut, User } from "lucide-react";
+import { NAV_ITEMS } from "./nav-items";
 
 export function MobileMenu({ email }: { email: string }) {
   const t = useTranslations("dashboard");
@@ -57,7 +53,10 @@ export function MobileMenu({ email }: { email: string }) {
 
           <nav className="flex flex-col gap-1 pt-4">
             {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
-              const isActive = pathname === href;
+              const isActive =
+                href === "/dashboard"
+                  ? pathname === "/dashboard" || pathname.startsWith("/dashboard/lists")
+                  : pathname.startsWith(href);
               return (
                 <Link
                   key={href}

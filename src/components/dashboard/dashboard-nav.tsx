@@ -3,12 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { List, Gift } from "lucide-react";
-
-const NAV_ITEMS = [
-  { href: "/dashboard" as const, labelKey: "myLists" as const, icon: List },
-  { href: "/dashboard/reservations" as const, labelKey: "myReservations" as const, icon: Gift },
-];
+import { NAV_ITEMS } from "./nav-items";
 
 export function DashboardNav() {
   const t = useTranslations("dashboard.nav");
@@ -17,7 +12,10 @@ export function DashboardNav() {
   return (
     <nav className="hidden md:flex items-center gap-1">
       {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
-        const isActive = pathname === href;
+        const isActive =
+          href === "/dashboard"
+            ? pathname === "/dashboard" || pathname.startsWith("/dashboard/lists")
+            : pathname.startsWith(href);
         return (
           <Link
             key={href}
