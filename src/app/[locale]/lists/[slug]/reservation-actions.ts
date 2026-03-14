@@ -2,32 +2,12 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import { sendConfirmationEmail } from "@/lib/email";
 import { revalidatePath } from "next/cache";
-
-export type ConfirmStatus = "confirmed" | "already_confirmed" | "expired" | "not_found";
 
 export type ReservationActionResult = {
   error?: string;
   success?: string;
-  confirmStatus?: ConfirmStatus;
 };
-
-// ── Validation ─────────────────────────────────────────────────────
-
-function validateGuestData(data: {
-  nickname: string;
-  email: string;
-}): string | null {
-  if (!data.nickname || data.nickname.trim().length === 0)
-    return "Nickname is required";
-  if (data.nickname.length > 50)
-    return "Nickname must be 50 characters or less";
-  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-    return "Valid email is required";
-  if (data.email.length > 320) return "Email is too long";
-  return null;
-}
 
 // ── Helpers ────────────────────────────────────────────────────────
 
@@ -42,24 +22,11 @@ async function isItemAvailable(
 ): Promise<boolean> {
   const { data } = await supabase
     .from("reservations")
-    .select("id, status, created_at")
+    .select("id")
     .eq("item_id", itemId)
     .single();
 
-  if (!data) return true;
-
-  if (data.status === "pending") {
-    const created = new Date(data.created_at);
-    const now = new Date();
-    const hoursElapsed =
-      (now.getTime() - created.getTime()) / (1000 * 60 * 60);
-    if (hoursElapsed > 24) {
-      await supabase.from("reservations").delete().eq("id", data.id);
-      return true;
-    }
-  }
-
-  return false;
+  return !data;
 }
 
 // ── Reserve (logged-in user) ───────────────────────────────────────
@@ -106,7 +73,6 @@ export async function reserveItem(
       list_id: list.id,
       user_id: user.id,
       show_name: data.showName ?? true,
-      status: "confirmed",
     });
 
   if (dbError) {
@@ -125,16 +91,17 @@ export async function reserveItem(
 export async function reserveItemAsGuest(
   listSlug: string,
   itemId: string,
-  data: { nickname: string; email: string; showName?: boolean; locale: string }
+  data: { nickname: string; showName?: boolean }
 ): Promise<ReservationActionResult> {
-  const validationError = validateGuestData(data);
-  if (validationError) return { error: validationError };
+  const nickname = data.nickname?.trim();
+  if (!nickname || nickname.length === 0) return { error: "Nickname is required" };
+  if (nickname.length > 50) return { error: "Nickname must be 50 characters or less" };
 
   const serviceClient = createServiceClient();
 
   const { data: item } = await serviceClient
     .from("items")
-    .select("id, name, list_id")
+    .select("id, list_id")
     .eq("id", itemId)
     .single();
 
@@ -142,40 +109,24 @@ export async function reserveItemAsGuest(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug, name")
+    .select("id, slug")
     .eq("slug", listSlug)
     .single();
 
   if (!list || item.list_id !== list.id)
     return { error: "Item does not belong to this list" };
 
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-  const { count } = await serviceClient
-    .from("reservations")
-    .select("id", { count: "exact", head: true })
-    .eq("guest_email", data.email.trim().toLowerCase())
-    .eq("status", "pending")
-    .gte("created_at", oneHourAgo);
-
-  if (count !== null && count >= 5)
-    return { error: "Too many pending reservations. Please try again later." };
-
   if (!(await isItemAvailable(serviceClient, itemId)))
     return { error: "This item is already reserved" };
 
-  const { data: reservation, error: dbError } = await serviceClient
+  const { error: dbError } = await serviceClient
     .from("reservations")
     .insert({
       item_id: itemId,
       list_id: list.id,
-      guest_email: data.email.trim().toLowerCase(),
-      guest_nickname: data.nickname.trim(),
+      guest_nickname: nickname,
       show_name: data.showName ?? true,
-      status: "pending",
-      locale: data.locale,
-    })
-    .select("guest_token")
-    .single();
+    });
 
   if (dbError) {
     if (dbError.code === "23505")
@@ -183,83 +134,9 @@ export async function reserveItemAsGuest(
     return { error: "Failed to reserve item" };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://podaruj.me";
-  const token = reservation.guest_token;
-
-  try {
-    await sendConfirmationEmail({
-      to: data.email.trim(),
-      itemName: item.name,
-      listName: list.name,
-      confirmUrl: `${baseUrl}/${data.locale}/reservations/confirm/${token}`,
-      manageUrl: `${baseUrl}/${data.locale}/reservations/manage/${token}`,
-      locale: data.locale,
-    });
-  } catch {
-    await serviceClient
-      .from("reservations")
-      .delete()
-      .eq("guest_token", token);
-    return { error: "Failed to send confirmation email. Please try again." };
-  }
-
   revalidateReservationPaths("en", listSlug);
   revalidateReservationPaths("pl", listSlug);
-  return { success: "Check your email to confirm the reservation" };
-}
-
-// ── Confirm guest reservation ──────────────────────────────────────
-
-export async function confirmGuestReservation(
-  token: string
-): Promise<ReservationActionResult> {
-  const serviceClient = createServiceClient();
-
-  const { data: reservation } = await serviceClient
-    .from("reservations")
-    .select("id, status, created_at, list_id")
-    .eq("guest_token", token)
-    .single();
-
-  if (!reservation) return { error: "Reservation not found", confirmStatus: "not_found" };
-
-  if (reservation.status === "confirmed")
-    return { success: "Already confirmed", confirmStatus: "already_confirmed" };
-
-  if (reservation.status === "pending") {
-    const created = new Date(reservation.created_at);
-    const now = new Date();
-    const hoursElapsed =
-      (now.getTime() - created.getTime()) / (1000 * 60 * 60);
-
-    if (hoursElapsed > 24) {
-      await serviceClient
-        .from("reservations")
-        .delete()
-        .eq("id", reservation.id);
-      return { error: "This reservation has expired", confirmStatus: "expired" };
-    }
-  }
-
-  const { error: dbError } = await serviceClient
-    .from("reservations")
-    .update({ status: "confirmed" })
-    .eq("id", reservation.id);
-
-  if (dbError) return { error: "Failed to confirm reservation", confirmStatus: "not_found" };
-
-  const { data: list } = await serviceClient
-    .from("lists")
-    .select("slug")
-    .eq("id", reservation.list_id)
-    .single();
-
-  if (list) {
-    revalidateReservationPaths("en", list.slug);
-    revalidateReservationPaths("pl", list.slug);
-  }
-
-  return { success: "Reservation confirmed!", confirmStatus: "confirmed" };
+  return {};
 }
 
 // ── Cancel (logged-in user) ────────────────────────────────────────
@@ -285,42 +162,6 @@ export async function cancelReservation(
   revalidateReservationPaths("en", listSlug);
   revalidateReservationPaths("pl", listSlug);
   return {};
-}
-
-// ── Cancel (guest) ─────────────────────────────────────────────────
-
-export async function cancelGuestReservation(
-  token: string
-): Promise<ReservationActionResult> {
-  const serviceClient = createServiceClient();
-
-  const { data: reservation } = await serviceClient
-    .from("reservations")
-    .select("id, list_id")
-    .eq("guest_token", token)
-    .single();
-
-  if (!reservation) return { error: "Reservation not found" };
-
-  const { error: dbError } = await serviceClient
-    .from("reservations")
-    .delete()
-    .eq("id", reservation.id);
-
-  if (dbError) return { error: "Failed to cancel reservation" };
-
-  const { data: list } = await serviceClient
-    .from("lists")
-    .select("slug")
-    .eq("id", reservation.list_id)
-    .single();
-
-  if (list) {
-    revalidateReservationPaths("en", list.slug);
-    revalidateReservationPaths("pl", list.slug);
-  }
-
-  return { success: "Reservation cancelled" };
 }
 
 // ── Get my reservations (dashboard) ────────────────────────────────
@@ -359,7 +200,6 @@ export async function getMyReservations(): Promise<MyReservation[]> {
       lists!inner (name, slug, occasion, event_date)
     `)
     .eq("user_id", user.id)
-    .eq("status", "confirmed")
     .order("created_at", { ascending: false });
 
   if (!reservations) return [];

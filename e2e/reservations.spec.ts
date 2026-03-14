@@ -45,6 +45,28 @@ async function seedTestList(
 ): Promise<{ listId: string; itemId: string }> {
   const supabase = getServiceClient();
 
+  // Check if list already exists (handles concurrent project workers)
+  const { data: existing } = await supabase
+    .from("lists")
+    .select("id")
+    .eq("slug", slug)
+    .single();
+
+  if (existing) {
+    // Wait for the item to be created by the other worker (race condition)
+    for (let i = 0; i < 10; i++) {
+      const { data: existingItem } = await supabase
+        .from("items")
+        .select("id")
+        .eq("list_id", existing.id)
+        .limit(1)
+        .single();
+      if (existingItem) return { listId: existing.id, itemId: existingItem.id };
+      await new Promise((r) => setTimeout(r, 500));
+    }
+    return { listId: existing.id, itemId: "" };
+  }
+
   const { data: list, error: listError } = await supabase
     .from("lists")
     .insert({
@@ -57,7 +79,18 @@ async function seedTestList(
     .select("id")
     .single();
 
-  if (listError || !list) throw new Error(`Failed to seed list: ${listError?.message}`);
+  if (listError) {
+    // Handle race condition — another project worker created it first
+    if (listError.code === "23505") {
+      const { data: raced } = await supabase.from("lists").select("id").eq("slug", slug).single();
+      if (raced) {
+        const { data: racedItem } = await supabase.from("items").select("id").eq("list_id", raced.id).limit(1).single();
+        return { listId: raced.id, itemId: racedItem?.id ?? "" };
+      }
+    }
+    throw new Error(`Failed to seed list: ${listError.message}`);
+  }
+  if (!list) throw new Error("Failed to seed list: no data returned");
 
   const { data: item, error: itemError } = await supabase
     .from("items")
@@ -75,28 +108,46 @@ async function seedTestList(
   return { listId: list.id, itemId: item.id };
 }
 
-async function seedConfirmedReservation(
+async function seedReservation(
   listId: string,
   itemId: string
-): Promise<string> {
+): Promise<void> {
   const supabase = getServiceClient();
 
-  const { data: reservation, error } = await supabase
+  // Check if reservation already exists (handles concurrent project workers)
+  const { data: existing } = await supabase
+    .from("reservations")
+    .select("id")
+    .eq("item_id", itemId)
+    .single();
+
+  if (existing) return;
+
+  const { error } = await supabase
     .from("reservations")
     .insert({
       item_id: itemId,
       list_id: listId,
-      guest_email: "e2e-test@example.com",
       guest_nickname: "E2E Tester",
       show_name: true,
-      status: "confirmed",
-    })
-    .select("guest_token")
-    .single();
+    });
 
-  if (error || !reservation) throw new Error(`Failed to seed reservation: ${error?.message}`);
+  // Ignore duplicate key errors (race between projects)
+  if (error && error.code !== "23505") throw new Error(`Failed to seed reservation: ${error.message}`);
+}
 
-  return reservation.guest_token as string;
+/** Navigate to a public list page, retrying with reload if items haven't rendered yet (Next.js cache race). */
+async function gotoListPage(page: import("@playwright/test").Page, slug: string) {
+  await page.goto(`/en/lists/${slug}`);
+  await page.waitForLoadState("networkidle");
+
+  // If the page was cached before items were seeded, reload up to 2 times
+  for (let i = 0; i < 2; i++) {
+    const item = page.getByText("E2E Test Gift Item");
+    if (await item.isVisible().catch(() => false)) return;
+    await page.reload();
+    await page.waitForLoadState("networkidle");
+  }
 }
 
 async function cleanupTestData(slug: string) {
@@ -128,16 +179,15 @@ test.describe("Reservation flows", () => {
     const slug = `${TEST_SLUG_PREFIX}buttons`;
 
     test.beforeAll(async () => {
+      await cleanupTestData(slug);
       await seedTestList(slug, "visible");
     });
 
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
+    // Cleanup happens in beforeAll of next run (not afterAll) to avoid
+    // deleting data while another Playwright project is still using it.
 
     test("shows Reserve button on items (guest view)", async ({ page }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
       // The Reserve button text comes from i18n key public.reserveButton
       const reserveButton = page.getByRole("button", { name: /reserve/i }).first();
@@ -145,8 +195,7 @@ test.describe("Reservation flows", () => {
     });
 
     test("shows item name on public list", async ({ page }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
       await expect(page.getByText("E2E Test Gift Item")).toBeVisible({ timeout: 10000 });
     });
@@ -158,35 +207,33 @@ test.describe("Reservation flows", () => {
     const slug = `${TEST_SLUG_PREFIX}dialog`;
 
     test.beforeAll(async () => {
+      await cleanupTestData(slug);
       await seedTestList(slug, "visible");
     });
 
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
+    // Cleanup happens in beforeAll of next run (not afterAll) to avoid
+    // deleting data while another Playwright project is still using it.
 
-    test("opens dialog with nickname and email fields on Reserve click", async ({
+    test("opens dialog with nickname field on Reserve click", async ({
       page,
     }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
       const reserveButton = page.getByRole("button", { name: /reserve/i }).first();
       await expect(reserveButton).toBeVisible({ timeout: 10000 });
       await reserveButton.click();
 
-      // Dialog should open — check for the nickname and email inputs
+      // Dialog should open — check for the nickname input
       await expect(page.locator("#guest-nickname")).toBeVisible({ timeout: 5000 });
-      await expect(page.locator("#guest-email")).toBeVisible({ timeout: 5000 });
     });
 
     test("dialog submit button is disabled when fields are empty", async ({
       page,
     }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
       const reserveButton = page.getByRole("button", { name: /reserve/i }).first();
+      await expect(reserveButton).toBeVisible({ timeout: 10000 });
       await reserveButton.click();
 
       // Submit button should be disabled with empty fields
@@ -195,8 +242,7 @@ test.describe("Reservation flows", () => {
     });
 
     test("dialog can be closed", async ({ page }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
       const reserveButton = page.getByRole("button", { name: /reserve/i }).first();
       await reserveButton.click();
@@ -211,85 +257,24 @@ test.describe("Reservation flows", () => {
     });
   });
 
-  // ── Confirmation page — invalid token ──────────────────────────────────────
-
-  test.describe("Confirmation page", () => {
-    test("shows error for invalid token", async ({ page }) => {
-      await page.goto(
-        "/en/reservations/confirm/00000000-0000-0000-0000-000000000000"
-      );
-      await page.waitForLoadState("networkidle");
-
-      // The not-found error title from i18n: reservations.confirm.errorTitle
-      await expect(
-        page.getByRole("heading", { name: "Reservation not found" })
-      ).toBeVisible({ timeout: 10000 });
-    });
-
-    test("confirmation page shows error message body for invalid token", async ({
-      page,
-    }) => {
-      await page.goto(
-        "/en/reservations/confirm/00000000-0000-0000-0000-000000000000"
-      );
-      await page.waitForLoadState("networkidle");
-
-      // i18n: reservations.confirm.errorMessage
-      await expect(
-        page.getByText(/invalid or has been cancelled/i)
-      ).toBeVisible({ timeout: 10000 });
-    });
-  });
-
-  // ── Management page — invalid token ────────────────────────────────────────
-
-  test.describe("Management page", () => {
-    test("shows error for invalid token", async ({ page }) => {
-      await page.goto(
-        "/en/reservations/manage/00000000-0000-0000-0000-000000000000"
-      );
-      await page.waitForLoadState("networkidle");
-
-      // i18n: reservations.manage.notFoundTitle
-      await expect(
-        page.getByRole("heading", { name: "Reservation not found" })
-      ).toBeVisible({ timeout: 10000 });
-    });
-
-    test("management page shows not-found message for invalid token", async ({
-      page,
-    }) => {
-      await page.goto(
-        "/en/reservations/manage/00000000-0000-0000-0000-000000000000"
-      );
-      await page.waitForLoadState("networkidle");
-
-      // i18n: reservations.manage.notFoundMessage
-      await expect(
-        page.getByText(/invalid or has already been cancelled/i)
-      ).toBeVisible({ timeout: 10000 });
-    });
-  });
-
   // ── Full Surprise mode — reservation badge hidden ───────────────────────────
 
   test.describe("Full Surprise privacy mode", () => {
     const slug = `${TEST_SLUG_PREFIX}surprise`;
 
     test.beforeAll(async () => {
+      await cleanupTestData(slug);
       const { listId, itemId } = await seedTestList(slug, "full_surprise");
-      await seedConfirmedReservation(listId, itemId);
+      await seedReservation(listId, itemId);
     });
 
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
+    // Cleanup happens in beforeAll of next run (not afterAll) to avoid
+    // deleting data while another Playwright project is still using it.
 
     test("reserved item does not show reserver name in full_surprise mode (guest view)", async ({
       page,
     }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
       // The item should be visible
       await expect(page.getByText("E2E Test Gift Item")).toBeVisible({ timeout: 10000 });
@@ -301,104 +286,10 @@ test.describe("Reservation flows", () => {
     test("reserved item shows Reserved badge (not reserver name) in full_surprise mode", async ({
       page,
     }) => {
-      await page.goto(`/en/lists/${slug}`);
-      await page.waitForLoadState("networkidle");
+      await gotoListPage(page, slug);
 
-      // In full_surprise, a confirmed item should show "Reserved" badge without name
-      // The reserve button should not be present (item is taken)
-      // OR the reserved badge should be shown — depends on whether guest sees reservation info
-      // According to implementation: non-owner guests always see reservation status
-      // but in full_surprise the reserverName is null
+      // In full_surprise, a reserved item should show "Reserved" badge without name
       await expect(page.getByText("E2E Test Gift Item")).toBeVisible({ timeout: 10000 });
-    });
-  });
-
-  // ── Management page — valid reservation ────────────────────────────────────
-
-  test.describe("Management page with valid reservation", () => {
-    const slug = `${TEST_SLUG_PREFIX}manage-valid`;
-    let guestToken: string;
-
-    test.beforeAll(async () => {
-      const { listId, itemId } = await seedTestList(slug, "visible");
-      guestToken = await seedConfirmedReservation(listId, itemId);
-    });
-
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
-
-    test("shows reservation details for valid token", async ({ page }) => {
-      await page.goto(`/en/reservations/manage/${guestToken}`);
-      await page.waitForLoadState("networkidle");
-
-      // i18n: reservations.manage.title
-      await expect(
-        page.getByRole("heading", { name: "Your reservation" })
-      ).toBeVisible({ timeout: 10000 });
-    });
-
-    test("shows item name on manage page", async ({ page }) => {
-      await page.goto(`/en/reservations/manage/${guestToken}`);
-      await page.waitForLoadState("networkidle");
-
-      await expect(page.getByText("E2E Test Gift Item")).toBeVisible({ timeout: 10000 });
-    });
-
-    test("shows list name on manage page", async ({ page }) => {
-      await page.goto(`/en/reservations/manage/${guestToken}`);
-      await page.waitForLoadState("networkidle");
-
-      await expect(page.getByText("E2E Test Gift List")).toBeVisible({ timeout: 10000 });
-    });
-
-    test("shows cancel button on manage page", async ({ page }) => {
-      await page.goto(`/en/reservations/manage/${guestToken}`);
-      await page.waitForLoadState("networkidle");
-
-      // i18n: reservations.manage.cancelButton
-      await expect(
-        page.getByRole("button", { name: /cancel reservation/i })
-      ).toBeVisible({ timeout: 10000 });
-    });
-  });
-
-  // ── Confirmation page — already confirmed reservation ──────────────────────
-
-  test.describe("Confirmation page with confirmed reservation", () => {
-    const slug = `${TEST_SLUG_PREFIX}confirm-valid`;
-    let guestToken: string;
-
-    test.beforeAll(async () => {
-      const { listId, itemId } = await seedTestList(slug, "visible");
-      guestToken = await seedConfirmedReservation(listId, itemId);
-    });
-
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
-
-    test("shows already-confirmed state for a confirmed reservation token", async ({
-      page,
-    }) => {
-      await page.goto(`/en/reservations/confirm/${guestToken}`);
-      await page.waitForLoadState("networkidle");
-
-      // A confirmed reservation shows 'already_confirmed' state
-      // i18n: reservations.confirm.alreadyConfirmedTitle
-      await expect(
-        page.getByRole("heading", { name: /already confirmed/i })
-      ).toBeVisible({ timeout: 10000 });
-    });
-
-    test("confirmed page shows manage link", async ({ page }) => {
-      await page.goto(`/en/reservations/confirm/${guestToken}`);
-      await page.waitForLoadState("networkidle");
-
-      // i18n: reservations.confirm.manageLink
-      await expect(
-        page.getByRole("link", { name: /manage your reservation/i })
-      ).toBeVisible({ timeout: 10000 });
     });
   });
 
@@ -413,33 +304,6 @@ test.describe("Reservation flows", () => {
     test("redirects to sign-in in Polish locale", async ({ page }) => {
       await page.goto("/pl/dashboard/reservations");
       await expect(page).toHaveURL(/\/pl\/auth\/sign-in/, { timeout: 10000 });
-    });
-  });
-
-  // ── Reservations layout ────────────────────────────────────────────────────
-
-  test.describe("Reservations layout", () => {
-    test("confirm page renders within reservation layout (has logo)", async ({
-      page,
-    }) => {
-      await page.goto(
-        "/en/reservations/confirm/00000000-0000-0000-0000-000000000000"
-      );
-      await page.waitForLoadState("networkidle");
-
-      // Reservation layout should show the logo
-      await expect(page.getByText("Podaruj.me").first()).toBeVisible({ timeout: 10000 });
-    });
-
-    test("manage page renders within reservation layout (has logo)", async ({
-      page,
-    }) => {
-      await page.goto(
-        "/en/reservations/manage/00000000-0000-0000-0000-000000000000"
-      );
-      await page.waitForLoadState("networkidle");
-
-      await expect(page.getByText("Podaruj.me").first()).toBeVisible({ timeout: 10000 });
     });
   });
 });

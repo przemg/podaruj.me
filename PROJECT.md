@@ -58,8 +58,8 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 1. List owner shares a URL or QR code (messenger, print, social media)
 2. Anyone with the link can browse and reserve — no account needed
-3. Guest enters a nickname when reserving
-4. Soft prompt: "Create an account for easier access next time"
+3. Guest enters a nickname when reserving — reservation is instant
+4. Guest is prompted to create an account to manage reservations later
 
 ### Permissions
 
@@ -68,7 +68,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 | Create list         | ✅               | ❌                |
 | Browse shared list  | ✅               | ✅                |
 | Reserve item        | ✅               | ✅ (with nickname) |
-| Cancel reservation  | ✅ (own only)    | ✅ (own only)     |
+| Cancel reservation  | ✅ (own only)    | ❌ (requires account) |
 | See who reserved    | Per mode         | Per mode         |
 
 ## Features Brainstorm
@@ -85,7 +85,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 - Reserve / unreserve items ✅
 - Three privacy modes (Buyer's Choice, Visible, Full Surprise) ✅
-- Guest reservation with email confirmation ✅
+- Instant guest reservation with nickname ✅
 - Dashboard "My Reservations" with real data ✅
 - Reservation swap — ask someone who already reserved an item to hand it over (with a message explaining why). The other person accepts or declines. Visibility of swaps follows the list's privacy mode.
 
