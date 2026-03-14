@@ -15,6 +15,19 @@ export default async function DashboardLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
+  let displayName: string | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("id", user.id)
+      .single();
+    displayName = profile?.display_name
+      ?? user.user_metadata?.full_name
+      ?? user.user_metadata?.name
+      ?? null;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
       <header className="border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
@@ -31,7 +44,7 @@ export default async function DashboardLayout({
             {user?.email && (
               <>
                 <div className="hidden md:block">
-                  <UserMenu email={user.email} />
+                  <UserMenu email={user.email} displayName={displayName} />
                 </div>
                 <MobileMenu email={user.email} />
               </>

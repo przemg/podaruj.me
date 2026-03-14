@@ -5,9 +5,9 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { signOut } from "@/lib/supabase/auth";
-import { User, LogOut, Plus, ChevronDown } from "lucide-react";
+import { User, LogOut, Plus, ChevronDown, Settings } from "lucide-react";
 
-export function UserMenu({ email }: { email: string }) {
+export function UserMenu({ email, displayName }: { email: string; displayName?: string | null }) {
   const t = useTranslations("auth.userMenu");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -31,9 +31,13 @@ export function UserMenu({ email }: { email: string }) {
   }, []);
 
   async function handleSignOut() {
-    await signOut();
-    router.push("/");
-    router.refresh();
+    try {
+      await signOut();
+      router.push("/");
+      router.refresh();
+    } catch {
+      window.location.href = "/";
+    }
   }
 
   return (
@@ -45,7 +49,7 @@ export function UserMenu({ email }: { email: string }) {
         aria-haspopup="menu"
       >
         <User className="h-4 w-4 opacity-60" />
-        <span className="max-w-[150px] truncate">{email}</span>
+        <span className="max-w-[150px] truncate">{displayName || email}</span>
         <ChevronDown
           className={`h-3 w-3 opacity-40 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
@@ -66,9 +70,23 @@ export function UserMenu({ email }: { email: string }) {
             <Plus className="h-4 w-4" />
             {t("createList")}
           </button>
+          <button
+            onClick={() => {
+              router.push("/dashboard/settings");
+              setIsOpen(false);
+            }}
+            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
+            role="menuitem"
+          >
+            <Settings className="h-4 w-4" />
+            {t("settings")}
+          </button>
           <div className="my-1 h-px bg-landing-text/5" />
           <button
-            onClick={handleSignOut}
+            onClick={() => {
+              setIsOpen(false);
+              handleSignOut();
+            }}
             className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
             role="menuitem"
           >

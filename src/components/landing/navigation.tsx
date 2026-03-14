@@ -18,7 +18,7 @@ const LOCALES = [
   { code: "pl", label: "Polski", short: "PL" },
 ] as const;
 
-export function Navigation({ locale, userEmail }: { locale: string; userEmail?: string }) {
+export function Navigation({ locale, userEmail, displayName }: { locale: string; userEmail?: string; displayName?: string | null }) {
   const t = useTranslations("landing.nav");
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -148,7 +148,7 @@ export function Navigation({ locale, userEmail }: { locale: string; userEmail?: 
             </div>
             {userEmail ? (
               <div className="hidden lg:block lg:ml-4">
-                <UserMenu email={userEmail} />
+                <UserMenu email={userEmail} displayName={displayName} />
               </div>
             ) : (
               <Link
@@ -207,7 +207,7 @@ export function Navigation({ locale, userEmail }: { locale: string; userEmail?: 
             <div className="pb-8">
               {userEmail ? (
                 <div className="space-y-3">
-                  <p className="truncate text-sm text-landing-text-muted">{userEmail}</p>
+                  <p className="truncate text-sm text-landing-text-muted">{displayName || userEmail}</p>
                   <Link
                     href="/dashboard"
                     onClick={() => setIsMobileMenuOpen(false)}

@@ -47,9 +47,22 @@ export default async function Home({
   } = await supabase.auth.getUser();
   const userEmail = user?.email;
 
+  let displayName: string | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("id", user.id)
+      .single();
+    displayName = profile?.display_name
+      ?? user.user_metadata?.full_name
+      ?? user.user_metadata?.name
+      ?? null;
+  }
+
   return (
     <>
-      <Navigation locale={locale} userEmail={userEmail} />
+      <Navigation locale={locale} userEmail={userEmail} displayName={displayName} />
       <main>
         <Hero userEmail={userEmail} />
         <HowItWorks />
