@@ -41,10 +41,6 @@ src/
         layout.tsx          # Simple layout (logo + footer)
         [slug]/             # Public list view, loading, not-found, error
           reservation-actions.ts  # Server Actions for reservations
-      reservations/   # Guest reservation token pages (no auth required)
-        layout.tsx          # Simple layout (logo + footer)
-        confirm/[token]/    # Email confirmation page
-        manage/[token]/     # Reservation management/cancel page
   components/
     auth/           # Auth components (sign-in-form, user-menu)
     landing/        # Landing page components
@@ -54,7 +50,6 @@ src/
   lib/
     supabase/       # Supabase client utilities (client, server, service)
     countdown.ts    # Shared countdown utility
-    email.ts        # Resend email client (reservation confirmations)
     utils.ts        # General utilities (cn helper)
   i18n/             # Internationalization config
   types/            # Shared TypeScript types
@@ -68,7 +63,7 @@ supabase/
 - **profiles** — user profiles (auto-created on signup)
 - **lists** — gift lists with occasion, privacy mode, event date, slug (RLS: owner-only). Slug is used in URLs instead of UUID.
 - **items** — gift items within lists with priority, position (RLS: owner of parent list)
-- **reservations** — gift reservations with privacy modes, guest tokens, status (pending/confirmed). RLS: logged-in users can SELECT/DELETE own reservations; all other access via service client.
+- **reservations** — gift reservations with privacy modes, guest nickname for anonymous reservations. RLS: logged-in users can SELECT/DELETE own reservations; all other access via service client.
 
 ## URL Pattern
 
@@ -84,7 +79,7 @@ Every list has a public URL at `/[locale]/lists/[slug]` — accessible without a
 - **Owner detection:** Server-side check via `createClient()` auth — if logged-in user matches `list.user_id`, show owner banner
 - **Cache invalidation:** All server actions in `actions.ts` call `revalidatePath` for both dashboard and public routes
 - **Components:** `src/components/public/` — read-only gift cards, list header, owner banner
-- **Reservations:** Functional — logged-in users reserve instantly, guests enter nickname + email and confirm via email link. Privacy mode filtering applied server-side.
+- **Reservations:** Functional — logged-in users reserve instantly, guests enter nickname and reserve instantly. Privacy mode filtering applied server-side.
 - **Reservation actions:** `src/app/[locale]/lists/[slug]/reservation-actions.ts` — uses service client for guest operations (bypasses RLS), auth client for logged-in user cancellation
 
 ## Dashboard Layout
