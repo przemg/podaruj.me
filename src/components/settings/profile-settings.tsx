@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -23,6 +23,7 @@ export function ProfileSettings({
   googleEmail: string | null;
 }) {
   const t = useTranslations("settings");
+  const locale = useLocale();
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -78,7 +79,7 @@ export function ProfileSettings({
     await supabase.auth.linkIdentity({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/en/auth/callback?next=/dashboard/settings%3Flinked%3Dgoogle`,
+        redirectTo: `${window.location.origin}/${locale}/auth/callback?next=/dashboard/settings%3Flinked%3Dgoogle`,
       },
     });
   }, []);
