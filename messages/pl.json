@@ -118,12 +118,42 @@
     "userMenu": {
       "createList": "Utwórz nową listę",
       "dashboard": "Panel",
+      "settings": "Ustawienia",
       "signOut": "Wyloguj się"
     }
   },
   "dashboard": {
     "pageTitle": "Panel — Podaruj.me",
     "welcome": "Witaj w Podaruj.me!"
+  },
+  "settings": {
+    "pageTitle": "Ustawienia — Podaruj.me",
+    "title": "Ustawienia profilu",
+    "subtitle": "Zarządzaj swoim kontem i preferencjami",
+    "profileSection": "Informacje o profilu",
+    "displayNameLabel": "Wyświetlana nazwa",
+    "displayNamePlaceholder": "Twoje imię",
+    "emailLabel": "Email",
+    "emailHelp": "Nie można zmienić adresu email",
+    "avatarAlt": "Zdjęcie profilowe",
+    "saveButton": "Zapisz zmiany",
+    "saving": "Zapisywanie...",
+    "saveSuccess": "Profil zaktualizowany!",
+    "saveError": "Nie udało się zaktualizować profilu",
+    "connectedAccountsSection": "Połączone konta",
+    "googleConnected": "Połączono jako {email}",
+    "googleNotConnected": "Nie połączono",
+    "linkGoogle": "Połącz konto Google",
+    "dangerZoneSection": "Strefa zagrożenia",
+    "dangerZoneDescription": "Po usunięciu konta nie ma możliwości cofnięcia tej operacji.",
+    "deleteButton": "Usuń moje konto",
+    "deleteDialogTitle": "Usunąć konto?",
+    "deleteDialogDescription": "Spowoduje to trwałe usunięcie Twojego konta, wszystkich list, prezentów i danych rezerwacji. Tej operacji nie można cofnąć.",
+    "deleteDialogConfirmLabel": "Wpisz DELETE aby potwierdzić",
+    "deleteDialogConfirmPlaceholder": "DELETE",
+    "deleteDialogConfirm": "Usuń moje konto",
+    "deleteDialogCancel": "Anuluj",
+    "deleting": "Usuwanie..."
   },
   "lists": {
     "create": {

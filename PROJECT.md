@@ -114,6 +114,14 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 - Gift suggester — AI proposes gift ideas based on occasion/interests (one-shot call to minimize token cost)
 
+### Profile Settings
+
+- Editable display name
+- Read-only email display
+- Avatar from Google account
+- Link/unlink Google account
+- Delete account with cascade deletion (removes all lists, items, and reservation data)
+
 ### UI/UX
 
 - Mobile first responsive design

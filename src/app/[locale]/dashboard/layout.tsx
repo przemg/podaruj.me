@@ -13,6 +13,16 @@ export default async function DashboardLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
+  let displayName: string | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("id", user.id)
+      .single();
+    displayName = profile?.display_name ?? null;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
       <header className="border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
@@ -24,7 +34,7 @@ export default async function DashboardLayout({
             <Gift className="h-6 w-6 text-landing-coral" />
             <span>Podaruj.me</span>
           </Link>
-          {user?.email && <UserMenu email={user.email} />}
+          {user?.email && <UserMenu email={user.email} displayName={displayName} />}
         </div>
       </header>
       {children}
