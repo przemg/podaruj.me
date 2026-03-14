@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { updateDisplayName, deleteAccount } from "@/app/[locale]/dashboard/settings/actions";
+import { updateDisplayName, deleteAccount, syncGoogleProfile } from "@/app/[locale]/dashboard/settings/actions";
 import { DeleteAccountDialog } from "./delete-account-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,10 +25,22 @@ export function ProfileSettings({
   const t = useTranslations("settings");
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+
   const [displayName, setDisplayName] = useState(profile.display_name ?? "");
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [linkSuccess, setLinkSuccess] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("linked") === "google") {
+      setLinkSuccess(true);
+      syncGoogleProfile().then(() => router.refresh());
+      window.history.replaceState({}, "", window.location.pathname);
+      setTimeout(() => setLinkSuccess(false), 5000);
+    }
+  }, [searchParams, router]);
 
   const initials = (profile.display_name ?? email ?? "?").charAt(0).toUpperCase();
 
@@ -65,13 +78,21 @@ export function ProfileSettings({
     await supabase.auth.linkIdentity({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/en/auth/callback?next=/dashboard/settings`,
+        redirectTo: `${window.location.origin}/en/auth/callback?next=/dashboard/settings%3Flinked%3Dgoogle`,
       },
     });
   }, []);
 
   return (
     <div className="space-y-8">
+      {/* Google linked toast */}
+      {linkSuccess && (
+        <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-700">
+          <Check className="h-5 w-5 flex-shrink-0" />
+          {t("googleLinkedSuccess")}
+        </div>
+      )}
+
       {/* Section 1: Profile Info */}
       <section className="rounded-2xl border border-landing-text/10 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-landing-text">

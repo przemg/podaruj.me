@@ -153,7 +153,8 @@
     "deleteDialogConfirmPlaceholder": "DELETE",
     "deleteDialogConfirm": "Delete my account",
     "deleteDialogCancel": "Cancel",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "googleLinkedSuccess": "Google account connected successfully!"
   },
   "lists": {
     "create": {

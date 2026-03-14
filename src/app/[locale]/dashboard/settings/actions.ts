@@ -43,6 +43,35 @@ export async function updateDisplayName(
   return { success: true };
 }
 
+export async function syncGoogleProfile(): Promise<ActionResult> {
+  const { supabase, user } = await getAuthenticatedClient();
+
+  const googleIdentity = user.identities?.find(
+    (i) => i.provider === "google"
+  );
+  if (!googleIdentity) return { error: "No Google identity found" };
+
+  const googleName =
+    googleIdentity.identity_data?.full_name ??
+    googleIdentity.identity_data?.name;
+  const googleAvatar = googleIdentity.identity_data?.avatar_url;
+
+  const updates: Record<string, string> = {};
+  if (googleName) updates.display_name = googleName as string;
+  if (googleAvatar) updates.avatar_url = googleAvatar as string;
+
+  if (Object.keys(updates).length === 0) return { success: true };
+
+  const { error: dbError } = await supabase
+    .from("profiles")
+    .update(updates)
+    .eq("id", user.id);
+
+  if (dbError) return { error: "Failed to sync profile" };
+
+  return { success: true };
+}
+
 export async function deleteAccount(): Promise<ActionResult> {
   const { user } = await getAuthenticatedClient();
 
