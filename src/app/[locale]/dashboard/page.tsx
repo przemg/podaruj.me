@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ListCard } from "@/components/dashboard/list-card";
 import { DashboardEmptyState } from "@/components/dashboard/dashboard-empty-state";
 import { Plus, ClipboardList } from "lucide-react";
+import { getCountdown } from "@/lib/countdown";
 
 export async function generateMetadata({
   params,
@@ -16,15 +17,11 @@ export async function generateMetadata({
   return { title: t("pageTitle") };
 }
 
-function getCountdown(eventDate: string, t: Awaited<ReturnType<typeof getTranslations>>) {
-  const now = new Date();
-  const nowUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
-  const eventUtc = new Date(eventDate + "T00:00:00Z").getTime();
-  const diffDays = Math.ceil((eventUtc - nowUtc) / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) return t("today");
-  if (diffDays < 0) return t("pastEvent");
-  return t("daysLeft", { count: diffDays });
+function formatCountdown(eventDate: string, t: Awaited<ReturnType<typeof getTranslations>>) {
+  const cd = getCountdown(eventDate);
+  if (cd.type === "today") return t("today");
+  if (cd.type === "past") return t("pastEvent");
+  return t("daysLeft", { count: cd.days });
 }
 
 export default async function DashboardPage() {
@@ -83,7 +80,7 @@ export default async function DashboardPage() {
                     occasion: tOccasions(list.occasion),
                     itemCount: t("itemCount", { count: itemCount }),
                     countdown: list.event_date
-                      ? getCountdown(list.event_date, t)
+                      ? formatCountdown(list.event_date, t)
                       : "",
                   }}
                 />

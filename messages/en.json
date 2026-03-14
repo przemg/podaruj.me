@@ -210,7 +210,6 @@
       "editButton": "Edit",
       "deleteButton": "Delete list",
       "shareButton": "Share",
-      "shareComingSoon": "Sharing is coming soon!",
       "daysLeft": "{count, plural, one {# day left} other {# days left}}",
       "today": "Today!",
       "pastEvent": "Event has passed",
@@ -218,7 +217,8 @@
       "confirmDeleteDescription": "This will permanently delete the list and all its gifts. This action cannot be undone.",
       "confirmDeleteButton": "Yes, delete list",
       "cancelDelete": "Cancel",
-      "backToDashboard": "Back to dashboard"
+      "backToDashboard": "Back to dashboard",
+      "shareCopied": "Link copied!"
     },
     "notFound": {
       "title": "List not found",
@@ -283,5 +283,27 @@
     "openLink": "Open link",
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "public": {
+    "pageTitle": "{name} — Podaruj.me",
+    "defaultDescription": "Gift list on Podaruj.me",
+    "listNotFound": "List not found",
+    "listNotFoundDescription": "This list doesn't exist or has been removed.",
+    "backToHome": "Back to home",
+    "eventCountdown": "{count, plural, one {# day left} other {# days left}}",
+    "eventToday": "Today!",
+    "eventPassed": "Event has passed",
+    "reserveButton": "Reserve",
+    "reserveComingSoon": "Coming soon",
+    "ownerBanner": "This is your list",
+    "ownerBannerLink": "Manage in dashboard",
+    "ownerBannerDismiss": "Dismiss",
+    "emptyList": "No gifts added to this list yet",
+    "poweredBy": "Powered by Podaruj.me",
+    "createYourOwn": "Create your own gift list",
+    "gifts": "Gifts",
+    "errorTitle": "Something went wrong",
+    "errorDescription": "We couldn't load this list. Please try again.",
+    "errorRetry": "Try again"
   }
 }
