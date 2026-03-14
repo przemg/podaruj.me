@@ -17,17 +17,24 @@ export async function generateMetadata({
 
 export default async function SignInPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ next?: string }>;
 }) {
   const { locale } = await params;
+  const { next } = await searchParams;
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (user) {
-    redirect({ href: "/dashboard", locale });
+    // Strip locale prefix if present (next-intl redirect adds it automatically)
+    const href = next
+      ? next.replace(/^\/(en|pl)/, "") || "/dashboard"
+      : "/dashboard";
+    redirect({ href, locale });
   }
 
   const t = await getTranslations({ locale, namespace: "auth.signIn" });

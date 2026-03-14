@@ -123,7 +123,7 @@ export function GuestReserveDialog({
           <p className="text-xs text-landing-text-muted">
             {t("guestDialog.guestNotice")}{" "}
             <a
-              href={`/${locale}/auth/sign-in`}
+              href={`/${locale}/auth/sign-in?next=/${locale}/lists/${listSlug}`}
               className="font-medium text-landing-coral hover:text-landing-coral-dark"
             >
               {t("guestDialog.createAccount")}
