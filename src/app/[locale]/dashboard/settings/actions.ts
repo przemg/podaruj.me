@@ -2,7 +2,6 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createClient as createServiceClient } from "@supabase/supabase-js";
-import { revalidatePath } from "next/cache";
 
 // ── Types ───────────────────────────────────────────────────────────
 
@@ -41,7 +40,6 @@ export async function updateDisplayName(
 
   if (dbError) return { error: "Failed to update display name" };
 
-  revalidatePath("/dashboard", "layout");
   return { success: true };
 }
 

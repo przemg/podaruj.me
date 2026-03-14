@@ -38,9 +38,10 @@ export function ProfileSettings({
     setIsSaving(false);
     setSaveStatus(result.error ? "error" : "success");
     if (!result.error) {
+      router.refresh();
       setTimeout(() => setSaveStatus("idle"), 3000);
     }
-  }, [displayName]);
+  }, [displayName, router]);
 
   const handleDelete = useCallback(async () => {
     setIsDeleting(true);
