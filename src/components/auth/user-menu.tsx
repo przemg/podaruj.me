@@ -4,8 +4,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { createClient } from "@/lib/supabase/client";
-import { User, LogOut, LayoutDashboard, Plus, ChevronDown, Settings } from "lucide-react";
+import { signOut } from "@/lib/supabase/auth";
+import { User, LogOut, Plus, ChevronDown, Settings } from "lucide-react";
 
 export function UserMenu({ email, displayName }: { email: string; displayName?: string | null }) {
   const t = useTranslations("auth.userMenu");
@@ -32,8 +32,7 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
 
   async function handleSignOut() {
     try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
+      await signOut();
       router.push("/");
       router.refresh();
     } catch {
@@ -70,17 +69,6 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
           >
             <Plus className="h-4 w-4" />
             {t("createList")}
-          </button>
-          <button
-            onClick={() => {
-              router.push("/dashboard");
-              setIsOpen(false);
-            }}
-            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
-            role="menuitem"
-          >
-            <LayoutDashboard className="h-4 w-4" />
-            {t("dashboard")}
           </button>
           <button
             onClick={() => {

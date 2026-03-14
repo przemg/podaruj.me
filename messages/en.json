@@ -117,14 +117,38 @@
     },
     "userMenu": {
       "createList": "Create new list",
-      "dashboard": "Dashboard",
       "settings": "Settings",
       "signOut": "Sign out"
     }
   },
   "dashboard": {
     "pageTitle": "Dashboard — Podaruj.me",
-    "welcome": "Welcome to Podaruj.me!"
+    "welcome": "Welcome to Podaruj.me!",
+    "nav": {
+      "myLists": "My Lists",
+      "myReservations": "My Reservations"
+    },
+    "myLists": {
+      "title": "My Lists",
+      "createButton": "Create list",
+      "emptyTitle": "No lists yet",
+      "emptyDescription": "Create your first gift list and share it with friends and family.",
+      "emptyAction": "Create your first list",
+      "itemCount": "{count, plural, one {# gift} other {# gifts}}",
+      "daysLeft": "{count, plural, one {in # day} other {in # days}}",
+      "today": "Today!",
+      "pastEvent": "Event passed"
+    },
+    "reservations": {
+      "title": "My Reservations",
+      "pageTitle": "My Reservations — Podaruj.me",
+      "emptyTitle": "You haven't reserved any gifts yet",
+      "emptyDescription": "When you reserve gifts on someone else's list, they'll appear here."
+    },
+    "mobile": {
+      "menu": "Menu",
+      "signOut": "Sign out"
+    }
   },
   "settings": {
     "pageTitle": "Settings — Podaruj.me",

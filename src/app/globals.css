@@ -222,4 +222,9 @@
   .scroll-reveal-scale.revealed {
     animation: none;
   }
+
+  [style*="fade-in-up"] {
+    animation: none !important;
+    opacity: 1;
+  }
 }
