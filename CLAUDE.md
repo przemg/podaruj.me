@@ -40,15 +40,21 @@ src/
       lists/          # Public list pages (no auth required)
         layout.tsx          # Simple layout (logo + footer)
         [slug]/             # Public list view, loading, not-found, error
+          reservation-actions.ts  # Server Actions for reservations
+      reservations/   # Guest reservation token pages (no auth required)
+        layout.tsx          # Simple layout (logo + footer)
+        confirm/[token]/    # Email confirmation page
+        manage/[token]/     # Reservation management/cancel page
   components/
     auth/           # Auth components (sign-in-form, user-menu)
     landing/        # Landing page components
     lists/          # Gift list components (list-form, gift-card, etc.)
-    public/         # Public page components (read-only gift card, header, owner banner)
+    public/         # Public page components (gift card, header, owner banner, reserve button, guest dialog)
     ui/             # shadcn/ui components
   lib/
     supabase/       # Supabase client utilities (client, server, service)
     countdown.ts    # Shared countdown utility
+    email.ts        # Resend email client (reservation confirmations)
     utils.ts        # General utilities (cn helper)
   i18n/             # Internationalization config
   types/            # Shared TypeScript types
@@ -62,6 +68,7 @@ supabase/
 - **profiles** — user profiles (auto-created on signup)
 - **lists** — gift lists with occasion, privacy mode, event date, slug (RLS: owner-only). Slug is used in URLs instead of UUID.
 - **items** — gift items within lists with priority, position (RLS: owner of parent list)
+- **reservations** — gift reservations with privacy modes, guest tokens, status (pending/confirmed). RLS: logged-in users can SELECT/DELETE own reservations; all other access via service client.
 
 ## URL Pattern
 
@@ -77,7 +84,8 @@ Every list has a public URL at `/[locale]/lists/[slug]` — accessible without a
 - **Owner detection:** Server-side check via `createClient()` auth — if logged-in user matches `list.user_id`, show owner banner
 - **Cache invalidation:** All server actions in `actions.ts` call `revalidatePath` for both dashboard and public routes
 - **Components:** `src/components/public/` — read-only gift cards, list header, owner banner
-- **Reserve buttons:** Visible but disabled (coming soon) — reservations feature not yet built
+- **Reservations:** Functional — logged-in users reserve instantly, guests enter nickname + email and confirm via email link. Privacy mode filtering applied server-side.
+- **Reservation actions:** `src/app/[locale]/lists/[slug]/reservation-actions.ts` — uses service client for guest operations (bypasses RLS), auth client for logged-in user cancellation
 
 ## Dashboard Layout
 
@@ -91,7 +99,7 @@ All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`)
 
 ### Dashboard Pages
 - `/dashboard` — "My Lists" page with card grid (real data via Supabase aggregation), empty state, mobile FAB
-- `/dashboard/reservations` — "My Reservations" (empty state placeholder, reservations system not yet built)
+- `/dashboard/reservations` — "My Reservations" showing reserved items grouped by list, with cancel functionality
 
 ## Mutations Pattern
 
