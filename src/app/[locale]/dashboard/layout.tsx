@@ -20,7 +20,10 @@ export default async function DashboardLayout({
       .select("display_name")
       .eq("id", user.id)
       .single();
-    displayName = profile?.display_name ?? null;
+    displayName = profile?.display_name
+      ?? user.user_metadata?.full_name
+      ?? user.user_metadata?.name
+      ?? null;
   }
 
   return (

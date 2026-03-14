@@ -62,7 +62,12 @@ export function ProfileSettings({
 
   const handleLinkGoogle = useCallback(async () => {
     const supabase = createClient();
-    await supabase.auth.linkIdentity({ provider: "google" });
+    await supabase.auth.linkIdentity({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/en/auth/callback?next=/dashboard/settings`,
+      },
+    });
   }, []);
 
   return (
