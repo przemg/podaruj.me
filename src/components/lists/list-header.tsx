@@ -5,6 +5,12 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { getCountdown } from "@/lib/countdown";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
 import { deleteList } from "@/app/[locale]/dashboard/lists/actions";
 import {
@@ -137,20 +143,21 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             <OccasionIcon className="h-3.5 w-3.5 text-landing-coral" />
             {tOccasions(list.occasion)}
           </div>
-          <div className="flex items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
-            <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
-            {tPrivacy(list.privacy_mode)}
-          </div>
-          {list.privacy_mode === "buyers_choice" && (
-            <span className="text-xs text-landing-text-muted">
-              {t("buyersChoiceHint")}
-            </span>
-          )}
-          {list.privacy_mode === "full_surprise" && (
-            <span className="text-xs text-landing-text-muted">
-              {t("fullSurpriseHint")}
-            </span>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex cursor-help items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
+                  <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+                  {tPrivacy(list.privacy_mode)}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="max-w-xs text-center">
+                {list.privacy_mode === "buyers_choice" && t("buyersChoiceHint")}
+                {list.privacy_mode === "full_surprise" && t("fullSurpriseHint")}
+                {list.privacy_mode === "visible" && tPrivacy("visible_description")}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           {countdownLabel && (
             <div className="flex items-center gap-1.5 rounded-full bg-landing-mint/10 px-3 py-1 text-xs font-medium text-landing-text">
               <CalendarDays className="h-3.5 w-3.5 text-emerald-600" />

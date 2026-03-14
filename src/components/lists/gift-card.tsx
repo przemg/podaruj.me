@@ -68,7 +68,7 @@ export function GiftCard({
   const priority = PRIORITY_CONFIG[item.priority] ?? PRIORITY_CONFIG.nice_to_have;
 
   return (
-    <div className="group relative rounded-2xl bg-white/70 p-4 shadow-sm ring-1 ring-landing-text/[0.04] backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:ring-landing-text/[0.08]">
+    <div className={`group relative rounded-2xl bg-white/70 p-4 shadow-sm ring-1 backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:ring-landing-text/[0.08] ${reservation ? "ring-landing-lavender/15" : "ring-landing-text/[0.04]"}`}>
       <div className="flex items-start gap-3">
         {/* Reorder — compact vertical strip */}
         <div className="flex flex-col items-center gap-px pt-0.5">
@@ -118,18 +118,6 @@ export function GiftCard({
             </div>
           </div>
 
-          {/* Reservation badge */}
-          {reservation && (
-            <div className="mt-1 flex items-center gap-1.5">
-              <span className="inline-flex items-center gap-1 rounded-full bg-landing-lavender/10 px-2.5 py-0.5 text-xs font-medium text-landing-lavender ring-1 ring-landing-lavender/20">
-                <Heart className="h-3 w-3 fill-landing-lavender" />
-                {reservation.reserverName
-                  ? `${t("reserved")} · ${reservation.reserverName}`
-                  : t("reserved")}
-              </span>
-            </div>
-          )}
-
           {/* Description */}
           {item.description && (
             <p className="mt-0.5 line-clamp-1 text-sm text-landing-text-muted">
@@ -154,6 +142,16 @@ export function GiftCard({
                 <ExternalLink className="h-3 w-3" />
                 {t("openLink")}
               </a>
+            )}
+
+            {/* Reservation indicator */}
+            {reservation && (
+              <span className="inline-flex items-center gap-1.5 text-xs text-landing-lavender">
+                <Heart className="h-3 w-3 fill-landing-lavender/70" />
+                <span className="font-medium">
+                  {reservation.reserverName ?? t("reserved")}
+                </span>
+              </span>
             )}
 
             {/* Spacer */}
