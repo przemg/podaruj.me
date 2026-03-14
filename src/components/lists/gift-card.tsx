@@ -172,28 +172,41 @@ export function GiftCard({
               <div className="flex-1" />
 
               {/* Actions */}
-              <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={actionsDisabled ? undefined : onEdit}
-                  disabled={!!actionsDisabled}
-                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text disabled:cursor-not-allowed disabled:opacity-25"
-                  aria-label={t("edit")}
-                >
-                  <Pencil className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={actionsDisabled ? undefined : onDelete}
-                  disabled={!!actionsDisabled}
-                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:text-landing-text-muted/50"
-                  aria-label={t("delete")}
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </Button>
-              </div>
+              {actionsDisabled ? (
+                <div className="group/actions relative flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
+                  <span className="flex h-8 w-8 items-center justify-center text-landing-text-muted/25">
+                    <Pencil className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="flex h-8 w-8 items-center justify-center text-landing-text-muted/25">
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </span>
+                  <div className="pointer-events-none absolute bottom-full right-0 z-10 mb-2 rounded-lg bg-landing-text/90 px-3 py-1.5 text-xs text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity whitespace-nowrap group-hover/actions:opacity-100">
+                    {isFullSurprise ? t("surpriseCannotEdit") : t("reservedCannotEdit")}
+                    <div className="absolute -bottom-1 right-4 h-2 w-2 rotate-45 bg-landing-text/90" />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={onEdit}
+                    className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text"
+                    aria-label={t("edit")}
+                  >
+                    <Pencil className="h-3.5 w-3.5" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={onDelete}
+                    className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500"
+                    aria-label={t("delete")}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
