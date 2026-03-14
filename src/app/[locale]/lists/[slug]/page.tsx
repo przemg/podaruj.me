@@ -13,6 +13,12 @@ type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
+export type ReservationInfo = {
+  status: "available" | "pending" | "reserved";
+  isOwnReservation: boolean;
+  reserverName?: string | null;
+};
+
 async function getListBySlug(slug: string) {
   const supabase = createServiceClient();
 
@@ -32,6 +38,67 @@ async function getListBySlug(slug: string) {
     .order("position", { ascending: true });
 
   return { list, items: items ?? [] };
+}
+
+async function getReservationsForList(
+  listId: string,
+  privacyMode: string,
+  isOwner: boolean,
+  currentUserId: string | null
+): Promise<Record<string, ReservationInfo>> {
+  // Full Surprise: owner sees NO reservation data at all
+  if (isOwner && privacyMode === "full_surprise") return {};
+
+  const supabase = createServiceClient();
+  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
+  // Fetch all non-expired reservations for this list
+  const { data: reservations } = await supabase
+    .from("reservations")
+    .select("item_id, user_id, guest_nickname, show_name, status, created_at")
+    .eq("list_id", listId)
+    .or(`status.eq.confirmed,and(status.eq.pending,created_at.gte.${twentyFourHoursAgo})`);
+
+  if (!reservations || reservations.length === 0) return {};
+
+  // Build a map of item_id → ReservationInfo
+  const map: Record<string, ReservationInfo> = {};
+
+  for (const r of reservations) {
+    const isOwn = currentUserId !== null && r.user_id === currentUserId;
+    const status = r.status === "pending" ? "pending" as const : "reserved" as const;
+
+    // Determine reserver name based on privacy mode and viewer
+    let reserverName: string | null = null;
+
+    if (privacyMode === "visible") {
+      // Everyone sees names
+      reserverName = r.guest_nickname || null;
+      if (r.user_id && !r.guest_nickname) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("id", r.user_id)
+          .single();
+        reserverName = profile?.display_name || null;
+      }
+    } else if (isOwner && privacyMode === "buyers_choice" && r.show_name) {
+      // Owner sees name only if reserver opted in
+      reserverName = r.guest_nickname || null;
+      if (r.user_id && !r.guest_nickname) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("id", r.user_id)
+          .single();
+        reserverName = profile?.display_name || null;
+      }
+    }
+
+    map[r.item_id] = { status, isOwnReservation: isOwn, reserverName };
+  }
+
+  return map;
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -68,17 +135,28 @@ export default async function PublicListPage({ params }: PageProps) {
 
   // Check if the current user is the list owner (server-side only)
   let isOwner = false;
+  let currentUser: { id: string } | null = null;
   try {
     const authClient = await createClient();
     const {
       data: { user },
     } = await authClient.auth.getUser();
-    if (user && user.id === list.user_id) {
-      isOwner = true;
+    if (user) {
+      currentUser = user;
+      if (user.id === list.user_id) {
+        isOwner = true;
+      }
     }
   } catch {
-    // Not authenticated — that's fine, guest view
+    // Not authenticated — guest view
   }
+
+  const reservationMap = await getReservationsForList(
+    list.id,
+    list.privacy_mode,
+    isOwner,
+    currentUser?.id ?? null
+  );
 
   // Prepare translated strings for the header (server-side)
   const t = await getTranslations({ locale, namespace: "public" });
@@ -130,6 +208,12 @@ export default async function PublicListPage({ params }: PageProps) {
                   item={item}
                   locale={locale}
                   index={index}
+                  reservation={reservationMap[item.id] ?? { status: "available", isOwnReservation: false }}
+                  privacyMode={list.privacy_mode}
+                  isOwner={isOwner}
+                  listSlug={list.slug}
+                  isAuthenticated={currentUser !== null && !isOwner}
+                  itemId={item.id}
                 />
               ))}
             </div>

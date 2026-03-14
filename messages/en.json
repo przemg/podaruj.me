@@ -143,7 +143,12 @@
       "title": "My Reservations",
       "pageTitle": "My Reservations — Podaruj.me",
       "emptyTitle": "You haven't reserved any gifts yet",
-      "emptyDescription": "When you reserve gifts on someone else's list, they'll appear here."
+      "emptyDescription": "When you reserve gifts on someone else's list, they'll appear here.",
+      "cancelButton": "Cancel",
+      "cancelling": "Cancelling...",
+      "listLabel": "List",
+      "viewList": "View list",
+      "reservedOn": "Reserved on {date}"
     },
     "mobile": {
       "menu": "Menu",
@@ -294,7 +299,27 @@
     "eventToday": "Today!",
     "eventPassed": "Event has passed",
     "reserveButton": "Reserve",
-    "reserveComingSoon": "Coming soon",
+    "reservedBadge": "Reserved",
+    "reservedByYou": "Reserved by you",
+    "pendingBadge": "Pending reservation",
+    "cancelReservation": "Cancel",
+    "reserveConfirm": "Confirm reservation",
+    "showNameToggle": "Show my name to the list owner",
+    "guestDialog": {
+      "title": "Reserve this gift",
+      "nicknameLabel": "Your nickname",
+      "nicknamePlaceholder": "e.g. John",
+      "emailLabel": "Your email",
+      "emailPlaceholder": "your@email.com",
+      "emailHelp": "We'll send a confirmation link to this email",
+      "submitButton": "Reserve",
+      "submitting": "Reserving...",
+      "successTitle": "Check your email!",
+      "successMessage": "We sent a confirmation link to {email}. Click it to confirm your reservation.",
+      "errorAlreadyReserved": "This item is already reserved",
+      "errorRateLimit": "Too many reservations. Please try again later.",
+      "closeButton": "Close"
+    },
     "ownerBanner": "This is your list",
     "ownerBannerLink": "Manage in dashboard",
     "ownerBannerDismiss": "Dismiss",
@@ -305,5 +330,34 @@
     "errorTitle": "Something went wrong",
     "errorDescription": "We couldn't load this list. Please try again.",
     "errorRetry": "Try again"
+  },
+  "reservations": {
+    "confirm": {
+      "pageTitle": "Confirm Reservation — Podaruj.me",
+      "successTitle": "Reservation confirmed!",
+      "successMessage": "Your reservation has been confirmed.",
+      "alreadyConfirmedTitle": "Already confirmed",
+      "alreadyConfirmedMessage": "This reservation was already confirmed.",
+      "expiredTitle": "Reservation expired",
+      "expiredMessage": "This reservation has expired. The item is available for others to reserve.",
+      "errorTitle": "Reservation not found",
+      "errorMessage": "This reservation link is invalid or has been cancelled.",
+      "manageLink": "Manage your reservation"
+    },
+    "manage": {
+      "pageTitle": "Manage Reservation — Podaruj.me",
+      "title": "Your reservation",
+      "itemLabel": "Gift",
+      "listLabel": "From list",
+      "statusLabel": "Status",
+      "statusConfirmed": "Confirmed",
+      "statusPending": "Pending confirmation",
+      "cancelButton": "Cancel reservation",
+      "cancelling": "Cancelling...",
+      "cancelledTitle": "Reservation cancelled",
+      "cancelledMessage": "Your reservation has been cancelled. The item is now available for others.",
+      "notFoundTitle": "Reservation not found",
+      "notFoundMessage": "This reservation link is invalid or has already been cancelled."
+    }
   }
 }
