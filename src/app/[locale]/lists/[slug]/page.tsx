@@ -161,6 +161,7 @@ export default async function PublicListPage({ params }: PageProps) {
   const tOccasions = await getTranslations({ locale, namespace: "lists.occasions" });
 
   const tPrivacy = await getTranslations({ locale, namespace: "lists.privacyModes" });
+  const tPrivacyHint = await getTranslations({ locale, namespace: "public.privacyDescriptions" });
 
   let countdownLabel: string | null = null;
   let countdownType: "days" | "today" | "past" | null = null;
@@ -188,6 +189,7 @@ export default async function PublicListPage({ params }: PageProps) {
           countdownLabel={countdownLabel}
           countdownType={countdownType}
           privacyLabel={tPrivacy(list.privacy_mode)}
+          privacyHint={tPrivacyHint(list.privacy_mode)}
           privacyMode={list.privacy_mode}
         />
 

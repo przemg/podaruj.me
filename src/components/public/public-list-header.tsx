@@ -18,6 +18,7 @@ type PublicListHeaderProps = {
   countdownLabel: string | null;
   countdownType: "days" | "today" | "past" | null;
   privacyLabel?: string;
+  privacyHint?: string;
   privacyMode?: string;
 };
 
@@ -42,6 +43,7 @@ export function PublicListHeader({
   countdownLabel,
   countdownType,
   privacyLabel,
+  privacyHint,
   privacyMode,
 }: PublicListHeaderProps) {
   const OccasionIcon = OCCASION_ICONS[occasionKey] ?? Gift;
@@ -92,9 +94,17 @@ export function PublicListHeader({
           </div>
         )}
         {privacyLabel && PrivacyIcon && (
-          <div className="flex items-center gap-1.5 rounded-full bg-landing-lavender-wash px-3.5 py-1.5 text-sm font-medium text-landing-text shadow-sm ring-1 ring-landing-lavender/10">
-            <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
-            {privacyLabel}
+          <div className="group/privacy relative">
+            <div className="flex cursor-help items-center gap-1.5 rounded-full bg-landing-lavender-wash px-3.5 py-1.5 text-sm font-medium text-landing-text shadow-sm ring-1 ring-landing-lavender/10">
+              <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+              {privacyLabel}
+            </div>
+            {privacyHint && (
+              <div className="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 rounded-lg bg-landing-text/90 px-3 py-1.5 text-xs leading-relaxed text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity group-hover/privacy:opacity-100 whitespace-nowrap">
+                {privacyHint}
+                <div className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-landing-text/90" />
+              </div>
+            )}
           </div>
         )}
       </div>
