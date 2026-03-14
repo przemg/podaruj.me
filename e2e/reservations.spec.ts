@@ -141,9 +141,10 @@ async function gotoListPage(page: import("@playwright/test").Page, slug: string)
   await page.goto(`/en/lists/${slug}`);
   await page.waitForLoadState("networkidle");
 
-  // If the page was cached before items were seeded, reload once
-  const item = page.getByText("E2E Test Gift Item");
-  if (!(await item.isVisible().catch(() => false))) {
+  // If the page was cached before items were seeded, reload up to 2 times
+  for (let i = 0; i < 2; i++) {
+    const item = page.getByText("E2E Test Gift Item");
+    if (await item.isVisible().catch(() => false)) return;
     await page.reload();
     await page.waitForLoadState("networkidle");
   }
@@ -182,9 +183,8 @@ test.describe("Reservation flows", () => {
       await seedTestList(slug, "visible");
     });
 
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
+    // Cleanup happens in beforeAll of next run (not afterAll) to avoid
+    // deleting data while another Playwright project is still using it.
 
     test("shows Reserve button on items (guest view)", async ({ page }) => {
       await gotoListPage(page, slug);
@@ -211,9 +211,8 @@ test.describe("Reservation flows", () => {
       await seedTestList(slug, "visible");
     });
 
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
+    // Cleanup happens in beforeAll of next run (not afterAll) to avoid
+    // deleting data while another Playwright project is still using it.
 
     test("opens dialog with nickname field on Reserve click", async ({
       page,
@@ -269,9 +268,8 @@ test.describe("Reservation flows", () => {
       await seedReservation(listId, itemId);
     });
 
-    test.afterAll(async () => {
-      await cleanupTestData(slug);
-    });
+    // Cleanup happens in beforeAll of next run (not afterAll) to avoid
+    // deleting data while another Playwright project is still using it.
 
     test("reserved item does not show reserver name in full_surprise mode (guest view)", async ({
       page,
