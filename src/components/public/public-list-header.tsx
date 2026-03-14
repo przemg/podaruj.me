@@ -18,7 +18,6 @@ type PublicListHeaderProps = {
   countdownLabel: string | null;
   countdownType: "days" | "today" | "past" | null;
   privacyLabel?: string;
-  privacyDescription?: string;
   privacyMode?: string;
 };
 
@@ -43,7 +42,6 @@ export function PublicListHeader({
   countdownLabel,
   countdownType,
   privacyLabel,
-  privacyDescription,
   privacyMode,
 }: PublicListHeaderProps) {
   const OccasionIcon = OCCASION_ICONS[occasionKey] ?? Gift;
@@ -101,12 +99,6 @@ export function PublicListHeader({
         )}
       </div>
 
-      {/* Privacy mode description */}
-      {privacyDescription && (
-        <p className="mx-auto mt-3 max-w-md text-xs text-landing-text-muted/70">
-          {privacyDescription}
-        </p>
-      )}
     </div>
   );
 }

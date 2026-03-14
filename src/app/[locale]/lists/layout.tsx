@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
-import { Gift } from "lucide-react";
+import { Gift, LayoutDashboard } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function PublicListLayout({
   children,
@@ -8,6 +9,15 @@ export default async function PublicListLayout({
   children: React.ReactNode;
 }) {
   const t = await getTranslations("public");
+
+  let isAuthenticated = false;
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    isAuthenticated = !!user;
+  } catch {
+    // Not authenticated
+  }
 
   return (
     <div className="min-h-dvh bg-gradient-to-b from-landing-cream via-landing-cream to-landing-peach-wash/30">
@@ -20,6 +30,15 @@ export default async function PublicListLayout({
             <Gift className="h-6 w-6 text-landing-coral" />
             <span>Podaruj.me</span>
           </Link>
+          {isAuthenticated && (
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-1.5 rounded-full bg-landing-text/[0.04] px-3.5 py-1.5 text-sm font-medium text-landing-text-muted transition-colors hover:bg-landing-text/[0.08] hover:text-landing-text"
+            >
+              <LayoutDashboard className="h-3.5 w-3.5" />
+              {t("dashboardButton")}
+            </Link>
+          )}
         </div>
       </header>
       <main>{children}</main>
