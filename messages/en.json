@@ -118,12 +118,42 @@
     "userMenu": {
       "createList": "Create new list",
       "dashboard": "Dashboard",
+      "settings": "Settings",
       "signOut": "Sign out"
     }
   },
   "dashboard": {
     "pageTitle": "Dashboard — Podaruj.me",
     "welcome": "Welcome to Podaruj.me!"
+  },
+  "settings": {
+    "pageTitle": "Settings — Podaruj.me",
+    "title": "Profile settings",
+    "subtitle": "Manage your account and preferences",
+    "profileSection": "Profile info",
+    "displayNameLabel": "Display name",
+    "displayNamePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailHelp": "Email cannot be changed",
+    "avatarAlt": "Profile avatar",
+    "saveButton": "Save changes",
+    "saving": "Saving...",
+    "saveSuccess": "Profile updated!",
+    "saveError": "Failed to update profile",
+    "connectedAccountsSection": "Connected accounts",
+    "googleConnected": "Connected as {email}",
+    "googleNotConnected": "Not connected",
+    "linkGoogle": "Link Google account",
+    "dangerZoneSection": "Danger zone",
+    "dangerZoneDescription": "Once you delete your account, there is no going back.",
+    "deleteButton": "Delete my account",
+    "deleteDialogTitle": "Delete your account?",
+    "deleteDialogDescription": "This will permanently delete your account, all your lists, items, and reservation data. This action cannot be undone.",
+    "deleteDialogConfirmLabel": "Type DELETE to confirm",
+    "deleteDialogConfirmPlaceholder": "DELETE",
+    "deleteDialogConfirm": "Delete my account",
+    "deleteDialogCancel": "Cancel",
+    "deleting": "Deleting..."
   },
   "lists": {
     "create": {
