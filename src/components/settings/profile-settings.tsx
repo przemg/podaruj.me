@@ -130,8 +130,9 @@ export function ProfileSettings({
               <Input
                 id="email"
                 value={email}
-                disabled
-                className="bg-landing-cream/50 text-landing-text-muted"
+                readOnly
+                tabIndex={-1}
+                className="cursor-not-allowed bg-landing-cream/50 text-landing-text-muted focus-visible:ring-0 focus-visible:border-input"
               />
               <p className="text-xs text-landing-text-muted">{t("emailHelp")}</p>
             </div>

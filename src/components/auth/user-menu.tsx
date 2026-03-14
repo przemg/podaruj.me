@@ -7,7 +7,7 @@ import { useRouter } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { User, LogOut, LayoutDashboard, Plus, ChevronDown, Settings } from "lucide-react";
 
-export function UserMenu({ email }: { email: string }) {
+export function UserMenu({ email, displayName }: { email: string; displayName?: string | null }) {
   const t = useTranslations("auth.userMenu");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +46,7 @@ export function UserMenu({ email }: { email: string }) {
         aria-haspopup="menu"
       >
         <User className="h-4 w-4 opacity-60" />
-        <span className="max-w-[150px] truncate">{email}</span>
+        <span className="max-w-[150px] truncate">{displayName || email}</span>
         <ChevronDown
           className={`h-3 w-3 opacity-40 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />

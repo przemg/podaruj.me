@@ -33,6 +33,16 @@ export default async function SettingsPage() {
   );
   const googleEmail = googleIdentity?.identity_data?.email as string | null ?? null;
 
+  // Fall back to Google metadata for avatar and display name if not in profile
+  const googleAvatar = googleIdentity?.identity_data?.avatar_url as string | null ?? null;
+  const googleName = (googleIdentity?.identity_data?.full_name ??
+    googleIdentity?.identity_data?.name) as string | null ?? null;
+
+  const resolvedProfile = {
+    display_name: profile?.display_name ?? googleName,
+    avatar_url: profile?.avatar_url ?? googleAvatar,
+  };
+
   const t = await getTranslations("settings");
 
   return (
@@ -42,7 +52,7 @@ export default async function SettingsPage() {
         <p className="mt-2 text-landing-text-muted">{t("subtitle")}</p>
       </div>
       <ProfileSettings
-        profile={profile ?? { display_name: null, avatar_url: null }}
+        profile={resolvedProfile}
         email={user.email ?? ""}
         googleEmail={googleEmail}
       />
