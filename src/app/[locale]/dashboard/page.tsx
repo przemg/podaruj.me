@@ -63,7 +63,7 @@ export default async function DashboardPage() {
 
       {/* List grid or empty state */}
       {hasLists ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {lists.map((list, index) => {
             const itemCount =
               (list.items as unknown as { count: number }[])?.[0]?.count ?? 0;

@@ -21,14 +21,17 @@ export function DashboardNav() {
             key={href}
             href={href}
             className={cn(
-              "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all",
+              "relative flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all",
               isActive
-                ? "bg-landing-coral/10 text-landing-coral-dark"
-                : "text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
+                ? "bg-landing-coral/8 text-landing-coral-dark"
+                : "text-landing-text-muted hover:bg-landing-peach-wash/60 hover:text-landing-text"
             )}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className={cn("h-4 w-4", isActive && "text-landing-coral")} />
             {t(labelKey)}
+            {isActive && (
+              <span className="absolute -bottom-[9px] left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-landing-coral" />
+            )}
           </Link>
         );
       })}

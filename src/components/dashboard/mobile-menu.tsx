@@ -69,7 +69,7 @@ export function MobileMenu({ email }: { email: string }) {
                       : "text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
                   )}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className={cn("h-4 w-4", isActive && "text-landing-coral")} />
                   {tNav(labelKey)}
                 </Link>
               );
