@@ -151,6 +151,8 @@ export async function updateList(
 
   if (dbError) return { error: "Failed to update list" };
 
+  revalidatePath(`/${locale}/lists/${slug}`);
+  revalidatePath(`/${locale}/lists/${newSlug}`);
   redirect(`/${locale}/dashboard/lists/${newSlug}`);
 }
 
@@ -167,6 +169,7 @@ export async function deleteList(
 
   if (dbError) return { error: "Failed to delete list" };
 
+  revalidatePath(`/${locale}/lists/${slug}`);
   redirect(`/${locale}/dashboard`);
 }
 
@@ -208,6 +211,7 @@ export async function createItem(
   if (dbError) return { error: "Failed to add gift" };
 
   revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
+  revalidatePath(`/${locale}/lists/${listSlug}`);
   return {};
 }
 
@@ -237,6 +241,7 @@ export async function updateItem(
   if (dbError) return { error: "Failed to update gift" };
 
   revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
+  revalidatePath(`/${locale}/lists/${listSlug}`);
   return {};
 }
 
@@ -255,6 +260,7 @@ export async function deleteItem(
   if (dbError) return { error: "Failed to delete gift" };
 
   revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
+  revalidatePath(`/${locale}/lists/${listSlug}`);
   return {};
 }
 
@@ -279,5 +285,6 @@ export async function reorderItems(
   if (failed?.error) return { error: "Failed to reorder gifts" };
 
   revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
+  revalidatePath(`/${locale}/lists/${listSlug}`);
   return {};
 }
