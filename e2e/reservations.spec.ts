@@ -35,7 +35,8 @@ function getServiceClient() {
 
 // ── Test data helpers ─────────────────────────────────────────────────────────
 
-const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
+// Must be a real user ID that exists in auth.users (FK constraint)
+const TEST_USER_ID = "9be5da3d-5f36-4e43-9d40-5c697d73bca1";
 const TEST_SLUG_PREFIX = "e2e-reservations-test-";
 
 async function seedTestList(
@@ -427,7 +428,7 @@ test.describe("Reservation flows", () => {
       await page.waitForLoadState("networkidle");
 
       // Reservation layout should show the logo
-      await expect(page.getByText("Podaruj.me")).toBeVisible({ timeout: 10000 });
+      await expect(page.getByText("Podaruj.me").first()).toBeVisible({ timeout: 10000 });
     });
 
     test("manage page renders within reservation layout (has logo)", async ({
@@ -438,7 +439,7 @@ test.describe("Reservation flows", () => {
       );
       await page.waitForLoadState("networkidle");
 
-      await expect(page.getByText("Podaruj.me")).toBeVisible({ timeout: 10000 });
+      await expect(page.getByText("Podaruj.me").first()).toBeVisible({ timeout: 10000 });
     });
   });
 });
