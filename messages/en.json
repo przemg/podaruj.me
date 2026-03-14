@@ -210,7 +210,6 @@
       "editButton": "Edit",
       "deleteButton": "Delete list",
       "shareButton": "Share",
-      "shareComingSoon": "Sharing is coming soon!",
       "daysLeft": "{count, plural, one {# day left} other {# days left}}",
       "today": "Today!",
       "pastEvent": "Event has passed",

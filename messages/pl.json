@@ -210,7 +210,6 @@
       "editButton": "Edytuj",
       "deleteButton": "Usuń listę",
       "shareButton": "Udostępnij",
-      "shareComingSoon": "Udostępnianie już wkrótce!",
       "daysLeft": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dni}}",
       "today": "Dziś!",
       "pastEvent": "Wydarzenie minęło",
