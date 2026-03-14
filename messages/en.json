@@ -284,9 +284,11 @@
     "confirmDelete": {
       "title": "Delete this gift?",
       "description": "This gift will be permanently removed from the list.",
+      "surpriseWarning": "This list uses Full Surprise mode — someone may have already bought this gift. Deleting it could lead to duplicate gifts.",
       "confirm": "Yes, delete",
       "cancel": "Cancel"
     },
+    "reservedCannotEdit": "This item is reserved and cannot be edited",
     "moveUp": "Move up",
     "moveDown": "Move down",
     "openLink": "Open link",

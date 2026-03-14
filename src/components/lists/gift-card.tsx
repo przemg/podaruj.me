@@ -3,6 +3,12 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   ChevronUp,
   ChevronDown,
   Pencil,
@@ -10,6 +16,7 @@ import {
   ExternalLink,
   Heart,
   UserRound,
+  Lock,
 } from "lucide-react";
 
 type ItemData = {
@@ -33,6 +40,8 @@ type GiftCardProps = {
   isLast: boolean;
   locale: string;
   reservation?: ReservationBadge;
+  privacyMode?: string;
+  isReserved?: boolean;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onEdit: () => void;
@@ -58,6 +67,8 @@ export function GiftCard({
   isLast,
   locale,
   reservation,
+  privacyMode,
+  isReserved,
   onMoveUp,
   onMoveDown,
   onEdit,
@@ -67,6 +78,11 @@ export function GiftCard({
   const tPriority = useTranslations("items.priority");
 
   const priority = PRIORITY_CONFIG[item.priority] ?? PRIORITY_CONFIG.nice_to_have;
+
+  // In Visible / Buyer's Choice: disable edit/delete when reserved
+  // In Full Surprise: allow edit/delete (owner doesn't see reservation) but warn on delete
+  const isFullSurprise = privacyMode === "full_surprise";
+  const actionsDisabled = reservation && !isFullSurprise;
 
   return (
     <div
@@ -160,26 +176,43 @@ export function GiftCard({
               {/* Spacer */}
               <div className="flex-1" />
 
-              {/* Actions — subtle, right-aligned */}
+              {/* Actions */}
               <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={onEdit}
-                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text"
-                  aria-label={t("edit")}
-                >
-                  <Pencil className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={onDelete}
-                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500"
-                  aria-label={t("delete")}
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </Button>
+                {actionsDisabled ? (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs text-landing-text-muted/40">
+                          <Lock className="h-3 w-3" />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">
+                        {t("reservedCannotEdit")}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ) : (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={onEdit}
+                      className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text"
+                      aria-label={t("edit")}
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={onDelete}
+                      className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500"
+                      aria-label={t("delete")}
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>

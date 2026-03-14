@@ -97,6 +97,17 @@ export default async function ListDetailPage({
   // Fetch reservation info for this list (owner view)
   const reservations = await getReservationsForOwner(list.id, list.privacy_mode);
 
+  // For Full Surprise: get reserved item IDs (without names) for delete warning only
+  let reservedItemIds: string[] = [];
+  if (list.privacy_mode === "full_surprise") {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("reservations")
+      .select("item_id")
+      .eq("list_id", list.id);
+    reservedItemIds = data?.map((r: { item_id: string }) => r.item_id) ?? [];
+  }
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <ListHeader list={list} locale={locale} />
@@ -106,6 +117,8 @@ export default async function ListDetailPage({
         listSlug={list.slug}
         locale={locale}
         reservations={reservations}
+        privacyMode={list.privacy_mode}
+        reservedItemIds={reservedItemIds}
       />
     </div>
   );

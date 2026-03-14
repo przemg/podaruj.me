@@ -34,9 +34,11 @@ type GiftListProps = {
   listSlug: string;
   locale: string;
   reservations?: Record<string, ReservationBadge>;
+  privacyMode?: string;
+  reservedItemIds?: string[];
 };
 
-export function GiftList({ items, listId, listSlug, locale, reservations }: GiftListProps) {
+export function GiftList({ items, listId, listSlug, locale, reservations, privacyMode, reservedItemIds }: GiftListProps) {
   const t = useTranslations("items");
   const tConfirm = useTranslations("items.confirmDelete");
   const router = useRouter();
@@ -167,6 +169,8 @@ export function GiftList({ items, listId, listSlug, locale, reservations }: Gift
               isLast={index === orderedItems.length - 1}
               locale={locale}
               reservation={reservations?.[item.id]}
+              privacyMode={privacyMode}
+              isReserved={!!reservations?.[item.id] || !!reservedItemIds?.includes(item.id)}
               onMoveUp={() => handleMoveUp(index)}
               onMoveDown={() => handleMoveDown(index)}
               onEdit={() => handleEdit(item)}
@@ -211,7 +215,11 @@ export function GiftList({ items, listId, listSlug, locale, reservations }: Gift
           if (!open) setDeletingItem(undefined);
         }}
         title={tConfirm("title")}
-        description={tConfirm("description")}
+        description={
+          privacyMode === "full_surprise" && deletingItem && reservedItemIds?.includes(deletingItem.id)
+            ? tConfirm("surpriseWarning")
+            : tConfirm("description")
+        }
         confirmLabel={tConfirm("confirm")}
         cancelLabel={tConfirm("cancel")}
         onConfirm={handleDeleteConfirm}

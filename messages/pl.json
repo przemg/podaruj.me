@@ -284,9 +284,11 @@
     "confirmDelete": {
       "title": "Usunąć ten prezent?",
       "description": "Prezent zostanie trwale usunięty z listy.",
+      "surpriseWarning": "Ta lista używa trybu Pełna Niespodzianka — ktoś mógł już kupić ten prezent. Usunięcie może spowodować duplikaty.",
       "confirm": "Tak, usuń",
       "cancel": "Anuluj"
     },
+    "reservedCannotEdit": "Ten prezent jest zarezerwowany i nie można go edytować",
     "moveUp": "Przesuń w górę",
     "moveDown": "Przesuń w dół",
     "openLink": "Otwórz link",
