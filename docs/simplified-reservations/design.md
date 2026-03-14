@@ -13,6 +13,7 @@ Remove all email verification from the guest reservation flow. Guests enter a ni
 2. Dialog opens with:
    - **Nickname** field (required, max 50 chars)
    - **Show my name** toggle (only in Buyer's Choice mode)
+   - **Notice:** "This reservation cannot be undone. Create an account to manage your reservations." with a link to the sign-in page
 3. Guest clicks "Confirm" → reservation created instantly
 4. Dialog shows success state → closes
 
@@ -24,7 +25,7 @@ Remove all email verification from the guest reservation flow. Guests enter a ni
 
 ## Guest Cancellation
 
-Guests cannot cancel reservations — they have no account, no token, no way to identify themselves. Only logged-in users can cancel via dashboard.
+Guests cannot cancel reservations — they have no account, no token, no way to identify themselves. The dialog warns them before confirming and offers a link to create an account.
 
 ## Removals
 
@@ -36,7 +37,7 @@ Guests cannot cancel reservations — they have no account, no token, no way to 
 | `/reservations/confirm/[token]/` page | Delete |
 | `/reservations/manage/[token]/` page + component | Delete |
 | `/reservations/layout.tsx` | Delete |
-| `reserveItemAsGuest()` action | Replace with simpler version |
+| `reserveItemAsGuest()` action | Replace with simpler version (no email, no token, no status) |
 | `confirmGuestReservation()` action | Delete |
 | `cancelGuestReservation()` action | Delete |
 | `guest_token` DB column | Drop via migration |
@@ -46,16 +47,29 @@ Guests cannot cancel reservations — they have no account, no token, no way to 
 | "Pending" UI states in reserve-button | Remove |
 | Rate limiting logic | Remove |
 | Pending expiry cleanup | Remove |
+| `ConfirmStatus` type | Delete |
+
+## Modifications Required
+
+These files reference dropped columns and need updates:
+
+| File | Change |
+|------|--------|
+| `reservation-actions.ts` — `reserveItem()` | Remove `status: "confirmed"` from insert |
+| `reservation-actions.ts` — `getMyReservations()` | Remove `.eq("status", "confirmed")` filter |
+| `reservation-actions.ts` — `isItemAvailable()` | Simplify: just check if any reservation row exists (remove pending/expiry logic) |
+| `src/app/[locale]/lists/[slug]/page.tsx` | Remove `status` from select, remove pending filter logic, simplify `ReservationInfo` type to `"available" \| "reserved"` |
+| `guest-reserve-dialog.tsx` | Remove email field, email validation, email state, "check your email" success message. Add "can't be undone" notice with sign-in link. |
+| `reserve-button.tsx` | Remove pending state handling |
+| `messages/en.json` + `messages/pl.json` | Remove: `guestDialog.emailLabel`, `emailPlaceholder`, `emailHelp`, `successMessage`, `pendingBadge`, `reservations.confirm.*`, `reservations.manage.*`. Add: guest notice text. |
 
 ## What Stays Unchanged
 
 - Privacy modes (Buyer's Choice, Visible, Full Surprise)
-- `reserveItem()` for logged-in users
 - `cancelReservation()` for logged-in users
-- `getMyReservations()` for dashboard
 - `ReservePopover` (Buyer's Choice toggle for logged-in users)
 - Dashboard "My Reservations" page
-- `reserve-button.tsx` logic (simplified — no pending state)
+- `reservation-card.tsx` in dashboard
 
 ## DB Migration
 
@@ -82,7 +96,7 @@ ALTER TABLE reservations
 | Action | Registered user | Guest (via link) |
 |--------|----------------|------------------|
 | Reserve item | Instant | Instant (with nickname) |
-| Cancel reservation | Via dashboard | Not possible |
+| Cancel reservation | Via dashboard | Not possible (prompted to create account) |
 
 ## PROJECT.md Updates
 
@@ -91,3 +105,4 @@ ALTER TABLE reservations
 - Update Access Model permissions table
 - Update Reservations feature list (remove "Guest reservation with email confirmation")
 - Simplify guest flow description in Link/QR invitation path
+- Note that guests are prompted to create an account for reservation management
