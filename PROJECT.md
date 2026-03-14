@@ -87,6 +87,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Three privacy modes (Buyer's Choice, Visible, Full Surprise) ✅
 - Instant guest reservation with nickname ✅
 - Dashboard "My Reservations" with real data ✅
+- Owner sees reservation status on list detail page (respects privacy modes) ✅
 - Reservation swap — ask someone who already reserved an item to hand it over (with a message explaining why). The other person accepts or declines. Visibility of swaps follows the list's privacy mode.
 
 ### Sharing & Access

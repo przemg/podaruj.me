@@ -94,6 +94,7 @@ All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`)
 
 ### Dashboard Pages
 - `/dashboard` — "My Lists" page with card grid (real data via Supabase aggregation), empty state, mobile FAB
+- `/dashboard/lists/[slug]` — List detail with items, reservation status badges (respects privacy modes), privacy mode tooltip
 - `/dashboard/reservations` — "My Reservations" showing reserved items grouped by list, with cancel functionality
 
 ## Mutations Pattern

@@ -250,6 +250,7 @@
   "items": {
     "sectionTitle": "Gifts",
     "reserved": "Reserved",
+    "reservedAnonymous": "Reserved by someone",
     "addButton": "Add gift",
     "form": {
       "addTitle": "Add a gift",

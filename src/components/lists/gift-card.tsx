@@ -9,6 +9,7 @@ import {
   Trash2,
   ExternalLink,
   Heart,
+  UserRound,
 } from "lucide-react";
 
 type ItemData = {
@@ -68,118 +69,140 @@ export function GiftCard({
   const priority = PRIORITY_CONFIG[item.priority] ?? PRIORITY_CONFIG.nice_to_have;
 
   return (
-    <div className={`group relative rounded-2xl bg-white/70 p-4 shadow-sm ring-1 backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:ring-landing-text/[0.08] ${reservation ? "ring-landing-lavender/15" : "ring-landing-text/[0.04]"}`}>
-      <div className="flex items-start gap-3">
-        {/* Reorder — compact vertical strip */}
-        <div className="flex flex-col items-center gap-px pt-0.5">
-          <button
-            onClick={onMoveUp}
-            disabled={isFirst}
-            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible"
-            aria-label={t("moveUp")}
-          >
-            <ChevronUp className="h-4 w-4" />
-          </button>
-          <button
-            onClick={onMoveDown}
-            disabled={isLast}
-            className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible"
-            aria-label={t("moveDown")}
-          >
-            <ChevronDown className="h-4 w-4" />
-          </button>
-        </div>
+    <div
+      className={`group relative overflow-hidden rounded-2xl shadow-sm backdrop-blur-sm transition-all duration-200 hover:shadow-md ${
+        reservation
+          ? "bg-landing-lavender/[0.04] ring-1 ring-landing-lavender/12 hover:ring-landing-lavender/20"
+          : "bg-white/70 ring-1 ring-landing-text/[0.04] hover:ring-landing-text/[0.08]"
+      }`}
+    >
+      {/* Left accent bar for reserved items */}
+      {reservation && (
+        <div className="absolute top-0 left-0 h-full w-1 bg-gradient-to-b from-landing-lavender/60 via-landing-lavender/40 to-landing-lavender/20" />
+      )}
 
-        {/* Image thumbnail */}
-        {item.image_url && (
-          <div className="hidden h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-landing-text/5 sm:block">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={item.image_url}
-              alt={item.name}
-              className="h-full w-full object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = "none";
-              }}
-            />
+      <div className={`p-4 ${reservation ? "pl-5" : ""}`}>
+        <div className="flex items-start gap-3">
+          {/* Reorder — compact vertical strip */}
+          <div className="flex flex-col items-center gap-px pt-0.5">
+            <button
+              onClick={onMoveUp}
+              disabled={isFirst}
+              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible"
+              aria-label={t("moveUp")}
+            >
+              <ChevronUp className="h-4 w-4" />
+            </button>
+            <button
+              onClick={onMoveDown}
+              disabled={isLast}
+              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible"
+              aria-label={t("moveDown")}
+            >
+              <ChevronDown className="h-4 w-4" />
+            </button>
           </div>
-        )}
 
-        {/* Content */}
-        <div className="min-w-0 flex-1">
-          {/* Top row: name + priority */}
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-landing-text leading-snug">
-              {item.name}
-            </h3>
-            <div className={`flex shrink-0 items-center gap-1.5 text-xs font-medium ${priority.text}`}>
-              <span className={`h-1.5 w-1.5 rounded-full ${priority.dot}`} />
-              {tPriority(item.priority)}
+          {/* Image thumbnail */}
+          {item.image_url && (
+            <div className="hidden h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-landing-text/5 sm:block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={item.image_url}
+                alt={item.name}
+                className="h-full w-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                }}
+              />
             </div>
-          </div>
-
-          {/* Description */}
-          {item.description && (
-            <p className="mt-0.5 line-clamp-1 text-sm text-landing-text-muted">
-              {item.description}
-            </p>
           )}
 
-          {/* Meta row: price, link, actions */}
-          <div className="mt-2 flex items-center gap-3">
-            {item.price != null && (
-              <span className="text-sm font-semibold text-landing-text">
-                {formatPrice(item.price, locale)}
-              </span>
-            )}
-            {item.url && (
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-landing-coral transition-colors hover:bg-landing-coral/5 hover:text-landing-coral-dark"
-              >
-                <ExternalLink className="h-3 w-3" />
-                {t("openLink")}
-              </a>
+          {/* Content */}
+          <div className="min-w-0 flex-1">
+            {/* Top row: name + priority */}
+            <div className="flex items-start justify-between gap-3">
+              <h3 className="font-semibold text-landing-text leading-snug">
+                {item.name}
+              </h3>
+              <div className={`flex shrink-0 items-center gap-1.5 text-xs font-medium ${priority.text}`}>
+                <span className={`h-1.5 w-1.5 rounded-full ${priority.dot}`} />
+                {tPriority(item.priority)}
+              </div>
+            </div>
+
+            {/* Description */}
+            {item.description && (
+              <p className="mt-0.5 line-clamp-1 text-sm text-landing-text-muted">
+                {item.description}
+              </p>
             )}
 
-            {/* Reservation indicator */}
-            {reservation && (
-              <span className="inline-flex items-center gap-1.5 text-xs text-landing-lavender">
-                <Heart className="h-3 w-3 fill-landing-lavender/70" />
-                <span className="font-medium">
-                  {reservation.reserverName ?? t("reserved")}
+            {/* Meta row: price, link, actions */}
+            <div className="mt-2 flex items-center gap-3">
+              {item.price != null && (
+                <span className="text-sm font-semibold text-landing-text">
+                  {formatPrice(item.price, locale)}
                 </span>
-              </span>
-            )}
+              )}
+              {item.url && (
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-landing-coral transition-colors hover:bg-landing-coral/5 hover:text-landing-coral-dark"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  {t("openLink")}
+                </a>
+              )}
 
-            {/* Spacer */}
-            <div className="flex-1" />
+              {/* Spacer */}
+              <div className="flex-1" />
 
-            {/* Actions — subtle, right-aligned */}
-            <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onEdit}
-                className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text"
-                aria-label={t("edit")}
-              >
-                <Pencil className="h-3.5 w-3.5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onDelete}
-                className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500"
-                aria-label={t("delete")}
-              >
-                <Trash2 className="h-3.5 w-3.5" />
-              </Button>
+              {/* Actions — subtle, right-aligned */}
+              <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onEdit}
+                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text"
+                  aria-label={t("edit")}
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onDelete}
+                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500"
+                  aria-label={t("delete")}
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Reserved footer strip */}
+        {reservation && (
+          <div className="mt-3 -mx-4 -mb-4 border-t border-landing-lavender/10 bg-landing-lavender/[0.04] px-4 py-2">
+            <div className="flex items-center gap-2 pl-1">
+              <Heart className="h-3.5 w-3.5 fill-landing-lavender/50 text-landing-lavender/50" />
+              {reservation.reserverName ? (
+                <span className="flex items-center gap-1.5 text-xs font-medium text-landing-lavender">
+                  <UserRound className="h-3 w-3" />
+                  {reservation.reserverName}
+                </span>
+              ) : (
+                <span className="text-xs font-medium text-landing-lavender/70">
+                  {t("reservedAnonymous")}
+                </span>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
