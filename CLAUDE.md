@@ -64,7 +64,17 @@ Lists use slug-based URLs: `/dashboard/lists/birthday-wishlist-a3x7k` (name + ra
 
 ## Dashboard Layout
 
-All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`) with a header (logo + user menu). Individual pages should NOT include their own header or `min-h-screen bg-gradient` wrapper.
+All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`) with a header (logo + desktop nav + user menu on desktop; logo + hamburger menu on mobile). Individual pages should NOT include their own header or `min-h-screen bg-gradient` wrapper.
+
+### Dashboard Navigation
+- **Desktop:** Inline pill nav links ("My Lists", "My Reservations") with active state indicator + user menu dropdown
+- **Mobile:** Single hamburger menu (shadcn Sheet) combining nav links + user info + sign out
+- Shared nav config in `src/components/dashboard/nav-items.ts`
+- Active state uses exact match for `/dashboard` and prefix match for sub-routes
+
+### Dashboard Pages
+- `/dashboard` — "My Lists" page with card grid (real data via Supabase aggregation), empty state, mobile FAB
+- `/dashboard/reservations` — "My Reservations" (empty state placeholder, reservations system not yet built)
 
 ## Mutations Pattern
 
