@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
+import { getCountdown } from "@/lib/countdown";
 import { Button } from "@/components/ui/button";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
 import { deleteList } from "@/app/[locale]/dashboard/lists/actions";
@@ -49,22 +50,6 @@ const PRIVACY_ICONS: Record<string, typeof Eye> = {
   full_surprise: EyeOff,
 };
 
-function getCountdown(
-  eventDate: string,
-  t: ReturnType<typeof useTranslations>
-) {
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  const event = new Date(eventDate);
-  event.setHours(0, 0, 0, 0);
-  const diffTime = event.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) return t("today");
-  if (diffDays < 0) return t("pastEvent");
-  return t("daysLeft", { count: diffDays });
-}
-
 export function ListHeader({ list, locale }: ListHeaderProps) {
   const t = useTranslations("lists.detail");
   const tOccasions = useTranslations("lists.occasions");
@@ -76,6 +61,17 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
+
+  const countdownLabel = list.event_date
+    ? (() => {
+        const cd = getCountdown(list.event_date);
+        return cd.type === "today"
+          ? t("today")
+          : cd.type === "past"
+            ? t("pastEvent")
+            : t("daysLeft", { count: cd.days });
+      })()
+    : null;
 
   const handleDelete = async () => {
     setDeleting(true);
@@ -143,10 +139,10 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
             {tPrivacy(list.privacy_mode)}
           </div>
-          {list.event_date && (
+          {countdownLabel && (
             <div className="flex items-center gap-1.5 rounded-full bg-landing-mint/10 px-3 py-1 text-xs font-medium text-landing-text">
               <CalendarDays className="h-3.5 w-3.5 text-emerald-600" />
-              {getCountdown(list.event_date, t)}
+              {countdownLabel}
             </div>
           )}
 
