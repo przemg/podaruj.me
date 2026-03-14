@@ -143,7 +143,12 @@
       "title": "Moje rezerwacje",
       "pageTitle": "Moje rezerwacje — Podaruj.me",
       "emptyTitle": "Nie zarezerwowałeś jeszcze żadnych prezentów",
-      "emptyDescription": "Gdy zarezerwujesz prezent z czyjejś listy, pojawi się tutaj."
+      "emptyDescription": "Gdy zarezerwujesz prezent z czyjejś listy, pojawi się tutaj.",
+      "cancelButton": "Anuluj",
+      "cancelling": "Anulowanie...",
+      "listLabel": "Lista",
+      "viewList": "Zobacz listę",
+      "reservedOn": "Zarezerwowano {date}"
     },
     "mobile": {
       "menu": "Menu",
@@ -294,7 +299,26 @@
     "eventToday": "Dziś!",
     "eventPassed": "Wydarzenie minęło",
     "reserveButton": "Zarezerwuj",
-    "reserveComingSoon": "Wkrótce",
+    "reservedBadge": "Zarezerwowane",
+    "reservedByYou": "Zarezerwowane przez Ciebie",
+    "pendingBadge": "Rezerwacja w toku",
+    "cancelReservation": "Anuluj",
+    "reserveConfirm": "Potwierdź rezerwację",
+    "showNameToggle": "Pokaż moje imię właścicielowi listy",
+    "guestDialog": {
+      "title": "Zarezerwuj ten prezent",
+      "nicknameLabel": "Twój pseudonim",
+      "nicknamePlaceholder": "np. Jan",
+      "emailLabel": "Twój email",
+      "emailPlaceholder": "twoj@email.com",
+      "emailHelp": "Wyślemy link potwierdzający na ten adres",
+      "submitButton": "Zarezerwuj",
+      "submitting": "Rezerwowanie...",
+      "successTitle": "Sprawdź swoją skrzynkę!",
+      "successMessage": "Wysłaliśmy link potwierdzający na {email}. Kliknij go, aby potwierdzić rezerwację.",
+      "errorAlreadyReserved": "Ten prezent jest już zarezerwowany",
+      "errorRateLimit": "Za dużo rezerwacji. Spróbuj ponownie później."
+    },
     "ownerBanner": "To jest Twoja lista",
     "ownerBannerLink": "Zarządzaj w panelu",
     "ownerBannerDismiss": "Zamknij",
@@ -305,5 +329,34 @@
     "errorTitle": "Coś poszło nie tak",
     "errorDescription": "Nie udało się załadować listy. Spróbuj ponownie.",
     "errorRetry": "Spróbuj ponownie"
+  },
+  "reservations": {
+    "confirm": {
+      "pageTitle": "Potwierdź rezerwację — Podaruj.me",
+      "successTitle": "Rezerwacja potwierdzona!",
+      "successMessage": "Twoja rezerwacja została potwierdzona.",
+      "alreadyConfirmedTitle": "Już potwierdzone",
+      "alreadyConfirmedMessage": "Ta rezerwacja została już potwierdzona.",
+      "expiredTitle": "Rezerwacja wygasła",
+      "expiredMessage": "Ta rezerwacja wygasła. Prezent jest dostępny dla innych.",
+      "errorTitle": "Rezerwacja nie znaleziona",
+      "errorMessage": "Ten link rezerwacji jest nieprawidłowy lub został anulowany.",
+      "manageLink": "Zarządzaj rezerwacją"
+    },
+    "manage": {
+      "pageTitle": "Zarządzaj rezerwacją — Podaruj.me",
+      "title": "Twoja rezerwacja",
+      "itemLabel": "Prezent",
+      "listLabel": "Z listy",
+      "statusLabel": "Status",
+      "statusConfirmed": "Potwierdzone",
+      "statusPending": "Oczekuje na potwierdzenie",
+      "cancelButton": "Anuluj rezerwację",
+      "cancelling": "Anulowanie...",
+      "cancelledTitle": "Rezerwacja anulowana",
+      "cancelledMessage": "Twoja rezerwacja została anulowana. Prezent jest teraz dostępny dla innych.",
+      "notFoundTitle": "Rezerwacja nie znaleziona",
+      "notFoundMessage": "Ten link rezerwacji jest nieprawidłowy lub został już anulowany."
+    }
   }
 }
