@@ -32,16 +32,6 @@ export function ReserveButton({
   // Owner can't reserve their own items — render nothing
   if (isOwner) return null;
 
-  // Pending reservation — show muted badge, no action
-  if (reservation.status === "pending") {
-    return (
-      <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-landing-text/[0.04] px-3.5 text-xs font-medium text-landing-text-muted ring-1 ring-landing-text/10">
-        <span className="h-1.5 w-1.5 rounded-full bg-landing-text-muted/50" />
-        {t("pendingBadge")}
-      </span>
-    );
-  }
-
   // Reserved by the current user — show "Reserved by you" + cancel button
   if (reservation.status === "reserved" && reservation.isOwnReservation) {
     return (
