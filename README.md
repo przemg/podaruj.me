@@ -2,6 +2,8 @@
 
 Gift list sharing platform — create wish lists for any occasion, share them via link or QR code, and let others reserve gifts without duplicates. Guests can browse and reserve without creating an account.
 
+**Production:** https://podarujme.vercel.app
+
 Portfolio / vibe coding learning project. See [PROJECT.md](PROJECT.md) for the full product vision.
 
 ## Tech Stack
