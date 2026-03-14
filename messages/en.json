@@ -96,7 +96,7 @@
     "signIn": {
       "pageTitle": "Sign in — Podaruj.me",
       "title": "Sign in to your account",
-      "subtitle": "We'll send you a link to sign in",
+      "subtitle": "Sign in to manage your gift lists",
       "emailPlaceholder": "your@email.com",
       "sendLink": "Send magic link",
       "sending": "Sending...",
@@ -109,11 +109,14 @@
       "errorInvalid": "This link is no longer valid.",
       "errorRateLimit": "Too many attempts. Please wait a moment.",
       "errorGeneric": "Something went wrong. Please try again.",
+      "googleButton": "Sign in with Google",
+      "orContinueWithEmail": "or continue with email",
       "noPassword": "No password needed",
       "backToHome": "Back to home",
-      "footerNote": "We'll send you a magic link — no password required"
+      "footerNote": "Sign in with Google or a magic link — no password required"
     },
     "userMenu": {
+      "createList": "Create new list",
       "dashboard": "Dashboard",
       "signOut": "Sign out"
     }

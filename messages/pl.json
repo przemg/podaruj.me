@@ -96,7 +96,7 @@
     "signIn": {
       "pageTitle": "Zaloguj się — Podaruj.me",
       "title": "Zaloguj się na swoje konto",
-      "subtitle": "Wyślemy Ci link do zalogowania",
+      "subtitle": "Zaloguj się, aby zarządzać listami prezentów",
       "emailPlaceholder": "twoj@email.com",
       "sendLink": "Wyślij magiczny link",
       "sending": "Wysyłanie...",
@@ -109,11 +109,14 @@
       "errorInvalid": "Ten link jest już nieaktywny.",
       "errorRateLimit": "Za dużo prób. Poczekaj chwilę.",
       "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+      "googleButton": "Zaloguj się przez Google",
+      "orContinueWithEmail": "lub kontynuuj przez email",
       "noPassword": "Bez hasła",
       "backToHome": "Wróć na stronę główną",
-      "footerNote": "Wyślemy Ci magiczny link — hasło nie jest potrzebne"
+      "footerNote": "Zaloguj się przez Google lub magiczny link — bez hasła"
     },
     "userMenu": {
+      "createList": "Utwórz nową listę",
       "dashboard": "Panel",
       "signOut": "Wyloguj się"
     }
