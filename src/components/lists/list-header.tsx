@@ -11,6 +11,7 @@ import {
   Pencil,
   Trash2,
   Share2,
+  Check,
   Cake,
   Snowflake,
   Heart,
@@ -58,6 +59,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
@@ -146,11 +148,28 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             </div>
           )}
 
-          {/* Share — pushed right */}
-          <div className="ml-auto flex items-center gap-2 text-xs text-landing-text-muted/60">
-            <Share2 className="h-3.5 w-3.5" />
-            <span>{t("shareComingSoon")}</span>
-          </div>
+          {/* Share button — copies public link */}
+          <button
+            onClick={async () => {
+              const url = `${window.location.origin}/${locale}/lists/${list.slug}`;
+              await navigator.clipboard.writeText(url);
+              setShareCopied(true);
+              setTimeout(() => setShareCopied(false), 2000);
+            }}
+            className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral/10 px-3 py-1 text-xs font-medium text-landing-coral transition-colors hover:bg-landing-coral/20"
+          >
+            {shareCopied ? (
+              <>
+                <Check className="h-3.5 w-3.5" />
+                {t("shareCopied")}
+              </>
+            ) : (
+              <>
+                <Share2 className="h-3.5 w-3.5" />
+                {t("shareButton")}
+              </>
+            )}
+          </button>
         </div>
       </div>
 
