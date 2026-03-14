@@ -171,6 +171,7 @@ export function GiftList({ items, listId, listSlug, locale, reservations, privac
               reservation={reservations?.[item.id]}
               privacyMode={privacyMode}
               isReserved={!!reservations?.[item.id] || !!reservedItemIds?.includes(item.id)}
+              hasAnyReservation={(reservedItemIds?.length ?? 0) > 0 || Object.keys(reservations ?? {}).length > 0}
               onMoveUp={() => handleMoveUp(index)}
               onMoveDown={() => handleMoveDown(index)}
               onEdit={() => handleEdit(item)}

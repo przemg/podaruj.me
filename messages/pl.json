@@ -289,6 +289,7 @@
       "cancel": "Anuluj"
     },
     "reservedCannotEdit": "Ten prezent jest zarezerwowany i nie można go edytować",
+    "surpriseCannotEdit": "Edycja wyłączona — ta lista może mieć rezerwacje",
     "moveUp": "Przesuń w górę",
     "moveDown": "Przesuń w dół",
     "openLink": "Otwórz link",

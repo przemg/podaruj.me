@@ -42,6 +42,7 @@ type GiftCardProps = {
   reservation?: ReservationBadge;
   privacyMode?: string;
   isReserved?: boolean;
+  hasAnyReservation?: boolean;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onEdit: () => void;
@@ -69,6 +70,7 @@ export function GiftCard({
   reservation,
   privacyMode,
   isReserved,
+  hasAnyReservation,
   onMoveUp,
   onMoveDown,
   onEdit,
@@ -79,10 +81,10 @@ export function GiftCard({
 
   const priority = PRIORITY_CONFIG[item.priority] ?? PRIORITY_CONFIG.nice_to_have;
 
-  // In Visible / Buyer's Choice: disable edit/delete when reserved
-  // In Full Surprise: allow edit/delete (owner doesn't see reservation) but warn on delete
   const isFullSurprise = privacyMode === "full_surprise";
-  const actionsDisabled = reservation && !isFullSurprise;
+  // Visible / Buyer's Choice: disable when this item is reserved
+  // Full Surprise: disable ALL items when any reservation exists (to not reveal which)
+  const actionsDisabled = reservation || (isFullSurprise && hasAnyReservation);
 
   return (
     <div
@@ -186,8 +188,10 @@ export function GiftCard({
                           <Lock className="h-3 w-3" />
                         </span>
                       </TooltipTrigger>
-                      <TooltipContent side="top">
-                        {t("reservedCannotEdit")}
+                      <TooltipContent side="top" className="max-w-xs">
+                        {isFullSurprise
+                          ? t("surpriseCannotEdit")
+                          : t("reservedCannotEdit")}
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>

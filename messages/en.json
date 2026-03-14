@@ -289,6 +289,7 @@
       "cancel": "Cancel"
     },
     "reservedCannotEdit": "This item is reserved and cannot be edited",
+    "surpriseCannotEdit": "Editing is disabled — this list may have reservations",
     "moveUp": "Move up",
     "moveDown": "Move down",
     "openLink": "Open link",

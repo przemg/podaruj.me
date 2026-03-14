@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -251,6 +252,16 @@ export async function deleteItem(
   itemId: string
 ): Promise<ActionResult> {
   const { supabase } = await getAuthenticatedClient();
+
+  // Block deletion if item has an active reservation
+  const serviceClient = createServiceClient();
+  const { data: reservation } = await serviceClient
+    .from("reservations")
+    .select("id")
+    .eq("item_id", itemId)
+    .single();
+
+  if (reservation) return { error: "Cannot delete a reserved item" };
 
   const { error: dbError } = await supabase
     .from("items")
