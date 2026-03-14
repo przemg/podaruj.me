@@ -14,7 +14,7 @@ type PageProps = {
 };
 
 export type ReservationInfo = {
-  status: "available" | "pending" | "reserved";
+  status: "available" | "reserved";
   isOwnReservation: boolean;
   reserverName?: string | null;
 };
@@ -50,14 +50,12 @@ async function getReservationsForList(
   if (isOwner && privacyMode === "full_surprise") return {};
 
   const supabase = createServiceClient();
-  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-  // Fetch all non-expired reservations for this list
+  // Fetch all reservations for this list
   const { data: reservations } = await supabase
     .from("reservations")
-    .select("item_id, user_id, guest_nickname, show_name, status, created_at")
-    .eq("list_id", listId)
-    .or(`status.eq.confirmed,and(status.eq.pending,created_at.gte.${twentyFourHoursAgo})`);
+    .select("item_id, user_id, guest_nickname, show_name")
+    .eq("list_id", listId);
 
   if (!reservations || reservations.length === 0) return {};
 
@@ -66,7 +64,7 @@ async function getReservationsForList(
 
   for (const r of reservations) {
     const isOwn = currentUserId !== null && r.user_id === currentUserId;
-    const status = r.status === "pending" ? "pending" as const : "reserved" as const;
+    const status = "reserved" as const;
 
     // Determine reserver name based on privacy mode and viewer
     let reserverName: string | null = null;
