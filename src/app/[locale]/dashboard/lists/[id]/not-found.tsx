@@ -6,7 +6,7 @@ export default async function ListNotFound() {
   const t = await getTranslations("lists.notFound");
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
+    <div className="flex min-h-[60vh] items-center justify-center">
       <div
         className="px-4 text-center"
         style={{ animation: "fade-in-up 0.4s ease-out" }}

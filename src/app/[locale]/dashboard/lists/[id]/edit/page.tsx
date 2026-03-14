@@ -20,13 +20,13 @@ export default async function EditListPage({
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const { locale, id } = await params;
+  const { locale, id: slug } = await params;
   const supabase = await createClient();
 
   const { data: list } = await supabase
     .from("lists")
     .select("*")
-    .eq("id", id)
+    .eq("slug", slug)
     .single();
 
   if (!list) notFound();
@@ -34,10 +34,9 @@ export default async function EditListPage({
   const t = await getTranslations("lists.edit");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
-      <div className="mx-auto max-w-2xl px-4 py-8">
+    <div className="mx-auto max-w-2xl px-4 py-8">
         <Link
-          href={`/dashboard/lists/${id}`}
+          href={`/dashboard/lists/${list.slug}`}
           className="mb-6 inline-flex items-center gap-2 text-sm text-landing-text-muted transition-colors hover:text-landing-text"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -52,7 +51,7 @@ export default async function EditListPage({
         <ListForm
           mode="edit"
           locale={locale}
-          listId={id}
+          listId={list.slug}
           defaultValues={{
             name: list.name,
             description: list.description ?? "",
@@ -61,7 +60,6 @@ export default async function EditListPage({
             privacyMode: list.privacy_mode,
           }}
         />
-      </div>
     </div>
   );
 }

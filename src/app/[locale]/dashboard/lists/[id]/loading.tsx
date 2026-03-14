@@ -1,7 +1,6 @@
 export default function ListDetailLoading() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
-      <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="mx-auto max-w-3xl px-4 py-8">
         {/* Back link skeleton */}
         <div className="mb-4 h-4 w-32 animate-pulse rounded bg-landing-text/10" />
 
@@ -33,7 +32,6 @@ export default function ListDetailLoading() {
             className="mb-3 h-28 animate-pulse rounded-xl bg-white/60 shadow-sm"
           />
         ))}
-      </div>
     </div>
   );
 }

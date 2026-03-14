@@ -35,6 +35,7 @@ type GiftFormDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   listId: string;
+  listSlug: string;
   locale: string;
   editItem?: EditItemData;
 };
@@ -51,6 +52,7 @@ export function GiftFormDialog({
   open,
   onOpenChange,
   listId,
+  listSlug,
   locale,
   editItem,
 }: GiftFormDialogProps) {
@@ -88,8 +90,8 @@ export function GiftFormDialog({
       };
 
       const result = editItem
-        ? await updateItem(locale, listId, editItem.id, data)
-        : await createItem(locale, listId, data);
+        ? await updateItem(locale, listSlug, editItem.id, data)
+        : await createItem(locale, listId, listSlug, data);
 
       if (result?.error) {
         setError(result.error);

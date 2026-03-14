@@ -55,12 +55,20 @@ supabase/
 ## Database Tables
 
 - **profiles** — user profiles (auto-created on signup)
-- **lists** — gift lists with occasion, privacy mode, event date (RLS: owner-only)
+- **lists** — gift lists with occasion, privacy mode, event date, slug (RLS: owner-only). Slug is used in URLs instead of UUID.
 - **items** — gift items within lists with priority, position (RLS: owner of parent list)
+
+## URL Pattern
+
+Lists use slug-based URLs: `/dashboard/lists/birthday-wishlist-a3x7k` (name + random hash). Slugs are generated on create and regenerated on edit. All pages and actions use slug for lookups, not UUID.
+
+## Dashboard Layout
+
+All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`) with a header (logo + user menu). Individual pages should NOT include their own header or `min-h-screen bg-gradient` wrapper.
 
 ## Mutations Pattern
 
-All data mutations use **Next.js Server Actions** (functions with `"use server"` in `actions.ts`). Server Actions validate input, check authentication, and use the server Supabase client with RLS enforcement. List actions receive `locale` for redirect paths; item actions receive `locale` for `revalidatePath`.
+All data mutations use **Next.js Server Actions** (functions with `"use server"` in `actions.ts`). Server Actions validate input, check authentication, and use the server Supabase client with RLS enforcement. List actions receive `locale` for redirect paths; item actions receive `locale` and `listSlug` for `revalidatePath`.
 
 ## Key Principles
 

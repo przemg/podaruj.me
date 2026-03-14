@@ -186,6 +186,7 @@
     }
   },
   "items": {
+    "sectionTitle": "Gifts",
     "addButton": "Add gift",
     "form": {
       "addTitle": "Add a gift",

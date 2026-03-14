@@ -186,6 +186,7 @@
     }
   },
   "items": {
+    "sectionTitle": "Prezenty",
     "addButton": "Dodaj prezent",
     "form": {
       "addTitle": "Dodaj prezent",

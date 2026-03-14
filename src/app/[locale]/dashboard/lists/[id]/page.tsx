@@ -19,14 +19,14 @@ export default async function ListDetailPage({
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const { locale, id } = await params;
+  const { locale, id: slug } = await params;
   const supabase = await createClient();
 
-  // Fetch list (RLS ensures ownership)
+  // Fetch list by slug (RLS ensures ownership)
   const { data: list } = await supabase
     .from("lists")
     .select("*")
-    .eq("id", id)
+    .eq("slug", slug)
     .single();
 
   if (!list) notFound();
@@ -35,15 +35,18 @@ export default async function ListDetailPage({
   const { data: items } = await supabase
     .from("items")
     .select("*")
-    .eq("list_id", id)
+    .eq("list_id", list.id)
     .order("position", { ascending: true });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
-      <div className="mx-auto max-w-3xl px-4 py-8">
-        <ListHeader list={list} locale={locale} />
-        <GiftList items={items ?? []} listId={id} locale={locale} />
-      </div>
+    <div className="mx-auto max-w-3xl px-4 py-8">
+      <ListHeader list={list} locale={locale} />
+      <GiftList
+        items={items ?? []}
+        listId={list.id}
+        listSlug={list.slug}
+        locale={locale}
+      />
     </div>
   );
 }

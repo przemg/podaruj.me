@@ -27,10 +27,11 @@ type ItemData = {
 type GiftListProps = {
   items: ItemData[];
   listId: string;
+  listSlug: string;
   locale: string;
 };
 
-export function GiftList({ items, listId, locale }: GiftListProps) {
+export function GiftList({ items, listId, listSlug, locale }: GiftListProps) {
   const t = useTranslations("items");
   const tConfirm = useTranslations("items.confirmDelete");
   const router = useRouter();
@@ -60,6 +61,7 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
       await reorderItems(
         locale,
         listId,
+        listSlug,
         newItems.map((item) => item.id)
       );
     },
@@ -78,6 +80,7 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
       await reorderItems(
         locale,
         listId,
+        listSlug,
         newItems.map((item) => item.id)
       );
     },
@@ -97,7 +100,7 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
   const handleDeleteConfirm = useCallback(async () => {
     if (!deletingItem) return;
     setDeleteLoading(true);
-    await deleteItem(locale, listId, deletingItem.id);
+    await deleteItem(locale, listSlug, deletingItem.id);
     setDeleteLoading(false);
     setDeleteDialogOpen(false);
     setDeletingItem(undefined);
@@ -106,13 +109,19 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
 
   return (
     <div>
-      {/* Add gift button */}
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-landing-text">
-          {t("addButton")} ({orderedItems.length})
-        </h2>
+      {/* Section header */}
+      <div className="mb-5 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <h2 className="text-lg font-semibold text-landing-text">
+            {t("sectionTitle")}
+          </h2>
+          <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-landing-text/5 px-2 text-xs font-medium text-landing-text-muted">
+            {orderedItems.length}
+          </span>
+        </div>
         <Button
           onClick={() => setAddDialogOpen(true)}
+          size="sm"
           className="cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover"
         >
           <Plus className="mr-1.5 h-4 w-4" />
@@ -167,6 +176,7 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
           open={addDialogOpen}
           onOpenChange={setAddDialogOpen}
           listId={listId}
+          listSlug={listSlug}
           locale={locale}
         />
       )}
@@ -181,6 +191,7 @@ export function GiftList({ items, listId, locale }: GiftListProps) {
             if (!open) setEditingItem(undefined);
           }}
           listId={listId}
+          listSlug={listSlug}
           locale={locale}
           editItem={editingItem}
         />

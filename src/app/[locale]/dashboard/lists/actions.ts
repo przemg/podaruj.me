@@ -64,6 +64,24 @@ function validateItemData(data: ItemFormData): string | null {
   return null;
 }
 
+// ── Slug helper ─────────────────────────────────────────────────────
+
+function generateSlug(name: string): string {
+  const base = name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // strip diacritics
+    .replace(/[^a-z0-9\s-]/g, "")   // remove special chars
+    .trim()
+    .replace(/\s+/g, "-")           // spaces to hyphens
+    .replace(/-+/g, "-")            // collapse multiple hyphens
+    .slice(0, 80);                  // limit length
+
+  // Append 5-char random hash for uniqueness
+  const hash = Math.random().toString(36).slice(2, 7);
+  return `${base}-${hash}`;
+}
+
 // ── Auth helper ─────────────────────────────────────────────────────
 
 async function getAuthenticatedClient() {
@@ -86,6 +104,8 @@ export async function createList(
 
   const { supabase, user } = await getAuthenticatedClient();
 
+  const slug = generateSlug(data.name);
+
   const { data: list, error: dbError } = await supabase
     .from("lists")
     .insert({
@@ -95,24 +115,27 @@ export async function createList(
       occasion: data.occasion,
       event_date: data.eventDate || null,
       privacy_mode: data.privacyMode,
+      slug,
     })
-    .select("id")
+    .select("slug")
     .single();
 
   if (dbError) return { error: "Failed to create list" };
 
-  redirect(`/${locale}/dashboard/lists/${list.id}`);
+  redirect(`/${locale}/dashboard/lists/${list.slug}`);
 }
 
 export async function updateList(
   locale: string,
-  listId: string,
+  slug: string,
   data: ListFormData
 ): Promise<ActionResult> {
   const error = validateListData(data);
   if (error) return { error };
 
   const { supabase } = await getAuthenticatedClient();
+
+  const newSlug = generateSlug(data.name);
 
   const { error: dbError } = await supabase
     .from("lists")
@@ -122,24 +145,25 @@ export async function updateList(
       occasion: data.occasion,
       event_date: data.eventDate || null,
       privacy_mode: data.privacyMode,
+      slug: newSlug,
     })
-    .eq("id", listId);
+    .eq("slug", slug);
 
   if (dbError) return { error: "Failed to update list" };
 
-  redirect(`/${locale}/dashboard/lists/${listId}`);
+  redirect(`/${locale}/dashboard/lists/${newSlug}`);
 }
 
 export async function deleteList(
   locale: string,
-  listId: string
+  slug: string
 ): Promise<ActionResult> {
   const { supabase } = await getAuthenticatedClient();
 
   const { error: dbError } = await supabase
     .from("lists")
     .delete()
-    .eq("id", listId);
+    .eq("slug", slug);
 
   if (dbError) return { error: "Failed to delete list" };
 
@@ -151,6 +175,7 @@ export async function deleteList(
 export async function createItem(
   locale: string,
   listId: string,
+  listSlug: string,
   data: ItemFormData
 ): Promise<ActionResult> {
   const error = validateItemData(data);
@@ -182,13 +207,13 @@ export async function createItem(
 
   if (dbError) return { error: "Failed to add gift" };
 
-  revalidatePath(`/${locale}/dashboard/lists/${listId}`);
+  revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
   return {};
 }
 
 export async function updateItem(
   locale: string,
-  listId: string,
+  listSlug: string,
   itemId: string,
   data: ItemFormData
 ): Promise<ActionResult> {
@@ -211,13 +236,13 @@ export async function updateItem(
 
   if (dbError) return { error: "Failed to update gift" };
 
-  revalidatePath(`/${locale}/dashboard/lists/${listId}`);
+  revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
   return {};
 }
 
 export async function deleteItem(
   locale: string,
-  listId: string,
+  listSlug: string,
   itemId: string
 ): Promise<ActionResult> {
   const { supabase } = await getAuthenticatedClient();
@@ -229,13 +254,14 @@ export async function deleteItem(
 
   if (dbError) return { error: "Failed to delete gift" };
 
-  revalidatePath(`/${locale}/dashboard/lists/${listId}`);
+  revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
   return {};
 }
 
 export async function reorderItems(
   locale: string,
   listId: string,
+  listSlug: string,
   itemIds: string[]
 ): Promise<ActionResult> {
   const { supabase } = await getAuthenticatedClient();
@@ -252,6 +278,6 @@ export async function reorderItems(
   const failed = results.find((r) => r.error);
   if (failed?.error) return { error: "Failed to reorder gifts" };
 
-  revalidatePath(`/${locale}/dashboard/lists/${listId}`);
+  revalidatePath(`/${locale}/dashboard/lists/${listSlug}`);
   return {};
 }

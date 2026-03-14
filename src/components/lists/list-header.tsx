@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
 import { deleteList } from "@/app/[locale]/dashboard/lists/actions";
 import {
@@ -19,10 +18,12 @@ import {
   Eye,
   EyeOff,
   CalendarDays,
+  ArrowLeft,
 } from "lucide-react";
 
 type ListData = {
   id: string;
+  slug: string;
   name: string;
   description: string | null;
   occasion: string;
@@ -48,7 +49,10 @@ const PRIVACY_ICONS: Record<string, typeof Eye> = {
   full_surprise: EyeOff,
 };
 
-function getCountdown(eventDate: string, t: ReturnType<typeof useTranslations>) {
+function getCountdown(
+  eventDate: string,
+  t: ReturnType<typeof useTranslations>
+) {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
   const event = new Date(eventDate);
@@ -69,105 +73,88 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [shareTooltip, setShareTooltip] = useState(false);
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
 
   const handleDelete = async () => {
     setDeleting(true);
-    await deleteList(locale, list.id);
-    // Server Action redirects on success
+    await deleteList(locale, list.slug);
   };
 
   return (
-    <div
-      className="mb-8 space-y-4"
-      style={{ animation: "fade-in-up 0.4s ease-out" }}
-    >
+    <div style={{ animation: "fade-in-up 0.4s ease-out" }}>
       {/* Back link */}
       <button
         onClick={() => router.push("/dashboard")}
-        className="mb-2 inline-flex cursor-pointer items-center gap-1 text-sm text-landing-text-muted transition-colors hover:text-landing-text"
+        className="mb-6 inline-flex cursor-pointer items-center gap-1.5 text-sm text-landing-text-muted transition-colors hover:text-landing-text"
       >
-        ← {t("backToDashboard")}
+        <ArrowLeft className="h-3.5 w-3.5" />
+        {t("backToDashboard")}
       </button>
 
-      {/* Title */}
-      <h1 className="text-2xl font-bold text-landing-text md:text-3xl">
-        {list.name}
-      </h1>
+      {/* Header card */}
+      <div className="mb-8 rounded-2xl bg-white/70 p-6 shadow-sm backdrop-blur-sm ring-1 ring-landing-text/[0.04]">
+        {/* Title + actions row */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl font-bold tracking-tight text-landing-text md:text-3xl">
+              {list.name}
+            </h1>
+            {list.description && (
+              <p className="mt-2 text-[0.95rem] leading-relaxed text-landing-text-muted">
+                {list.description}
+              </p>
+            )}
+          </div>
 
-      {/* Description */}
-      {list.description && (
-        <p className="text-landing-text-muted">{list.description}</p>
-      )}
+          {/* Actions — top right on desktop */}
+          <div className="flex items-center gap-1.5 sm:shrink-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                router.push(`/dashboard/lists/${list.slug}/edit`)
+              }
+              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
+            >
+              <Pencil className="h-3.5 w-3.5" />
+              {t("editButton")}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setDeleteOpen(true)}
+              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              {t("deleteButton")}
+            </Button>
+          </div>
+        </div>
 
-      {/* Badges */}
-      <div className="flex flex-wrap items-center gap-2">
-        <Badge
-          variant="secondary"
-          className="flex items-center gap-1.5 bg-landing-peach-wash text-landing-text"
-        >
-          <OccasionIcon className="h-3.5 w-3.5" />
-          {tOccasions(list.occasion)}
-        </Badge>
-        <Badge
-          variant="secondary"
-          className="flex items-center gap-1.5 bg-landing-lavender-wash text-landing-text"
-        >
-          <PrivacyIcon className="h-3.5 w-3.5" />
-          {tPrivacy(list.privacy_mode)}
-        </Badge>
-        {list.event_date && (
-          <Badge
-            variant="secondary"
-            className="flex items-center gap-1.5 bg-landing-mint/20 text-landing-text"
-          >
-            <CalendarDays className="h-3.5 w-3.5" />
-            {getCountdown(list.event_date, t)}
-          </Badge>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-wrap items-center gap-2 pt-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => router.push(`/dashboard/lists/${list.id}/edit`)}
-          className="cursor-pointer border-landing-text/10 hover:bg-landing-peach-wash"
-        >
-          <Pencil className="mr-1.5 h-4 w-4" />
-          {t("editButton")}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setDeleteOpen(true)}
-          className="cursor-pointer border-landing-text/10 text-red-500 hover:bg-red-50 hover:text-red-600"
-        >
-          <Trash2 className="mr-1.5 h-4 w-4" />
-          {t("deleteButton")}
-        </Button>
-        <div className="relative">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled
-            onClick={() => setShareTooltip(!shareTooltip)}
-            onMouseEnter={() => setShareTooltip(true)}
-            onMouseLeave={() => setShareTooltip(false)}
-            className="border-landing-text/10 opacity-50"
-          >
-            <Share2 className="mr-1.5 h-4 w-4" />
-            {t("shareButton")}
-          </Button>
-          {shareTooltip && (
-            <div className="absolute left-1/2 top-full z-10 mt-1 -translate-x-1/2 whitespace-nowrap rounded-lg bg-landing-text px-3 py-1.5 text-xs text-white shadow-lg">
-              {t("shareComingSoon")}
+        {/* Badges + share */}
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1.5 rounded-full bg-landing-peach-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
+            <OccasionIcon className="h-3.5 w-3.5 text-landing-coral" />
+            {tOccasions(list.occasion)}
+          </div>
+          <div className="flex items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
+            <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+            {tPrivacy(list.privacy_mode)}
+          </div>
+          {list.event_date && (
+            <div className="flex items-center gap-1.5 rounded-full bg-landing-mint/10 px-3 py-1 text-xs font-medium text-landing-text">
+              <CalendarDays className="h-3.5 w-3.5 text-emerald-600" />
+              {getCountdown(list.event_date, t)}
             </div>
           )}
+
+          {/* Share — pushed right */}
+          <div className="ml-auto flex items-center gap-2 text-xs text-landing-text-muted/60">
+            <Share2 className="h-3.5 w-3.5" />
+            <span>{t("shareComingSoon")}</span>
+          </div>
         </div>
       </div>
 

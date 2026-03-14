@@ -22,23 +22,21 @@ export default async function CreateListPage({
   const t = await getTranslations("lists.create");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
-      <div className="mx-auto max-w-2xl px-4 py-8">
-        <Link
-          href="/dashboard"
-          className="mb-6 inline-flex items-center gap-2 text-sm text-landing-text-muted transition-colors hover:text-landing-text"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          {t("title")}
-        </Link>
+    <div className="mx-auto max-w-2xl px-4 py-8">
+      <Link
+        href="/dashboard"
+        className="mb-6 inline-flex items-center gap-2 text-sm text-landing-text-muted transition-colors hover:text-landing-text"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        {t("title")}
+      </Link>
 
-        <h1 className="mb-2 text-2xl font-bold text-landing-text">
-          {t("title")}
-        </h1>
-        <p className="mb-8 text-landing-text-muted">{t("subtitle")}</p>
+      <h1 className="mb-2 text-2xl font-bold text-landing-text">
+        {t("title")}
+      </h1>
+      <p className="mb-8 text-landing-text-muted">{t("subtitle")}</p>
 
-        <ListForm mode="create" locale={locale} />
-      </div>
+      <ListForm mode="create" locale={locale} />
     </div>
   );
 }

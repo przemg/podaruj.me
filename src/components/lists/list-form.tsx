@@ -213,36 +213,93 @@ export function ListForm({
         <RadioGroup
           value={privacyMode}
           onValueChange={setPrivacyMode}
-          className="space-y-3"
+          className="grid gap-3"
         >
           {privacyModes.map((pm) => {
             const Icon = PRIVACY_ICONS[pm];
+            const isSelected = privacyMode === pm;
+
+            const colorMap = {
+              buyers_choice: {
+                iconBg: "bg-landing-lavender/15",
+                iconColor: "text-landing-lavender",
+                selectedBorder: "border-landing-lavender/40",
+                selectedBg: "bg-landing-lavender-wash",
+                ring: "ring-landing-lavender/20",
+              },
+              visible: {
+                iconBg: "bg-landing-mint/15",
+                iconColor: "text-emerald-600",
+                selectedBorder: "border-landing-mint/50",
+                selectedBg: "bg-landing-mint/5",
+                ring: "ring-landing-mint/20",
+              },
+              full_surprise: {
+                iconBg: "bg-landing-coral/10",
+                iconColor: "text-landing-coral",
+                selectedBorder: "border-landing-coral/30",
+                selectedBg: "bg-landing-peach-wash",
+                ring: "ring-landing-coral/20",
+              },
+            } as const;
+
+            const colors = colorMap[pm];
+
             return (
               <label
                 key={pm}
                 htmlFor={`privacy-${pm}`}
-                className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition-all duration-200 ${
-                  privacyMode === pm
-                    ? "border-landing-coral/30 bg-landing-coral/5 shadow-sm"
-                    : "border-landing-text/10 bg-white hover:border-landing-text/20"
+                className={`group relative flex cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ${
+                  isSelected
+                    ? `${colors.selectedBorder} ${colors.selectedBg} shadow-sm ring-2 ${colors.ring}`
+                    : "border-transparent bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
                 }`}
               >
                 <RadioGroupItem
                   value={pm}
                   id={`privacy-${pm}`}
-                  className="mt-0.5 border-landing-text/20 text-landing-coral"
+                  className="sr-only"
                 />
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <Icon className="h-4 w-4 text-landing-text-muted" />
-                    <span className="font-medium text-landing-text">
-                      {tPrivacy(pm)}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm text-landing-text-muted">
+
+                {/* Icon circle */}
+                <div
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 ${colors.iconBg} ${
+                    isSelected ? "scale-110" : "group-hover:scale-105"
+                  }`}
+                >
+                  <Icon className={`h-5 w-5 ${colors.iconColor}`} />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1 min-w-0">
+                  <span className="font-semibold text-landing-text text-[0.95rem] leading-tight">
+                    {tPrivacy(pm)}
+                  </span>
+                  <p className="mt-0.5 text-sm text-landing-text-muted leading-snug">
                     {tPrivacy(`${pm}_description`)}
                   </p>
                 </div>
+
+                {/* Selected checkmark */}
+                {isSelected && (
+                  <div
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${colors.iconBg}`}
+                  >
+                    <svg
+                      className={`h-3.5 w-3.5 ${colors.iconColor}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                )}
               </label>
             );
           })}
