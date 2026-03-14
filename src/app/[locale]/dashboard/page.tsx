@@ -18,11 +18,9 @@ export async function generateMetadata({
 
 function getCountdown(eventDate: string, t: Awaited<ReturnType<typeof getTranslations>>) {
   const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  const event = new Date(eventDate);
-  event.setHours(0, 0, 0, 0);
-  const diffTime = event.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const nowUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  const eventUtc = new Date(eventDate + "T00:00:00Z").getTime();
+  const diffDays = Math.ceil((eventUtc - nowUtc) / (1000 * 60 * 60 * 24));
 
   if (diffDays === 0) return t("today");
   if (diffDays < 0) return t("pastEvent");
@@ -34,10 +32,14 @@ export default async function DashboardPage() {
   const t = await getTranslations("dashboard.myLists");
   const tOccasions = await getTranslations("lists.occasions");
 
-  const { data: lists } = await supabase
+  const { data: lists, error } = await supabase
     .from("lists")
     .select("id, slug, name, occasion, event_date, created_at, items(count)")
     .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Failed to fetch lists:", error);
+  }
 
   const hasLists = lists && lists.length > 0;
 
@@ -77,7 +79,6 @@ export default async function DashboardPage() {
                   name={list.name}
                   occasion={list.occasion}
                   eventDate={list.event_date}
-                  itemCount={itemCount}
                   t={{
                     occasion: tOccasions(list.occasion),
                     itemCount: t("itemCount", { count: itemCount }),

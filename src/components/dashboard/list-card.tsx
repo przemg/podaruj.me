@@ -13,7 +13,6 @@ type ListCardProps = {
   name: string;
   occasion: string;
   eventDate: string | null;
-  itemCount: number;
   t: {
     occasion: string;
     itemCount: string;
@@ -52,7 +51,6 @@ export function ListCard({
   name,
   occasion,
   eventDate,
-  itemCount,
   t,
 }: ListCardProps) {
   const config = OCCASION_CONFIG[occasion] ?? OCCASION_CONFIG.other;
