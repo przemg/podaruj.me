@@ -1,6 +1,8 @@
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { UserMenu } from "@/components/auth/user-menu";
+import { DashboardNav } from "@/components/dashboard/dashboard-nav";
+import { MobileMenu } from "@/components/dashboard/mobile-menu";
 import { Gift } from "lucide-react";
 
 export default async function DashboardLayout({
@@ -24,7 +26,17 @@ export default async function DashboardLayout({
             <Gift className="h-6 w-6 text-landing-coral" />
             <span>Podaruj.me</span>
           </Link>
-          {user?.email && <UserMenu email={user.email} />}
+          <div className="flex items-center gap-3">
+            <DashboardNav />
+            {user?.email && (
+              <>
+                <div className="hidden md:block">
+                  <UserMenu email={user.email} />
+                </div>
+                <MobileMenu email={user.email} />
+              </>
+            )}
+          </div>
         </div>
       </header>
       {children}
