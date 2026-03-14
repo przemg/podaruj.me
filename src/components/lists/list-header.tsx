@@ -141,6 +141,16 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
             {tPrivacy(list.privacy_mode)}
           </div>
+          {list.privacy_mode === "buyers_choice" && (
+            <span className="text-xs text-landing-text-muted">
+              {t("buyersChoiceHint")}
+            </span>
+          )}
+          {list.privacy_mode === "full_surprise" && (
+            <span className="text-xs text-landing-text-muted">
+              {t("fullSurpriseHint")}
+            </span>
+          )}
           {countdownLabel && (
             <div className="flex items-center gap-1.5 rounded-full bg-landing-mint/10 px-3 py-1 text-xs font-medium text-landing-text">
               <CalendarDays className="h-3.5 w-3.5 text-emerald-600" />

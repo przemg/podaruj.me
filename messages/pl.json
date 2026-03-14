@@ -223,7 +223,9 @@
       "confirmDeleteButton": "Tak, usuń listę",
       "cancelDelete": "Anuluj",
       "backToDashboard": "Wróć do panelu",
-      "shareCopied": "Link skopiowany!"
+      "shareCopied": "Link skopiowany!",
+      "buyersChoiceHint": "Goście wybierają, czy chcą pokazać Ci swoje imię",
+      "fullSurpriseHint": "Rezerwacje są przed Tobą ukryte — maksymalna niespodzianka!"
     },
     "notFound": {
       "title": "Lista nie znaleziona",
@@ -247,6 +249,7 @@
   },
   "items": {
     "sectionTitle": "Prezenty",
+    "reserved": "Zarezerwowane",
     "addButton": "Dodaj prezent",
     "form": {
       "addTitle": "Dodaj prezent",
@@ -304,6 +307,11 @@
     "cancelReservation": "Anuluj",
     "reserveConfirm": "Potwierdź rezerwację",
     "showNameToggle": "Pokaż moje imię właścicielowi listy",
+    "privacyDescriptions": {
+      "buyers_choice": "Możesz wybrać, czy chcesz ujawnić swoje imię właścicielowi listy przy rezerwacji.",
+      "visible": "Właściciel listy zobaczy, kto zarezerwował każdy prezent.",
+      "full_surprise": "Twoja rezerwacja jest całkowicie ukryta — właściciel listy jej nie zobaczy."
+    },
     "guestDialog": {
       "title": "Zarezerwuj ten prezent",
       "nicknameLabel": "Twój pseudonim",

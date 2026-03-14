@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import { notFound } from "next/navigation";
 import { ListHeader } from "@/components/lists/list-header";
 import { GiftList } from "@/components/lists/gift-list";
@@ -12,6 +13,61 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "lists.detail" });
   return { title: t("pageTitle") };
+}
+
+type ReservationBadge = {
+  reserverName: string | null;
+};
+
+async function getReservationsForOwner(
+  listId: string,
+  privacyMode: string
+): Promise<Record<string, ReservationBadge>> {
+  // Full Surprise: owner sees nothing
+  if (privacyMode === "full_surprise") return {};
+
+  const supabase = createServiceClient();
+
+  const { data: reservations } = await supabase
+    .from("reservations")
+    .select("item_id, user_id, guest_nickname, show_name")
+    .eq("list_id", listId);
+
+  if (!reservations || reservations.length === 0) return {};
+
+  const map: Record<string, ReservationBadge> = {};
+
+  for (const r of reservations) {
+    let reserverName: string | null = null;
+
+    if (privacyMode === "visible") {
+      // Owner always sees names in visible mode
+      reserverName = r.guest_nickname || null;
+      if (r.user_id && !r.guest_nickname) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("id", r.user_id)
+          .single();
+        reserverName = profile?.display_name || null;
+      }
+    } else if (privacyMode === "buyers_choice" && r.show_name) {
+      // Owner sees name only if reserver opted in
+      reserverName = r.guest_nickname || null;
+      if (r.user_id && !r.guest_nickname) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("id", r.user_id)
+          .single();
+        reserverName = profile?.display_name || null;
+      }
+    }
+
+    map[r.item_id] = { reserverName };
+  }
+
+  return map;
 }
 
 export default async function ListDetailPage({
@@ -38,6 +94,9 @@ export default async function ListDetailPage({
     .eq("list_id", list.id)
     .order("position", { ascending: true });
 
+  // Fetch reservation info for this list (owner view)
+  const reservations = await getReservationsForOwner(list.id, list.privacy_mode);
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <ListHeader list={list} locale={locale} />
@@ -46,6 +105,7 @@ export default async function ListDetailPage({
         listId={list.id}
         listSlug={list.slug}
         locale={locale}
+        reservations={reservations}
       />
     </div>
   );

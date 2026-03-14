@@ -160,6 +160,9 @@ export default async function PublicListPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: "public" });
   const tOccasions = await getTranslations({ locale, namespace: "lists.occasions" });
 
+  const tPrivacy = await getTranslations({ locale, namespace: "lists.privacyModes" });
+  const tPrivacyDesc = await getTranslations({ locale, namespace: "public.privacyDescriptions" });
+
   let countdownLabel: string | null = null;
   let countdownType: "days" | "today" | "past" | null = null;
   if (list.event_date) {
@@ -185,6 +188,9 @@ export default async function PublicListPage({ params }: PageProps) {
           occasionKey={list.occasion}
           countdownLabel={countdownLabel}
           countdownType={countdownType}
+          privacyLabel={tPrivacy(list.privacy_mode)}
+          privacyDescription={tPrivacyDesc(list.privacy_mode)}
+          privacyMode={list.privacy_mode}
         />
 
         {items.length > 0 ? (

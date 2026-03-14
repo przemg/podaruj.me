@@ -8,6 +8,7 @@ import {
   Pencil,
   Trash2,
   ExternalLink,
+  Heart,
 } from "lucide-react";
 
 type ItemData = {
@@ -21,11 +22,16 @@ type ItemData = {
   position: number;
 };
 
+type ReservationBadge = {
+  reserverName: string | null;
+};
+
 type GiftCardProps = {
   item: ItemData;
   isFirst: boolean;
   isLast: boolean;
   locale: string;
+  reservation?: ReservationBadge;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onEdit: () => void;
@@ -50,6 +56,7 @@ export function GiftCard({
   isFirst,
   isLast,
   locale,
+  reservation,
   onMoveUp,
   onMoveDown,
   onEdit,
@@ -110,6 +117,18 @@ export function GiftCard({
               {tPriority(item.priority)}
             </div>
           </div>
+
+          {/* Reservation badge */}
+          {reservation && (
+            <div className="mt-1 flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1 rounded-full bg-landing-lavender/10 px-2.5 py-0.5 text-xs font-medium text-landing-lavender ring-1 ring-landing-lavender/20">
+                <Heart className="h-3 w-3 fill-landing-lavender" />
+                {reservation.reserverName
+                  ? `${t("reserved")} · ${reservation.reserverName}`
+                  : t("reserved")}
+              </span>
+            </div>
+          )}
 
           {/* Description */}
           {item.description && (

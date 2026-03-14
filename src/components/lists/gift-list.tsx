@@ -24,14 +24,19 @@ type ItemData = {
   position: number;
 };
 
+type ReservationBadge = {
+  reserverName: string | null;
+};
+
 type GiftListProps = {
   items: ItemData[];
   listId: string;
   listSlug: string;
   locale: string;
+  reservations?: Record<string, ReservationBadge>;
 };
 
-export function GiftList({ items, listId, listSlug, locale }: GiftListProps) {
+export function GiftList({ items, listId, listSlug, locale, reservations }: GiftListProps) {
   const t = useTranslations("items");
   const tConfirm = useTranslations("items.confirmDelete");
   const router = useRouter();
@@ -161,6 +166,7 @@ export function GiftList({ items, listId, listSlug, locale }: GiftListProps) {
               isFirst={index === 0}
               isLast={index === orderedItems.length - 1}
               locale={locale}
+              reservation={reservations?.[item.id]}
               onMoveUp={() => handleMoveUp(index)}
               onMoveDown={() => handleMoveDown(index)}
               onEdit={() => handleEdit(item)}

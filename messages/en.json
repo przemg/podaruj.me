@@ -223,7 +223,9 @@
       "confirmDeleteButton": "Yes, delete list",
       "cancelDelete": "Cancel",
       "backToDashboard": "Back to dashboard",
-      "shareCopied": "Link copied!"
+      "shareCopied": "Link copied!",
+      "buyersChoiceHint": "Guests choose whether to show their name to you",
+      "fullSurpriseHint": "Reservations are hidden from you — maximum surprise!"
     },
     "notFound": {
       "title": "List not found",
@@ -247,6 +249,7 @@
   },
   "items": {
     "sectionTitle": "Gifts",
+    "reserved": "Reserved",
     "addButton": "Add gift",
     "form": {
       "addTitle": "Add a gift",
@@ -304,6 +307,11 @@
     "cancelReservation": "Cancel",
     "reserveConfirm": "Confirm reservation",
     "showNameToggle": "Show my name to the list owner",
+    "privacyDescriptions": {
+      "buyers_choice": "You can choose whether to reveal your name to the list owner when reserving.",
+      "visible": "The list owner will see who reserved each gift.",
+      "full_surprise": "Your reservation is completely hidden — the list owner won't see it."
+    },
     "guestDialog": {
       "title": "Reserve this gift",
       "nicknameLabel": "Your nickname",

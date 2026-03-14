@@ -5,6 +5,9 @@ import {
   Gift,
   CalendarDays,
   Sparkles,
+  HelpCircle,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 type PublicListHeaderProps = {
@@ -14,6 +17,9 @@ type PublicListHeaderProps = {
   occasionKey: string;
   countdownLabel: string | null;
   countdownType: "days" | "today" | "past" | null;
+  privacyLabel?: string;
+  privacyDescription?: string;
+  privacyMode?: string;
 };
 
 const OCCASION_ICONS: Record<string, typeof Cake> = {
@@ -23,6 +29,12 @@ const OCCASION_ICONS: Record<string, typeof Cake> = {
   other: Gift,
 };
 
+const PRIVACY_ICONS: Record<string, typeof Eye> = {
+  buyers_choice: HelpCircle,
+  visible: Eye,
+  full_surprise: EyeOff,
+};
+
 export function PublicListHeader({
   name,
   description,
@@ -30,8 +42,12 @@ export function PublicListHeader({
   occasionKey,
   countdownLabel,
   countdownType,
+  privacyLabel,
+  privacyDescription,
+  privacyMode,
 }: PublicListHeaderProps) {
   const OccasionIcon = OCCASION_ICONS[occasionKey] ?? Gift;
+  const PrivacyIcon = privacyMode ? (PRIVACY_ICONS[privacyMode] ?? HelpCircle) : null;
 
   return (
     <div
@@ -77,7 +93,20 @@ export function PublicListHeader({
             {countdownLabel}
           </div>
         )}
+        {privacyLabel && PrivacyIcon && (
+          <div className="flex items-center gap-1.5 rounded-full bg-landing-lavender-wash px-3.5 py-1.5 text-sm font-medium text-landing-text shadow-sm ring-1 ring-landing-lavender/10">
+            <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+            {privacyLabel}
+          </div>
+        )}
       </div>
+
+      {/* Privacy mode description */}
+      {privacyDescription && (
+        <p className="mx-auto mt-3 max-w-md text-xs text-landing-text-muted/70">
+          {privacyDescription}
+        </p>
+      )}
     </div>
   );
 }
