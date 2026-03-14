@@ -4,7 +4,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { signOut } from "@/lib/supabase/auth";
 import { User, LogOut, LayoutDashboard, Plus, ChevronDown } from "lucide-react";
 
 export function UserMenu({ email }: { email: string }) {
@@ -31,8 +31,7 @@ export function UserMenu({ email }: { email: string }) {
   }, []);
 
   async function handleSignOut() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
+    await signOut();
     router.push("/");
     router.refresh();
   }
