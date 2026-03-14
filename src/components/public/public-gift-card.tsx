@@ -1,8 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, ShoppingCart } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 
 type PublicGiftCardProps = {
   item: {
@@ -18,10 +17,28 @@ type PublicGiftCardProps = {
   index: number;
 };
 
-const PRIORITY_CONFIG: Record<string, { dot: string; text: string }> = {
-  nice_to_have: { dot: "bg-gray-300", text: "text-landing-text-muted" },
-  would_love: { dot: "bg-landing-lavender", text: "text-landing-lavender" },
-  must_have: { dot: "bg-landing-coral", text: "text-landing-coral-dark" },
+const PRIORITY_CONFIG: Record<
+  string,
+  { dot: string; text: string; accent: string; bg: string }
+> = {
+  nice_to_have: {
+    dot: "bg-gray-300",
+    text: "text-landing-text-muted",
+    accent: "border-l-gray-200",
+    bg: "bg-white/70",
+  },
+  would_love: {
+    dot: "bg-landing-lavender",
+    text: "text-landing-lavender",
+    accent: "border-l-landing-lavender/40",
+    bg: "bg-white/70",
+  },
+  must_have: {
+    dot: "bg-landing-coral",
+    text: "text-landing-coral-dark",
+    accent: "border-l-landing-coral/50",
+    bg: "bg-white/80",
+  },
 };
 
 function formatPrice(price: number, locale: string): string {
@@ -40,14 +57,15 @@ export function PublicGiftCard({ item, locale, index }: PublicGiftCardProps) {
 
   return (
     <div
-      className="group rounded-2xl bg-white/70 p-4 shadow-sm ring-1 ring-landing-text/[0.04] backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:ring-landing-text/[0.08]"
+      className={`group overflow-hidden rounded-2xl border-l-[3px] ${priority.accent} ${priority.bg} p-4 shadow-sm ring-1 ring-landing-text/[0.04] backdrop-blur-sm transition-all duration-200 hover:shadow-md hover:ring-landing-text/[0.08]`}
       style={{
         animation: `fade-in-up 0.4s ease-out ${index * 0.06}s both`,
       }}
     >
       <div className="flex items-start gap-3">
+        {/* Image — visible on all screens */}
         {item.image_url && (
-          <div className="hidden h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-landing-text/5 sm:block">
+          <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-landing-text/5 ring-1 ring-landing-text/[0.06]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image_url}
@@ -59,26 +77,35 @@ export function PublicGiftCard({ item, locale, index }: PublicGiftCardProps) {
             />
           </div>
         )}
+
+        {/* Content */}
         <div className="min-w-0 flex-1">
+          {/* Top row: name + priority */}
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-semibold leading-snug text-landing-text">
               {item.name}
             </h3>
             <div
-              className={`flex shrink-0 items-center gap-1.5 text-xs font-medium ${priority.text}`}
+              className={`flex shrink-0 items-center gap-1.5 rounded-full bg-white/60 px-2 py-0.5 text-xs font-medium ring-1 ring-landing-text/[0.04] ${priority.text}`}
             >
-              <span className={`h-1.5 w-1.5 rounded-full ${priority.dot}`} />
+              <span
+                className={`h-1.5 w-1.5 rounded-full ${priority.dot}`}
+              />
               {tPriority(item.priority)}
             </div>
           </div>
+
+          {/* Description */}
           {item.description && (
-            <p className="mt-0.5 line-clamp-2 text-sm text-landing-text-muted">
+            <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-landing-text-muted">
               {item.description}
             </p>
           )}
-          <div className="mt-2 flex flex-wrap items-center gap-3">
+
+          {/* Meta row */}
+          <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
             {item.price != null && (
-              <span className="text-sm font-semibold text-landing-text">
+              <span className="rounded-md bg-landing-text/[0.04] px-2 py-0.5 text-sm font-semibold text-landing-text">
                 {formatPrice(item.price, locale)}
               </span>
             )}
@@ -87,23 +114,24 @@ export function PublicGiftCard({ item, locale, index }: PublicGiftCardProps) {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs text-landing-coral transition-colors hover:bg-landing-coral/5 hover:text-landing-coral-dark"
+                className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium text-landing-coral transition-colors hover:bg-landing-coral/5 hover:text-landing-coral-dark"
               >
                 <ExternalLink className="h-3 w-3" />
-                <span className="hidden sm:inline">Link</span>
+                Link
               </a>
             )}
+
             <div className="flex-1" />
-            <Button
-              variant="outline"
-              size="sm"
+
+            {/* Reserve button — warm disabled style */}
+            <button
               disabled
-              className="h-8 gap-1.5 text-xs"
+              className="inline-flex h-8 cursor-not-allowed items-center gap-1.5 rounded-full bg-landing-coral/8 px-3.5 text-xs font-medium text-landing-coral/50 ring-1 ring-landing-coral/10 transition-colors"
               title={t("reserveComingSoon")}
             >
-              <ShoppingCart className="h-3.5 w-3.5" />
+              <Heart className="h-3.5 w-3.5" />
               {t("reserveButton")}
-            </Button>
+            </button>
           </div>
         </div>
       </div>

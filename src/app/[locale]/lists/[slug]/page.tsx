@@ -6,7 +6,8 @@ import { getCountdown } from "@/lib/countdown";
 import { PublicListHeader } from "@/components/public/public-list-header";
 import { PublicGiftCard } from "@/components/public/public-gift-card";
 import { OwnerBanner } from "@/components/public/owner-banner";
-import { Gift } from "lucide-react";
+import { Gift, Sparkles } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -112,9 +113,16 @@ export default async function PublicListPage({ params }: PageProps) {
 
         {items.length > 0 ? (
           <div>
-            <h2 className="mb-4 text-center text-sm font-medium uppercase tracking-wider text-landing-text-muted">
-              {t("gifts")} · {items.length}
-            </h2>
+            {/* Section divider */}
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-landing-coral/15 to-transparent" />
+              <span className="flex items-center gap-1.5 text-xs font-medium text-landing-text-muted/60">
+                <Gift className="h-3.5 w-3.5" />
+                {items.length} {t("gifts").toLowerCase()}
+              </span>
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-landing-coral/15 to-transparent" />
+            </div>
+
             <div className="space-y-3">
               {items.map((item, index) => (
                 <PublicGiftCard
@@ -125,13 +133,32 @@ export default async function PublicListPage({ params }: PageProps) {
                 />
               ))}
             </div>
+
+            {/* CTA footer */}
+            <div
+              className="mt-12 text-center"
+              style={{ animation: "fade-in-up 0.4s ease-out 0.5s both" }}
+            >
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/60 px-5 py-2.5 text-sm text-landing-text-muted shadow-sm ring-1 ring-landing-text/[0.06]">
+                <Sparkles className="h-4 w-4 text-landing-coral/60" />
+                <span>{t("createYourOwn")}</span>
+                <Link
+                  href="/"
+                  className="font-semibold text-landing-coral transition-colors hover:text-landing-coral-dark"
+                >
+                  Podaruj.me
+                </Link>
+              </div>
+            </div>
           </div>
         ) : (
           <div
             className="py-16 text-center"
             style={{ animation: "fade-in-up 0.4s ease-out" }}
           >
-            <Gift className="mx-auto mb-3 h-12 w-12 text-landing-text-muted/30" />
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-landing-text/[0.03]">
+              <Gift className="h-8 w-8 text-landing-text-muted/30" />
+            </div>
             <p className="text-landing-text-muted">{t("emptyList")}</p>
           </div>
         )}

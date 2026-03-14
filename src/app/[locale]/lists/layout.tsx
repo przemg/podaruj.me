@@ -10,7 +10,7 @@ export default async function PublicListLayout({
   const t = await getTranslations("public");
 
   return (
-    <div className="min-h-dvh bg-landing-cream">
+    <div className="min-h-dvh bg-gradient-to-b from-landing-cream via-landing-cream to-landing-peach-wash/30">
       <header className="border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <Link
