@@ -43,10 +43,14 @@ export function ProfileSettings({
     }
   }, [displayName, router]);
 
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
   const handleDelete = useCallback(async () => {
     setIsDeleting(true);
+    setDeleteError(null);
     const result = await deleteAccount();
     if (result.error) {
+      setDeleteError(result.error);
       setIsDeleting(false);
       return;
     }
@@ -202,6 +206,12 @@ export function ProfileSettings({
         <p className="mt-2 text-sm text-red-600/80">
           {t("dangerZoneDescription")}
         </p>
+        {deleteError && (
+          <p className="mt-2 flex items-center gap-1 text-sm text-red-600">
+            <AlertCircle className="h-4 w-4" />
+            {deleteError}
+          </p>
+        )}
         <div className="mt-4">
           <DeleteAccountDialog onConfirm={handleDelete} isDeleting={isDeleting} />
         </div>

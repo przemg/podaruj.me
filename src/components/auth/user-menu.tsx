@@ -31,10 +31,14 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
   }, []);
 
   async function handleSignOut() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
+    try {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      router.push("/");
+      router.refresh();
+    } catch {
+      window.location.href = "/";
+    }
   }
 
   return (
@@ -91,7 +95,10 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
           </button>
           <div className="my-1 h-px bg-landing-text/5" />
           <button
-            onClick={handleSignOut}
+            onClick={() => {
+              setIsOpen(false);
+              handleSignOut();
+            }}
             className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
             role="menuitem"
           >

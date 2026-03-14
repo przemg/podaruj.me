@@ -46,14 +46,22 @@ export async function updateDisplayName(
 export async function deleteAccount(): Promise<ActionResult> {
   const { user } = await getAuthenticatedClient();
 
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.error("SUPABASE_SERVICE_ROLE_KEY is not set");
+    return { error: "Server configuration error" };
+  }
+
   const serviceClient = createServiceClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY
   );
 
   const { error } = await serviceClient.auth.admin.deleteUser(user.id);
 
-  if (error) return { error: "Failed to delete account" };
+  if (error) {
+    console.error("Delete user error:", error.message);
+    return { error: "Failed to delete account" };
+  }
 
   return { success: true };
 }
