@@ -123,7 +123,32 @@
   },
   "dashboard": {
     "pageTitle": "Panel — Podaruj.me",
-    "welcome": "Witaj w Podaruj.me!"
+    "welcome": "Witaj w Podaruj.me!",
+    "nav": {
+      "myLists": "Moje listy",
+      "myReservations": "Moje rezerwacje"
+    },
+    "myLists": {
+      "title": "Moje listy",
+      "createButton": "Utwórz listę",
+      "emptyTitle": "Nie masz jeszcze list",
+      "emptyDescription": "Utwórz swoją pierwszą listę prezentów i udostępnij ją rodzinie i znajomym.",
+      "emptyAction": "Utwórz pierwszą listę",
+      "itemCount": "{count, plural, one {# prezent} few {# prezenty} many {# prezentów} other {# prezentów}}",
+      "daysLeft": "{count, plural, one {za # dzień} few {za # dni} many {za # dni} other {za # dni}}",
+      "today": "Dziś!",
+      "pastEvent": "Wydarzenie minęło"
+    },
+    "reservations": {
+      "title": "Moje rezerwacje",
+      "pageTitle": "Moje rezerwacje — Podaruj.me",
+      "emptyTitle": "Nie zarezerwowałeś jeszcze żadnych prezentów",
+      "emptyDescription": "Gdy zarezerwujesz prezent z czyjejś listy, pojawi się tutaj."
+    },
+    "mobile": {
+      "menu": "Menu",
+      "signOut": "Wyloguj się"
+    }
   },
   "lists": {
     "create": {
