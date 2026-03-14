@@ -37,13 +37,18 @@ src/
           new/              # Create list page
           [id]/             # List detail, edit, not-found, loading
             edit/
+      lists/          # Public list pages (no auth required)
+        layout.tsx          # Simple layout (logo + footer)
+        [slug]/             # Public list view, loading, not-found, error
   components/
     auth/           # Auth components (sign-in-form, user-menu)
     landing/        # Landing page components
     lists/          # Gift list components (list-form, gift-card, etc.)
+    public/         # Public page components (read-only gift card, header, owner banner)
     ui/             # shadcn/ui components
   lib/
-    supabase/       # Supabase client utilities (client, server, middleware)
+    supabase/       # Supabase client utilities (client, server, service)
+    countdown.ts    # Shared countdown utility
     utils.ts        # General utilities (cn helper)
   i18n/             # Internationalization config
   types/            # Shared TypeScript types
@@ -61,6 +66,18 @@ supabase/
 ## URL Pattern
 
 Lists use slug-based URLs: `/dashboard/lists/birthday-wishlist-a3x7k` (name + random hash). Slugs are generated on create and regenerated on edit. All pages and actions use slug for lookups, not UUID.
+
+## Public (Shareable) List Pages
+
+Every list has a public URL at `/[locale]/lists/[slug]` — accessible without authentication. The public page uses a **Supabase service-role client** (`src/lib/supabase/service.ts`) to bypass RLS and fetch data server-side. No public RLS policies exist — the service key never reaches the browser.
+
+### Key Architecture
+- **Route:** `/[locale]/lists/[slug]` — separate from `/dashboard/lists/[id]` (owner view)
+- **Data access:** `createServiceClient()` from `src/lib/supabase/service.ts` (server-only, bypasses RLS)
+- **Owner detection:** Server-side check via `createClient()` auth — if logged-in user matches `list.user_id`, show owner banner
+- **Cache invalidation:** All server actions in `actions.ts` call `revalidatePath` for both dashboard and public routes
+- **Components:** `src/components/public/` — read-only gift cards, list header, owner banner
+- **Reserve buttons:** Visible but disabled (coming soon) — reservations feature not yet built
 
 ## Dashboard Layout
 
