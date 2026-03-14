@@ -3,12 +3,6 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   ChevronUp,
   ChevronDown,
   Pencil,
@@ -16,7 +10,6 @@ import {
   ExternalLink,
   Heart,
   UserRound,
-  Lock,
 } from "lucide-react";
 
 type ItemData = {
@@ -180,43 +173,26 @@ export function GiftCard({
 
               {/* Actions */}
               <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
-                {actionsDisabled ? (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span className="inline-flex items-center gap-1 px-2 py-1 text-xs text-landing-text-muted/40">
-                          <Lock className="h-3 w-3" />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent side="top" className="max-w-xs">
-                        {isFullSurprise
-                          ? t("surpriseCannotEdit")
-                          : t("reservedCannotEdit")}
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                ) : (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={onEdit}
-                      className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text"
-                      aria-label={t("edit")}
-                    >
-                      <Pencil className="h-3.5 w-3.5" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={onDelete}
-                      className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500"
-                      aria-label={t("delete")}
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </Button>
-                  </>
-                )}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={actionsDisabled ? undefined : onEdit}
+                  disabled={!!actionsDisabled}
+                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-landing-text/5 hover:text-landing-text disabled:cursor-not-allowed disabled:opacity-25"
+                  aria-label={t("edit")}
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={actionsDisabled ? undefined : onDelete}
+                  disabled={!!actionsDisabled}
+                  className="h-8 w-8 cursor-pointer text-landing-text-muted/50 hover:bg-red-50 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:text-landing-text-muted/50"
+                  aria-label={t("delete")}
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </Button>
               </div>
             </div>
           </div>
