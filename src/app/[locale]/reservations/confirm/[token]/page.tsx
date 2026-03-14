@@ -1,33 +1,22 @@
 import { confirmGuestReservation } from "@/app/[locale]/lists/[slug]/reservation-actions";
+import type { ConfirmStatus } from "@/app/[locale]/lists/[slug]/reservation-actions";
 import { Link } from "@/i18n/navigation";
-import { CheckCircle, AlertCircle, Clock, XCircle } from "lucide-react";
+import { CheckCircle, Clock, XCircle } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 type Props = {
   params: Promise<{ locale: string; token: string }>;
 };
 
-type ConfirmState = "success" | "already_confirmed" | "expired" | "not_found";
-
-function getState(result: {
-  success?: string;
-  error?: string;
-}): ConfirmState {
-  if (result.success === "Reservation confirmed!") return "success";
-  if (result.success === "Already confirmed") return "already_confirmed";
-  if (result.error === "This reservation has expired") return "expired";
-  return "not_found";
-}
-
 export default async function ConfirmReservationPage({ params }: Props) {
   const { locale, token } = await params;
   const t = await getTranslations({ locale, namespace: "reservations.confirm" });
 
   const result = await confirmGuestReservation(token);
-  const state = getState(result);
+  const state: ConfirmStatus = result.confirmStatus ?? "not_found";
 
   const stateConfig = {
-    success: {
+    confirmed: {
       icon: <CheckCircle className="h-12 w-12 text-green-500" />,
       title: t("successTitle"),
       message: t("successMessage"),
@@ -69,7 +58,7 @@ export default async function ConfirmReservationPage({ params }: Props) {
           {config.title}
         </h1>
         <p className="mb-6 text-sm text-landing-text-muted">{config.message}</p>
-        {(state === "success" || state === "already_confirmed") && (
+        {(state === "confirmed" || state === "already_confirmed") && (
           <Link
             href={`/reservations/manage/${token}`}
             className="inline-flex items-center gap-1.5 rounded-lg bg-landing-coral px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-landing-coral/90"

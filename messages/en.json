@@ -317,7 +317,8 @@
       "successTitle": "Check your email!",
       "successMessage": "We sent a confirmation link to {email}. Click it to confirm your reservation.",
       "errorAlreadyReserved": "This item is already reserved",
-      "errorRateLimit": "Too many reservations. Please try again later."
+      "errorRateLimit": "Too many reservations. Please try again later.",
+      "closeButton": "Close"
     },
     "ownerBanner": "This is your list",
     "ownerBannerLink": "Manage in dashboard",

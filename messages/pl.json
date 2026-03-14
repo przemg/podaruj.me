@@ -317,7 +317,8 @@
       "successTitle": "Sprawdź swoją skrzynkę!",
       "successMessage": "Wysłaliśmy link potwierdzający na {email}. Kliknij go, aby potwierdzić rezerwację.",
       "errorAlreadyReserved": "Ten prezent jest już zarezerwowany",
-      "errorRateLimit": "Za dużo rezerwacji. Spróbuj ponownie później."
+      "errorRateLimit": "Za dużo rezerwacji. Spróbuj ponownie później.",
+      "closeButton": "Zamknij"
     },
     "ownerBanner": "To jest Twoja lista",
     "ownerBannerLink": "Zarządzaj w panelu",

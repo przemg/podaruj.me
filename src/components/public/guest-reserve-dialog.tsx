@@ -104,7 +104,7 @@ export function GuestReserveDialog({
               onClick={() => handleOpenChange(false)}
               className="mt-2"
             >
-              {t("cancelReservation") === "Cancel" ? "Close" : "Zamknij"}
+              {t("guestDialog.closeButton")}
             </Button>
           </div>
         ) : (

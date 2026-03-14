@@ -5,9 +5,12 @@ import { createServiceClient } from "@/lib/supabase/service";
 import { sendConfirmationEmail } from "@/lib/email";
 import { revalidatePath } from "next/cache";
 
+export type ConfirmStatus = "confirmed" | "already_confirmed" | "expired" | "not_found";
+
 export type ReservationActionResult = {
   error?: string;
   success?: string;
+  confirmStatus?: ConfirmStatus;
 };
 
 // ── Validation ─────────────────────────────────────────────────────
@@ -218,10 +221,10 @@ export async function confirmGuestReservation(
     .eq("guest_token", token)
     .single();
 
-  if (!reservation) return { error: "Reservation not found" };
+  if (!reservation) return { error: "Reservation not found", confirmStatus: "not_found" };
 
   if (reservation.status === "confirmed")
-    return { success: "Already confirmed" };
+    return { success: "Already confirmed", confirmStatus: "already_confirmed" };
 
   if (reservation.status === "pending") {
     const created = new Date(reservation.created_at);
@@ -234,7 +237,7 @@ export async function confirmGuestReservation(
         .from("reservations")
         .delete()
         .eq("id", reservation.id);
-      return { error: "This reservation has expired" };
+      return { error: "This reservation has expired", confirmStatus: "expired" };
     }
   }
 
@@ -243,7 +246,7 @@ export async function confirmGuestReservation(
     .update({ status: "confirmed" })
     .eq("id", reservation.id);
 
-  if (dbError) return { error: "Failed to confirm reservation" };
+  if (dbError) return { error: "Failed to confirm reservation", confirmStatus: "not_found" };
 
   const { data: list } = await serviceClient
     .from("lists")
@@ -256,7 +259,7 @@ export async function confirmGuestReservation(
     revalidateReservationPaths("pl", list.slug);
   }
 
-  return { success: "Reservation confirmed!" };
+  return { success: "Reservation confirmed!", confirmStatus: "confirmed" };
 }
 
 // ── Cancel (logged-in user) ────────────────────────────────────────
