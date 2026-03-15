@@ -146,8 +146,8 @@
 }
 
 @keyframes pulse-soft {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 112, 102, 0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(249, 112, 102, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 112, 102, 0.5); transform: scale(1); }
+  50% { box-shadow: 0 0 20px 8px rgba(249, 112, 102, 0.3), 0 0 0 16px rgba(249, 112, 102, 0); transform: scale(1.04); }
 }
 
 @keyframes fade-in-up {
