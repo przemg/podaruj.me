@@ -61,17 +61,6 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
         >
           <button
             onClick={() => {
-              router.push("/dashboard");
-              setIsOpen(false);
-            }}
-            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
-            role="menuitem"
-          >
-            <LayoutList className="h-4 w-4" />
-            {t("myLists")}
-          </button>
-          <button
-            onClick={() => {
               router.push("/dashboard/lists/new");
               setIsOpen(false);
             }}
@@ -80,6 +69,17 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
           >
             <Plus className="h-4 w-4" />
             {t("createList")}
+          </button>
+          <button
+            onClick={() => {
+              router.push("/dashboard");
+              setIsOpen(false);
+            }}
+            className="flex w-full items-center gap-2.5 px-3 py-2.5 text-sm text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
+            role="menuitem"
+          >
+            <LayoutList className="h-4 w-4" />
+            {t("myLists")}
           </button>
           <button
             onClick={() => {
