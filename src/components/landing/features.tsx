@@ -30,10 +30,10 @@ export function Features() {
         */}
         <div
           ref={revealRef}
-          className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 min-[900px]:grid-cols-3"
         >
           {/* Card 1: Privacy modes — 2 cols on tablet+desktop, 2 rows on desktop */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:col-span-2 lg:row-span-2 lg:flex-row">
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:col-span-2 min-[900px]:row-span-2 min-[900px]:flex-row">
             {/* Left: text content */}
             <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
@@ -67,33 +67,33 @@ export function Features() {
             </div>
 
             {/* Right: illustration panel */}
-            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 sm:px-6 lg:w-[280px] lg:shrink-0 lg:border-t-0 lg:border-l">
-              <div className="flex w-full gap-3 lg:flex-col">
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none lg:w-full lg:flex-row lg:gap-3">
+            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 sm:px-6 min-[900px]:w-[280px] min-[900px]:shrink-0 min-[900px]:border-t-0 min-[900px]:border-l">
+              <div className="flex w-full gap-3 min-[900px]:flex-col">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none min-[900px]:w-full min-[900px]:flex-row min-[900px]:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20">
                     <HelpCircle className="h-4 w-4 text-landing-coral" />
                   </div>
-                  <div className="mt-2 space-y-1 lg:mt-0">
-                    <div className="h-1.5 w-12 rounded-full bg-landing-coral/30 lg:w-20" />
-                    <div className="h-1 w-8 rounded-full bg-white/10 lg:w-14" />
+                  <div className="mt-2 space-y-1 min-[900px]:mt-0">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-coral/30 min-[900px]:w-20" />
+                    <div className="h-1 w-8 rounded-full bg-white/10 min-[900px]:w-14" />
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 sm:w-24 sm:flex-none lg:w-full lg:flex-row lg:gap-3">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 sm:w-24 sm:flex-none min-[900px]:w-full min-[900px]:flex-row min-[900px]:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
                     <Eye className="h-4 w-4 text-landing-mint" />
                   </div>
-                  <div className="mt-2 space-y-1 lg:mt-0 lg:flex-1">
-                    <div className="h-1.5 w-12 rounded-full bg-landing-mint/40 lg:w-20" />
-                    <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white lg:w-16">Active</div>
+                  <div className="mt-2 space-y-1 min-[900px]:mt-0 min-[900px]:flex-1">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-mint/40 min-[900px]:w-20" />
+                    <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white min-[900px]:w-16">Active</div>
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none lg:w-full lg:flex-row lg:gap-3">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none min-[900px]:w-full min-[900px]:flex-row min-[900px]:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20">
                     <EyeOff className="h-4 w-4 text-landing-lavender" />
                   </div>
-                  <div className="mt-2 space-y-1 lg:mt-0">
-                    <div className="h-1.5 w-12 rounded-full bg-landing-lavender/30 lg:w-20" />
-                    <div className="h-1 w-8 rounded-full bg-white/10 lg:w-14" />
+                  <div className="mt-2 space-y-1 min-[900px]:mt-0">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-lavender/30 min-[900px]:w-20" />
+                    <div className="h-1 w-8 rounded-full bg-white/10 min-[900px]:w-14" />
                   </div>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export function Features() {
           </div>
 
           {/* Card 2: QR code — side-by-side above 500px, back to column on tablet (narrow col), tall on tablet/desktop */}
-          <div className="scroll-reveal-scale flex flex-col min-[500px]:flex-row sm:flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-2">
+          <div className="scroll-reveal-scale flex flex-col min-[500px]:flex-row sm:flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 min-[900px]:row-span-2">
             <div className="min-[500px]:flex-1 sm:flex-none">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
                 <QrCode className="h-6 w-6 text-landing-coral" />
