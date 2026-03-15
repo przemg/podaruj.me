@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { getCountdown } from "@/lib/countdown";
+import { getCountdown, isListClosed } from "@/lib/countdown";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -20,8 +20,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
+import { CloseListDialog } from "./close-list-dialog";
 import { AnimatedCountdown } from "./animated-countdown";
-import { deleteList, publishList } from "@/app/[locale]/dashboard/lists/actions";
+import { closeList, reopenList, deleteList, publishList } from "@/app/[locale]/dashboard/lists/actions";
 import { SharePopover } from "./share-popover";
 import {
   Pencil,
@@ -37,6 +38,8 @@ import {
   ArrowLeft,
   Upload,
   Loader2,
+  Archive,
+  ArchiveRestore,
 } from "lucide-react";
 
 type ListData = {
@@ -48,6 +51,8 @@ type ListData = {
   event_date: string | null;
   privacy_mode: string;
   is_published: boolean;
+  is_closed: boolean;
+  closed_at: string | null;
 };
 
 type ListHeaderProps = {
@@ -72,14 +77,27 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
   const t = useTranslations("lists.detail");
   const tOccasions = useTranslations("lists.occasions");
   const tPrivacy = useTranslations("lists.privacyModes");
+  const tLists = useTranslations("lists");
   const router = useRouter();
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [publishOpen, setPublishOpen] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [closeOpen, setCloseOpen] = useState(false);
+  const [closeLoading, setCloseLoading] = useState(false);
 
   const isDraft = list.privacy_mode === "full_surprise" && !list.is_published;
+
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
+  const isManuallyClosable = !isClosed && (list.privacy_mode !== "full_surprise" || list.is_published);
+  const canReopen = list.is_closed && (!list.event_date || (() => {
+    const today = new Date();
+    const eventDate = new Date(list.event_date + "T00:00:00");
+    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    return eventDay.getTime() >= todayDate.getTime();
+  })());
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
@@ -108,6 +126,19 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
     router.refresh();
   };
 
+  const handleClose = async () => {
+    setCloseLoading(true);
+    const result = await closeList(locale, list.slug);
+    setCloseLoading(false);
+    if (!result.error) setCloseOpen(false);
+  };
+
+  const handleReopen = async () => {
+    setCloseLoading(true);
+    await reopenList(locale, list.slug);
+    setCloseLoading(false);
+  };
+
   return (
     <div style={{ animation: "fade-in-up 0.4s ease-out" }}>
       {/* Back link */}
@@ -132,6 +163,12 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               {isDraft && (
                 <div className="flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">
                   {t("draftBadge")}
+                </div>
+              )}
+              {isClosed && (
+                <div className="flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
+                  <Archive className="h-3 w-3" />
+                  {tLists("closedBadge")}
                 </div>
               )}
               <div className="flex items-center gap-1.5 rounded-full bg-landing-peach-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
@@ -199,6 +236,29 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             </button>
           )}
           <div className="ml-auto flex items-center gap-1">
+            {isManuallyClosable && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setCloseOpen(true)}
+                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600"
+              >
+                <Archive className="h-3.5 w-3.5" />
+                {tLists("close")}
+              </Button>
+            )}
+            {canReopen && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleReopen}
+                disabled={closeLoading}
+                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600"
+              >
+                <ArchiveRestore className="h-3.5 w-3.5" />
+                {tLists("reopen")}
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="sm"
@@ -238,6 +298,17 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         cancelLabel={t("cancelDelete")}
         onConfirm={handleDelete}
         loading={deleting}
+      />
+
+      <CloseListDialog
+        open={closeOpen}
+        onOpenChange={setCloseOpen}
+        onConfirm={handleClose}
+        loading={closeLoading}
+        title={tLists("closeDialog.title")}
+        description={tLists("closeDialog.description")}
+        confirmLabel={tLists("closeDialog.confirm")}
+        cancelLabel={tLists("closeDialog.cancel")}
       />
 
       {/* Publish confirmation dialog */}
