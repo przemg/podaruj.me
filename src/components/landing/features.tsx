@@ -198,9 +198,9 @@ export function Features() {
 
           {/* === MOBILE LAYOUT (<768px) === */}
           <div className="flex flex-col gap-4 min-[768px]:hidden">
-            {/* Privacy card — stacked */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
-              <div className="flex flex-col p-6">
+            {/* Privacy card — 2-col internal between 600-768px */}
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[600px]:flex-row">
+              <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
                 <p className="mt-2 text-white/50">{t("privacyDescription")}</p>
@@ -217,8 +217,8 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6">
-                <div className="flex gap-3">
+              <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+                <div className="flex gap-3 min-[600px]:flex-col">
                   <div className="flex flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
                     <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-white/10" /></div>
@@ -235,12 +235,14 @@ export function Features() {
               </div>
             </div>
 
-            {/* QR card */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
-              <h3 className="text-xl font-semibold text-white">{t("qrTitle")}</h3>
-              <p className="mt-2 text-white/50">{t("qrDescription")}</p>
-              <div className="mt-6 flex items-end justify-center">
+            {/* QR card — 2-col internal between 600-768px */}
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[600px]:flex-row min-[600px]:items-center">
+              <div className="min-[600px]:flex-1">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
+                <h3 className="text-xl font-semibold text-white">{t("qrTitle")}</h3>
+                <p className="mt-2 text-white/50">{t("qrDescription")}</p>
+              </div>
+              <div className="mt-6 flex items-center justify-center min-[600px]:mt-0 min-[600px]:ml-6">
                 <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
                   <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
                   <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
