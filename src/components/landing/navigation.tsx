@@ -86,7 +86,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
           {/* Left: Logo + Language Switcher */}
           <div className="flex items-center gap-3">
             <Link
