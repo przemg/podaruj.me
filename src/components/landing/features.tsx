@@ -33,10 +33,10 @@ export function Features() {
         */}
         <div
           ref={revealRef}
-          className="mt-16 grid grid-cols-1 gap-4 min-[1000px]:grid-cols-3"
+          className="mt-16 grid grid-cols-1 gap-4 min-[640px]:grid-cols-2 min-[1000px]:grid-cols-3"
         >
           {/* Card 1: Privacy modes — spans 2 cols on desktop */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[500px]:flex-row min-[1000px]:col-span-2">
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[500px]:flex-row min-[640px]:flex-col min-[1000px]:col-span-2 min-[1000px]:flex-row">
             {/* Left: text content */}
             <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
@@ -67,31 +67,31 @@ export function Features() {
               </ul>
             </div>
             {/* Right: illustration panel */}
-            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[500px]:w-[220px] min-[500px]:shrink-0 min-[500px]:border-t-0 min-[500px]:border-l sm:px-6 min-[1000px]:w-[280px]">
-              <div className="flex w-full justify-center gap-3 min-[500px]:flex-col">
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3">
+            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[500px]:w-[220px] min-[500px]:shrink-0 min-[500px]:border-t-0 min-[500px]:border-l min-[640px]:w-auto min-[640px]:shrink min-[640px]:border-t min-[640px]:border-l-0 sm:px-6 min-[1000px]:w-[280px] min-[1000px]:shrink-0 min-[1000px]:border-t-0 min-[1000px]:border-l">
+              <div className="flex w-full justify-center gap-3 min-[500px]:flex-col min-[640px]:flex-row min-[1000px]:flex-col">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3 min-[640px]:w-auto min-[640px]:flex-col min-[1000px]:w-full min-[1000px]:flex-row">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20">
                     <HelpCircle className="h-4 w-4 text-landing-coral" />
                   </div>
-                  <div className="mt-2 space-y-1 min-[500px]:mt-0">
+                  <div className="mt-2 space-y-1 min-[500px]:mt-0 min-[640px]:mt-2 min-[1000px]:mt-0">
                     <div className="h-1.5 w-12 rounded-full bg-landing-coral/30 min-[500px]:w-20" />
                     <div className="h-1 w-8 rounded-full bg-white/10 min-[500px]:w-14" />
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3 min-[640px]:w-auto min-[640px]:flex-col min-[1000px]:w-full min-[1000px]:flex-row">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
                     <Eye className="h-4 w-4 text-landing-mint" />
                   </div>
-                  <div className="mt-2 space-y-1 min-[500px]:mt-0 min-[500px]:flex-1">
+                  <div className="mt-2 space-y-1 min-[500px]:mt-0 min-[500px]:flex-1 min-[640px]:mt-2 min-[1000px]:mt-0">
                     <div className="h-1.5 w-12 rounded-full bg-landing-mint/40 min-[500px]:w-20" />
                     <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white min-[500px]:w-16">Active</div>
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3 min-[640px]:w-auto min-[640px]:flex-col min-[1000px]:w-full min-[1000px]:flex-row">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20">
                     <EyeOff className="h-4 w-4 text-landing-lavender" />
                   </div>
-                  <div className="mt-2 space-y-1 min-[500px]:mt-0">
+                  <div className="mt-2 space-y-1 min-[500px]:mt-0 min-[640px]:mt-2 min-[1000px]:mt-0">
                     <div className="h-1.5 w-12 rounded-full bg-landing-lavender/30 min-[500px]:w-20" />
                     <div className="h-1 w-8 rounded-full bg-white/10 min-[500px]:w-14" />
                   </div>
@@ -101,8 +101,8 @@ export function Features() {
           </div>
 
           {/* Card 2: QR code — side-by-side on wide mobile, stacked otherwise */}
-          <div className="scroll-reveal-scale flex flex-col min-[500px]:flex-row min-[1000px]:flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
-            <div className="min-[500px]:flex-1 min-[1000px]:flex-none">
+          <div className="scroll-reveal-scale flex flex-col min-[500px]:flex-row min-[640px]:flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+            <div className="min-[500px]:flex-1 min-[640px]:flex-none">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
                 <QrCode className="h-6 w-6 text-landing-coral" />
               </div>
@@ -113,7 +113,7 @@ export function Features() {
                 {t("qrDescription")}
               </p>
             </div>
-            <div className="mt-6 flex flex-1 items-center justify-center min-[500px]:mt-0 min-[1000px]:mt-6 min-[1000px]:items-end">
+            <div className="mt-6 flex flex-1 items-center justify-center min-[500px]:mt-0 min-[640px]:mt-6 min-[640px]:items-end">
               <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
                 <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
                 <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
@@ -131,22 +131,24 @@ export function Features() {
             </div>
           </div>
 
-          {/* Cards 3-5: Small feature cards */}
-          {[
-            { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-            { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-            { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
-          ].map((card) => (
-            <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
-              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
-                <card.icon className={`h-5 w-5 ${card.color}`} />
+          {/* Cards 3-5: Small feature cards — wrapped to span full width on tablet */}
+          <div className="col-span-full grid grid-cols-1 gap-4 min-[640px]:grid-cols-3">
+            {[
+              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
+              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
+              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+            ].map((card) => (
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
+                  <card.icon className={`h-5 w-5 ${card.color}`} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-white">{t(card.titleKey)}</h3>
+                  <p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-white">{t(card.titleKey)}</h3>
-                <p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
