@@ -116,6 +116,7 @@
       "footerNote": "Sign in with Google or a magic link — no password required"
     },
     "userMenu": {
+      "myLists": "My Lists",
       "createList": "Create new list",
       "settings": "Settings",
       "signOut": "Sign out"
@@ -153,7 +154,11 @@
     },
     "mobile": {
       "menu": "Menu",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "createList": "Create new list",
+      "settings": "Settings",
+      "myLists": "My Lists",
+      "myReservations": "My Reservations"
     }
   },
   "settings": {
@@ -201,7 +206,10 @@
       "eventDateHint": "Optional — we'll show a countdown",
       "privacyModeLabel": "Reservation privacy",
       "submitButton": "Create list",
-      "creating": "Creating..."
+      "creating": "Creating...",
+      "fullSurpriseWarning": "Full Surprise mode is permanent and cannot be changed later. Are you sure?",
+      "fullSurpriseConfirm": "Yes, use Full Surprise",
+      "fullSurpriseCancel": "Choose another mode"
     },
     "edit": {
       "pageTitle": "Edit list — Podaruj.me",
@@ -209,7 +217,8 @@
       "subtitle": "Update your list details",
       "submitButton": "Save changes",
       "saving": "Saving...",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "fullSurpriseLocked": "Full Surprise mode cannot be changed after creation to protect the surprise for gift givers."
     },
     "detail": {
       "pageTitle": "List details — Podaruj.me",
@@ -312,6 +321,18 @@
     "reservedCannotEdit": "This item is reserved and cannot be edited",
     "publishedCannotEdit": "This item was locked when the list was published",
     "surpriseCannotEdit": "Editing is disabled — this list may have reservations",
+    "sort": {
+      "label": "Sort by",
+      "custom": "Custom order",
+      "priority": "Priority",
+      "priceLow": "Price: low to high",
+      "priceHigh": "Price: high to low",
+      "nameAz": "Name: A-Z",
+      "dateNewest": "Newest first",
+      "dateOldest": "Oldest first",
+      "availableFirst": "Available first"
+    },
+    "dragHandle": "Drag to reorder",
     "moveUp": "Move up",
     "moveDown": "Move down",
     "openLink": "Open link",

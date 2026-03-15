@@ -116,6 +116,7 @@
       "footerNote": "Zaloguj się przez Google lub magiczny link — bez hasła"
     },
     "userMenu": {
+      "myLists": "Moje listy",
       "createList": "Utwórz nową listę",
       "settings": "Ustawienia",
       "signOut": "Wyloguj się"
@@ -153,7 +154,11 @@
     },
     "mobile": {
       "menu": "Menu",
-      "signOut": "Wyloguj się"
+      "signOut": "Wyloguj się",
+      "createList": "Utwórz nową listę",
+      "settings": "Ustawienia",
+      "myLists": "Moje listy",
+      "myReservations": "Moje rezerwacje"
     }
   },
   "settings": {
@@ -201,7 +206,10 @@
       "eventDateHint": "Opcjonalnie — pokażemy odliczanie",
       "privacyModeLabel": "Prywatność rezerwacji",
       "submitButton": "Utwórz listę",
-      "creating": "Tworzenie..."
+      "creating": "Tworzenie...",
+      "fullSurpriseWarning": "Tryb Pełna Niespodzianka jest trwały i nie można go zmienić później. Czy jesteś pewien?",
+      "fullSurpriseConfirm": "Tak, użyj Pełnej Niespodzianki",
+      "fullSurpriseCancel": "Wybierz inny tryb"
     },
     "edit": {
       "pageTitle": "Edytuj listę — Podaruj.me",
@@ -209,7 +217,8 @@
       "subtitle": "Zaktualizuj szczegóły listy",
       "submitButton": "Zapisz zmiany",
       "saving": "Zapisywanie...",
-      "cancel": "Anuluj"
+      "cancel": "Anuluj",
+      "fullSurpriseLocked": "Trybu Pełna Niespodzianka nie można zmienić po utworzeniu, aby chronić niespodziankę dla kupujących."
     },
     "detail": {
       "pageTitle": "Szczegóły listy — Podaruj.me",
@@ -312,6 +321,18 @@
     "reservedCannotEdit": "Ten prezent jest zarezerwowany i nie można go edytować",
     "publishedCannotEdit": "Ten prezent został zablokowany po opublikowaniu listy",
     "surpriseCannotEdit": "Edycja wyłączona — ta lista może mieć rezerwacje",
+    "sort": {
+      "label": "Sortuj wg",
+      "custom": "Własna kolejność",
+      "priority": "Priorytet",
+      "priceLow": "Cena: rosnąco",
+      "priceHigh": "Cena: malejąco",
+      "nameAz": "Nazwa: A-Z",
+      "dateNewest": "Najnowsze",
+      "dateOldest": "Najstarsze",
+      "availableFirst": "Dostępne najpierw"
+    },
+    "dragHandle": "Przeciągnij aby zmienić kolejność",
     "moveUp": "Przesuń w górę",
     "moveDown": "Przesuń w dół",
     "openLink": "Otwórz link",
