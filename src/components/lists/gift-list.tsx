@@ -339,9 +339,11 @@ export function GiftList({
                 <SelectItem value="date_oldest">
                   {tSort("dateOldest")}
                 </SelectItem>
-                <SelectItem value="available_first">
-                  {tSort("availableFirst")}
-                </SelectItem>
+                {privacyMode !== "full_surprise" && (
+                  <SelectItem value="available_first">
+                    {tSort("availableFirst")}
+                  </SelectItem>
+                )}
               </SelectContent>
             </Select>
           )}
