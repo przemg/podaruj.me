@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import QRCode from "qrcode";
 import {
@@ -19,6 +19,31 @@ type QrCodeDialogProps = {
   listName: string;
 };
 
+// Generate SVG string with rounded QR dots
+function generateRoundedQrSvg(
+  modules: boolean[][],
+  size: number,
+  dotColor: string,
+): string {
+  const count = modules.length;
+  const cellSize = size / count;
+  const radius = cellSize * 0.35;
+
+  let paths = "";
+
+  for (let row = 0; row < count; row++) {
+    for (let col = 0; col < count; col++) {
+      if (modules[row][col]) {
+        const x = col * cellSize;
+        const y = row * cellSize;
+        paths += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" rx="${radius}" ry="${radius}" fill="${dotColor}"/>`;
+      }
+    }
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}"><rect width="${size}" height="${size}" fill="white"/>${paths}</svg>`;
+}
+
 export function QrCodeDialog({
   open,
   onOpenChange,
@@ -27,53 +52,66 @@ export function QrCodeDialog({
 }: QrCodeDialogProps) {
   const t = useTranslations("lists.detail.share");
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [svgHtml, setSvgHtml] = useState("");
 
-  const drawQrCode = useCallback(async () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const generateQr = useCallback(async () => {
+    // Get QR code matrix data
+    const qrData = QRCode.create(url, { errorCorrectionLevel: "M" });
+    const modules = qrData.modules;
+    const size = modules.size;
 
-    await QRCode.toCanvas(canvas, url, {
-      width: 220,
-      margin: 2,
-      color: { dark: "#1a1a2e", light: "#ffffff" },
-    });
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const qrSize = canvas.width;
-    const brandingHeight = 32;
-    const totalHeight = qrSize + brandingHeight;
-
-    const tempCanvas = document.createElement("canvas");
-    tempCanvas.width = qrSize;
-    tempCanvas.height = totalHeight;
-    const tempCtx = tempCanvas.getContext("2d");
-    if (!tempCtx) return;
-
-    tempCtx.fillStyle = "#ffffff";
-    tempCtx.fillRect(0, 0, qrSize, totalHeight);
-    tempCtx.drawImage(canvas, 0, 0);
-
-    tempCtx.fillStyle = "#e8836b";
-    tempCtx.font = "bold 13px system-ui, sans-serif";
-    tempCtx.textAlign = "center";
-    tempCtx.fillText("Podaruj.me", qrSize / 2, qrSize + 20);
-
-    canvas.height = totalHeight;
-    canvas.width = qrSize;
-    const originalCtx = canvas.getContext("2d");
-    if (originalCtx) {
-      originalCtx.drawImage(tempCanvas, 0, 0);
+    // Build boolean matrix
+    const matrix: boolean[][] = [];
+    for (let row = 0; row < size; row++) {
+      matrix[row] = [];
+      for (let col = 0; col < size; col++) {
+        matrix[row][col] = modules.get(row, col) === 1;
+      }
     }
+
+    const svgSize = 220;
+    const svg = generateRoundedQrSvg(matrix, svgSize, "#1a1a2e");
+    setSvgHtml(svg);
+
+    // Also draw to hidden canvas for download/print (with branding)
+    requestAnimationFrame(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const qrSize = 220;
+      const brandingHeight = 32;
+      const totalHeight = qrSize + brandingHeight;
+      canvas.width = qrSize;
+      canvas.height = totalHeight;
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      // White background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, qrSize, totalHeight);
+
+      // Render SVG to canvas
+      const img = new Image();
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, qrSize, qrSize);
+
+        // Branding text
+        ctx.fillStyle = "#e8836b";
+        ctx.font = "bold 13px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Podaruj.me", qrSize / 2, qrSize + 20);
+      };
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    });
   }, [url]);
 
   useEffect(() => {
     if (open) {
-      const timer = setTimeout(drawQrCode, 50);
+      const timer = setTimeout(generateQr, 50);
       return () => clearTimeout(timer);
     }
-  }, [open, drawQrCode]);
+  }, [open, generateQr]);
 
   const handleDownload = () => {
     const canvas = canvasRef.current;
@@ -127,9 +165,23 @@ export function QrCodeDialog({
         </DialogHeader>
 
         <div className="flex flex-col items-center gap-4">
+          {/* Rounded QR code (SVG) */}
           <div className="rounded-xl bg-white p-3">
-            <canvas ref={canvasRef} className="block" />
+            {svgHtml ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: svgHtml }}
+                className="block"
+              />
+            ) : (
+              <div className="h-[220px] w-[220px]" />
+            )}
+            <p className="mt-1.5 text-center text-[13px] font-bold text-landing-coral">
+              Podaruj.me
+            </p>
           </div>
+
+          {/* Hidden canvas for download/print */}
+          <canvas ref={canvasRef} className="hidden" />
 
           <div className="flex w-full gap-2">
             <button
