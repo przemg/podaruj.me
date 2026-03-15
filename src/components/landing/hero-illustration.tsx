@@ -68,10 +68,17 @@ export function HeroIllustration() {
 
       {/* Small floating gift */}
       <div className="animate-float-slow absolute right-4 bottom-12">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-          <rect y="12" width="40" height="28" rx="6" fill="#A78BFA" />
-          <rect width="40" height="10" y="10" rx="5" fill="#9175E0" />
-          <rect x="17" y="10" width="6" height="30" rx="2" fill="#F5F0FF" />
+        <svg width="40" height="46" viewBox="0 0 40 46" fill="none" aria-hidden="true">
+          {/* Gift box body */}
+          <rect y="18" width="40" height="28" rx="6" fill="#A78BFA" />
+          {/* Gift box lid */}
+          <rect width="40" height="10" y="16" rx="5" fill="#9175E0" />
+          {/* Vertical ribbon */}
+          <rect x="17" y="16" width="6" height="30" rx="2" fill="#F5F0FF" />
+          {/* Bow - left loop */}
+          <path d="M20 16C20 16 14 10 10 12C6 14 8 18 12 20" stroke="#F5F0FF" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          {/* Bow - right loop */}
+          <path d="M20 16C20 16 26 10 30 12C34 14 32 18 28 20" stroke="#F5F0FF" strokeWidth="2.5" fill="none" strokeLinecap="round" />
         </svg>
       </div>
     </div>
