@@ -70,9 +70,9 @@ export function HeroIllustration() {
       <div className="animate-float-slow absolute right-4 bottom-12">
         <svg width="40" height="46" viewBox="0 0 40 46" fill="none" aria-hidden="true">
           {/* Gift box body */}
-          <rect y="18" width="40" height="28" rx="6" fill="#7C3AED" />
+          <rect y="18" width="40" height="28" rx="6" fill="#8B5CF6" />
           {/* Gift box lid */}
-          <rect width="40" height="10" y="16" rx="5" fill="#6D28D9" />
+          <rect width="40" height="10" y="16" rx="5" fill="#7C3AED" />
           {/* Vertical ribbon */}
           <rect x="17" y="16" width="6" height="30" rx="2" fill="#FBBF24" />
           {/* Bow - left loop */}
