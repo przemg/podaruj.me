@@ -63,29 +63,29 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
 
   return (
     <>
-      {/* Split button: left = default action (copy link), right = dropdown arrow */}
-      <div className="ml-auto flex items-stretch">
+      {/* Split button: left = copy link, right = dropdown */}
+      <div className="flex items-stretch rounded-lg border border-landing-text/15 bg-white shadow-sm">
         {/* Primary action — copy link */}
         <button
           onClick={handleCopyLink}
-          className="flex cursor-pointer items-center gap-1.5 rounded-l-full bg-landing-coral-dark px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-landing-coral-hover active:scale-[0.97]"
+          className="flex cursor-pointer items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-landing-text transition-colors hover:bg-landing-peach-wash/60 active:scale-[0.97]"
         >
           {copied ? (
-            <Check className="h-3.5 w-3.5" />
+            <Check className="h-3.5 w-3.5 text-emerald-500" />
           ) : (
-            <Link className="h-3.5 w-3.5" />
+            <Link className="h-3.5 w-3.5 text-landing-coral" />
           )}
           {copied ? t("linkCopied") : t("copyLink")}
         </button>
 
         {/* Divider */}
-        <div className="w-px bg-white/30" />
+        <div className="w-px bg-landing-text/15" />
 
         {/* Dropdown trigger */}
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <button
-              className="flex cursor-pointer items-center rounded-r-full bg-landing-coral-dark px-2.5 py-1.5 text-white shadow-sm transition-colors hover:bg-landing-coral-hover active:scale-[0.97]"
+              className="flex cursor-pointer items-center px-2 py-1.5 text-landing-text-muted transition-colors hover:bg-landing-peach-wash/60 hover:text-landing-text active:scale-[0.97]"
               aria-label="More sharing options"
             >
               <ChevronDown className="h-3.5 w-3.5" />

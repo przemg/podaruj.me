@@ -135,6 +135,8 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
           {/* Actions — top right on desktop */}
           <div className="flex items-center gap-1.5 sm:shrink-0">
+            {!isDraft && <SharePopover list={list} locale={locale} />}
+            <div className="mx-0.5 hidden h-5 w-px bg-landing-text/10 sm:block" />
             <Button
               variant="ghost"
               size="sm"
@@ -191,7 +193,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             </div>
           )}
 
-          {isDraft ? (
+          {isDraft && (
             <button
               onClick={() => setPublishOpen(true)}
               className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark"
@@ -199,8 +201,6 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               <Upload className="h-3.5 w-3.5" />
               {t("publishButton")}
             </button>
-          ) : (
-            <SharePopover list={list} locale={locale} />
           )}
         </div>
       </div>
