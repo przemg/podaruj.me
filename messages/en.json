@@ -233,7 +233,18 @@
       "confirmPublish": "Publish this list?",
       "confirmPublishDescription": "Once published, you won't be able to edit or delete existing items. New items can still be added.",
       "confirmPublishButton": "Publish list",
-      "cancelPublish": "Cancel"
+      "cancelPublish": "Cancel",
+      "share": {
+        "copyLink": "Copy link",
+        "linkCopied": "Copied!",
+        "shareEmail": "Share via email",
+        "qrCode": "QR Code",
+        "qrTitle": "QR Code",
+        "qrDownload": "Download PNG",
+        "qrPrint": "Print",
+        "emailSubject": "Check out my gift list on Podaruj.me!",
+        "emailBody": "Hey! I made a gift list for {occasion}. Check it out and reserve something:\n\n{url}"
+      }
     },
     "notFound": {
       "title": "List not found",

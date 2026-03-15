@@ -233,7 +233,18 @@
       "confirmPublish": "Opublikować tę listę?",
       "confirmPublishDescription": "Po opublikowaniu nie będzie można edytować ani usuwać istniejących prezentów. Nowe prezenty nadal można dodawać.",
       "confirmPublishButton": "Opublikuj listę",
-      "cancelPublish": "Anuluj"
+      "cancelPublish": "Anuluj",
+      "share": {
+        "copyLink": "Kopiuj link",
+        "linkCopied": "Skopiowano!",
+        "shareEmail": "Udostępnij mailem",
+        "qrCode": "Kod QR",
+        "qrTitle": "Kod QR",
+        "qrDownload": "Pobierz PNG",
+        "qrPrint": "Drukuj",
+        "emailSubject": "Sprawdź moją listę prezentów na Podaruj.me!",
+        "emailBody": "Hej! Stworzyłem listę prezentów na {occasion}. Sprawdź i zarezerwuj coś:\n\n{url}"
+      }
     },
     "notFound": {
       "title": "Lista nie znaleziona",
