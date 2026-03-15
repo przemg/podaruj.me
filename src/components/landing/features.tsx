@@ -8,12 +8,6 @@ export function Features() {
   const t = useTranslations("landing.features");
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
-  const smallCards = [
-    { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-    { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-    { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
-  ];
-
   return (
     <section id="features" className="relative overflow-hidden bg-[#2D2545] py-20 sm:py-28">
       {/* Decorative gradient orbs */}
@@ -28,10 +22,18 @@ export function Features() {
           {t("subtitle")}
         </p>
 
-        {/* Desktop layout: 3-col grid (original) */}
-        <div ref={revealRef} className="mt-16">
-          {/* Privacy modes — large card (always full width on mobile/tablet, 2 cols on desktop) */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 lg:flex-row">
+        {/*
+          Grid layouts:
+          Desktop (3 col): 1 1 2 / 1 1 2 / 3 4 5
+          Tablet  (2 col): 1 1 / 2 3 / 2 4 / 2 5
+          Mobile  (1 col): 1 / 2 / 3 / 4 / 5
+        */}
+        <div
+          ref={revealRef}
+          className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {/* Card 1: Privacy modes — 2 cols on tablet+desktop, 2 rows on desktop */}
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:col-span-2 lg:row-span-2 lg:flex-row">
             {/* Left: text content */}
             <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
@@ -98,52 +100,51 @@ export function Features() {
             </div>
           </div>
 
-          {/* Bottom section */}
-          {/* Tablet (sm): QR left + 3 cards stacked right */}
-          {/* Desktop (lg): QR tall on right, 3 cards in row below privacy */}
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {/* QR code card — on tablet: left col spanning 3 rows; on desktop: last col spanning 2 rows */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-2 lg:order-last">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
-                <QrCode className="h-6 w-6 text-landing-coral" />
+          {/* Card 2: QR code — tall: 3 rows on tablet, 2 rows on desktop */}
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-2">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
+              <QrCode className="h-6 w-6 text-landing-coral" />
+            </div>
+            <h3 className="text-xl font-semibold text-white">
+              {t("qrTitle")}
+            </h3>
+            <p className="mt-2 text-white/50">
+              {t("qrDescription")}
+            </p>
+            <div className="mt-6 flex flex-1 items-end justify-center">
+              <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
+                <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
+                <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
+                <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
+                <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
+                <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
+                <rect x="46" y="73" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
+                <rect x="66" y="61" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
+                <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
+                <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
+                <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
+                <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+                <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Cards 3-5: Small feature cards */}
+          {[
+            { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
+            { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
+            { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+          ].map((card) => (
+            <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
+                <card.icon className={`h-5 w-5 ${card.color}`} />
               </div>
-              <h3 className="text-xl font-semibold text-white">
-                {t("qrTitle")}
-              </h3>
-              <p className="mt-2 text-white/50">
-                {t("qrDescription")}
-              </p>
-              <div className="mt-6 flex flex-1 items-end justify-center">
-                <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
-                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
-                  <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
-                  <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
-                  <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
-                  <rect x="46" y="73" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
-                  <rect x="66" y="61" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
-                  <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
-                  <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
-                  <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
-                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
-                </svg>
+              <div>
+                <h3 className="font-semibold text-white">{t(card.titleKey)}</h3>
+                <p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p>
               </div>
             </div>
-
-            {/* 3 small cards — on tablet: right col stacked; on desktop: row below privacy (2 cols) */}
-            {smallCards.map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
-                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
-                  <card.icon className={`h-5 w-5 ${card.color}`} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">{t(card.titleKey)}</h3>
-                  <p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>
