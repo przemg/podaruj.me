@@ -177,6 +177,7 @@ export default async function ListDetailPage({
       {isClosed && summaryData && (
         <div className="mb-8">
           <SummaryCard
+            listId={list.id}
             totalItems={summaryData.totalItems}
             reservedCount={summaryData.reservedCount}
             reservations={summaryData.reservations}

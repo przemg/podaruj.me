@@ -10,18 +10,23 @@ type ReservationSummaryItem = {
 };
 
 type SummaryCardProps = {
+  listId: string;
   totalItems: number;
   reservedCount: number;
   reservations: ReservationSummaryItem[];
 };
 
-export function SummaryCard({ totalItems, reservedCount, reservations }: SummaryCardProps) {
+export function SummaryCard({ listId, totalItems, reservedCount, reservations }: SummaryCardProps) {
   const t = useTranslations("lists.summary");
   const confettiFired = useRef(false);
 
   useEffect(() => {
     if (confettiFired.current) return;
     confettiFired.current = true;
+
+    const storageKey = `confetti-shown-${listId}`;
+    if (localStorage.getItem(storageKey)) return;
+    localStorage.setItem(storageKey, "1");
 
     import("canvas-confetti").then((confettiModule) => {
       const confetti = confettiModule.default;
