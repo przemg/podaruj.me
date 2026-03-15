@@ -120,47 +120,8 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
       {/* Header card */}
       <div className="mb-8 rounded-2xl bg-white/70 p-6 shadow-sm backdrop-blur-sm ring-1 ring-landing-text/[0.04]">
-        {/* Title + description */}
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-landing-text md:text-3xl">
-            {list.name}
-          </h1>
-          {list.description && (
-            <p className="mt-2 max-w-prose text-[0.95rem] leading-relaxed text-landing-text-muted">
-              {list.description}
-            </p>
-          )}
-        </div>
-
-        {/* Actions row — always below title */}
-        <div className="mt-4 flex items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
-          {!isDraft && <SharePopover list={list} locale={locale} />}
-          <div className="ml-auto flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() =>
-                router.push(`/dashboard/lists/${list.slug}/edit`)
-              }
-              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
-            >
-              <Pencil className="h-3.5 w-3.5" />
-              {t("editButton")}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setDeleteOpen(true)}
-              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-              {t("deleteButton")}
-            </Button>
-          </div>
-        </div>
-
-        {/* Badges + share/publish */}
-        <div className="mt-4 flex flex-wrap items-center gap-2">
+        {/* Badges — top of card */}
+        <div className="mb-4 flex flex-wrap items-center gap-2">
           {isDraft && (
             <div className="flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">
               {t("draftBadge")}
@@ -191,16 +152,54 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               {countdownLabel}
             </div>
           )}
+        </div>
 
+        {/* Title + description */}
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-landing-text md:text-3xl">
+            {list.name}
+          </h1>
+          {list.description && (
+            <p className="mt-2 max-w-prose text-[0.95rem] leading-relaxed text-landing-text-muted">
+              {list.description}
+            </p>
+          )}
+        </div>
+
+        {/* Actions row */}
+        <div className="mt-4 flex items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
+          {!isDraft && <SharePopover list={list} locale={locale} />}
           {isDraft && (
             <button
               onClick={() => setPublishOpen(true)}
-              className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark"
+              className="flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark"
             >
               <Upload className="h-3.5 w-3.5" />
               {t("publishButton")}
             </button>
           )}
+          <div className="ml-auto flex items-center gap-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                router.push(`/dashboard/lists/${list.slug}/edit`)
+              }
+              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
+            >
+              <Pencil className="h-3.5 w-3.5" />
+              {t("editButton")}
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setDeleteOpen(true)}
+              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              {t("deleteButton")}
+            </Button>
+          </div>
         </div>
       </div>
 
