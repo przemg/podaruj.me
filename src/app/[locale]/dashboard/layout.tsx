@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getTranslations } from "next-intl/server";
 import { UserMenu } from "@/components/auth/user-menu";
 import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { MobileMenu } from "@/components/dashboard/mobile-menu";
@@ -11,6 +12,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const t = await getTranslations("dashboard");
   const supabase = await createClient();
   const {
     data: { user },
@@ -56,7 +58,7 @@ export default async function DashboardLayout({
       {children}
       <footer className="mt-auto border-t border-landing-text/5 bg-white/30 py-4">
         <div className="mx-auto max-w-7xl px-4 text-landing-text-muted/50 sm:px-6 lg:px-8">
-          <AuthorCredit />
+          <AuthorCredit label={t("builtBy")} />
         </div>
       </footer>
     </div>

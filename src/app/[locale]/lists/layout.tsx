@@ -53,7 +53,7 @@ export default async function PublicListLayout({
             {t("poweredBy")}
           </Link>
           <div className="mt-4 text-landing-text-muted/50">
-            <AuthorCredit />
+            <AuthorCredit label={t("builtBy")} />
           </div>
         </div>
       </footer>

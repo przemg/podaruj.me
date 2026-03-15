@@ -1,9 +1,9 @@
 import { Github, Linkedin } from "lucide-react";
 
-export function AuthorCredit() {
+export function AuthorCredit({ label }: { label: string }) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
-      <span>Built by Przemysław Gwóźdź</span>
+      <span>{label}</span>
       <span className="hidden sm:inline" aria-hidden="true">·</span>
       <div className="flex items-center gap-3">
         <a

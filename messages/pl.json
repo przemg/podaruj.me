@@ -91,7 +91,8 @@
     "footer": {
       "tagline": "Listy prezentów w prosty sposób",
       "madeWith": "Stworzone z miłością w Polsce",
-      "copyright": "© {year} Podaruj.me. Wszelkie prawa zastrzeżone."
+      "copyright": "© {year} Podaruj.me. Wszelkie prawa zastrzeżone.",
+      "builtBy": "Stworzone przez Przemysława Gwóździa"
     },
     "metadata": {
       "title": "Podaruj.me — Listy Prezentów w Prosty Sposób",
@@ -131,6 +132,7 @@
   "dashboard": {
     "pageTitle": "Panel — Podaruj.me",
     "welcome": "Witaj w Podaruj.me!",
+    "builtBy": "Stworzone przez Przemysława Gwóździa",
     "nav": {
       "myLists": "Moje listy",
       "myReservations": "Moje rezerwacje"
@@ -423,6 +425,7 @@
     "emptyList": "Nie dodano jeszcze prezentów do tej listy",
     "dashboardButton": "Mój panel",
     "poweredBy": "Stworzone przez Podaruj.me",
+    "builtBy": "Stworzone przez Przemysława Gwóździa",
     "createYourOwn": "Stwórz swoją listę prezentów",
     "gifts": "Prezenty",
     "errorTitle": "Coś poszło nie tak",

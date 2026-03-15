@@ -91,7 +91,8 @@
     "footer": {
       "tagline": "Gift lists made simple",
       "madeWith": "Made with love in Poland",
-      "copyright": "© {year} Podaruj.me. All rights reserved."
+      "copyright": "© {year} Podaruj.me. All rights reserved.",
+      "builtBy": "Built by Przemysław Gwóźdź"
     },
     "metadata": {
       "title": "Podaruj.me — Gift Lists Made Simple",
@@ -131,6 +132,7 @@
   "dashboard": {
     "pageTitle": "Dashboard — Podaruj.me",
     "welcome": "Welcome to Podaruj.me!",
+    "builtBy": "Built by Przemysław Gwóźdź",
     "nav": {
       "myLists": "My Lists",
       "myReservations": "My Reservations"
@@ -423,6 +425,7 @@
     "emptyList": "No gifts added to this list yet",
     "dashboardButton": "My Dashboard",
     "poweredBy": "Powered by Podaruj.me",
+    "builtBy": "Built by Przemysław Gwóźdź",
     "createYourOwn": "Create your own gift list",
     "gifts": "Gifts",
     "errorTitle": "Something went wrong",

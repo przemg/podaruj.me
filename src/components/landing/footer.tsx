@@ -52,7 +52,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-landing-footer-text/10 pt-6 text-landing-footer-text/40">
-          <AuthorCredit />
+          <AuthorCredit label={t("footer.builtBy")} />
         </div>
       </div>
     </footer>
