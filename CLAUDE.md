@@ -61,7 +61,7 @@ supabase/
 ## Database Tables
 
 - **profiles** — user profiles (auto-created on signup)
-- **lists** — gift lists with occasion, privacy mode, event date, slug (RLS: owner-only). Slug is used in URLs instead of UUID.
+- **lists** — gift lists with occasion, privacy mode, event date, slug, `is_published`, `published_at` (RLS: owner-only). Slug is used in URLs instead of UUID. Full Surprise lists start as drafts (`is_published=false`); all others default to `true`.
 - **items** — gift items within lists with priority, position (RLS: owner of parent list)
 - **reservations** — gift reservations with privacy modes, guest nickname for anonymous reservations. RLS: logged-in users can SELECT/DELETE own reservations; all other access via service client.
 
@@ -100,6 +100,14 @@ All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`)
 ## Mutations Pattern
 
 All data mutations use **Next.js Server Actions** (functions with `"use server"` in `actions.ts`). Server Actions validate input, check authentication, and use the server Supabase client with RLS enforcement. List actions receive `locale` for redirect paths; item actions receive `locale` and `listSlug` for `revalidatePath`.
+
+## Publish Mode (Full Surprise Only)
+
+Full Surprise lists use a **draft → published** lifecycle. Non-surprise lists are always published.
+
+- **Draft state:** `is_published=false`. Public page returns 404. Reservations blocked. Owner can freely add/edit/delete items.
+- **Publish action:** `publishList()` sets `is_published=true` and `published_at=now()`. Items created before `published_at` become locked (no edit/delete via server action guards). New items added after publish are also locked immediately.
+- **UI:** Draft badge + Publish button (with confirmation dialog) in list header. Dashboard cards show "Draft" badge. Add-gift dialog warns that items can't be edited after adding to a published list.
 
 ## Key Principles
 

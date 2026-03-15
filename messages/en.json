@@ -137,7 +137,8 @@
       "itemCount": "{count, plural, one {# gift} other {# gifts}}",
       "daysLeft": "{count, plural, one {in # day} other {in # days}}",
       "today": "Today!",
-      "pastEvent": "Event passed"
+      "pastEvent": "Event passed",
+      "draft": "Draft"
     },
     "reservations": {
       "title": "My Reservations",
@@ -225,7 +226,14 @@
       "backToDashboard": "Back to dashboard",
       "shareCopied": "Link copied!",
       "buyersChoiceHint": "Guests choose whether to show their name to you",
-      "fullSurpriseHint": "Reservations are hidden from you — maximum surprise!"
+      "fullSurpriseHint": "Reservations are hidden from you — maximum surprise!",
+      "publishButton": "Publish",
+      "publishing": "Publishing...",
+      "draftBadge": "Draft",
+      "confirmPublish": "Publish this list?",
+      "confirmPublishDescription": "Once published, you won't be able to edit or delete existing items. New items can still be added.",
+      "confirmPublishButton": "Publish list",
+      "cancelPublish": "Cancel"
     },
     "notFound": {
       "title": "List not found",
@@ -270,7 +278,8 @@
       "adding": "Adding...",
       "saveButton": "Save changes",
       "saving": "Saving...",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "publishedSurpriseWarning": "This item cannot be edited or deleted after it's added — the list is already published."
     },
     "priority": {
       "nice_to_have": "Nice to have",
@@ -289,6 +298,7 @@
       "cancel": "Cancel"
     },
     "reservedCannotEdit": "This item is reserved and cannot be edited",
+    "publishedCannotEdit": "This item was locked when the list was published",
     "surpriseCannotEdit": "Editing is disabled — this list may have reservations",
     "moveUp": "Move up",
     "moveDown": "Move down",

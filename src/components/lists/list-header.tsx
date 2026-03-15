@@ -11,8 +11,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
-import { deleteList } from "@/app/[locale]/dashboard/lists/actions";
+import { deleteList, publishList } from "@/app/[locale]/dashboard/lists/actions";
 import {
   Pencil,
   Trash2,
@@ -27,6 +35,8 @@ import {
   EyeOff,
   CalendarDays,
   ArrowLeft,
+  Upload,
+  Loader2,
 } from "lucide-react";
 
 type ListData = {
@@ -37,6 +47,7 @@ type ListData = {
   occasion: string;
   event_date: string | null;
   privacy_mode: string;
+  is_published: boolean;
 };
 
 type ListHeaderProps = {
@@ -66,6 +77,10 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
+  const [publishOpen, setPublishOpen] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+
+  const isDraft = list.privacy_mode === "full_surprise" && !list.is_published;
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
@@ -84,6 +99,14 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
   const handleDelete = async () => {
     setDeleting(true);
     await deleteList(locale, list.slug);
+  };
+
+  const handlePublish = async () => {
+    setPublishing(true);
+    await publishList(locale, list.slug);
+    setPublishing(false);
+    setPublishOpen(false);
+    router.refresh();
   };
 
   return (
@@ -137,8 +160,13 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
           </div>
         </div>
 
-        {/* Badges + share */}
+        {/* Badges + share/publish */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
+          {isDraft && (
+            <div className="flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">
+              {t("draftBadge")}
+            </div>
+          )}
           <div className="flex items-center gap-1.5 rounded-full bg-landing-peach-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
             <OccasionIcon className="h-3.5 w-3.5 text-landing-coral" />
             {tOccasions(list.occasion)}
@@ -165,28 +193,37 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             </div>
           )}
 
-          {/* Share button — copies public link */}
-          <button
-            onClick={async () => {
-              const url = `${window.location.origin}/${locale}/lists/${list.slug}`;
-              await navigator.clipboard.writeText(url);
-              setShareCopied(true);
-              setTimeout(() => setShareCopied(false), 2000);
-            }}
-            className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral/10 px-3 py-1 text-xs font-medium text-landing-coral transition-colors hover:bg-landing-coral/20"
-          >
-            {shareCopied ? (
-              <>
-                <Check className="h-3.5 w-3.5" />
-                {t("shareCopied")}
-              </>
-            ) : (
-              <>
-                <Share2 className="h-3.5 w-3.5" />
-                {t("shareButton")}
-              </>
-            )}
-          </button>
+          {isDraft ? (
+            <button
+              onClick={() => setPublishOpen(true)}
+              className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark"
+            >
+              <Upload className="h-3.5 w-3.5" />
+              {t("publishButton")}
+            </button>
+          ) : (
+            <button
+              onClick={async () => {
+                const url = `${window.location.origin}/${locale}/lists/${list.slug}`;
+                await navigator.clipboard.writeText(url);
+                setShareCopied(true);
+                setTimeout(() => setShareCopied(false), 2000);
+              }}
+              className="ml-auto flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral/10 px-3 py-1 text-xs font-medium text-landing-coral transition-colors hover:bg-landing-coral/20"
+            >
+              {shareCopied ? (
+                <>
+                  <Check className="h-3.5 w-3.5" />
+                  {t("shareCopied")}
+                </>
+              ) : (
+                <>
+                  <Share2 className="h-3.5 w-3.5" />
+                  {t("shareButton")}
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
 
@@ -200,6 +237,41 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         onConfirm={handleDelete}
         loading={deleting}
       />
+
+      {/* Publish confirmation dialog */}
+      <Dialog open={publishOpen} onOpenChange={setPublishOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-landing-coral/10">
+              <Upload className="h-6 w-6 text-landing-coral" />
+            </div>
+            <DialogTitle className="text-center text-landing-text">
+              {t("confirmPublish")}
+            </DialogTitle>
+            <DialogDescription className="text-center text-landing-text-muted">
+              {t("confirmPublishDescription")}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-col gap-2 sm:flex-row sm:justify-center">
+            <Button
+              variant="outline"
+              onClick={() => setPublishOpen(false)}
+              disabled={publishing}
+              className="w-full cursor-pointer border-landing-text/10 sm:w-auto"
+            >
+              {t("cancelPublish")}
+            </Button>
+            <Button
+              onClick={handlePublish}
+              disabled={publishing}
+              className="w-full cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover sm:w-auto"
+            >
+              {publishing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {publishing ? t("publishing") : t("confirmPublishButton")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

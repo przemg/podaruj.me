@@ -13,10 +13,12 @@ type ListCardProps = {
   name: string;
   occasion: string;
   eventDate: string | null;
+  isDraft?: boolean;
   t: {
     occasion: string;
     itemCount: string;
     countdown: string;
+    draft?: string;
   };
 };
 
@@ -55,6 +57,7 @@ export function ListCard({
   name,
   occasion,
   eventDate,
+  isDraft,
   t,
 }: ListCardProps) {
   const config = OCCASION_CONFIG[occasion] ?? OCCASION_CONFIG.other;
@@ -80,6 +83,11 @@ export function ListCard({
           </h3>
 
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            {isDraft && (
+              <span className="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-[0.7rem] font-medium text-amber-700">
+                {t.draft}
+              </span>
+            )}
             <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.7rem] font-medium ${config.bgClass} text-landing-text`}>
               {t.occasion}
             </span>

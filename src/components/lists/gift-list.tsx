@@ -22,6 +22,7 @@ type ItemData = {
   image_url: string | null;
   priority: string;
   position: number;
+  created_at?: string;
 };
 
 type ReservationBadge = {
@@ -36,9 +37,11 @@ type GiftListProps = {
   reservations?: Record<string, ReservationBadge>;
   privacyMode?: string;
   reservedItemIds?: string[];
+  isPublished?: boolean;
+  publishedAt?: string | null;
 };
 
-export function GiftList({ items, listId, listSlug, locale, reservations, privacyMode, reservedItemIds }: GiftListProps) {
+export function GiftList({ items, listId, listSlug, locale, reservations, privacyMode, reservedItemIds, isPublished, publishedAt }: GiftListProps) {
   const t = useTranslations("items");
   const tConfirm = useTranslations("items.confirmDelete");
   const router = useRouter();
@@ -161,23 +164,27 @@ export function GiftList({ items, listId, listSlug, locale, reservations, privac
         </div>
       ) : (
         <div className="space-y-3">
-          {orderedItems.map((item, index) => (
-            <GiftCard
-              key={item.id}
-              item={item}
-              isFirst={index === 0}
-              isLast={index === orderedItems.length - 1}
-              locale={locale}
-              reservation={reservations?.[item.id]}
-              privacyMode={privacyMode}
-              isReserved={!!reservations?.[item.id] || !!reservedItemIds?.includes(item.id)}
-              hasAnyReservation={(reservedItemIds?.length ?? 0) > 0 || Object.keys(reservations ?? {}).length > 0}
-              onMoveUp={() => handleMoveUp(index)}
-              onMoveDown={() => handleMoveDown(index)}
-              onEdit={() => handleEdit(item)}
-              onDelete={() => handleDeleteClick(item)}
-            />
-          ))}
+          {orderedItems.map((item, index) => {
+            const itemLocked = privacyMode === "full_surprise" && isPublished && !!publishedAt && !!item.created_at && item.created_at <= publishedAt;
+            return (
+              <GiftCard
+                key={item.id}
+                item={item}
+                isFirst={index === 0}
+                isLast={index === orderedItems.length - 1}
+                locale={locale}
+                reservation={reservations?.[item.id]}
+                privacyMode={privacyMode}
+                isReserved={!!reservations?.[item.id] || !!reservedItemIds?.includes(item.id)}
+                hasAnyReservation={(reservedItemIds?.length ?? 0) > 0 || Object.keys(reservations ?? {}).length > 0}
+                isLocked={itemLocked}
+                onMoveUp={() => handleMoveUp(index)}
+                onMoveDown={() => handleMoveDown(index)}
+                onEdit={() => handleEdit(item)}
+                onDelete={() => handleDeleteClick(item)}
+              />
+            );
+          })}
         </div>
       )}
 
@@ -189,6 +196,7 @@ export function GiftList({ items, listId, listSlug, locale, reservations, privac
           listId={listId}
           listSlug={listSlug}
           locale={locale}
+          isPublishedSurprise={privacyMode === "full_surprise" && isPublished}
         />
       )}
 
