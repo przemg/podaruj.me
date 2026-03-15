@@ -218,7 +218,7 @@ export default async function PublicListPage({ params }: PageProps) {
         />
 
         {list.event_date && (
-          <div className="mt-6">
+          <div className="mt-6 mb-8">
             <AnimatedCountdown eventDate={list.event_date} />
           </div>
         )}
