@@ -36,7 +36,6 @@ type GiftCardProps = {
   locale: string;
   reservation?: ReservationBadge;
   privacyMode?: string;
-  isReserved?: boolean;
   hasAnyReservation?: boolean;
   isLocked?: boolean;
   dragHandleProps?: React.HTMLAttributes<HTMLButtonElement>;
@@ -67,7 +66,6 @@ export function GiftCard({
   locale,
   reservation,
   privacyMode,
-  isReserved: _isReserved,
   hasAnyReservation,
   isLocked,
   dragHandleProps,

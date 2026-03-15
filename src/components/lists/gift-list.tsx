@@ -425,10 +425,6 @@ export function GiftList({
                     locale={locale}
                     reservation={reservations?.[item.id]}
                     privacyMode={privacyMode}
-                    isReserved={
-                      !!reservations?.[item.id] ||
-                      !!reservedItemIds?.includes(item.id)
-                    }
                     hasAnyReservation={
                       (reservedItemIds?.length ?? 0) > 0 ||
                       Object.keys(reservations ?? {}).length > 0
@@ -453,7 +449,6 @@ export function GiftList({
                   locale={locale}
                   reservation={reservations?.[activeItem.id]}
                   privacyMode={privacyMode}
-                  isReserved={false}
                   hasAnyReservation={false}
                   isLocked={false}
                   isDragDisabled={true}

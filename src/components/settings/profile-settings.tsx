@@ -32,16 +32,16 @@ export function ProfileSettings({
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [linkSuccess, setLinkSuccess] = useState(false);
+  const linkedParam = searchParams.get("linked");
+  const [linkSuccess, setLinkSuccess] = useState(linkedParam === "google");
 
   useEffect(() => {
-    if (searchParams.get("linked") === "google") {
-      setLinkSuccess(true);
-      syncGoogleProfile().then(() => router.refresh());
-      window.history.replaceState({}, "", window.location.pathname);
-      setTimeout(() => setLinkSuccess(false), 5000);
-    }
-  }, [searchParams, router]);
+    if (linkedParam !== "google") return;
+    syncGoogleProfile().then(() => router.refresh());
+    window.history.replaceState({}, "", window.location.pathname);
+    const timer = setTimeout(() => setLinkSuccess(false), 5000);
+    return () => clearTimeout(timer);
+  }, [linkedParam, router]);
 
   const initials = (profile.display_name ?? email ?? "?").charAt(0).toUpperCase();
 
@@ -82,7 +82,7 @@ export function ProfileSettings({
         redirectTo: `${window.location.origin}/${locale}/auth/callback?next=/dashboard/settings%3Flinked%3Dgoogle`,
       },
     });
-  }, []);
+  }, [locale]);
 
   return (
     <div className="space-y-8">
