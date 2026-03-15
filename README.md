@@ -31,7 +31,7 @@ A gift list sharing platform where you create wish lists for any occasion and sh
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/podaruj.me.git
+git clone https://github.com/przemg/podaruj.me.git
 cd podaruj.me
 
 # Install dependencies

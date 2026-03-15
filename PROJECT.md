@@ -125,7 +125,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Mobile first responsive design
 - Warm, friendly aesthetic — pastels, rounded corners, soft shadows
 - EN + PL with language switcher
-- Landing page with features, use case scenarios, FAQ
+- Landing page with features, testimonials, FAQ
 - Scroll reveal animations
 - Real-time animated countdown timer
 
