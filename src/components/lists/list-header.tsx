@@ -161,7 +161,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               )}
               {/* Privacy badge — mobile: card with description, placed last */}
               <div className="flex w-full items-start gap-2.5 rounded-xl bg-landing-lavender-wash/50 px-3 py-2 ring-1 ring-landing-lavender/10 sm:hidden">
-                <PrivacyIcon className="mt-[3px] h-3.5 w-3.5 shrink-0 text-landing-lavender" />
+                <PrivacyIcon className="mt-[5px] h-4 w-4 shrink-0 text-landing-lavender" />
                 <div className="min-w-0">
                   <span className="text-xs font-semibold text-landing-text">{tPrivacy(list.privacy_mode)}</span>
                   <p className="mt-0.5 text-[11px] leading-snug text-landing-text-muted">
