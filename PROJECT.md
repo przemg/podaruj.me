@@ -20,7 +20,7 @@ A collection of desired items created by a registered user. Each list has:
 - Name, description, occasion type (birthday, holiday, wedding, other)
 - Event date (optional) with countdown
 - Privacy mode for reservations (set per list)
-- Shareable link, email invitations, QR code
+- Shareable link, email sharing (mailto), QR code
 
 ### Item
 
@@ -47,14 +47,14 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 ### Two invitation paths
 
-**Email invitation:**
+**Email sharing (mailto):**
 
-1. List owner enters email addresses
-2. Invitee receives email with magic link
-3. Clicking the link creates an account (or logs in) automatically
-4. Invitee is "known" — their name shows on reservations (if mode allows)
+1. List owner clicks "Share via email" on the list detail page
+2. User's email client opens with a pre-filled friendly message and link to the list
+3. Owner sends the email to anyone they want — no server-side email infrastructure needed
+4. Recipients click the link and can browse/reserve as guests or sign in
 
-**Link / QR invitation:**
+**Link / QR sharing:**
 
 1. List owner shares a URL or QR code (messenger, print, social media)
 2. Anyone with the link can browse and reserve — no account needed
@@ -92,9 +92,9 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 ### Sharing & Access
 
-- Shareable public link (unique slug)
-- Email invitations with magic link
-- QR code generation for print/sharing
+- Shareable public link (unique slug) ✅
+- Email sharing via mailto (pre-filled friendly message) ✅
+- QR code generation with branding, download, and print ✅
 - Event countdown display
 - Groups/Events — multiple people's lists under one event ("Kowalski Family Christmas 2026")
 
