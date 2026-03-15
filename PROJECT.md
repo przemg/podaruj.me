@@ -129,10 +129,6 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Scroll reveal animations
 - Real-time animated countdown timer
 
-## Planned Features (Not Yet Implemented)
-
-- Unlink Google account (linking is implemented, unlinking is not yet)
-
 ## Key Principles
 
 1. **Zero friction for guests** — viewing and reserving must work without an account
