@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { revalidatePath } from "next/cache";
+import { isListClosed } from "@/lib/countdown";
 
 export type ReservationActionResult = {
   error?: string;
@@ -54,7 +55,7 @@ export async function reserveItem(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug, user_id, privacy_mode, is_published")
+    .select("id, slug, user_id, privacy_mode, is_published, is_closed, event_date")
     .eq("slug", listSlug)
     .single();
 
@@ -65,6 +66,9 @@ export async function reserveItem(
 
   if (list.privacy_mode === "full_surprise" && !list.is_published)
     return { error: "This list is not yet published" };
+
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date }))
+    return { error: "This list is closed and no longer accepting reservations" };
 
   if (!(await isItemAvailable(serviceClient, itemId)))
     return { error: "This item is already reserved" };
@@ -112,7 +116,7 @@ export async function reserveItemAsGuest(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug, privacy_mode, is_published")
+    .select("id, slug, privacy_mode, is_published, is_closed, event_date")
     .eq("slug", listSlug)
     .single();
 
@@ -121,6 +125,9 @@ export async function reserveItemAsGuest(
 
   if (list.privacy_mode === "full_surprise" && !list.is_published)
     return { error: "This list is not yet published" };
+
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date }))
+    return { error: "This list is closed and no longer accepting reservations" };
 
   if (!(await isItemAvailable(serviceClient, itemId)))
     return { error: "This item is already reserved" };
