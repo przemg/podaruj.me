@@ -16,6 +16,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Cake,
   Snowflake,
   Heart,
@@ -24,6 +31,7 @@ import {
   Eye,
   EyeOff,
   Loader2,
+  AlertTriangle,
 } from "lucide-react";
 import {
   createList,
@@ -84,10 +92,12 @@ export function ListForm({
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSurpriseWarning, setShowSurpriseWarning] = useState(false);
+  const isFullSurpriseLocked =
+    mode === "edit" && defaultValues?.privacyMode === "full_surprise";
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
+  const submitForm = useCallback(
+    async (overridePrivacy?: string) => {
       setLoading(true);
       setError(null);
 
@@ -96,7 +106,7 @@ export function ListForm({
         description: description || undefined,
         occasion: occasion as ListFormData["occasion"],
         eventDate: eventDate || undefined,
-        privacyMode: privacyMode as ListFormData["privacyMode"],
+        privacyMode: (overridePrivacy ?? privacyMode) as ListFormData["privacyMode"],
       };
 
       const result =
@@ -108,15 +118,34 @@ export function ListForm({
         setError(result.error);
         setLoading(false);
       }
-      // On success, the Server Action redirects — no need to handle here
     },
     [name, description, occasion, eventDate, privacyMode, mode, locale, listId]
   );
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (mode === "create" && privacyMode === "full_surprise") {
+        setShowSurpriseWarning(true);
+        return;
+      }
+
+      await submitForm();
+    },
+    [mode, privacyMode, submitForm]
+  );
+
+  const handleConfirmSurprise = useCallback(async () => {
+    setShowSurpriseWarning(false);
+    await submitForm("full_surprise");
+  }, [submitForm]);
 
   const occasions = ["birthday", "holiday", "wedding", "other"] as const;
   const privacyModes = ["buyers_choice", "visible", "full_surprise"] as const;
 
   return (
+    <>
     <form
       onSubmit={handleSubmit}
       className="space-y-6 rounded-2xl border border-landing-text/5 bg-white/80 p-6 shadow-sm backdrop-blur-sm"
@@ -214,6 +243,7 @@ export function ListForm({
           value={privacyMode}
           onValueChange={setPrivacyMode}
           className="grid gap-3"
+          disabled={isFullSurpriseLocked}
         >
           {privacyModes.map((pm) => {
             const Icon = PRIVACY_ICONS[pm];
@@ -249,7 +279,7 @@ export function ListForm({
               <label
                 key={pm}
                 htmlFor={`privacy-${pm}`}
-                className={`group relative flex cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ${
+                className={`group relative flex ${isFullSurpriseLocked ? "pointer-events-none opacity-60" : "cursor-pointer"} items-center gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ${
                   isSelected
                     ? `${colors.selectedBorder} ${colors.selectedBg} shadow-sm ring-2 ${colors.ring}`
                     : "border-transparent bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
@@ -304,6 +334,14 @@ export function ListForm({
             );
           })}
         </RadioGroup>
+        {isFullSurpriseLocked && (
+          <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
+            <p className="text-sm text-amber-700">
+              {tEdit("fullSurpriseLocked")}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Actions */}
@@ -332,5 +370,36 @@ export function ListForm({
         )}
       </div>
     </form>
+
+    <Dialog open={showSurpriseWarning} onOpenChange={setShowSurpriseWarning}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-amber-100">
+            <AlertTriangle className="h-6 w-6 text-amber-600" />
+          </div>
+          <DialogTitle className="text-center text-landing-text">
+            {tCreate("fullSurpriseWarning")}
+          </DialogTitle>
+        </DialogHeader>
+        <DialogFooter className="flex-col gap-2 sm:flex-row sm:justify-center">
+          <Button
+            variant="outline"
+            onClick={() => setShowSurpriseWarning(false)}
+            className="w-full cursor-pointer border-landing-text/10 sm:w-auto"
+          >
+            {tCreate("fullSurpriseCancel")}
+          </Button>
+          <Button
+            onClick={handleConfirmSurprise}
+            disabled={loading}
+            className="w-full cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover sm:w-auto"
+          >
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {tCreate("fullSurpriseConfirm")}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
