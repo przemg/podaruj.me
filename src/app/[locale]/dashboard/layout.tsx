@@ -46,7 +46,7 @@ export default async function DashboardLayout({
                 <div className="hidden md:block">
                   <UserMenu email={user.email} displayName={displayName} />
                 </div>
-                <MobileMenu email={user.email} />
+                <MobileMenu email={user.email} displayName={displayName} />
               </>
             )}
           </div>
