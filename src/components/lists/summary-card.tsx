@@ -11,30 +11,25 @@ type ReservationSummaryItem = {
 
 type SummaryCardProps = {
   listId: string;
+  closedAt: string;
   totalItems: number;
   reservedCount: number;
   reservations: ReservationSummaryItem[];
 };
 
-export function SummaryCard({ listId, totalItems, reservedCount, reservations }: SummaryCardProps) {
+export function SummaryCard({ listId, closedAt, totalItems, reservedCount, reservations }: SummaryCardProps) {
   const t = useTranslations("lists.summary");
   const confettiFired = useRef(false);
-
-  const storageKey = `confetti-shown-${listId}`;
-
-  // Clear confetti state when summary card unmounts (e.g., list reopened)
-  useEffect(() => {
-    return () => {
-      localStorage.removeItem(storageKey);
-    };
-  }, [storageKey]);
 
   useEffect(() => {
     if (confettiFired.current) return;
     confettiFired.current = true;
 
-    if (localStorage.getItem(storageKey)) return;
-    localStorage.setItem(storageKey, "1");
+    // Use closedAt as part of the key — new close = new confetti
+    const storageKey = `confetti-shown-${listId}`;
+    const stored = localStorage.getItem(storageKey);
+    if (stored === closedAt) return;
+    localStorage.setItem(storageKey, closedAt);
 
     import("canvas-confetti").then((confettiModule) => {
       const confetti = confettiModule.default;

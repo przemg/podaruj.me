@@ -178,6 +178,7 @@ export default async function ListDetailPage({
         <div className="mb-8">
           <SummaryCard
             listId={list.id}
+            closedAt={list.closed_at ?? list.event_date ?? ""}
             totalItems={summaryData.totalItems}
             reservedCount={summaryData.reservedCount}
             reservations={summaryData.reservations}
