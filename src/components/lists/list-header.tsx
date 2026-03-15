@@ -292,12 +292,21 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
       <DeleteConfirmDialog
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
-        title={t("confirmDelete")}
-        description={t("confirmDeleteDescription")}
-        confirmLabel={t("confirmDeleteButton")}
-        cancelLabel={t("cancelDelete")}
+        title={tLists("deleteDialog.title")}
+        description={tLists("deleteDialog.descriptionWithClose")}
+        confirmLabel={tLists("deleteDialog.deletePermanently")}
+        cancelLabel={tLists("deleteDialog.cancel")}
         onConfirm={handleDelete}
         loading={deleting}
+        showCloseOption={!isClosed}
+        closeLabel={tLists("deleteDialog.closeInstead")}
+        onClose={async () => {
+          setCloseLoading(true);
+          const result = await closeList(locale, list.slug);
+          setCloseLoading(false);
+          if (!result.error) setDeleteOpen(false);
+        }}
+        closeLoading={closeLoading}
       />
 
       <CloseListDialog

@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Loader2 } from "lucide-react";
+import { AlertTriangle, Archive, Loader2 } from "lucide-react";
 
 type DeleteConfirmDialogProps = {
   open: boolean;
@@ -20,6 +20,11 @@ type DeleteConfirmDialogProps = {
   cancelLabel: string;
   onConfirm: () => void;
   loading?: boolean;
+  // Enhanced props for close suggestion
+  showCloseOption?: boolean;
+  closeLabel?: string;
+  onClose?: () => void;
+  closeLoading?: boolean;
 };
 
 export function DeleteConfirmDialog({
@@ -31,6 +36,10 @@ export function DeleteConfirmDialog({
   cancelLabel,
   onConfirm,
   loading = false,
+  showCloseOption,
+  closeLabel,
+  onClose,
+  closeLoading,
 }: DeleteConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -50,15 +59,27 @@ export function DeleteConfirmDialog({
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            disabled={loading}
+            disabled={loading || closeLoading}
             className="w-full cursor-pointer border-landing-text/10 sm:w-auto"
           >
             {cancelLabel}
           </Button>
+          {showCloseOption && onClose && (
+            <Button
+              variant="outline"
+              onClick={onClose}
+              disabled={loading || closeLoading}
+              className="w-full cursor-pointer border-orange-200 text-orange-700 hover:bg-orange-50 sm:w-auto"
+            >
+              {closeLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              <Archive className="h-4 w-4 mr-1.5" />
+              {closeLabel}
+            </Button>
+          )}
           <Button
             variant="destructive"
             onClick={onConfirm}
-            disabled={loading}
+            disabled={loading || closeLoading}
             className="w-full cursor-pointer bg-red-500 hover:bg-red-600 sm:w-auto"
           >
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
