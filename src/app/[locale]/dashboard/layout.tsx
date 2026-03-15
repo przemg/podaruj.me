@@ -30,7 +30,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
-      <header className="border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
+      <header className="relative z-20 border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link
             href="/"
