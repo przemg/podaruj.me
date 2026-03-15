@@ -1,6 +1,6 @@
 export default function ListDetailLoading() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="mx-auto max-w-4xl px-4 py-8">
         {/* Back link skeleton */}
         <div className="mb-4 h-4 w-32 animate-pulse rounded bg-landing-text/10" />
 
