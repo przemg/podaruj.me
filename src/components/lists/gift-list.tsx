@@ -189,16 +189,15 @@ export function GiftList({
       }
 
       setOrderedItems(sorted);
+      setSortMode("custom");
 
-      await reorderItems(
+      // Save in background — no need to await
+      reorderItems(
         locale,
         listId,
         listSlug,
         sorted.map((item) => item.id)
       );
-
-      // Reset to custom after saving — order is now persisted
-      setSortMode("custom");
     },
     [orderedItems, locale, listId, listSlug, reservations, reservedItemIds]
   );
