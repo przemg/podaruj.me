@@ -68,7 +68,7 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
         {/* Primary action — copy link */}
         <button
           onClick={handleCopyLink}
-          className="flex cursor-pointer items-center gap-1.5 rounded-l-full bg-landing-coral px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-landing-coral-dark active:scale-[0.98]"
+          className="flex cursor-pointer items-center gap-1.5 rounded-l-full bg-landing-coral-dark px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-landing-coral-hover active:scale-[0.97]"
         >
           {copied ? (
             <Check className="h-3.5 w-3.5" />
@@ -85,7 +85,7 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <button
-              className="flex cursor-pointer items-center rounded-r-full bg-landing-coral px-2 py-1.5 text-white transition-colors hover:bg-landing-coral-dark active:scale-[0.98]"
+              className="flex cursor-pointer items-center rounded-r-full bg-landing-coral-dark px-2.5 py-1.5 text-white shadow-sm transition-colors hover:bg-landing-coral-hover active:scale-[0.97]"
               aria-label="More sharing options"
             >
               <ChevronDown className="h-3.5 w-3.5" />
