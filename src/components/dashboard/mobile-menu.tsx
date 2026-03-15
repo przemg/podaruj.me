@@ -108,6 +108,15 @@ export function MobileMenu({
 
             {/* Navigation */}
             <nav className="mt-8 flex flex-col gap-2">
+              <Link
+                href="/dashboard/lists/new"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium text-landing-coral-dark transition-all hover:bg-landing-peach-wash"
+              >
+                <Plus className="h-5 w-5 text-landing-coral" />
+                {t("createList")}
+              </Link>
+              <div className="my-2 h-px bg-landing-text/5" />
               {navItems.map(({ href, label, icon: Icon, isActive }) => (
                 <Link
                   key={href}
@@ -132,14 +141,6 @@ export function MobileMenu({
                 </Link>
               ))}
               <div className="my-2 h-px bg-landing-text/5" />
-              <Link
-                href="/dashboard/lists/new"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium text-landing-coral-dark transition-all hover:bg-landing-peach-wash"
-              >
-                <Plus className="h-5 w-5 text-landing-coral" />
-                {t("createList")}
-              </Link>
               <Link
                 href="/dashboard/settings"
                 onClick={() => setIsOpen(false)}
