@@ -132,7 +132,7 @@ export function Features() {
 
           {/* === Row 2: 3 small cards === */}
           {/* Mobile: stacked. Tablet: 2-col grid. Desktop: 3-col row */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 min-[900px]:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {[
               { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
