@@ -56,9 +56,6 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
     setQrOpen(true);
   };
 
-  const buttonClass =
-    "flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-landing-text transition-colors hover:bg-landing-peach-wash/60";
-
   return (
     <>
       <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
@@ -68,21 +65,42 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
             {tShare("shareButton")}
           </button>
         </PopoverTrigger>
-        <PopoverContent align="end" className="w-56 p-1.5">
-          <button onClick={handleCopyLink} className={buttonClass}>
-            {copied ? (
-              <Check className="h-4 w-4 text-emerald-500" />
-            ) : (
-              <Link className="h-4 w-4 text-landing-text-muted" />
-            )}
+        <PopoverContent align="end" className="w-60 p-2">
+          <button
+            onClick={handleCopyLink}
+            className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-landing-text transition-all hover:bg-landing-peach-wash/80 active:scale-[0.98]"
+          >
+            <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${copied ? "bg-emerald-100" : "bg-landing-coral/10"}`}>
+              {copied ? (
+                <Check className="h-4 w-4 text-emerald-600" />
+              ) : (
+                <Link className="h-4 w-4 text-landing-coral" />
+              )}
+            </span>
             {copied ? t("linkCopied") : t("copyLink")}
           </button>
-          <button onClick={handleEmail} className={buttonClass}>
-            <Mail className="h-4 w-4 text-landing-text-muted" />
+
+          <div className="mx-3 my-0.5 border-t border-landing-text/[0.06]" />
+
+          <button
+            onClick={handleEmail}
+            className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-landing-text transition-all hover:bg-landing-lavender-wash/60 active:scale-[0.98]"
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-landing-lavender-wash">
+              <Mail className="h-4 w-4 text-landing-lavender" />
+            </span>
             {t("shareEmail")}
           </button>
-          <button onClick={handleQrCode} className={buttonClass}>
-            <QrCode className="h-4 w-4 text-landing-text-muted" />
+
+          <div className="mx-3 my-0.5 border-t border-landing-text/[0.06]" />
+
+          <button
+            onClick={handleQrCode}
+            className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-landing-text transition-all hover:bg-landing-mint/10 active:scale-[0.98]"
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-landing-mint/15">
+              <QrCode className="h-4 w-4 text-emerald-600" />
+            </span>
             {t("qrCode")}
           </button>
         </PopoverContent>
