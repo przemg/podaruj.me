@@ -78,7 +78,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Create, edit, delete gift lists
 - Add/edit/remove items — all fields optional except name (link, price, image, priority)
 - Import from URL — paste a product link, auto-extract title, price, and image
-- Drag & drop sorting / priority reordering
+- Drag & drop sorting / priority reordering ✅
 - List archive/history ("Christmas 2025", "Christmas 2026")
 
 ### Reservations

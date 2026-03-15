@@ -88,13 +88,14 @@ All `/dashboard` routes share a layout (`src/app/[locale]/dashboard/layout.tsx`)
 
 ### Dashboard Navigation
 - **Desktop:** Inline pill nav links ("My Lists", "My Reservations") with active state indicator + user menu dropdown
-- **Mobile:** Single hamburger menu (shadcn Sheet) combining nav links + user info + sign out
+- **Mobile:** Full-screen overlay menu (matching landing page style) with nav links (My Lists, My Reservations), Create new list, Settings, user info + sign out
 - Shared nav config in `src/components/dashboard/nav-items.ts`
 - Active state uses exact match for `/dashboard` and prefix match for sub-routes
+- **User menu dropdown** (desktop): My Lists, Create new list, Settings, Sign out
 
 ### Dashboard Pages
 - `/dashboard` — "My Lists" page with card grid (real data via Supabase aggregation), empty state, mobile FAB
-- `/dashboard/lists/[slug]` — List detail with items, reservation status badges (respects privacy modes), sharing options (copy link split button + popover with email/QR code)
+- `/dashboard/lists/[slug]` — List detail with items (drag & drop reordering via @dnd-kit, sort dropdown with 8 options), reservation status badges (respects privacy modes), sharing options (copy link split button + popover with email/QR code)
 - `/dashboard/reservations` — "My Reservations" showing reserved items grouped by list, with cancel functionality
 
 ## Mutations Pattern
@@ -108,6 +109,7 @@ Full Surprise lists use a **draft → published** lifecycle. Non-surprise lists 
 - **Draft state:** `is_published=false`. Public page returns 404. Reservations blocked. Owner can freely add/edit/delete items.
 - **Publish action:** `publishList()` sets `is_published=true` and `published_at=now()`. Items created before `published_at` become locked (no edit/delete via server action guards). New items added after publish are also locked immediately.
 - **UI:** Draft badge + Publish button (with confirmation dialog) in list header. Dashboard cards show "Draft" badge. Add-gift dialog warns that items can't be edited after adding to a published list.
+- **Full Surprise is permanent:** Once a list is created with Full Surprise mode, it cannot be changed. Edit form locks the privacy selector with an explanation. Create form shows confirmation dialog before saving.
 
 ## Key Principles
 
