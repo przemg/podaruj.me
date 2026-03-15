@@ -8,12 +8,14 @@ const TESTIMONIALS = [
   { key: "t1", initials: "AK", color: "bg-landing-coral text-white" },
   { key: "t2", initials: "TR", color: "bg-landing-lavender text-white" },
   { key: "t3", initials: "MW", color: "bg-landing-mint text-white" },
+  { key: "t4", initials: "KP", color: "bg-landing-coral text-white" },
+  { key: "t5", initials: "MD", color: "bg-landing-lavender text-white" },
 ] as const;
 
 export function Testimonials() {
   const t = useTranslations("landing.testimonials");
   const leftRef = useScrollReveal<HTMLDivElement>();
-  const rightRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 150 });
+  const rightRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
     <section id="testimonials" className="bg-white py-20 sm:py-28">

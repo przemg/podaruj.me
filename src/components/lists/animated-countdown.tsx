@@ -20,21 +20,21 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
   );
 }
 
-export function AnimatedCountdown({ eventDate }: { eventDate: string }) {
+export function AnimatedCountdown({ eventDate, eventTime }: { eventDate: string; eventTime?: string | null }) {
   const t = useTranslations("lists.countdown");
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false
   );
-  const [countdown, setCountdown] = useState<DetailedCountdownResult>(() => getDetailedCountdown(eventDate));
+  const [countdown, setCountdown] = useState<DetailedCountdownResult>(() => getDetailedCountdown(eventDate, eventTime));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCountdown(getDetailedCountdown(eventDate));
+      setCountdown(getDetailedCountdown(eventDate, eventTime));
     }, 1000);
     return () => clearInterval(interval);
-  }, [eventDate]);
+  }, [eventDate, eventTime]);
 
   if (!mounted) {
     return (

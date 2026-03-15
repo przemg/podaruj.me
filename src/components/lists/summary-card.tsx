@@ -56,7 +56,7 @@ export function SummaryCard({ listId, closedAt, totalItems, reservedCount, reser
         confetti({ particleCount: 60, spread: 120, origin: { x: 0.8, y: 0.7 }, colors });
       }, 1200);
     });
-  }, []);
+  }, [listId, closedAt]);
 
   const percentage = totalItems > 0 ? Math.round((reservedCount / totalItems) * 100) : 0;
 

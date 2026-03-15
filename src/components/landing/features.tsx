@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Shield, QrCode, Link2, UserX, Clock, Eye, EyeOff, HelpCircle } from "lucide-react";
+import { Shield, QrCode, Mail, UserX, Clock, Eye, EyeOff, HelpCircle } from "lucide-react";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
 
 export function Features() {
@@ -125,7 +125,7 @@ export function Features() {
 
           {/* Small cards */}
           {[
-            { titleKey: "importTitle", descKey: "importDescription", icon: Link2, color: "text-landing-mint", bg: "bg-landing-mint/20" },
+            { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
             { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
             { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
           ].map((card) => (

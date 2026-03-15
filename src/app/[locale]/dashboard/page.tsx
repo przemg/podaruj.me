@@ -31,7 +31,7 @@ export default async function DashboardPage() {
 
   const { data: lists, error } = await supabase
     .from("lists")
-    .select("id, slug, name, occasion, event_date, created_at, privacy_mode, is_published, is_closed, items(count)")
+    .select("id, slug, name, occasion, event_date, event_time, created_at, privacy_mode, is_published, is_closed, items(count)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -77,7 +77,7 @@ export default async function DashboardPage() {
                   occasion={list.occasion}
                   eventDate={list.event_date}
                   isDraft={list.privacy_mode === "full_surprise" && !list.is_published}
-                  isClosed={isListClosed({ is_closed: list.is_closed, event_date: list.event_date })}
+                  isClosed={isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time })}
                   t={{
                     occasion: tOccasions(list.occasion),
                     itemCount: t("itemCount", { count: itemCount }),

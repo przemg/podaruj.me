@@ -19,15 +19,16 @@ A collection of desired items created by a registered user. Each list has:
 
 - Name, description, occasion type (birthday, holiday, wedding, other)
 - Event date (optional) with countdown
+- Event time (optional) — countdown counts down to exact time; list closes at that time instead of end of day
 - Privacy mode for reservations (set per list)
-- Shareable link, email sharing (mailto), QR code
+- Shareable link (slug-based URL), email sharing (mailto), QR code
 
 ### Item
 
 A single gift wish within a list:
 
-- Name, description, link to store (optional), price (optional), image
-- Priority level (nice-to-have → really want)
+- Name, description, link to store (optional), price (optional), image URL (optional)
+- Priority level (nice-to-have, would love, must have)
 - Reservation status
 - Can be a specific product or just a suggestion/category ("a book about gardening", "something from brand X")
 
@@ -65,68 +66,58 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 | Action              | Registered user | Guest (via link) |
 | ------------------- | --------------- | ---------------- |
-| Create list         | ✅               | ❌                |
-| Browse shared list  | ✅               | ✅                |
-| Reserve item        | ✅               | ✅ (with nickname) |
-| Cancel reservation  | ✅ (own only)    | ❌ (requires account) |
-| See who reserved    | Per mode         | Per mode         |
+| Create list         | Yes             | No               |
+| Browse shared list  | Yes             | Yes              |
+| Reserve item        | Yes             | Yes (with nickname) |
+| Cancel reservation  | Yes (own only)  | No (requires account) |
+| See who reserved    | Per mode        | Per mode         |
 
-## Features Brainstorm
+## Implemented Features
 
 ### Lists & Items
 
 - Create, edit, delete gift lists
-- Add/edit/remove items — all fields optional except name (link, price, image, priority)
-- Import from URL — paste a product link, auto-extract title, price, and image
-- Drag & drop sorting / priority reordering ✅
-- List archive/history ("Christmas 2025", "Christmas 2026") ✅
+- Add/edit/remove items — all fields optional except name (link, price, image URL, priority)
+- Drag & drop sorting / priority reordering (via @dnd-kit)
+- 8 sort options (custom, priority, price low/high, name, date newest/oldest, available first)
+- Slug-based URLs with history redirects on rename
 
 ### Reservations
 
-- Reserve / unreserve items ✅
-- Three privacy modes (Buyer's Choice, Visible, Full Surprise) ✅
-- Instant guest reservation with nickname ✅
-- Dashboard "My Reservations" with real data ✅
-- Owner sees reservation status on list detail page (respects privacy modes) ✅
-- Reservation swap — ask someone who already reserved an item to hand it over (with a message explaining why). The other person accepts or declines. Visibility of swaps follows the list's privacy mode.
+- Reserve / cancel items (logged-in users)
+- Guest reservations with nickname (no account needed)
+- Three privacy modes (Buyer's Choice, Visible, Full Surprise) enforced server-side
+- Dashboard "My Reservations" with real data, grouped by list
+- Owner sees reservation status on list detail page (respects privacy modes)
+- Reservation badges with reserver name or "Anonymous" based on privacy
 
 ### Sharing & Access
 
-- Shareable public link (unique slug) ✅
-- Email sharing via mailto (pre-filled friendly message) ✅
-- QR code generation with branding, download, and print ✅
-- Event countdown display ✅
-- Groups/Events — multiple people's lists under one event ("Kowalski Family Christmas 2026")
-
-### Notifications
-
-- Email notifications on key events: someone reserved an item, swap request received, swap accepted/declined
-- Reminder before event date ("3 days until Anna's birthday — 2 items still unreserved")
+- Shareable public link (unique slug)
+- Email sharing via mailto (pre-filled friendly message)
+- QR code generation with download and print
+- Event countdown display (days, hours, minutes, seconds)
 
 ### Dashboard
 
-- My lists — all lists I created, with status overview
-- My reservations — items I reserved on other people's lists
+- My lists — all lists with status overview (item count, countdown, draft/closed badges)
+- My reservations — items reserved on other people's lists, with cancel functionality
 
 ### List Lifecycle
 
-- **Draft → Published (Full Surprise only):** Full Surprise lists start as drafts — invisible to guests, not shareable. The owner adds items freely, then publishes. After publish, existing items are locked (no edit/delete) to prevent duplicate gifts. New items can still be added but are locked immediately. Non-surprise lists are always published.
-- Active list — open for browsing and reservations ✅
-- Closed list — after event date (or manually), no new reservations, existing data preserved as archive ✅
-- Celebratory summary on closed lists — stats, reservation details, confetti ✅
-- Full Surprise reveal dialog — owner chooses when to see who reserved ✅
-- Slug history — old shareable links redirect to current URL after rename ✅
-
-### AI Features
-
-- Gift suggester — AI proposes gift ideas based on occasion/interests (one-shot call to minimize token cost)
+- **Draft → Published (Full Surprise only):** Full Surprise lists start as drafts — invisible to guests, not shareable. Owner adds items freely, then publishes. After publish, existing items are locked (no edit/delete via server action guards). New items added after publish are also locked immediately. Non-surprise lists are always published.
+- Active list — open for browsing and reservations
+- Closed list — after event date/time (automatic) or manually by owner. No new reservations, existing data preserved.
+- Celebratory summary on closed lists — stats, reservation details, confetti animation
+- Full Surprise reveal — owner chooses when to see who reserved (after list closes)
+- Slug history — old shareable links redirect to current URL after rename
 
 ### Profile Settings
 
 - Editable display name
 - Read-only email display
 - Avatar from Google account
-- Link/unlink Google account
+- Sync Google profile (imports name + avatar)
 - Delete account with cascade deletion (removes all lists, items, and reservation data)
 
 ### UI/UX
@@ -134,7 +125,13 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Mobile first responsive design
 - Warm, friendly aesthetic — pastels, rounded corners, soft shadows
 - EN + PL with language switcher
-- Landing page presenting the product
+- Landing page with features, use case scenarios, FAQ
+- Scroll reveal animations
+- Real-time animated countdown timer
+
+## Planned Features (Not Yet Implemented)
+
+- Unlink Google account (linking is implemented, unlinking is not yet)
 
 ## Key Principles
 

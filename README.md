@@ -1,25 +1,39 @@
 # Podaruj.me
 
-Gift list sharing platform — create wish lists for any occasion, share them via link or QR code, and let others reserve gifts without duplicates. Guests can browse and reserve without creating an account.
+A gift list sharing platform where you create wish lists for any occasion and share them with friends and family. Guests can browse and reserve gifts without creating an account — no duplicates, no spoiled surprises.
 
-**Production:** https://podarujme.vercel.app
+**Live:** [podarujme.vercel.app](https://podarujme.vercel.app)
 
-Portfolio / vibe coding learning project. See [PROJECT.md](PROJECT.md) for the full product vision.
+## Features
+
+- **Three privacy modes** — Buyer's Choice, Visible, or Full Surprise (owner sees nothing until reveal)
+- **No account needed** for guests — browse and reserve with just a nickname
+- **Share anywhere** — copy link, email (pre-filled message), or QR code
+- **Real-time countdown** — animated timer counting down to the event
+- **Drag & drop sorting** — reorder gifts with 8 sort options
+- **Full Surprise lifecycle** — draft → publish → close → reveal reservations
+- **Mobile first** — designed for messenger link sharing
+- **Bilingual** — English + Polish with language switcher
 
 ## Tech Stack
 
-| Layer     | Technology                  |
-| --------- | --------------------------- |
-| Framework | Next.js (App Router)        |
-| Language  | TypeScript                  |
-| Backend   | Supabase (Postgres, Auth, Storage) |
-| Styling   | Tailwind CSS + shadcn/ui    |
-| i18n      | next-intl (EN + PL)         |
-| Deploy    | Vercel                      |
+| Layer     | Technology                           |
+| --------- | ------------------------------------ |
+| Framework | Next.js 16 (App Router)              |
+| Language  | TypeScript (strict mode)             |
+| Backend   | Supabase (Postgres, Auth, Storage)   |
+| Styling   | Tailwind CSS 4 + shadcn/ui          |
+| i18n      | next-intl (EN + PL)                  |
+| Testing   | Playwright (E2E)                     |
+| Deploy    | Vercel                               |
 
 ## Getting Started
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/podaruj.me.git
+cd podaruj.me
+
 # Install dependencies
 npm install
 
@@ -33,31 +47,28 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Claude Code Setup
+### Environment Variables
 
-This project is developed using **Claude Code**. Development started on the desktop version but moved to the terminal due to plugin loading issues.
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous (public) key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-only) |
 
-### Plugins
+## Project Structure
 
-| Plugin | Marketplace | Purpose |
-| --- | --- | --- |
-| `frontend-design` | `claude-plugins-official` | UI design recommendations |
-| `superpowers` | `claude-plugins-official` | Enhanced capabilities & workflow |
-| `context7` | `claude-plugins-official` | Up-to-date documentation lookup |
-| `playwright` | `claude-plugins-official` | Browser automation & E2E testing |
-| `supabase` | `claude-plugins-official` | Database integration |
-| `ui-ux-pro-max` | `ui-ux-pro-max-skill` | Custom UI/UX design skill |
+```
+src/
+  app/[locale]/         # Routes (landing, auth, dashboard, public lists)
+  components/           # React components (auth, dashboard, landing, lists, public, ui)
+  lib/                  # Utilities (Supabase clients, countdown, helpers)
+  i18n/                 # Internationalization config
+  types/                # Shared TypeScript types
+supabase/migrations/    # Database migrations (version-controlled SQL)
+messages/               # Translation files (en.json, pl.json)
+e2e/                    # Playwright E2E tests
+```
 
-### Skills Used
+## License
 
-- `/simplify` — Review code for reuse, quality, and efficiency
-- `/frontend-design` — Generate design system recommendations
-- `/superpowers` — Enhanced planning and spec workflow
-
-### Tools (MCP Servers)
-
-- **Context7** — Library documentation lookup
-- **Playwright** — Browser automation for E2E tests
-- **Supabase** — Database management
-
-> **Note:** Development started on Claude Code desktop, but there were issues with adding/loading plugins. Switched to Claude Code in the terminal to resolve plugin setup. If skills are missing in a session, run `/reload-plugins` or restart the session.
+This is a portfolio project. All rights reserved.

@@ -57,6 +57,7 @@ export default async function EditListPage({
             description: list.description ?? "",
             occasion: list.occasion,
             eventDate: list.event_date ?? "",
+            eventTime: list.event_time ?? "",
             privacyMode: list.privacy_mode,
           }}
         />

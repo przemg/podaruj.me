@@ -115,6 +115,7 @@ export function GiftFormDialog({
       editItem,
       locale,
       listId,
+      listSlug,
       onOpenChange,
       router,
     ]
