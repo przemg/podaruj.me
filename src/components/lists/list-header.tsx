@@ -127,7 +127,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             : list.privacy_mode === "full_surprise" ? t("fullSurpriseHint")
             : tPrivacy("visible_description");
           return (
-            <div className="mb-4 flex flex-wrap items-center gap-2">
+            <div className="mb-6 flex flex-wrap items-center gap-2">
               {isDraft && (
                 <div className="flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">
                   {t("draftBadge")}
