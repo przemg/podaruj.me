@@ -100,18 +100,20 @@ export function Features() {
             </div>
           </div>
 
-          {/* Card 2: QR code — tall: 3 rows on tablet, 2 rows on desktop */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-2">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
-              <QrCode className="h-6 w-6 text-landing-coral" />
+          {/* Card 2: QR code — side-by-side above 500px, back to column on tablet (narrow col), tall on tablet/desktop */}
+          <div className="scroll-reveal-scale flex flex-col min-[500px]:flex-row sm:flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-2">
+            <div className="min-[500px]:flex-1 sm:flex-none">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
+                <QrCode className="h-6 w-6 text-landing-coral" />
+              </div>
+              <h3 className="text-xl font-semibold text-white">
+                {t("qrTitle")}
+              </h3>
+              <p className="mt-2 text-white/50">
+                {t("qrDescription")}
+              </p>
             </div>
-            <h3 className="text-xl font-semibold text-white">
-              {t("qrTitle")}
-            </h3>
-            <p className="mt-2 text-white/50">
-              {t("qrDescription")}
-            </p>
-            <div className="mt-6 flex flex-1 items-end justify-center">
+            <div className="mt-6 flex flex-1 items-center justify-center min-[500px]:mt-0 sm:mt-6 sm:items-end">
               <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
                 <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
                 <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
