@@ -36,7 +36,7 @@ export function Features() {
           className="mt-16 grid grid-cols-1 gap-4 min-[1000px]:grid-cols-3"
         >
           {/* Card 1: Privacy modes — spans 2 cols on desktop */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[1000px]:col-span-2 min-[1000px]:flex-row">
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[500px]:flex-row min-[1000px]:col-span-2">
             {/* Left: text content */}
             <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
@@ -67,33 +67,33 @@ export function Features() {
               </ul>
             </div>
             {/* Right: illustration panel */}
-            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 sm:px-6 min-[1000px]:w-[280px] min-[1000px]:shrink-0 min-[1000px]:border-t-0 min-[1000px]:border-l">
-              <div className="flex w-full justify-center gap-3 min-[1000px]:flex-col">
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none min-[1000px]:w-full min-[1000px]:flex-row min-[1000px]:gap-3">
+            <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[500px]:w-[220px] min-[500px]:shrink-0 min-[500px]:border-t-0 min-[500px]:border-l sm:px-6 min-[1000px]:w-[280px]">
+              <div className="flex w-full justify-center gap-3 min-[500px]:flex-col">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20">
                     <HelpCircle className="h-4 w-4 text-landing-coral" />
                   </div>
-                  <div className="mt-2 space-y-1 min-[1000px]:mt-0">
-                    <div className="h-1.5 w-12 rounded-full bg-landing-coral/30 min-[1000px]:w-20" />
-                    <div className="h-1 w-8 rounded-full bg-white/10 min-[1000px]:w-14" />
+                  <div className="mt-2 space-y-1 min-[500px]:mt-0">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-coral/30 min-[500px]:w-20" />
+                    <div className="h-1 w-8 rounded-full bg-white/10 min-[500px]:w-14" />
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 sm:w-24 sm:flex-none min-[1000px]:w-full min-[1000px]:flex-row min-[1000px]:gap-3">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
                     <Eye className="h-4 w-4 text-landing-mint" />
                   </div>
-                  <div className="mt-2 space-y-1 min-[1000px]:mt-0 min-[1000px]:flex-1">
-                    <div className="h-1.5 w-12 rounded-full bg-landing-mint/40 min-[1000px]:w-20" />
-                    <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white min-[1000px]:w-16">Active</div>
+                  <div className="mt-2 space-y-1 min-[500px]:mt-0 min-[500px]:flex-1">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-mint/40 min-[500px]:w-20" />
+                    <div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white min-[500px]:w-16">Active</div>
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none min-[1000px]:w-full min-[1000px]:flex-row min-[1000px]:gap-3">
+                <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3 min-[500px]:w-full min-[500px]:flex-row min-[500px]:gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20">
                     <EyeOff className="h-4 w-4 text-landing-lavender" />
                   </div>
-                  <div className="mt-2 space-y-1 min-[1000px]:mt-0">
-                    <div className="h-1.5 w-12 rounded-full bg-landing-lavender/30 min-[1000px]:w-20" />
-                    <div className="h-1 w-8 rounded-full bg-white/10 min-[1000px]:w-14" />
+                  <div className="mt-2 space-y-1 min-[500px]:mt-0">
+                    <div className="h-1.5 w-12 rounded-full bg-landing-lavender/30 min-[500px]:w-20" />
+                    <div className="h-1 w-8 rounded-full bg-white/10 min-[500px]:w-14" />
                   </div>
                 </div>
               </div>
