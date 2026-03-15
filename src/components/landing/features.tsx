@@ -22,12 +22,9 @@ export function Features() {
           {t("subtitle")}
         </p>
 
-        <div
-          ref={revealRef}
-          className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {/* Privacy modes — large card */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:col-span-2 lg:col-span-2 lg:row-span-2 lg:flex-row">
+        <div ref={revealRef} className="mt-16 space-y-4">
+          {/* Privacy modes — large card (always full width) */}
+          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 lg:flex-row">
             {/* Left: text content */}
             <div className="flex flex-1 flex-col p-6">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
@@ -94,51 +91,54 @@ export function Features() {
             </div>
           </div>
 
-          {/* QR code — tall card on desktop only */}
-          <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:col-span-2 lg:col-span-1 lg:row-span-2">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
-              <QrCode className="h-6 w-6 text-landing-coral" />
+          {/* Bottom section: QR left + 3 small cards right on tablet; 4-col on desktop */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {/* QR code card */}
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-1">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
+                <QrCode className="h-6 w-6 text-landing-coral" />
+              </div>
+              <h3 className="text-xl font-semibold text-white">
+                {t("qrTitle")}
+              </h3>
+              <p className="mt-2 text-white/50">
+                {t("qrDescription")}
+              </p>
+              <div className="mt-6 flex flex-1 items-end justify-center">
+                <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
+                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
+                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
+                  <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
+                  <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
+                  <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
+                  <rect x="46" y="73" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
+                  <rect x="66" y="61" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
+                  <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
+                  <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
+                  <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
+                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
+                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
+                </svg>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-white">
-              {t("qrTitle")}
-            </h3>
-            <p className="mt-2 text-white/50">
-              {t("qrDescription")}
-            </p>
-            <div className="mt-6 flex flex-1 items-end justify-center">
-              <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
-                <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
-                <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
-                <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
-                <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
-                <rect x="46" y="73" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
-                <rect x="66" y="61" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
-                <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
-                <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
-                <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
-                <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
-              </svg>
-            </div>
-          </div>
 
-          {/* Small cards */}
-          {[
-            { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-            { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-            { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
-          ].map((card) => (
-            <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
-              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
-                <card.icon className={`h-5 w-5 ${card.color}`} />
+            {/* 3 small cards */}
+            {[
+              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
+              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
+              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+            ].map((card) => (
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
+                  <card.icon className={`h-5 w-5 ${card.color}`} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-white">{t(card.titleKey)}</h3>
+                  <p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-white">{t(card.titleKey)}</h3>
-                <p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
