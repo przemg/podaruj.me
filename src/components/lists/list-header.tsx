@@ -136,7 +136,6 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
           {/* Actions — top right on desktop */}
           <div className="flex items-center gap-1.5 sm:shrink-0">
             {!isDraft && <SharePopover list={list} locale={locale} />}
-            <div className="mx-0.5 hidden h-5 w-px bg-landing-text/10 sm:block" />
             <Button
               variant="ghost"
               size="sm"

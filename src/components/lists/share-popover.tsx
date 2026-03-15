@@ -7,6 +7,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { QrCodeDialog } from "./qr-code-dialog";
 import {
   Link,
@@ -14,6 +20,7 @@ import {
   Mail,
   QrCode,
   ChevronDown,
+  Share2,
 } from "lucide-react";
 
 type SharePopoverProps = {
@@ -28,6 +35,7 @@ type SharePopoverProps = {
 export function SharePopover({ list, locale }: SharePopoverProps) {
   const t = useTranslations("lists.detail.share");
   const tOccasions = useTranslations("lists.occasions");
+  const tShare = useTranslations("lists.detail");
 
   const [copied, setCopied] = useState(false);
   const [qrOpen, setQrOpen] = useState(false);
@@ -63,73 +71,81 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
 
   return (
     <>
-      {/* Split button: left = copy link, right = dropdown */}
-      <div className="flex items-stretch rounded-lg border border-landing-text/15 bg-white shadow-sm">
-        {/* Primary action — copy link */}
-        <button
-          onClick={handleCopyLink}
-          className="flex cursor-pointer items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-landing-text transition-colors hover:bg-landing-peach-wash/60 active:scale-[0.97]"
-        >
-          {copied ? (
-            <Check className="h-3.5 w-3.5 text-emerald-500" />
-          ) : (
-            <Link className="h-3.5 w-3.5 text-landing-coral" />
-          )}
-          {copied ? t("linkCopied") : t("copyLink")}
-        </button>
-
-        {/* Divider */}
-        <div className="w-px bg-landing-text/15" />
-
-        {/* Dropdown trigger */}
-        <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-          <PopoverTrigger asChild>
-            <button
-              className="flex cursor-pointer items-center px-2 py-1.5 text-landing-text-muted transition-colors hover:bg-landing-peach-wash/60 hover:text-landing-text active:scale-[0.97]"
-              aria-label="More sharing options"
-            >
-              <ChevronDown className="h-3.5 w-3.5" />
-            </button>
-          </PopoverTrigger>
-          <PopoverContent align="end" className="w-56 p-1.5">
-            <button
-              onClick={handleCopyLink}
-              className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-peach-wash/80"
-            >
-              <span
-                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md ${copied ? "bg-emerald-100" : "bg-landing-coral/10"}`}
+      {/* Compact split button: icon-only copy + dropdown chevron */}
+      <TooltipProvider>
+        <div className="flex h-9 items-stretch rounded-lg border border-landing-text/15 bg-white">
+          {/* Primary action — copy link (icon only, tooltip for label) */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleCopyLink}
+                className="flex cursor-pointer items-center gap-1 px-2.5 text-landing-text-muted transition-colors hover:bg-landing-peach-wash/60 hover:text-landing-text rounded-l-lg"
               >
                 {copied ? (
-                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  <Check className="h-4 w-4 text-emerald-500" />
                 ) : (
-                  <Link className="h-3.5 w-3.5 text-landing-coral" />
+                  <Share2 className="h-4 w-4" />
                 )}
-              </span>
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
               {copied ? t("linkCopied") : t("copyLink")}
-            </button>
+            </TooltipContent>
+          </Tooltip>
 
-            <button
-              onClick={handleEmail}
-              className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-lavender-wash/60"
-            >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-landing-lavender-wash">
-                <Mail className="h-3.5 w-3.5 text-landing-lavender" />
-              </span>
-              {t("shareEmail")}
-            </button>
+          {/* Divider */}
+          <div className="w-px self-stretch bg-landing-text/10" />
 
-            <button
-              onClick={handleQrCode}
-              className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-mint/10"
-            >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-landing-mint/15">
-                <QrCode className="h-3.5 w-3.5 text-emerald-600" />
-              </span>
-              {t("qrCode")}
-            </button>
-          </PopoverContent>
-        </Popover>
-      </div>
+          {/* Dropdown trigger */}
+          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+            <PopoverTrigger asChild>
+              <button
+                className="flex cursor-pointer items-center px-1.5 text-landing-text-muted transition-colors hover:bg-landing-peach-wash/60 hover:text-landing-text rounded-r-lg"
+                aria-label="More sharing options"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="w-52 p-1.5">
+              <button
+                onClick={handleCopyLink}
+                className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-peach-wash/80"
+              >
+                <span
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md ${copied ? "bg-emerald-100" : "bg-landing-coral/10"}`}
+                >
+                  {copied ? (
+                    <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  ) : (
+                    <Link className="h-3.5 w-3.5 text-landing-coral" />
+                  )}
+                </span>
+                {copied ? t("linkCopied") : t("copyLink")}
+              </button>
+
+              <button
+                onClick={handleEmail}
+                className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-lavender-wash/60"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-landing-lavender-wash">
+                  <Mail className="h-3.5 w-3.5 text-landing-lavender" />
+                </span>
+                {t("shareEmail")}
+              </button>
+
+              <button
+                onClick={handleQrCode}
+                className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-mint/10"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-landing-mint/15">
+                  <QrCode className="h-3.5 w-3.5 text-emerald-600" />
+                </span>
+                {t("qrCode")}
+              </button>
+            </PopoverContent>
+          </Popover>
+        </div>
+      </TooltipProvider>
 
       <QrCodeDialog
         open={qrOpen}
