@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCountdown } from "@/lib/countdown";
 import { PublicListHeader } from "@/components/public/public-list-header";
 import { PublicGiftCard } from "@/components/public/public-gift-card";
+import { AnimatedCountdown } from "@/components/lists/animated-countdown";
 import { OwnerBanner } from "@/components/public/owner-banner";
 import { Gift, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -197,6 +198,12 @@ export default async function PublicListPage({ params }: PageProps) {
           privacyHint={tPrivacyHint(list.privacy_mode)}
           privacyMode={list.privacy_mode}
         />
+
+        {list.event_date && (
+          <div className="mt-6">
+            <AnimatedCountdown eventDate={list.event_date} />
+          </div>
+        )}
 
         {items.length > 0 ? (
           <div>

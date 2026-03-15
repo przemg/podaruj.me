@@ -20,6 +20,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { DeleteConfirmDialog } from "./delete-confirm-dialog";
+import { AnimatedCountdown } from "./animated-countdown";
 import { deleteList, publishList } from "@/app/[locale]/dashboard/lists/actions";
 import { SharePopover } from "./share-popover";
 import {
@@ -221,6 +222,12 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
           </div>
         </div>
       </div>
+
+      {list.event_date && (
+        <div className="mb-8">
+          <AnimatedCountdown eventDate={list.event_date} />
+        </div>
+      )}
 
       <DeleteConfirmDialog
         open={deleteOpen}
