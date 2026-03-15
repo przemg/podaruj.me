@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { getDetailedCountdown, type DetailedCountdownResult } from "@/lib/countdown";
 import { useTranslations } from "next-intl";
 import { Clock, PartyPopper, CalendarOff } from "lucide-react";
@@ -22,18 +22,21 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 
 export function AnimatedCountdown({ eventDate }: { eventDate: string }) {
   const t = useTranslations("lists.countdown");
-  const [countdown, setCountdown] = useState<DetailedCountdownResult | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
+  const [countdown, setCountdown] = useState<DetailedCountdownResult>(() => getDetailedCountdown(eventDate));
 
   useEffect(() => {
-    setMounted(true);
-    const update = () => setCountdown(getDetailedCountdown(eventDate));
-    update();
-    const interval = setInterval(update, 1000);
+    const interval = setInterval(() => {
+      setCountdown(getDetailedCountdown(eventDate));
+    }, 1000);
     return () => clearInterval(interval);
   }, [eventDate]);
 
-  if (!mounted || !countdown) {
+  if (!mounted) {
     return (
       <div className="rounded-2xl border border-orange-100 bg-gradient-to-br from-orange-50 to-amber-50 p-6 animate-pulse h-[140px]" />
     );
