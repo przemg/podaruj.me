@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/playwright-report/
+/test-results/
+*.png
 
 # next.js
 /.next/
@@ -23,6 +26,8 @@
 # misc
 .DS_Store
 *.pem
+.claude/
+.playwright-mcp/
 
 # debug
 npm-debug.log*
