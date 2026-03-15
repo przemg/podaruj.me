@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   ChevronUp,
   ChevronDown,
+  GripVertical,
   Pencil,
   Trash2,
   ExternalLink,
@@ -38,6 +39,8 @@ type GiftCardProps = {
   isReserved?: boolean;
   hasAnyReservation?: boolean;
   isLocked?: boolean;
+  dragHandleProps?: React.HTMLAttributes<HTMLButtonElement>;
+  isDragDisabled?: boolean;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onEdit: () => void;
@@ -67,6 +70,8 @@ export function GiftCard({
   isReserved,
   hasAnyReservation,
   isLocked,
+  dragHandleProps,
+  isDragDisabled,
   onMoveUp,
   onMoveDown,
   onEdit,
@@ -98,20 +103,32 @@ export function GiftCard({
 
       <div className={`p-4 ${reservation ? "pl-5" : ""}`}>
         <div className="flex items-start gap-3">
-          {/* Reorder — compact vertical strip */}
-          <div className="flex flex-col items-center gap-px pt-0.5">
+          {/* Reorder controls: drag handle + move buttons */}
+          <div className="flex flex-col items-center gap-0.5 pt-0.5">
+            <button
+              {...dragHandleProps}
+              className={`flex h-8 w-8 touch-none items-center justify-center rounded-md transition-colors ${
+                isDragDisabled
+                  ? "cursor-not-allowed text-landing-text-muted/20"
+                  : "cursor-grab text-landing-text-muted/40 hover:bg-landing-text/5 hover:text-landing-text active:cursor-grabbing"
+              }`}
+              aria-label={t("dragHandle")}
+              tabIndex={isDragDisabled ? -1 : 0}
+            >
+              <GripVertical className="h-4 w-4" />
+            </button>
             <button
               onClick={onMoveUp}
-              disabled={isFirst}
-              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible"
+              disabled={isFirst || isDragDisabled}
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible sm:h-8 sm:w-8"
               aria-label={t("moveUp")}
             >
               <ChevronUp className="h-4 w-4" />
             </button>
             <button
               onClick={onMoveDown}
-              disabled={isLast}
-              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible"
+              disabled={isLast || isDragDisabled}
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible sm:h-8 sm:w-8"
               aria-label={t("moveDown")}
             >
               <ChevronDown className="h-4 w-4" />
@@ -137,7 +154,7 @@ export function GiftCard({
           <div className="min-w-0 flex-1">
             {/* Top row: name + priority */}
             <div className="flex items-start justify-between gap-3">
-              <h3 className="font-semibold text-landing-text leading-snug">
+              <h3 className="font-semibold text-landing-text leading-snug break-words">
                 {item.name}
               </h3>
               <div className={`flex shrink-0 items-center gap-1.5 text-xs font-medium ${priority.text}`}>
@@ -148,13 +165,13 @@ export function GiftCard({
 
             {/* Description */}
             {item.description && (
-              <p className="mt-0.5 line-clamp-1 text-sm text-landing-text-muted">
+              <p className="mt-0.5 line-clamp-1 text-sm text-landing-text-muted break-words">
                 {item.description}
               </p>
             )}
 
             {/* Meta row: price, link, actions */}
-            <div className="mt-2 flex items-center gap-3">
+            <div className="mt-2 flex min-w-0 flex-wrap items-center gap-3">
               {item.price != null && (
                 <span className="text-sm font-semibold text-landing-text">
                   {formatPrice(item.price, locale)}
@@ -177,7 +194,7 @@ export function GiftCard({
 
               {/* Actions */}
               {actionsDisabled ? (
-                <div className="group/actions relative flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
+                <div className="group/actions relative flex items-center gap-0.5 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
                   <span className="flex h-8 w-8 items-center justify-center text-landing-text-muted/25">
                     <Pencil className="h-3.5 w-3.5" />
                   </span>
@@ -190,7 +207,7 @@ export function GiftCard({
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-100">
+                <div className="flex items-center gap-0.5 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
                   <Button
                     variant="ghost"
                     size="icon"
