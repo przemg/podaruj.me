@@ -242,7 +242,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
                 className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600"
               >
                 <Archive className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">{tLists("close")}</span>
+                {tLists("close")}
               </Button>
             )}
             {canReopen && (
@@ -254,7 +254,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
                 className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600"
               >
                 <ArchiveRestore className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">{tLists("reopen")}</span>
+                {tLists("reopen")}
               </Button>
             )}
             <Button
