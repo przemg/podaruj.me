@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Gift } from "lucide-react";
+import { AuthorCredit } from "@/components/author-credit";
 
 const FOOTER_LINKS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -49,6 +50,9 @@ export function Footer() {
               {t("footer.copyright", { year: new Date().getFullYear() })}
             </p>
           </div>
+        </div>
+        <div className="mt-8 border-t border-landing-footer-text/10 pt-6 text-landing-footer-text/40">
+          <AuthorCredit />
         </div>
       </div>
     </footer>

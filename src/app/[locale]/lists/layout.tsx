@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { Gift, LayoutDashboard } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
+import { AuthorCredit } from "@/components/author-credit";
 
 export default async function PublicListLayout({
   children,
@@ -51,6 +52,9 @@ export default async function PublicListLayout({
             <Gift className="h-3.5 w-3.5" />
             {t("poweredBy")}
           </Link>
+          <div className="mt-4 text-landing-text-muted/50">
+            <AuthorCredit />
+          </div>
         </div>
       </footer>
     </div>
