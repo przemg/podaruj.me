@@ -74,11 +74,11 @@ export function HeroIllustration() {
           {/* Gift box lid */}
           <rect width="40" height="10" y="16" rx="5" fill="#6D28D9" />
           {/* Vertical ribbon */}
-          <rect x="17" y="16" width="6" height="30" rx="2" fill="white" />
+          <rect x="17" y="16" width="6" height="30" rx="2" fill="#FBBF24" />
           {/* Bow - left loop */}
-          <path d="M20 16C20 16 14 10 10 12C6 14 8 18 12 20" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <path d="M20 16C20 16 14 10 10 12C6 14 8 18 12 20" stroke="#FBBF24" strokeWidth="2.5" fill="none" strokeLinecap="round" />
           {/* Bow - right loop */}
-          <path d="M20 16C20 16 26 10 30 12C34 14 32 18 28 20" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+          <path d="M20 16C20 16 26 10 30 12C34 14 32 18 28 20" stroke="#FBBF24" strokeWidth="2.5" fill="none" strokeLinecap="round" />
         </svg>
       </div>
     </div>
