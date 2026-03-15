@@ -120,7 +120,13 @@ export function GiftCard({
             <button
               onClick={onMoveUp}
               disabled={isFirst || isDragDisabled}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible sm:h-8 sm:w-8"
+              className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-md transition-colors sm:h-8 sm:w-8 ${
+                isDragDisabled
+                  ? "cursor-not-allowed text-landing-text-muted/20"
+                  : isFirst
+                    ? "invisible"
+                    : "text-landing-text-muted/40 hover:bg-landing-text/5 hover:text-landing-text"
+              }`}
               aria-label={t("moveUp")}
             >
               <ChevronUp className="h-4 w-4" />
@@ -128,7 +134,13 @@ export function GiftCard({
             <button
               onClick={onMoveDown}
               disabled={isLast || isDragDisabled}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-landing-text-muted/40 transition-colors hover:bg-landing-text/5 hover:text-landing-text disabled:invisible sm:h-8 sm:w-8"
+              className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-md transition-colors sm:h-8 sm:w-8 ${
+                isDragDisabled
+                  ? "cursor-not-allowed text-landing-text-muted/20"
+                  : isLast
+                    ? "invisible"
+                    : "text-landing-text-muted/40 hover:bg-landing-text/5 hover:text-landing-text"
+              }`}
               aria-label={t("moveDown")}
             >
               <ChevronDown className="h-4 w-4" />
