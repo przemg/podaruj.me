@@ -150,8 +150,9 @@ export async function updateList(
       .single();
 
     if (existingList) {
-      // Upsert to handle the case where slug was used before (A→B→A→C)
-      await supabase
+      // Use service client to bypass RLS for slug history operations
+      const serviceClient = createServiceClient();
+      await serviceClient
         .from("list_slug_history")
         .upsert(
           { list_id: existingList.id, slug: slug },
