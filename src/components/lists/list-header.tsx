@@ -222,7 +222,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         </div>
 
         {/* Actions row */}
-        <div className="mt-4 flex items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
           {!isDraft && <SharePopover list={list} locale={locale} />}
           {isDraft && (
             <button
@@ -233,7 +233,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               {t("publishButton")}
             </button>
           )}
-          <div className="ml-auto flex items-center gap-1">
+          <div className="ml-auto flex flex-wrap items-center gap-1">
             {isManuallyClosable && (
               <Button
                 variant="ghost"
@@ -242,7 +242,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
                 className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600"
               >
                 <Archive className="h-3.5 w-3.5" />
-                {tLists("close")}
+                <span className="hidden sm:inline">{tLists("close")}</span>
               </Button>
             )}
             {canReopen && (
@@ -254,7 +254,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
                 className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600"
               >
                 <ArchiveRestore className="h-3.5 w-3.5" />
-                {tLists("reopen")}
+                <span className="hidden sm:inline">{tLists("reopen")}</span>
               </Button>
             )}
             <Button
@@ -266,7 +266,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
             >
               <Pencil className="h-3.5 w-3.5" />
-              {t("editButton")}
+              <span className="hidden sm:inline">{t("editButton")}</span>
             </Button>
             <Button
               variant="ghost"
@@ -275,7 +275,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
               className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              {t("deleteButton")}
+              <span className="hidden sm:inline">{t("deleteButton")}</span>
             </Button>
           </div>
         </div>
