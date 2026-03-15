@@ -25,10 +25,28 @@ export function SummaryCard({ totalItems, reservedCount, reservations }: Summary
 
     import("canvas-confetti").then((confettiModule) => {
       const confetti = confettiModule.default;
-      confetti({ particleCount: 80, spread: 70, origin: { x: 0.1, y: 0.6 }, colors: ["#f97316", "#fbbf24", "#fb923c", "#f472b6"] });
+      const colors = ["#f97316", "#fbbf24", "#fb923c", "#f472b6", "#a855f7", "#ec4899"];
+
+      // Wave 1 — both sides
+      confetti({ particleCount: 120, spread: 80, origin: { x: 0.1, y: 0.6 }, colors });
+      confetti({ particleCount: 120, spread: 80, origin: { x: 0.9, y: 0.6 }, colors });
+
+      // Wave 2
       setTimeout(() => {
-        confetti({ particleCount: 80, spread: 70, origin: { x: 0.9, y: 0.6 }, colors: ["#f97316", "#fbbf24", "#fb923c", "#f472b6"] });
-      }, 200);
+        confetti({ particleCount: 100, spread: 90, origin: { x: 0.3, y: 0.5 }, colors });
+        confetti({ particleCount: 100, spread: 90, origin: { x: 0.7, y: 0.5 }, colors });
+      }, 400);
+
+      // Wave 3
+      setTimeout(() => {
+        confetti({ particleCount: 80, spread: 100, origin: { x: 0.5, y: 0.4 }, colors });
+      }, 800);
+
+      // Wave 4 — final burst
+      setTimeout(() => {
+        confetti({ particleCount: 60, spread: 120, origin: { x: 0.2, y: 0.7 }, colors });
+        confetti({ particleCount: 60, spread: 120, origin: { x: 0.8, y: 0.7 }, colors });
+      }, 1200);
     });
   }, []);
 
