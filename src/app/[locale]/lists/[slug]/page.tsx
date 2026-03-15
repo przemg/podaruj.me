@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { createClient } from "@/lib/supabase/server";
@@ -128,21 +128,7 @@ export default async function PublicListPage({ params }: PageProps) {
   const { locale, slug } = await params;
 
   const data = await getListBySlug(slug);
-  if (!data) {
-    // Check slug history for old links
-    const serviceClient = createServiceClient();
-    const { data: historyEntry } = await serviceClient
-      .from("list_slug_history")
-      .select("list_id, lists:list_id(slug)")
-      .eq("slug", slug)
-      .single();
-
-    if (historyEntry?.lists && typeof historyEntry.lists === "object" && "slug" in historyEntry.lists) {
-      redirect(`/${locale}/lists/${(historyEntry.lists as { slug: string }).slug}`);
-    }
-
-    notFound();
-  }
+  if (!data) notFound(); // Slug history redirects are handled in proxy.ts
 
   const { list, items } = data;
 
