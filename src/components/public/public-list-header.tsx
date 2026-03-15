@@ -79,6 +79,21 @@ export function PublicListHeader({
           <Sparkles className="h-3.5 w-3.5 text-landing-coral" />
           {occasionLabel}
         </div>
+        {/* Privacy badge — desktop: inline pill with tooltip */}
+        {privacyLabel && PrivacyIcon && (
+          <div className="group/privacy relative hidden sm:block">
+            <div className="flex cursor-help items-center gap-1.5 rounded-full bg-landing-lavender-wash px-3.5 py-1.5 text-sm font-medium text-landing-text shadow-sm ring-1 ring-landing-lavender/10">
+              <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+              {privacyLabel}
+            </div>
+            {privacyHint && (
+              <div className="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 rounded-lg bg-landing-text/90 px-3 py-1.5 text-xs leading-relaxed text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity group-hover/privacy:opacity-100 whitespace-nowrap">
+                {privacyHint}
+                <div className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-landing-text/90" />
+              </div>
+            )}
+          </div>
+        )}
         {countdownLabel && (
           <div
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium shadow-sm ring-1 ${
@@ -93,29 +108,19 @@ export function PublicListHeader({
             {countdownLabel}
           </div>
         )}
-        {privacyLabel && PrivacyIcon && (
-          <div className="flex flex-col items-center gap-1">
-            <div className="group/privacy relative">
-              <div className="flex cursor-help items-center gap-1.5 rounded-full bg-landing-lavender-wash px-3.5 py-1.5 text-sm font-medium text-landing-text shadow-sm ring-1 ring-landing-lavender/10">
-                <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
-                {privacyLabel}
-              </div>
-              {privacyHint && (
-                <div className="pointer-events-none absolute top-full left-1/2 z-10 mt-2 hidden -translate-x-1/2 rounded-lg bg-landing-text/90 px-3 py-1.5 text-xs leading-relaxed text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity group-hover/privacy:opacity-100 whitespace-nowrap sm:block">
-                  {privacyHint}
-                  <div className="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-landing-text/90" />
-                </div>
-              )}
-            </div>
-            {privacyHint && (
-              <p className="text-xs text-landing-text-muted sm:hidden">
+        {/* Privacy badge — mobile: cohesive card with description, placed last */}
+        {privacyLabel && PrivacyIcon && privacyHint && (
+          <div className="flex w-full items-start gap-2.5 rounded-xl bg-landing-lavender-wash/50 px-3 py-2 text-left ring-1 ring-landing-lavender/10 sm:hidden">
+            <PrivacyIcon className="mt-[5px] h-4 w-4 shrink-0 text-landing-lavender" />
+            <div className="min-w-0">
+              <span className="text-xs font-semibold text-landing-text">{privacyLabel}</span>
+              <p className="mt-0.5 text-[11px] leading-snug text-landing-text-muted">
                 {privacyHint}
               </p>
-            )}
+            </div>
           </div>
         )}
       </div>
-
     </div>
   );
 }
