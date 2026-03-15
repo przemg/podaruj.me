@@ -24,6 +24,7 @@ type PublicGiftCardProps = {
   listSlug: string;
   isAuthenticated: boolean;
   itemId: string;
+  isClosed?: boolean;
 };
 
 const PRIORITY_CONFIG: Record<
@@ -67,6 +68,7 @@ export function PublicGiftCard({
   listSlug,
   isAuthenticated,
   itemId,
+  isClosed,
 }: PublicGiftCardProps) {
   const tPriority = useTranslations("items.priority");
 
@@ -141,15 +143,17 @@ export function PublicGiftCard({
 
             <div className="flex-1" />
 
-            {/* Reserve button */}
-            <ReserveButton
-              itemId={itemId}
-              listSlug={listSlug}
-              privacyMode={privacyMode}
-              reservation={reservation}
-              isAuthenticated={isAuthenticated}
-              isOwner={isOwner}
-            />
+            {/* Reserve button — hidden when list is closed */}
+            {!isClosed && (
+              <ReserveButton
+                itemId={itemId}
+                listSlug={listSlug}
+                privacyMode={privacyMode}
+                reservation={reservation}
+                isAuthenticated={isAuthenticated}
+                isOwner={isOwner}
+              />
+            )}
           </div>
         </div>
       </div>

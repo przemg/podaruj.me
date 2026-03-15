@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { createClient } from "@/lib/supabase/server";
-import { getCountdown } from "@/lib/countdown";
+import { getCountdown, isListClosed } from "@/lib/countdown";
 import { PublicListHeader } from "@/components/public/public-list-header";
 import { PublicGiftCard } from "@/components/public/public-gift-card";
 import { AnimatedCountdown } from "@/components/lists/animated-countdown";
@@ -26,7 +26,7 @@ async function getListBySlug(slug: string) {
   // user_id is fetched for server-side owner check only — never sent to the client
   const { data: list } = await supabase
     .from("lists")
-    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id, is_published")
+    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id, is_published, is_closed, surprise_revealed")
     .eq("slug", slug)
     .single();
 
@@ -155,6 +155,8 @@ export default async function PublicListPage({ params }: PageProps) {
     notFound();
   }
 
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
+
   const reservationMap = await getReservationsForList(
     list.id,
     list.privacy_mode,
@@ -197,6 +199,8 @@ export default async function PublicListPage({ params }: PageProps) {
           privacyLabel={tPrivacy(list.privacy_mode)}
           privacyHint={tPrivacyHint(list.privacy_mode)}
           privacyMode={list.privacy_mode}
+          isClosed={isClosed}
+          closedMessage={isClosed ? (list.is_closed ? t("listClosed") : t("eventPassed")) : undefined}
         />
 
         {list.event_date && (
@@ -230,6 +234,7 @@ export default async function PublicListPage({ params }: PageProps) {
                   listSlug={list.slug}
                   isAuthenticated={currentUser !== null && !isOwner}
                   itemId={item.id}
+                  isClosed={isClosed}
                 />
               ))}
             </div>

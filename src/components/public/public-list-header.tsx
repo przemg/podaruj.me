@@ -20,6 +20,8 @@ type PublicListHeaderProps = {
   privacyLabel?: string;
   privacyHint?: string;
   privacyMode?: string;
+  isClosed?: boolean;
+  closedMessage?: string;
 };
 
 const OCCASION_ICONS: Record<string, typeof Cake> = {
@@ -45,6 +47,8 @@ export function PublicListHeader({
   privacyLabel,
   privacyHint,
   privacyMode,
+  isClosed,
+  closedMessage,
 }: PublicListHeaderProps) {
   const OccasionIcon = OCCASION_ICONS[occasionKey] ?? Gift;
   const PrivacyIcon = privacyMode ? (PRIVACY_ICONS[privacyMode] ?? HelpCircle) : null;
@@ -121,6 +125,12 @@ export function PublicListHeader({
           </div>
         )}
       </div>
+
+      {isClosed && closedMessage && (
+        <div className="mt-5 rounded-xl border border-gray-200 bg-gray-50/80 px-4 py-3 text-center">
+          <p className="text-sm font-medium text-gray-500">{closedMessage}</p>
+        </div>
+      )}
     </div>
   );
 }
