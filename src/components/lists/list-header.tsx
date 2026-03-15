@@ -120,22 +120,22 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
       {/* Header card */}
       <div className="mb-8 rounded-2xl bg-white/70 p-6 shadow-sm backdrop-blur-sm ring-1 ring-landing-text/[0.04]">
-        {/* Title + actions row */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="min-w-0 flex-1">
-            <h1 className="text-2xl font-bold tracking-tight text-landing-text md:text-3xl">
-              {list.name}
-            </h1>
-            {list.description && (
-              <p className="mt-2 text-[0.95rem] leading-relaxed text-landing-text-muted">
-                {list.description}
-              </p>
-            )}
-          </div>
+        {/* Title + description */}
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-landing-text md:text-3xl">
+            {list.name}
+          </h1>
+          {list.description && (
+            <p className="mt-2 max-w-prose text-[0.95rem] leading-relaxed text-landing-text-muted">
+              {list.description}
+            </p>
+          )}
+        </div>
 
-          {/* Actions — top right on desktop */}
-          <div className="flex items-center gap-1.5 sm:shrink-0">
-            {!isDraft && <SharePopover list={list} locale={locale} />}
+        {/* Actions row — always below title */}
+        <div className="mt-4 flex items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
+          {!isDraft && <SharePopover list={list} locale={locale} />}
+          <div className="ml-auto flex items-center gap-1">
             <Button
               variant="ghost"
               size="sm"
