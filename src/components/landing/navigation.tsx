@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
-import { Gift, Menu, X, Globe, Check, ChevronDown } from "lucide-react";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { Gift, Menu, X, Globe, Check, ChevronDown, User, LayoutList, Plus, LogOut } from "lucide-react";
 import { UserMenu } from "@/components/auth/user-menu";
+import { signOut } from "@/lib/supabase/auth";
 
 const NAV_SECTIONS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -20,7 +21,10 @@ const LOCALES = [
 
 export function Navigation({ locale, userEmail, displayName }: { locale: string; userEmail?: string; displayName?: string | null }) {
   const t = useTranslations("landing.nav");
+  const tHero = useTranslations("landing.hero");
+  const tAuth = useTranslations("auth.userMenu");
   const pathname = usePathname();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLocaleOpen, setIsLocaleOpen] = useState(false);
@@ -177,7 +181,8 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
           role="dialog"
           aria-modal="true"
         >
-          <div className="flex h-full flex-col px-6 pt-4">
+          <div className="flex min-h-dvh flex-col px-6 pt-4 pb-safe">
+            {/* Header */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xl font-bold text-landing-text">
                 <Gift className="h-6 w-6 text-landing-coral" />
@@ -192,30 +197,69 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
               </button>
             </div>
 
-            <div className="mt-12 flex flex-1 flex-col gap-6">
+            {/* User info card (logged in) */}
+            {userEmail && (
+              <div className="mt-6 flex items-center gap-3 rounded-xl bg-landing-peach-wash/50 px-4 py-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-landing-coral/10">
+                  <User className="h-4 w-4 text-landing-coral" />
+                </div>
+                <span className="truncate text-sm font-medium text-landing-text">
+                  {displayName || userEmail}
+                </span>
+              </div>
+            )}
+
+            {/* Quick actions (logged in) */}
+            {userEmail && (
+              <div className="mt-6 flex flex-col gap-2">
+                <Link
+                  href="/dashboard/lists/new"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium text-landing-coral-dark transition-all hover:bg-landing-peach-wash"
+                >
+                  <Plus className="h-5 w-5 text-landing-coral" />
+                  {tAuth("createList")}
+                </Link>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium text-landing-text transition-all hover:bg-landing-peach-wash"
+                >
+                  <LayoutList className="h-5 w-5 text-landing-text-muted" />
+                  {tHero("goToDashboard")}
+                </Link>
+                <div className="my-1 h-px bg-landing-text/5" />
+              </div>
+            )}
+
+            {/* Section links */}
+            <nav className={`flex flex-col gap-1 ${userEmail ? "mt-2" : "mt-10"}`}>
               {NAV_SECTIONS.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="text-left text-2xl font-medium text-landing-text transition-colors hover:text-landing-coral"
+                  className="rounded-xl px-4 py-3 text-left text-lg font-medium text-landing-text transition-colors hover:bg-landing-peach-wash hover:text-landing-coral"
                 >
                   {t(section.key)}
                 </button>
               ))}
-            </div>
+            </nav>
 
-            <div className="pb-8">
+            {/* Bottom area */}
+            <div className="mt-auto pb-8">
               {userEmail ? (
-                <div className="space-y-3">
-                  <p className="truncate text-sm text-landing-text-muted">{displayName || userEmail}</p>
-                  <Link
-                    href="/dashboard"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full rounded-xl bg-landing-coral-dark px-6 py-4 text-center text-lg font-semibold text-white transition-all hover:bg-landing-coral-hover"
-                  >
-                    {t("createList")}
-                  </Link>
-                </div>
+                <button
+                  onClick={async () => {
+                    setIsMobileMenuOpen(false);
+                    await signOut();
+                    router.push("/");
+                    router.refresh();
+                  }}
+                  className="flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium text-landing-text-muted transition-all hover:bg-landing-peach-wash hover:text-landing-text"
+                >
+                  <LogOut className="h-5 w-5" />
+                  {tAuth("signOut")}
+                </button>
               ) : (
                 <Link
                   href="/auth/sign-in"
