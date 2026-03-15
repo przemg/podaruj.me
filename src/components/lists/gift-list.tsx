@@ -137,6 +137,70 @@ export function GiftList({
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [sortMode, setSortMode] = useState<string>("custom");
+
+  const handleSortChange = useCallback(
+    async (newSort: string) => {
+      setSortMode(newSort);
+
+      if (newSort === "custom") return;
+
+      // Sort items and save new order to DB
+      const sorted = [...orderedItems];
+      switch (newSort) {
+        case "priority": {
+          const order: Record<string, number> = {
+            must_have: 0,
+            would_love: 1,
+            nice_to_have: 2,
+          };
+          sorted.sort(
+            (a, b) => (order[a.priority] ?? 2) - (order[b.priority] ?? 2)
+          );
+          break;
+        }
+        case "price_low":
+          sorted.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+          break;
+        case "price_high":
+          sorted.sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
+          break;
+        case "name_az":
+          sorted.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "date_newest":
+          sorted.sort((a, b) =>
+            (b.created_at ?? "").localeCompare(a.created_at ?? "")
+          );
+          break;
+        case "date_oldest":
+          sorted.sort((a, b) =>
+            (a.created_at ?? "").localeCompare(b.created_at ?? "")
+          );
+          break;
+        case "available_first":
+          sorted.sort((a, b) => {
+            const aReserved =
+              reservations?.[a.id] || reservedItemIds?.includes(a.id) ? 1 : 0;
+            const bReserved =
+              reservations?.[b.id] || reservedItemIds?.includes(b.id) ? 1 : 0;
+            return aReserved - bReserved;
+          });
+          break;
+      }
+
+      setOrderedItems(sorted);
+      // Reset to custom since the order is now persisted
+      setSortMode("custom");
+
+      await reorderItems(
+        locale,
+        listId,
+        listSlug,
+        sorted.map((item) => item.id)
+      );
+    },
+    [orderedItems, locale, listId, listSlug, reservations, reservedItemIds]
+  );
   const [activeId, setActiveId] = useState<string | null>(null);
   const [animateRef] = useAutoAnimate();
 
@@ -147,57 +211,9 @@ export function GiftList({
     setOrderedItems(items);
   }
 
-  // Sorting
-  const sortedItems = useMemo(() => {
-    if (sortMode === "custom") return orderedItems;
-    const sorted = [...orderedItems];
-    switch (sortMode) {
-      case "priority": {
-        const order: Record<string, number> = {
-          must_have: 0,
-          would_love: 1,
-          nice_to_have: 2,
-        };
-        sorted.sort(
-          (a, b) => (order[a.priority] ?? 2) - (order[b.priority] ?? 2)
-        );
-        break;
-      }
-      case "price_low":
-        sorted.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
-        break;
-      case "price_high":
-        sorted.sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
-        break;
-      case "name_az":
-        sorted.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case "date_newest":
-        sorted.sort((a, b) =>
-          (b.created_at ?? "").localeCompare(a.created_at ?? "")
-        );
-        break;
-      case "date_oldest":
-        sorted.sort((a, b) =>
-          (a.created_at ?? "").localeCompare(b.created_at ?? "")
-        );
-        break;
-      case "available_first":
-        sorted.sort((a, b) => {
-          const aReserved =
-            reservations?.[a.id] || reservedItemIds?.includes(a.id) ? 1 : 0;
-          const bReserved =
-            reservations?.[b.id] || reservedItemIds?.includes(b.id) ? 1 : 0;
-          return aReserved - bReserved;
-        });
-        break;
-    }
-    return sorted;
-  }, [sortMode, orderedItems, reservations, reservedItemIds]);
-
-  const sortedItemIds = useMemo(
-    () => sortedItems.map((i) => i.id),
-    [sortedItems]
+  const itemIds = useMemo(
+    () => orderedItems.map((i) => i.id),
+    [orderedItems]
   );
 
   // DnD sensors
@@ -320,7 +336,7 @@ export function GiftList({
         </div>
         <div className="flex items-center gap-2">
           {orderedItems.length > 1 && (
-            <Select value={sortMode} onValueChange={setSortMode}>
+            <Select value={sortMode} onValueChange={handleSortChange}>
               <SelectTrigger className="h-8 w-auto gap-1.5 border-landing-text/10 px-2.5 text-xs">
                 <ArrowUpDown className="h-3 w-3 text-landing-text-muted" />
                 <SelectValue />
@@ -389,11 +405,11 @@ export function GiftList({
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={sortedItemIds}
+            items={itemIds}
             strategy={verticalListSortingStrategy}
           >
             <div className="space-y-3" ref={animateRef}>
-              {sortedItems.map((item, index) => {
+              {orderedItems.map((item, index) => {
                 const itemLocked =
                   privacyMode === "full_surprise" &&
                   isPublished &&
@@ -406,7 +422,7 @@ export function GiftList({
                     item={item}
                     isDragDisabled={isDragDisabled}
                     isFirst={index === 0}
-                    isLast={index === sortedItems.length - 1}
+                    isLast={index === orderedItems.length - 1}
                     locale={locale}
                     reservation={reservations?.[item.id]}
                     privacyMode={privacyMode}
