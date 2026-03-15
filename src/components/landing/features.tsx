@@ -66,7 +66,7 @@ export function Features() {
               </div>
               {/* Right: illustration panel */}
               <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 sm:px-6 min-[900px]:w-[280px] min-[900px]:shrink-0 min-[900px]:border-t-0 min-[900px]:border-l">
-                <div className="flex w-full gap-3 min-[900px]:flex-col">
+                <div className="flex w-full justify-center gap-3 min-[900px]:flex-col">
                   <div className="flex min-w-0 flex-1 flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3 sm:w-24 sm:flex-none min-[900px]:w-full min-[900px]:flex-row min-[900px]:gap-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20">
                       <HelpCircle className="h-4 w-4 text-landing-coral" />
