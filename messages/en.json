@@ -139,7 +139,8 @@
       "daysLeft": "{count, plural, one {in # day} other {in # days}}",
       "today": "Today!",
       "pastEvent": "Event passed",
-      "draft": "Draft"
+      "draft": "Draft",
+      "closed": "Closed"
     },
     "reservations": {
       "title": "My Reservations",
@@ -274,7 +275,44 @@
       "visible_description": "Everyone sees who reserved what",
       "full_surprise": "Full Surprise",
       "full_surprise_description": "You won't see any reservations — maximum surprise!"
-    }
+    },
+    "countdown": {
+      "until": "Time until the event",
+      "days": "days",
+      "hours": "hours",
+      "minutes": "minutes",
+      "seconds": "seconds",
+      "today": "Today is the day!",
+      "passed": "This event has passed"
+    },
+    "close": "Close list",
+    "reopen": "Reopen list",
+    "closedBadge": "Closed",
+    "closeDialog": {
+      "title": "Close this list?",
+      "description": "No new reservations will be accepted. Existing reservations are preserved. You can reopen the list later if the event date hasn't passed.",
+      "confirm": "Close list",
+      "cancel": "Cancel"
+    },
+    "deleteDialog": {
+      "title": "Permanently delete this list?",
+      "descriptionWithClose": "All items and reservations will be permanently lost. If you just want to stop accepting reservations, you can close the list instead.",
+      "deletePermanently": "Delete permanently",
+      "closeInstead": "Close list instead",
+      "cancel": "Cancel"
+    },
+    "summary": {
+      "title": "Gift Summary",
+      "giftsReserved": "{percentage}% of gifts were reserved",
+      "anonymous": "Anonymous"
+    },
+    "surpriseReveal": {
+      "title": "Reveal your gifts?",
+      "description": "Your list had Full Surprise mode. Would you like to see who reserved your gifts?",
+      "reveal": "Reveal",
+      "notYet": "Not yet"
+    },
+    "revealButton": "Reveal reservations"
   },
   "items": {
     "sectionTitle": "Gifts",
@@ -380,6 +418,8 @@
     "gifts": "Gifts",
     "errorTitle": "Something went wrong",
     "errorDescription": "We couldn't load this list. Please try again.",
-    "errorRetry": "Try again"
+    "errorRetry": "Try again",
+    "listClosed": "This list is closed",
+    "eventPassed": "This event has passed"
   }
 }

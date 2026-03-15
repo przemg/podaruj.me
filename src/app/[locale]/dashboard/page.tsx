@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ListCard } from "@/components/dashboard/list-card";
 import { DashboardEmptyState } from "@/components/dashboard/dashboard-empty-state";
 import { Plus, ClipboardList } from "lucide-react";
-import { getCountdown } from "@/lib/countdown";
+import { getCountdown, isListClosed } from "@/lib/countdown";
 
 export async function generateMetadata({
   params,
@@ -31,7 +31,7 @@ export default async function DashboardPage() {
 
   const { data: lists, error } = await supabase
     .from("lists")
-    .select("id, slug, name, occasion, event_date, created_at, privacy_mode, is_published, items(count)")
+    .select("id, slug, name, occasion, event_date, created_at, privacy_mode, is_published, is_closed, items(count)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -77,6 +77,7 @@ export default async function DashboardPage() {
                   occasion={list.occasion}
                   eventDate={list.event_date}
                   isDraft={list.privacy_mode === "full_surprise" && !list.is_published}
+                  isClosed={isListClosed({ is_closed: list.is_closed, event_date: list.event_date })}
                   t={{
                     occasion: tOccasions(list.occasion),
                     itemCount: t("itemCount", { count: itemCount }),
@@ -84,6 +85,7 @@ export default async function DashboardPage() {
                       ? formatCountdown(list.event_date, t)
                       : "",
                     draft: t("draft"),
+                    closed: t("closed"),
                   }}
                 />
               </div>

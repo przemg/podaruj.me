@@ -14,11 +14,13 @@ type ListCardProps = {
   occasion: string;
   eventDate: string | null;
   isDraft?: boolean;
+  isClosed?: boolean;
   t: {
     occasion: string;
     itemCount: string;
     countdown: string;
     draft?: string;
+    closed?: string;
   };
 };
 
@@ -58,6 +60,7 @@ export function ListCard({
   occasion,
   eventDate,
   isDraft,
+  isClosed,
   t,
 }: ListCardProps) {
   const config = OCCASION_CONFIG[occasion] ?? OCCASION_CONFIG.other;
@@ -66,7 +69,7 @@ export function ListCard({
   return (
     <Link
       href={`/dashboard/lists/${slug}`}
-      className="group relative block overflow-hidden rounded-2xl bg-white/80 p-5 shadow-sm backdrop-blur-sm ring-1 ring-landing-text/[0.04] transition-all duration-200 hover:shadow-lg hover:ring-landing-text/[0.08] hover:-translate-y-0.5 active:scale-[0.98]"
+      className={`group relative block overflow-hidden rounded-2xl bg-white/80 p-5 shadow-sm backdrop-blur-sm ring-1 ring-landing-text/[0.04] transition-all duration-200 hover:shadow-lg hover:ring-landing-text/[0.08] hover:-translate-y-0.5 active:scale-[0.98] ${isClosed ? "opacity-60 grayscale-[30%]" : ""}`}
     >
       {/* Colored top accent bar */}
       <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${config.accentClass}`} />
@@ -86,6 +89,11 @@ export function ListCard({
             {isDraft && (
               <span className="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-[0.7rem] font-medium text-amber-700">
                 {t.draft}
+              </span>
+            )}
+            {isClosed && (
+              <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[0.7rem] font-medium text-gray-500">
+                {t.closed}
               </span>
             )}
             <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.7rem] font-medium ${config.bgClass} text-landing-text`}>

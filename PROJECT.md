@@ -79,7 +79,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Add/edit/remove items — all fields optional except name (link, price, image, priority)
 - Import from URL — paste a product link, auto-extract title, price, and image
 - Drag & drop sorting / priority reordering ✅
-- List archive/history ("Christmas 2025", "Christmas 2026")
+- List archive/history ("Christmas 2025", "Christmas 2026") ✅
 
 ### Reservations
 
@@ -95,7 +95,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 - Shareable public link (unique slug) ✅
 - Email sharing via mailto (pre-filled friendly message) ✅
 - QR code generation with branding, download, and print ✅
-- Event countdown display
+- Event countdown display ✅
 - Groups/Events — multiple people's lists under one event ("Kowalski Family Christmas 2026")
 
 ### Notifications
@@ -111,8 +111,11 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 ### List Lifecycle
 
 - **Draft → Published (Full Surprise only):** Full Surprise lists start as drafts — invisible to guests, not shareable. The owner adds items freely, then publishes. After publish, existing items are locked (no edit/delete) to prevent duplicate gifts. New items can still be added but are locked immediately. Non-surprise lists are always published.
-- Active list — open for browsing and reservations
-- Closed list — after event date (or manually), no new reservations, existing data preserved as archive
+- Active list — open for browsing and reservations ✅
+- Closed list — after event date (or manually), no new reservations, existing data preserved as archive ✅
+- Celebratory summary on closed lists — stats, reservation details, confetti ✅
+- Full Surprise reveal dialog — owner chooses when to see who reserved ✅
+- Slug history — old shareable links redirect to current URL after rename ✅
 
 ### AI Features
 

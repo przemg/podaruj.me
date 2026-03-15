@@ -2,8 +2,11 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { notFound } from "next/navigation";
+import { isListClosed } from "@/lib/countdown";
 import { ListHeader } from "@/components/lists/list-header";
 import { GiftList } from "@/components/lists/gift-list";
+import { SummaryCard } from "@/components/lists/summary-card";
+import { RevealButton } from "@/components/lists/reveal-button";
 
 export async function generateMetadata({
   params,
@@ -108,9 +111,85 @@ export default async function ListDetailPage({
     reservedItemIds = data?.map((r: { item_id: string }) => r.item_id) ?? [];
   }
 
+  // Summary data for closed lists
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
+  let summaryData: { totalItems: number; reservedCount: number; reservations: { itemName: string; reservedBy: string | null }[] } | null = null;
+
+  if (isClosed) {
+    const showSummary = list.privacy_mode !== "full_surprise" || list.surprise_revealed;
+
+    if (showSummary) {
+      const serviceClient = createServiceClient();
+      const { data: summaryReservations } = await serviceClient
+        .from("reservations")
+        .select("item_id, user_id, guest_nickname, show_name")
+        .eq("list_id", list.id);
+
+      const itemList = items ?? [];
+      const reservationItems: { itemName: string; reservedBy: string | null }[] = [];
+
+      for (const r of summaryReservations ?? []) {
+        const item = itemList.find((i: { id: string }) => i.id === r.item_id);
+        let reserverName: string | null = null;
+
+        if (list.privacy_mode === "visible" || list.privacy_mode === "full_surprise") {
+          reserverName = r.guest_nickname || null;
+          if (r.user_id && !r.guest_nickname) {
+            const { data: profile } = await serviceClient
+              .from("profiles")
+              .select("display_name")
+              .eq("id", r.user_id)
+              .single();
+            reserverName = profile?.display_name || null;
+          }
+        } else if (list.privacy_mode === "buyers_choice") {
+          if (r.show_name) {
+            reserverName = r.guest_nickname || null;
+            if (r.user_id && !r.guest_nickname) {
+              const { data: profile } = await serviceClient
+                .from("profiles")
+                .select("display_name")
+                .eq("id", r.user_id)
+                .single();
+              reserverName = profile?.display_name || null;
+            }
+          }
+        }
+
+        reservationItems.push({
+          itemName: item?.name ?? "Unknown",
+          reservedBy: reserverName,
+        });
+      }
+
+      summaryData = {
+        totalItems: itemList.length,
+        reservedCount: (summaryReservations ?? []).length,
+        reservations: reservationItems,
+      };
+    }
+  }
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <ListHeader list={list} locale={locale} />
+
+      {isClosed && summaryData && (
+        <div className="mb-8">
+          <SummaryCard
+            totalItems={summaryData.totalItems}
+            reservedCount={summaryData.reservedCount}
+            reservations={summaryData.reservations}
+          />
+        </div>
+      )}
+
+      {isClosed && list.privacy_mode === "full_surprise" && !list.surprise_revealed && (
+        <div className="mb-8 text-center">
+          <RevealButton locale={locale} slug={list.slug} />
+        </div>
+      )}
+
       <GiftList
         items={items ?? []}
         listId={list.id}

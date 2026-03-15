@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { createClient } from "@/lib/supabase/server";
-import { getCountdown } from "@/lib/countdown";
+import { getCountdown, isListClosed } from "@/lib/countdown";
 import { PublicListHeader } from "@/components/public/public-list-header";
 import { PublicGiftCard } from "@/components/public/public-gift-card";
+import { AnimatedCountdown } from "@/components/lists/animated-countdown";
 import { OwnerBanner } from "@/components/public/owner-banner";
 import { Gift, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -25,7 +26,7 @@ async function getListBySlug(slug: string) {
   // user_id is fetched for server-side owner check only — never sent to the client
   const { data: list } = await supabase
     .from("lists")
-    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id, is_published")
+    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id, is_published, is_closed, surprise_revealed")
     .eq("slug", slug)
     .single();
 
@@ -127,7 +128,21 @@ export default async function PublicListPage({ params }: PageProps) {
   const { locale, slug } = await params;
 
   const data = await getListBySlug(slug);
-  if (!data) notFound();
+  if (!data) {
+    // Check slug history for old links
+    const serviceClient = createServiceClient();
+    const { data: historyEntry } = await serviceClient
+      .from("list_slug_history")
+      .select("list_id, lists:list_id(slug)")
+      .eq("slug", slug)
+      .single();
+
+    if (historyEntry?.lists && typeof historyEntry.lists === "object" && "slug" in historyEntry.lists) {
+      redirect(`/${locale}/lists/${(historyEntry.lists as { slug: string }).slug}`);
+    }
+
+    notFound();
+  }
 
   const { list, items } = data;
 
@@ -153,6 +168,8 @@ export default async function PublicListPage({ params }: PageProps) {
   if (list.privacy_mode === "full_surprise" && !list.is_published && !isOwner) {
     notFound();
   }
+
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
 
   const reservationMap = await getReservationsForList(
     list.id,
@@ -196,7 +213,15 @@ export default async function PublicListPage({ params }: PageProps) {
           privacyLabel={tPrivacy(list.privacy_mode)}
           privacyHint={tPrivacyHint(list.privacy_mode)}
           privacyMode={list.privacy_mode}
+          isClosed={isClosed}
+          closedMessage={isClosed ? (list.is_closed ? t("listClosed") : t("eventPassed")) : undefined}
         />
+
+        {list.event_date && (
+          <div className="mt-6">
+            <AnimatedCountdown eventDate={list.event_date} />
+          </div>
+        )}
 
         {items.length > 0 ? (
           <div>
@@ -223,6 +248,7 @@ export default async function PublicListPage({ params }: PageProps) {
                   listSlug={list.slug}
                   isAuthenticated={currentUser !== null && !isOwner}
                   itemId={item.id}
+                  isClosed={isClosed}
                 />
               ))}
             </div>

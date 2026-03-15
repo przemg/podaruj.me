@@ -139,7 +139,8 @@
       "daysLeft": "{count, plural, one {za # dzień} few {za # dni} many {za # dni} other {za # dni}}",
       "today": "Dziś!",
       "pastEvent": "Wydarzenie minęło",
-      "draft": "Szkic"
+      "draft": "Szkic",
+      "closed": "Zamknięta"
     },
     "reservations": {
       "title": "Moje rezerwacje",
@@ -274,7 +275,44 @@
       "visible_description": "Wszyscy widzą, kto co zarezerwował",
       "full_surprise": "Pełna niespodzianka",
       "full_surprise_description": "Nie zobaczysz żadnych rezerwacji — maksymalna niespodzianka!"
-    }
+    },
+    "countdown": {
+      "until": "Czas do wydarzenia",
+      "days": "dni",
+      "hours": "godziny",
+      "minutes": "minuty",
+      "seconds": "sekundy",
+      "today": "To jest ten dzień!",
+      "passed": "Wydarzenie już się odbyło"
+    },
+    "close": "Zamknij listę",
+    "reopen": "Otwórz ponownie",
+    "closedBadge": "Zamknięta",
+    "closeDialog": {
+      "title": "Zamknąć tę listę?",
+      "description": "Nowe rezerwacje nie będą przyjmowane. Istniejące rezerwacje zostaną zachowane. Możesz ponownie otworzyć listę, jeśli data wydarzenia jeszcze nie minęła.",
+      "confirm": "Zamknij listę",
+      "cancel": "Anuluj"
+    },
+    "deleteDialog": {
+      "title": "Trwale usunąć tę listę?",
+      "descriptionWithClose": "Wszystkie przedmioty i rezerwacje zostaną trwale utracone. Jeśli chcesz tylko przestać przyjmować rezerwacje, możesz zamiast tego zamknąć listę.",
+      "deletePermanently": "Usuń trwale",
+      "closeInstead": "Zamknij listę",
+      "cancel": "Anuluj"
+    },
+    "summary": {
+      "title": "Podsumowanie prezentów",
+      "giftsReserved": "{percentage}% prezentów zostało zarezerwowanych",
+      "anonymous": "Anonim"
+    },
+    "surpriseReveal": {
+      "title": "Odsłonić prezenty?",
+      "description": "Twoja lista miała tryb Pełnej Niespodzianki. Czy chcesz zobaczyć, kto zarezerwował Twoje prezenty?",
+      "reveal": "Odsłoń",
+      "notYet": "Jeszcze nie"
+    },
+    "revealButton": "Odsłoń rezerwacje"
   },
   "items": {
     "sectionTitle": "Prezenty",
@@ -380,6 +418,8 @@
     "gifts": "Prezenty",
     "errorTitle": "Coś poszło nie tak",
     "errorDescription": "Nie udało się załadować listy. Spróbuj ponownie.",
-    "errorRetry": "Spróbuj ponownie"
+    "errorRetry": "Spróbuj ponownie",
+    "listClosed": "Ta lista jest zamknięta",
+    "eventPassed": "Wydarzenie już się odbyło"
   }
 }
