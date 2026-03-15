@@ -132,34 +132,38 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             {tOccasions(list.occasion)}
           </div>
           {/* Privacy badge — tooltip on desktop, inline text on mobile */}
-          <div className="flex flex-col gap-1">
-            <div className="hidden sm:block">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="flex cursor-help items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
-                      <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
-                      {tPrivacy(list.privacy_mode)}
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-xs text-center">
-                    {list.privacy_mode === "buyers_choice" && t("buyersChoiceHint")}
-                    {list.privacy_mode === "full_surprise" && t("fullSurpriseHint")}
-                    {list.privacy_mode === "visible" && tPrivacy("visible_description")}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <div className="flex items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text sm:hidden">
-              <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
-              {tPrivacy(list.privacy_mode)}
-            </div>
-            <p className="text-xs text-landing-text-muted sm:hidden">
-              {list.privacy_mode === "buyers_choice" && t("buyersChoiceHint")}
-              {list.privacy_mode === "full_surprise" && t("fullSurpriseHint")}
-              {list.privacy_mode === "visible" && tPrivacy("visible_description")}
-            </p>
-          </div>
+          {(() => {
+            const privacyHintText =
+              list.privacy_mode === "buyers_choice" ? t("buyersChoiceHint")
+              : list.privacy_mode === "full_surprise" ? t("fullSurpriseHint")
+              : tPrivacy("visible_description");
+            return (
+              <div className="flex flex-col gap-1">
+                <div className="hidden sm:block">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex cursor-help items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text">
+                          <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+                          {tPrivacy(list.privacy_mode)}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom" className="max-w-xs text-center">
+                        {privacyHintText}
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <div className="flex items-center gap-1.5 rounded-full bg-landing-lavender-wash/80 px-3 py-1 text-xs font-medium text-landing-text sm:hidden">
+                  <PrivacyIcon className="h-3.5 w-3.5 text-landing-lavender" />
+                  {tPrivacy(list.privacy_mode)}
+                </div>
+                <p className="text-xs text-landing-text-muted sm:hidden">
+                  {privacyHintText}
+                </p>
+              </div>
+            );
+          })()}
           {countdownLabel && (
             <div className="flex items-center gap-1.5 rounded-full bg-landing-mint/10 px-3 py-1 text-xs font-medium text-landing-text">
               <CalendarDays className="h-3.5 w-3.5 text-emerald-600" />

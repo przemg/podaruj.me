@@ -65,6 +65,30 @@ const PRIVACY_ICONS = {
   full_surprise: EyeOff,
 } as const;
 
+const PRIVACY_COLOR_MAP = {
+  buyers_choice: {
+    iconBg: "bg-landing-lavender/15",
+    iconColor: "text-landing-lavender",
+    selectedBorder: "border-landing-lavender/40",
+    selectedBg: "bg-landing-lavender-wash",
+    ring: "ring-landing-lavender/20",
+  },
+  visible: {
+    iconBg: "bg-landing-mint/15",
+    iconColor: "text-emerald-600",
+    selectedBorder: "border-landing-mint/50",
+    selectedBg: "bg-landing-mint/5",
+    ring: "ring-landing-mint/20",
+  },
+  full_surprise: {
+    iconBg: "bg-landing-coral/10",
+    iconColor: "text-landing-coral",
+    selectedBorder: "border-landing-coral/30",
+    selectedBg: "bg-landing-peach-wash",
+    ring: "ring-landing-coral/20",
+  },
+} as const;
+
 export function ListForm({
   mode,
   locale,
@@ -248,32 +272,7 @@ export function ListForm({
           {privacyModes.map((pm) => {
             const Icon = PRIVACY_ICONS[pm];
             const isSelected = privacyMode === pm;
-
-            const colorMap = {
-              buyers_choice: {
-                iconBg: "bg-landing-lavender/15",
-                iconColor: "text-landing-lavender",
-                selectedBorder: "border-landing-lavender/40",
-                selectedBg: "bg-landing-lavender-wash",
-                ring: "ring-landing-lavender/20",
-              },
-              visible: {
-                iconBg: "bg-landing-mint/15",
-                iconColor: "text-emerald-600",
-                selectedBorder: "border-landing-mint/50",
-                selectedBg: "bg-landing-mint/5",
-                ring: "ring-landing-mint/20",
-              },
-              full_surprise: {
-                iconBg: "bg-landing-coral/10",
-                iconColor: "text-landing-coral",
-                selectedBorder: "border-landing-coral/30",
-                selectedBg: "bg-landing-peach-wash",
-                ring: "ring-landing-coral/20",
-              },
-            } as const;
-
-            const colors = colorMap[pm];
+            const colors = PRIVACY_COLOR_MAP[pm];
 
             return (
               <label

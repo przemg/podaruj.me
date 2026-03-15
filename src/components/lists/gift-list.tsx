@@ -129,6 +129,7 @@ export function GiftList({
   const router = useRouter();
 
   const [orderedItems, setOrderedItems] = useState(items);
+  const [itemsKey, setItemsKey] = useState(() => items.map((i) => i.id).join(","));
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ItemData | undefined>();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -139,11 +140,10 @@ export function GiftList({
   const [activeId, setActiveId] = useState<string | null>(null);
   const [animateRef] = useAutoAnimate();
 
-  // Sync with server data when items prop changes
-  if (
-    items !== orderedItems &&
-    JSON.stringify(items) !== JSON.stringify(orderedItems)
-  ) {
+  // Sync with server data when items prop changes (cheap key comparison)
+  const newKey = items.map((i) => i.id).join(",");
+  if (newKey !== itemsKey) {
+    setItemsKey(newKey);
     setOrderedItems(items);
   }
 
@@ -194,6 +194,11 @@ export function GiftList({
     }
     return sorted;
   }, [sortMode, orderedItems, reservations, reservedItemIds]);
+
+  const sortedItemIds = useMemo(
+    () => sortedItems.map((i) => i.id),
+    [sortedItems]
+  );
 
   // DnD sensors
   const sensors = useSensors(
@@ -279,15 +284,15 @@ export function GiftList({
     [orderedItems, locale, listId, listSlug]
   );
 
-  const handleEdit = useCallback((item: ItemData) => {
+  const handleEdit = (item: ItemData) => {
     setEditingItem(item);
     setEditDialogOpen(true);
-  }, []);
+  };
 
-  const handleDeleteClick = useCallback((item: ItemData) => {
+  const handleDeleteClick = (item: ItemData) => {
     setDeletingItem(item);
     setDeleteDialogOpen(true);
-  }, []);
+  };
 
   const handleDeleteConfirm = useCallback(async () => {
     if (!deletingItem) return;
@@ -382,7 +387,7 @@ export function GiftList({
           onDragEnd={handleDragEnd}
         >
           <SortableContext
-            items={sortedItems.map((i) => i.id)}
+            items={sortedItemIds}
             strategy={verticalListSortingStrategy}
           >
             <div className="space-y-3" ref={animateRef}>

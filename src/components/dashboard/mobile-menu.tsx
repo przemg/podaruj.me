@@ -10,11 +10,11 @@ import {
   X,
   LogOut,
   User,
-  List,
   Gift,
   Plus,
   Settings,
 } from "lucide-react";
+import { NAV_ITEMS } from "./nav-items";
 
 export function MobileMenu({
   email,
@@ -40,12 +40,13 @@ export function MobileMenu({
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
     };
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
+  }, [isOpen]);
 
   async function handleSignOut() {
     setIsOpen(false);
@@ -54,22 +55,17 @@ export function MobileMenu({
     router.refresh();
   }
 
-  const navItems = [
-    {
-      href: "/dashboard" as const,
-      label: t("myLists"),
-      icon: List,
-      isActive:
-        pathname === "/dashboard" ||
-        pathname.startsWith("/dashboard/lists"),
-    },
-    {
-      href: "/dashboard/reservations" as const,
-      label: t("myReservations"),
-      icon: Gift,
-      isActive: pathname.startsWith("/dashboard/reservations"),
-    },
-  ];
+  const tNav = useTranslations("dashboard.nav");
+
+  const navItems = NAV_ITEMS.map(({ href, labelKey, icon }) => ({
+    href,
+    label: tNav(labelKey),
+    icon,
+    isActive:
+      href === "/dashboard"
+        ? pathname === "/dashboard" || pathname.startsWith("/dashboard/lists")
+        : pathname.startsWith(href),
+  }));
 
   return (
     <div className="md:hidden">
