@@ -189,8 +189,6 @@ export function GiftList({
       }
 
       setOrderedItems(sorted);
-      // Reset to custom since the order is now persisted
-      setSortMode("custom");
 
       await reorderItems(
         locale,
@@ -198,6 +196,9 @@ export function GiftList({
         listSlug,
         sorted.map((item) => item.id)
       );
+
+      // Reset to custom after saving — order is now persisted
+      setSortMode("custom");
     },
     [orderedItems, locale, listId, listSlug, reservations, reservedItemIds]
   );
