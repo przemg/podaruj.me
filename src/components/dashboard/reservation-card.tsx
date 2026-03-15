@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, CalendarDays } from "lucide-react";
+import { ExternalLink, CalendarDays, Archive } from "lucide-react";
 import { cancelReservation } from "@/app/[locale]/lists/[slug]/reservation-actions";
 import type { MyReservation } from "@/app/[locale]/lists/[slug]/reservation-actions";
 
@@ -108,15 +108,22 @@ export function ReservationCard({ reservation }: ReservationCardProps) {
           {t("viewList")}
         </Link>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled={cancelling}
-          onClick={handleCancel}
-          className="h-7 rounded-lg px-3 text-xs font-medium text-landing-text-muted transition-colors hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
-        >
-          {cancelling ? t("cancelling") : t("cancelButton")}
-        </Button>
+        {reservation.listIsClosed ? (
+          <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-500">
+            <Archive className="h-3 w-3" />
+            {t("listClosed")}
+          </span>
+        ) : (
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={cancelling}
+            onClick={handleCancel}
+            className="h-7 rounded-lg px-3 text-xs font-medium text-landing-text-muted transition-colors hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
+          >
+            {cancelling ? t("cancelling") : t("cancelButton")}
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -153,8 +160,10 @@ type ReservationGroupHeaderProps = {
   listSlug: string;
   occasion: string;
   eventDate: string | null;
+  isClosed?: boolean;
   tOccasion: string;
   tCountdown: string | null;
+  tClosed?: string;
 };
 
 export function ReservationGroupHeader({
@@ -162,8 +171,10 @@ export function ReservationGroupHeader({
   listSlug,
   occasion,
   eventDate,
+  isClosed,
   tOccasion,
   tCountdown,
+  tClosed,
 }: ReservationGroupHeaderProps) {
   const config = OCCASION_CONFIG[occasion] ?? OCCASION_CONFIG.other;
 
@@ -180,7 +191,13 @@ export function ReservationGroupHeader({
       >
         {tOccasion}
       </span>
-      {eventDate && tCountdown && (
+      {isClosed && tClosed && (
+        <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-[0.7rem] font-medium text-gray-500">
+          <Archive className="h-3 w-3" />
+          {tClosed}
+        </span>
+      )}
+      {eventDate && tCountdown && !isClosed && (
         <span className="inline-flex items-center gap-1 rounded-full bg-landing-mint/10 px-2 py-0.5 text-[0.7rem] font-medium text-landing-text">
           <CalendarDays className="h-3 w-3 text-emerald-600" />
           {tCountdown}

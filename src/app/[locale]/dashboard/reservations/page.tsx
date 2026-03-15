@@ -93,12 +93,14 @@ export default async function ReservationsPage() {
               listSlug={group.listSlug}
               occasion={group.listOccasion}
               eventDate={group.listEventDate}
+              isClosed={group.items[0]?.listIsClosed}
               tOccasion={tOccasions(group.listOccasion)}
               tCountdown={
                 group.listEventDate
                   ? formatCountdown(group.listEventDate, tMyLists)
                   : null
               }
+              tClosed={tMyLists("closed")}
             />
 
             <div className="space-y-3">

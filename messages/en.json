@@ -149,6 +149,7 @@
       "emptyDescription": "When you reserve gifts on someone else's list, they'll appear here.",
       "cancelButton": "Cancel",
       "cancelling": "Cancelling...",
+      "listClosed": "List closed",
       "listLabel": "List",
       "viewList": "View list",
       "reservedOn": "Reserved on {date}"

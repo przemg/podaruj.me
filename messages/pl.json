@@ -149,6 +149,7 @@
       "emptyDescription": "Gdy zarezerwujesz prezent z czyjejś listy, pojawi się tutaj.",
       "cancelButton": "Anuluj",
       "cancelling": "Anulowanie...",
+      "listClosed": "Lista zamknięta",
       "listLabel": "Lista",
       "viewList": "Zobacz listę",
       "reservedOn": "Zarezerwowano {date}"

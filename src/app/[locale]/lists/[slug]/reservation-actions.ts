@@ -189,6 +189,7 @@ export type MyReservation = {
   listSlug: string;
   listOccasion: string;
   listEventDate: string | null;
+  listIsClosed: boolean;
   showName: boolean;
   createdAt: string;
 };
@@ -210,7 +211,7 @@ export async function getMyReservations(): Promise<MyReservation[]> {
       show_name,
       created_at,
       items!inner (name, price, priority),
-      lists!inner (name, slug, occasion, event_date)
+      lists!inner (name, slug, occasion, event_date, is_closed)
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
@@ -230,6 +231,7 @@ export async function getMyReservations(): Promise<MyReservation[]> {
       listSlug: list.slug as string,
       listOccasion: list.occasion as string,
       listEventDate: list.event_date as string | null,
+      listIsClosed: isListClosed({ is_closed: list.is_closed as boolean, event_date: list.event_date as string | null }),
       showName: r.show_name as boolean,
       createdAt: r.created_at as string,
     };
