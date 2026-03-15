@@ -150,7 +150,10 @@ export function ListForm({
     async (e: React.FormEvent) => {
       e.preventDefault();
 
-      if (mode === "create" && privacyMode === "full_surprise") {
+      const isChangingToSurprise =
+        privacyMode === "full_surprise" &&
+        defaultValues?.privacyMode !== "full_surprise";
+      if (isChangingToSurprise) {
         setShowSurpriseWarning(true);
         return;
       }
