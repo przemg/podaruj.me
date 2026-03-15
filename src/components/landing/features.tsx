@@ -8,6 +8,12 @@ export function Features() {
   const t = useTranslations("landing.features");
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
+  const smallCards = [
+    { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
+    { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
+    { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+  ];
+
   return (
     <section id="features" className="relative overflow-hidden bg-[#2D2545] py-20 sm:py-28">
       {/* Decorative gradient orbs */}
@@ -22,8 +28,9 @@ export function Features() {
           {t("subtitle")}
         </p>
 
-        <div ref={revealRef} className="mt-16 space-y-4">
-          {/* Privacy modes — large card (always full width) */}
+        {/* Desktop layout: 3-col grid (original) */}
+        <div ref={revealRef} className="mt-16">
+          {/* Privacy modes — large card (always full width on mobile/tablet, 2 cols on desktop) */}
           <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 lg:flex-row">
             {/* Left: text content */}
             <div className="flex flex-1 flex-col p-6">
@@ -91,10 +98,12 @@ export function Features() {
             </div>
           </div>
 
-          {/* Bottom section: QR left + 3 small cards right on tablet; 4-col on desktop */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {/* QR code card */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-1">
+          {/* Bottom section */}
+          {/* Tablet (sm): QR left + 3 cards stacked right */}
+          {/* Desktop (lg): QR tall on right, 3 cards in row below privacy */}
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {/* QR code card — on tablet: left col spanning 3 rows; on desktop: last col spanning 2 rows */}
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 sm:row-span-3 lg:row-span-2 lg:order-last">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20">
                 <QrCode className="h-6 w-6 text-landing-coral" />
               </div>
@@ -122,12 +131,8 @@ export function Features() {
               </div>
             </div>
 
-            {/* 3 small cards */}
-            {[
-              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
-            ].map((card) => (
+            {/* 3 small cards — on tablet: right col stacked; on desktop: row below privacy (2 cols) */}
+            {smallCards.map((card) => (
               <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}>
                   <card.icon className={`h-5 w-5 ${card.color}`} />
