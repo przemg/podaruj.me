@@ -189,7 +189,6 @@ export function GiftList({
       }
 
       setOrderedItems(sorted);
-      setSortMode("custom");
 
       // Save in background — no need to await
       reorderItems(
