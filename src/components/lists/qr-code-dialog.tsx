@@ -90,12 +90,12 @@ export function QrCodeDialog({
 
     canvas.toBlob((blob) => {
       if (!blob) return;
-      const url = URL.createObjectURL(blob);
+      const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.href = url;
+      a.href = blobUrl;
       a.download = `${listName}-qr.png`;
       a.click();
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(blobUrl);
     });
   };
 
@@ -107,14 +107,16 @@ export function QrCodeDialog({
     const printWindow = window.open("", "_blank");
     if (!printWindow) return;
 
-    printWindow.document.write(`
-      <html>
-        <head><title>${listName} - QR Code</title></head>
-        <body style="display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;">
-          <img src="${dataUrl}" />
-        </body>
-      </html>
-    `);
+    printWindow.document.write(
+      "<!DOCTYPE html><html><head><title></title></head>" +
+        '<body style="display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;">' +
+        "</body></html>",
+    );
+    // Set title safely via DOM API to prevent XSS from list names
+    printWindow.document.title = `${listName} - QR Code`;
+    const img = printWindow.document.createElement("img");
+    img.src = dataUrl;
+    printWindow.document.body.appendChild(img);
     printWindow.document.close();
     printWindow.onload = () => {
       printWindow.print();
