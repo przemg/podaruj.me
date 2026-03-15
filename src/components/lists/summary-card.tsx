@@ -20,11 +20,19 @@ export function SummaryCard({ listId, totalItems, reservedCount, reservations }:
   const t = useTranslations("lists.summary");
   const confettiFired = useRef(false);
 
+  const storageKey = `confetti-shown-${listId}`;
+
+  // Clear confetti state when summary card unmounts (e.g., list reopened)
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem(storageKey);
+    };
+  }, [storageKey]);
+
   useEffect(() => {
     if (confettiFired.current) return;
     confettiFired.current = true;
 
-    const storageKey = `confetti-shown-${listId}`;
     if (localStorage.getItem(storageKey)) return;
     localStorage.setItem(storageKey, "1");
 
