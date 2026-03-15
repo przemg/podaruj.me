@@ -44,25 +44,31 @@
       "privacyFullSurpriseDesc": "Właściciel nie widzi nic aż do wielkiego dnia",
       "qrTitle": "Udostępnianie kodem QR",
       "qrDescription": "Wydrukuj lub udostępnij kod QR. Jedno skanowanie przenosi znajomych do Twojej listy.",
-      "importTitle": "Import z URL",
-      "importDescription": "Wklej link do produktu, a my pobierzemy szczegóły.",
+      "emailShareTitle": "Udostępnij mailem",
+      "emailShareDescription": "Wyślij gotową wiadomość z linkiem do listy rodzinie i znajomym.",
       "noAccountTitle": "Bez konta",
       "noAccountDescription": "Goście przeglądają i rezerwują bez rejestracji.",
       "countdownTitle": "Odliczanie do wydarzenia",
       "countdownDescription": "Zobacz, ile dni pozostało do wielkiej okazji."
     },
     "testimonials": {
-      "title": "Ludzie kochają Podaruj.me",
-      "subtitle": "Zobacz, co mówią nasi użytkownicy o dzieleniu się listami prezentów z bliskimi.",
+      "title": "Uwielbiane przez obdarowujących",
+      "subtitle": "Zobacz, dlaczego ludzie wybierają Podaruj.me na swoje wyjątkowe okazje.",
       "t1Name": "Anna K.",
       "t1Occasion": "Lista urodzinowa",
-      "t1Quote": "Udostępniłam listę w rodzinnej grupie na czacie i każdy wybrał coś, czego naprawdę chciałam!",
+      "t1Quote": "Udostępniłam listę w rodzinnej grupie i każdy wybrał coś, czego naprawdę chciałam. Koniec z niechcianymi duplikatami!",
       "t2Name": "Tomek R.",
       "t2Occasion": "Lista ślubna",
-      "t2Quote": "Tryb niespodzianki był idealny. Nie mieliśmy pojęcia, kto co kupił, aż do wielkiego dnia.",
+      "t2Quote": "Tryb niespodzianki był idealny na nasz ślub. Nie mieliśmy pojęcia, kto co kupił, aż otworzyliśmy wszystko razem.",
       "t3Name": "Marta W.",
       "t3Occasion": "Święta",
-      "t3Quote": "Koniec z podwójnymi prezentami. Moje dzieci miały własne listy i to po prostu działało."
+      "t3Quote": "Moje dzieci miały własne listy i to po prostu działało. Koniec z podwójnymi prezentami pod choinką.",
+      "t4Name": "Kasia P.",
+      "t4Occasion": "Baby shower",
+      "t4Quote": "Goście nie musieli zakładać konta — wystarczyło kliknąć link i zarezerwować. Super proste dla każdego.",
+      "t5Name": "Michał D.",
+      "t5Occasion": "Parapetówka",
+      "t5Quote": "Kod QR to był strzał w dziesiątkę. Wydrukowałem go na zaproszeniu i znajomi od razu go zeskanowali."
     },
     "faq": {
       "title": "Często zadawane pytania",
@@ -75,7 +81,7 @@
       "q4": "Czy mogę udostępnić listę w mediach społecznościowych?",
       "a4": "Tak. Udostępnij przez link, kod QR lub email. Działa w każdym komunikatorze i platformie społecznościowej.",
       "q5": "Co się dzieje po wydarzeniu?",
-      "a5": "Lista jest automatycznie archiwizowana. Możesz do niej wrócić w dowolnym momencie lub użyć jej ponownie w następnym roku."
+      "a5": "Lista zamyka się automatycznie po dacie wydarzenia. Dane rezerwacji są zachowane, a Ty możesz zobaczyć podsumowanie kto co zarezerwował."
     },
     "cta": {
       "title": "Gotowy, by stworzyć swoją pierwszą listę prezentów?",
@@ -206,6 +212,8 @@
       "occasionPlaceholder": "Wybierz okazję",
       "eventDateLabel": "Data wydarzenia",
       "eventDateHint": "Opcjonalnie — pokażemy odliczanie",
+      "eventTimeLabel": "Godzina wydarzenia",
+      "eventTimeHint": "Opcjonalnie — odliczanie uwzględni godziny i minuty",
       "privacyModeLabel": "Prywatność rezerwacji",
       "submitButton": "Utwórz listę",
       "creating": "Tworzenie...",

@@ -61,7 +61,7 @@ supabase/
 ## Database Tables
 
 - **profiles** — user profiles (auto-created on signup)
-- **lists** — gift lists with occasion, privacy mode, event date, slug, `is_published`, `published_at`, `is_closed`, `closed_at`, `surprise_revealed` (RLS: owner-only). Slug is used in URLs instead of UUID. Full Surprise lists start as drafts (`is_published=false`); all others default to `true`. Lists close automatically when event date passes or manually via owner action.
+- **lists** — gift lists with occasion, privacy mode, event date, optional `event_time` (HH:MM), slug, `is_published`, `published_at`, `is_closed`, `closed_at`, `surprise_revealed` (RLS: owner-only). Slug is used in URLs instead of UUID. Full Surprise lists start as drafts (`is_published=false`); all others default to `true`. Lists close automatically when event date/time passes or manually via owner action. If `event_time` is set, closing and countdown use that exact time; otherwise, list closes at end of day.
 - **items** — gift items within lists with priority, position (RLS: owner of parent list)
 - **reservations** — gift reservations with privacy modes, guest nickname for anonymous reservations. RLS: logged-in users can SELECT/DELETE own reservations; all other access via service client.
 - **list_slug_history** — stores old slugs for redirect after list rename (FK cascade to lists). Accessed via service client on public routes.

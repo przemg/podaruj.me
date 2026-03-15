@@ -49,6 +49,7 @@ type ListData = {
   description: string | null;
   occasion: string;
   event_date: string | null;
+  event_time: string | null;
   privacy_mode: string;
   is_published: boolean;
   is_closed: boolean;
@@ -89,14 +90,11 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
   const isDraft = list.privacy_mode === "full_surprise" && !list.is_published;
 
-  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time });
   const isManuallyClosable = !isClosed && (list.privacy_mode !== "full_surprise" || list.is_published);
   const canReopen = list.is_closed && (!list.event_date || (() => {
-    const today = new Date();
-    const eventDate = new Date(list.event_date + "T00:00:00");
-    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
-    return eventDay.getTime() >= todayDate.getTime();
+    // Can reopen if event date+time hasn't passed yet
+    return !isListClosed({ is_closed: false, event_date: list.event_date, event_time: list.event_time });
   })());
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
@@ -285,7 +283,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
       {list.event_date && !isClosed && (
         <div className="mb-8">
-          <AnimatedCountdown eventDate={list.event_date} />
+          <AnimatedCountdown eventDate={list.event_date} eventTime={list.event_time} />
         </div>
       )}
 

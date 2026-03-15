@@ -112,7 +112,7 @@ export default async function ListDetailPage({
   }
 
   // Summary data for closed lists
-  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time });
   let summaryData: { totalItems: number; reservedCount: number; reservations: { itemName: string; reservedBy: string | null }[] } | null = null;
 
   if (isClosed) {

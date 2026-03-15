@@ -48,6 +48,7 @@ type ListFormProps = {
     description: string;
     occasion: string;
     eventDate: string;
+    eventTime: string;
     privacyMode: string;
   };
 };
@@ -111,6 +112,7 @@ export function ListForm({
     defaultValues?.occasion ?? "birthday"
   );
   const [eventDate, setEventDate] = useState(defaultValues?.eventDate ?? "");
+  const [eventTime, setEventTime] = useState(defaultValues?.eventTime ?? "");
   const [privacyMode, setPrivacyMode] = useState(
     defaultValues?.privacyMode ?? "buyers_choice"
   );
@@ -130,6 +132,7 @@ export function ListForm({
         description: description || undefined,
         occasion: occasion as ListFormData["occasion"],
         eventDate: eventDate || undefined,
+        eventTime: eventTime || undefined,
         privacyMode: (overridePrivacy ?? privacyMode) as ListFormData["privacyMode"],
       };
 
@@ -143,7 +146,7 @@ export function ListForm({
         setLoading(false);
       }
     },
-    [name, description, occasion, eventDate, privacyMode, mode, locale, listId]
+    [name, description, occasion, eventDate, eventTime, privacyMode, mode, locale, listId]
   );
 
   const handleSubmit = useCallback(
@@ -160,7 +163,7 @@ export function ListForm({
 
       await submitForm();
     },
-    [mode, privacyMode, submitForm]
+    [privacyMode, defaultValues?.privacyMode, submitForm]
   );
 
   const handleConfirmSurprise = useCallback(async () => {
@@ -260,6 +263,25 @@ export function ListForm({
           {tCreate("eventDateHint")}
         </p>
       </div>
+
+      {/* Event Time */}
+      {eventDate && (
+        <div className="space-y-2">
+          <Label htmlFor="eventTime" className="text-landing-text font-medium">
+            {tCreate("eventTimeLabel")}
+          </Label>
+          <Input
+            id="eventTime"
+            type="time"
+            value={eventTime}
+            onChange={(e) => setEventTime(e.target.value)}
+            className="border-landing-text/10 focus:border-landing-coral/30 focus:ring-landing-coral/20"
+          />
+          <p className="text-xs text-landing-text-muted">
+            {tCreate("eventTimeHint")}
+          </p>
+        </div>
+      )}
 
       {/* Privacy Mode */}
       <div className="space-y-3">

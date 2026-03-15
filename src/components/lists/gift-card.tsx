@@ -67,7 +67,7 @@ export function GiftCard({
   locale,
   reservation,
   privacyMode,
-  isReserved,
+  isReserved: _isReserved,
   hasAnyReservation,
   isLocked,
   dragHandleProps,

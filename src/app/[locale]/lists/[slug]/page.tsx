@@ -26,7 +26,7 @@ async function getListBySlug(slug: string) {
   // user_id is fetched for server-side owner check only — never sent to the client
   const { data: list } = await supabase
     .from("lists")
-    .select("id, slug, name, description, occasion, event_date, privacy_mode, user_id, is_published, is_closed, surprise_revealed")
+    .select("id, slug, name, description, occasion, event_date, event_time, privacy_mode, user_id, is_published, is_closed, surprise_revealed")
     .eq("slug", slug)
     .single();
 
@@ -155,7 +155,7 @@ export default async function PublicListPage({ params }: PageProps) {
     notFound();
   }
 
-  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date });
+  const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time });
 
   const reservationMap = await getReservationsForList(
     list.id,
@@ -205,7 +205,7 @@ export default async function PublicListPage({ params }: PageProps) {
 
         {list.event_date && !isClosed && (
           <div className="mt-6 mb-8">
-            <AnimatedCountdown eventDate={list.event_date} />
+            <AnimatedCountdown eventDate={list.event_date} eventTime={list.event_time} />
           </div>
         )}
 

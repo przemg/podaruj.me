@@ -55,7 +55,7 @@ export async function reserveItem(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug, user_id, privacy_mode, is_published, is_closed, event_date")
+    .select("id, slug, user_id, privacy_mode, is_published, is_closed, event_date, event_time")
     .eq("slug", listSlug)
     .single();
 
@@ -67,7 +67,7 @@ export async function reserveItem(
   if (list.privacy_mode === "full_surprise" && !list.is_published)
     return { error: "This list is not yet published" };
 
-  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date }))
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time }))
     return { error: "This list is closed and no longer accepting reservations" };
 
   if (!(await isItemAvailable(serviceClient, itemId)))
@@ -116,7 +116,7 @@ export async function reserveItemAsGuest(
 
   const { data: list } = await serviceClient
     .from("lists")
-    .select("id, slug, privacy_mode, is_published, is_closed, event_date")
+    .select("id, slug, privacy_mode, is_published, is_closed, event_date, event_time")
     .eq("slug", listSlug)
     .single();
 
@@ -126,7 +126,7 @@ export async function reserveItemAsGuest(
   if (list.privacy_mode === "full_surprise" && !list.is_published)
     return { error: "This list is not yet published" };
 
-  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date }))
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time }))
     return { error: "This list is closed and no longer accepting reservations" };
 
   if (!(await isItemAvailable(serviceClient, itemId)))
@@ -211,7 +211,7 @@ export async function getMyReservations(): Promise<MyReservation[]> {
       show_name,
       created_at,
       items!inner (name, price, priority),
-      lists!inner (name, slug, occasion, event_date, is_closed)
+      lists!inner (name, slug, occasion, event_date, event_time, is_closed)
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
@@ -231,7 +231,7 @@ export async function getMyReservations(): Promise<MyReservation[]> {
       listSlug: list.slug as string,
       listOccasion: list.occasion as string,
       listEventDate: list.event_date as string | null,
-      listIsClosed: isListClosed({ is_closed: list.is_closed as boolean, event_date: list.event_date as string | null }),
+      listIsClosed: isListClosed({ is_closed: list.is_closed as boolean, event_date: list.event_date as string | null, event_time: list.event_time as string | null }),
       showName: r.show_name as boolean,
       createdAt: r.created_at as string,
     };
