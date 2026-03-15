@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { signOut } from "@/lib/supabase/auth";
@@ -67,24 +68,15 @@ export function MobileMenu({
         : pathname.startsWith(href),
   }));
 
-  return (
-    <div className="md:hidden">
-      <button
-        onClick={() => setIsOpen(true)}
-        className="flex h-10 w-10 items-center justify-center rounded-lg text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
-        aria-label={t("menu")}
-      >
-        <Menu className="h-5 w-5" />
-      </button>
-
-      {isOpen && (
+  const overlay = isOpen
+    ? createPortal(
         <div
           className="fixed inset-0 z-[100] bg-white"
           style={{ animation: "slide-in-overlay 0.3s ease-out" }}
           role="dialog"
           aria-modal="true"
         >
-          <div className="flex h-full flex-col px-6 pt-4">
+          <div className="flex min-h-dvh flex-col px-6 pt-4 pb-safe">
             {/* Header */}
             <div className="flex items-center justify-between">
               <Link
@@ -169,8 +161,21 @@ export function MobileMenu({
               </button>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+        document.body
+      )
+    : null;
+
+  return (
+    <div className="md:hidden">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="flex h-10 w-10 items-center justify-center rounded-lg text-landing-text-muted transition-colors hover:bg-landing-peach-wash hover:text-landing-text"
+        aria-label={t("menu")}
+      >
+        <Menu className="h-5 w-5" />
+      </button>
+      {overlay}
     </div>
   );
 }
