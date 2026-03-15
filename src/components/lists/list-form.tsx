@@ -281,7 +281,7 @@ export function ListForm({
               <label
                 key={pm}
                 htmlFor={`privacy-${pm}`}
-                className={`group relative flex ${isFullSurpriseLocked ? "pointer-events-none opacity-60" : "cursor-pointer"} items-center gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ${
+                className={`group relative flex ${isFullSurpriseLocked ? "cursor-not-allowed opacity-50" : "cursor-pointer"} items-center gap-4 rounded-2xl border-2 p-4 transition-all duration-200 ${
                   isSelected
                     ? `${colors.selectedBorder} ${colors.selectedBg} shadow-sm ring-2 ${colors.ring}`
                     : "border-transparent bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
