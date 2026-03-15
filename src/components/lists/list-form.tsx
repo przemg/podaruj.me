@@ -336,7 +336,7 @@ export function ListForm({
             );
           })}
         </RadioGroup>
-        {mode === "create" && privacyMode === "full_surprise" && (
+        {privacyMode === "full_surprise" && defaultValues?.privacyMode !== "full_surprise" && (
           <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5">
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
             <p className="text-sm text-amber-700">
