@@ -217,7 +217,7 @@ export default async function PublicListPage({ params }: PageProps) {
           closedMessage={isClosed ? (list.is_closed ? t("listClosed") : t("eventPassed")) : undefined}
         />
 
-        {list.event_date && (
+        {list.event_date && !isClosed && (
           <div className="mt-6 mb-8">
             <AnimatedCountdown eventDate={list.event_date} />
           </div>

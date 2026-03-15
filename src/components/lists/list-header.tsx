@@ -283,7 +283,7 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         </div>
       </div>
 
-      {list.event_date && (
+      {list.event_date && !isClosed && (
         <div className="mb-8">
           <AnimatedCountdown eventDate={list.event_date} />
         </div>
