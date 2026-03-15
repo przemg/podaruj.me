@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { isListClosed } from "@/lib/countdown";
 
 // ── Types ───────────────────────────────────────────────────────────
 
@@ -186,7 +187,7 @@ export async function publishList(
   // Fetch list to validate
   const { data: list } = await supabase
     .from("lists")
-    .select("id, privacy_mode, is_published")
+    .select("id, privacy_mode, is_published, event_date")
     .eq("slug", slug)
     .single();
 
@@ -194,6 +195,17 @@ export async function publishList(
   if (list.privacy_mode !== "full_surprise")
     return { error: "Only Full Surprise lists need publishing" };
   if (list.is_published) return { error: "List is already published" };
+
+  // Block publishing if event date has passed
+  if (list.event_date) {
+    const today = new Date();
+    const eventDate = new Date(list.event_date + "T00:00:00");
+    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    if (eventDay.getTime() < todayDate.getTime()) {
+      return { error: "Cannot publish a list whose event date has passed" };
+    }
+  }
 
   const { error: dbError } = await supabase
     .from("lists")
@@ -204,6 +216,116 @@ export async function publishList(
 
   revalidatePath(`/${locale}/dashboard/lists/${slug}`);
   revalidatePath(`/${locale}/lists/${slug}`);
+  return {};
+}
+
+// ── Close / Reopen / Reveal Actions ────────────────────────────────
+
+export async function closeList(
+  locale: string,
+  slug: string
+): Promise<ActionResult> {
+  const { supabase } = await getAuthenticatedClient();
+
+  const { data: list, error: fetchError } = await supabase
+    .from("lists")
+    .select("id, is_closed, is_published, privacy_mode")
+    .eq("slug", slug)
+    .single();
+
+  if (fetchError || !list) return { error: "List not found" };
+
+  // Draft Full Surprise lists cannot be closed
+  if (list.privacy_mode === "full_surprise" && !list.is_published) {
+    return { error: "Cannot close an unpublished list" };
+  }
+
+  if (list.is_closed) return { error: "List is already closed" };
+
+  const { error } = await supabase
+    .from("lists")
+    .update({ is_closed: true, closed_at: new Date().toISOString() })
+    .eq("slug", slug);
+
+  if (error) return { error: "Failed to close list" };
+
+  revalidatePath(`/${locale}/dashboard/lists/${slug}`);
+  revalidatePath(`/${locale}/lists/${slug}`);
+  revalidatePath(`/${locale}/dashboard`);
+  return {};
+}
+
+export async function reopenList(
+  locale: string,
+  slug: string
+): Promise<ActionResult> {
+  const { supabase } = await getAuthenticatedClient();
+
+  const { data: list, error: fetchError } = await supabase
+    .from("lists")
+    .select("id, is_closed, event_date")
+    .eq("slug", slug)
+    .single();
+
+  if (fetchError || !list) return { error: "List not found" };
+  if (!list.is_closed) return { error: "List is not closed" };
+
+  // Cannot reopen if event date is in the past
+  if (list.event_date) {
+    const today = new Date();
+    const eventDate = new Date(list.event_date + "T00:00:00");
+    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    if (eventDay.getTime() < todayDate.getTime()) {
+      return { error: "Cannot reopen a list whose event date has passed" };
+    }
+  }
+
+  const { error } = await supabase
+    .from("lists")
+    .update({ is_closed: false, closed_at: null })
+    .eq("slug", slug);
+
+  if (error) return { error: "Failed to reopen list" };
+
+  revalidatePath(`/${locale}/dashboard/lists/${slug}`);
+  revalidatePath(`/${locale}/lists/${slug}`);
+  revalidatePath(`/${locale}/dashboard`);
+  return {};
+}
+
+export async function revealSurprise(
+  locale: string,
+  slug: string
+): Promise<ActionResult> {
+  const { supabase } = await getAuthenticatedClient();
+
+  const { data: list, error: fetchError } = await supabase
+    .from("lists")
+    .select("id, privacy_mode, surprise_revealed, is_closed, event_date")
+    .eq("slug", slug)
+    .single();
+
+  if (fetchError || !list) return { error: "List not found" };
+
+  if (list.privacy_mode !== "full_surprise") {
+    return { error: "Only Full Surprise lists can be revealed" };
+  }
+
+  if (!isListClosed({ is_closed: list.is_closed, event_date: list.event_date })) {
+    return { error: "List must be closed before revealing" };
+  }
+
+  if (list.surprise_revealed) return { error: "Already revealed" };
+
+  const { error } = await supabase
+    .from("lists")
+    .update({ surprise_revealed: true })
+    .eq("slug", slug);
+
+  if (error) return { error: "Failed to reveal surprise" };
+
+  revalidatePath(`/${locale}/dashboard/lists/${slug}`);
   return {};
 }
 
