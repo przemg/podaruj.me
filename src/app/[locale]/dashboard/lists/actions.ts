@@ -140,6 +140,26 @@ export async function updateList(
 
   const newSlug = generateSlug(data.name);
 
+  // Save old slug to history if it changed
+  if (newSlug !== slug) {
+    // Fetch list ID for the history insert
+    const { data: existingList } = await supabase
+      .from("lists")
+      .select("id")
+      .eq("slug", slug)
+      .single();
+
+    if (existingList) {
+      // Upsert to handle the case where slug was used before (A→B→A→C)
+      await supabase
+        .from("list_slug_history")
+        .upsert(
+          { list_id: existingList.id, slug: slug },
+          { onConflict: "slug" }
+        );
+    }
+  }
+
   const { error: dbError } = await supabase
     .from("lists")
     .update({
