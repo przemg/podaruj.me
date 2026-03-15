@@ -196,6 +196,7 @@ export function GiftList({ items, listId, listSlug, locale, reservations, privac
           listId={listId}
           listSlug={listSlug}
           locale={locale}
+          isPublishedSurprise={privacyMode === "full_surprise" && isPublished}
         />
       )}
 

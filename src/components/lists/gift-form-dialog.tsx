@@ -38,6 +38,7 @@ type GiftFormDialogProps = {
   listSlug: string;
   locale: string;
   editItem?: EditItemData;
+  isPublishedSurprise?: boolean;
 };
 
 const PRIORITIES = ["nice_to_have", "would_love", "must_have"] as const;
@@ -55,6 +56,7 @@ export function GiftFormDialog({
   listSlug,
   locale,
   editItem,
+  isPublishedSurprise,
 }: GiftFormDialogProps) {
   const t = useTranslations("items.form");
   const tPriority = useTranslations("items.priority");
@@ -133,6 +135,12 @@ export function GiftFormDialog({
           {error && (
             <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600">
               {error}
+            </div>
+          )}
+
+          {isPublishedSurprise && !isEdit && (
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
+              {t("publishedSurpriseWarning")}
             </div>
           )}
 

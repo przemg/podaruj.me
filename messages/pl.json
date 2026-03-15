@@ -278,7 +278,8 @@
       "adding": "Dodawanie...",
       "saveButton": "Zapisz zmiany",
       "saving": "Zapisywanie...",
-      "cancel": "Anuluj"
+      "cancel": "Anuluj",
+      "publishedSurpriseWarning": "Ten prezent nie będzie mógł być edytowany ani usunięty po dodaniu — lista jest już opublikowana."
     },
     "priority": {
       "nice_to_have": "Miło mieć",

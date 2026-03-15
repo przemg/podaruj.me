@@ -110,6 +110,7 @@ Users sign in via **Google OAuth** (primary) or **magic link** (email-based alte
 
 ### List Lifecycle
 
+- **Draft → Published (Full Surprise only):** Full Surprise lists start as drafts — invisible to guests, not shareable. The owner adds items freely, then publishes. After publish, existing items are locked (no edit/delete) to prevent duplicate gifts. New items can still be added but are locked immediately. Non-surprise lists are always published.
 - Active list — open for browsing and reservations
 - Closed list — after event date (or manually), no new reservations, existing data preserved as archive
 

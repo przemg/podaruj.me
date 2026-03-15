@@ -278,7 +278,8 @@
       "adding": "Adding...",
       "saveButton": "Save changes",
       "saving": "Saving...",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "publishedSurpriseWarning": "This item cannot be edited or deleted after it's added — the list is already published."
     },
     "priority": {
       "nice_to_have": "Nice to have",
