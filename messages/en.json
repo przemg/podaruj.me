@@ -255,6 +255,7 @@
       "confirmPublishDescription": "Once published, you won't be able to edit or delete existing items. New items can still be added.",
       "confirmPublishButton": "Publish list",
       "cancelPublish": "Cancel",
+      "eventPassedNote": "The event date has passed, but you can still manage this list.",
       "share": {
         "copyLink": "Copy link",
         "linkCopied": "Copied!",
@@ -327,6 +328,7 @@
   },
   "items": {
     "sectionTitle": "Gifts",
+    "closedBanner": "This list is closed. Reopen it to make changes.",
     "reserved": "Reserved",
     "reservedAnonymous": "Reserved by someone",
     "addButton": "Add gift",
