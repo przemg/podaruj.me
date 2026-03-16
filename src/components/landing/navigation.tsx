@@ -6,6 +6,7 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { Gift, Menu, X, Globe, Check, ChevronDown, User, LayoutList, Plus, LogOut } from "lucide-react";
 import { UserMenu } from "@/components/auth/user-menu";
 import { signOut } from "@/lib/supabase/auth";
+import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 const NAV_SECTIONS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -86,7 +87,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+        <div className="mx-auto flex items-center justify-between px-4 py-5 sm:px-6 sm:py-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
           {/* Left: Logo + Language Switcher */}
           <div className="flex items-center gap-3">
             <Link

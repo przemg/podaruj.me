@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 import { useRouter, Link } from "@/i18n/navigation";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
 import { HeroIllustration } from "./hero-illustration";
+import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 const BADGE_KEYS = [
   "badgeFree",
@@ -18,14 +19,14 @@ export function Hero({ userEmail }: { userEmail?: string }) {
   const t = useTranslations("landing.hero");
   const router = useRouter();
   const [heroEmail, setHeroEmail] = useState("");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 150 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
 
   return (
     <section
       id="hero"
       className="relative overflow-hidden bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash pt-24 pb-16 sm:pt-32 sm:pb-20"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
           {/* Text content */}
           <div className="flex-1 text-center lg:text-left" ref={revealRef}>

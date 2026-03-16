@@ -3,10 +3,11 @@
 import { useTranslations } from "next-intl";
 import { Shield, QrCode, Mail, UserX, Clock, Eye, EyeOff, HelpCircle } from "lucide-react";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
+import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 export function Features() {
   const t = useTranslations("landing.features");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 60 });
 
   return (
     <section id="features" className="relative overflow-hidden bg-[#2D2545] py-20 sm:py-28">
@@ -14,7 +15,7 @@ export function Features() {
       <div className="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-landing-lavender/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 -bottom-32 h-72 w-72 rounded-full bg-landing-coral/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <h2 className="text-center text-3xl font-bold text-white sm:text-4xl">
           {t("title")}
         </h2>

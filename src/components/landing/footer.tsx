@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Gift } from "lucide-react";
 import { AuthorCredit } from "@/components/author-credit";
+import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 const FOOTER_LINKS = [
   { id: "how-it-works", key: "howItWorks" },
@@ -13,7 +14,7 @@ export function Footer() {
 
   return (
     <footer className="bg-landing-footer-bg py-12 sm:py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Logo + tagline */}
           <div className="text-center sm:text-left">

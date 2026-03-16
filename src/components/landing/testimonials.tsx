@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Quote } from "lucide-react";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
+import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 const TESTIMONIALS = [
   { key: "t1", initials: "AK", color: "bg-landing-coral text-white" },
@@ -14,12 +15,12 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   const t = useTranslations("landing.testimonials");
-  const leftRef = useScrollReveal<HTMLDivElement>();
-  const rightRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
+  const leftRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 60 });
+  const rightRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
 
   return (
     <section id="testimonials" className="bg-white py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div className="flex flex-col gap-12 lg:flex-row lg:gap-16">
           {/* Left column — sticky on desktop */}
           <div className="lg:sticky lg:top-28 lg:w-2/5 lg:self-start lg:py-8" ref={leftRef}>
