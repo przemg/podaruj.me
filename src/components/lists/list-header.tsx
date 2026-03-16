@@ -12,6 +12,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -40,6 +45,7 @@ import {
   Loader2,
   Archive,
   ArchiveRestore,
+  MoreHorizontal,
 } from "lucide-react";
 
 type ListData = {
@@ -222,66 +228,87 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         </div>
 
         {/* Actions row */}
-        <div className="mt-4 border-t border-landing-text/[0.06] pt-4">
-          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-1.5">
-            {!isDraft && (
-              <div className="col-span-2 sm:col-span-1">
-                <SharePopover list={list} locale={locale} />
-              </div>
-            )}
-            {isDraft && (
-              <button
-                onClick={() => setPublishOpen(true)}
-                className="col-span-2 flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark sm:col-span-1 sm:justify-start"
-              >
-                <Upload className="h-3.5 w-3.5" />
-                {t("publishButton")}
-              </button>
-            )}
+        <div className="mt-4 flex items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
+          {!isDraft && <SharePopover list={list} locale={locale} />}
+          {isDraft && (
+            <button
+              onClick={() => setPublishOpen(true)}
+              className="flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark"
+            >
+              <Upload className="h-3.5 w-3.5" />
+              {t("publishButton")}
+            </button>
+          )}
+
+          {/* Desktop: inline action buttons */}
+          <div className="ml-auto hidden items-center gap-1 sm:flex">
             {isManuallyClosable && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setCloseOpen(true)}
-                className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600 sm:w-auto sm:justify-start"
-              >
+              <Button variant="ghost" size="sm" onClick={() => setCloseOpen(true)}
+                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600">
                 <Archive className="h-3.5 w-3.5" />
                 {tLists("close")}
               </Button>
             )}
             {canReopen && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleReopen}
-                disabled={closeLoading}
-                className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600 sm:w-auto sm:justify-start"
-              >
+              <Button variant="ghost" size="sm" onClick={handleReopen} disabled={closeLoading}
+                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600">
                 <ArchiveRestore className="h-3.5 w-3.5" />
                 {tLists("reopen")}
               </Button>
             )}
             {!isClosed && (
-              <Button
-                variant="ghost"
-                size="sm"
+              <Button variant="ghost" size="sm"
                 onClick={() => router.push(`/dashboard/lists/${list.slug}/edit`)}
-                className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text sm:w-auto sm:justify-start"
-              >
+                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text">
                 <Pencil className="h-3.5 w-3.5" />
                 {t("editButton")}
               </Button>
             )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setDeleteOpen(true)}
-              className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500 sm:w-auto sm:justify-start"
-            >
+            <Button variant="ghost" size="sm" onClick={() => setDeleteOpen(true)}
+              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500">
               <Trash2 className="h-3.5 w-3.5" />
               {t("deleteButton")}
             </Button>
           </div>
+
+          {/* Mobile: overflow menu with label */}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="sm"
+                className="ml-auto h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash sm:hidden">
+                <MoreHorizontal className="h-4 w-4" />
+                {t("actionsButton")}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="w-48 p-1.5 sm:hidden">
+              {isManuallyClosable && (
+                <button onClick={() => setCloseOpen(true)}
+                  className="flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-orange-50">
+                  <Archive className="h-4 w-4 text-orange-500" />
+                  {tLists("close")}
+                </button>
+              )}
+              {canReopen && (
+                <button onClick={handleReopen} disabled={closeLoading}
+                  className="flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-emerald-50">
+                  <ArchiveRestore className="h-4 w-4 text-emerald-500" />
+                  {tLists("reopen")}
+                </button>
+              )}
+              {!isClosed && (
+                <button onClick={() => router.push(`/dashboard/lists/${list.slug}/edit`)}
+                  className="flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium text-landing-text transition-colors hover:bg-landing-peach-wash">
+                  <Pencil className="h-4 w-4 text-landing-text-muted" />
+                  {t("editButton")}
+                </button>
+              )}
+              <button onClick={() => setDeleteOpen(true)}
+                className="flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50">
+                <Trash2 className="h-4 w-4" />
+                {t("deleteButton")}
+              </button>
+            </PopoverContent>
+          </Popover>
         </div>
 
         {canReopen && eventDatePassed && (
