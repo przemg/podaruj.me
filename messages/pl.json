@@ -92,7 +92,7 @@
       "tagline": "Listy prezentów w prosty sposób",
       "madeWith": "Stworzone z miłością w Polsce",
       "copyright": "© {year} Podaruj.me. Wszelkie prawa zastrzeżone.",
-      "builtBy": "Stworzone przez Przemysława Gwóźdź"
+      "builtBy": "Autor: Przemysław Gwóźdź"
     },
     "metadata": {
       "title": "Podaruj.me — Listy Prezentów w Prosty Sposób",
@@ -132,7 +132,7 @@
   "dashboard": {
     "pageTitle": "Panel — Podaruj.me",
     "welcome": "Witaj w Podaruj.me!",
-    "builtBy": "Stworzone przez Przemysława Gwóździa",
+    "builtBy": "Autor: Przemysław Gwóźdź",
     "nav": {
       "myLists": "Moje listy",
       "myReservations": "Moje rezerwacje"
@@ -255,6 +255,7 @@
       "confirmPublishDescription": "Po opublikowaniu nie będzie można edytować ani usuwać istniejących prezentów. Nowe prezenty nadal można dodawać.",
       "confirmPublishButton": "Opublikuj listę",
       "cancelPublish": "Anuluj",
+      "eventPassedNote": "Data wydarzenia minęła, ale nadal możesz zarządzać tą listą.",
       "share": {
         "copyLink": "Kopiuj link",
         "linkCopied": "Skopiowano!",
@@ -327,6 +328,7 @@
   },
   "items": {
     "sectionTitle": "Prezenty",
+    "closedBanner": "Ta lista jest zamknięta. Otwórz ją ponownie, aby wprowadzić zmiany.",
     "reserved": "Zarezerwowane",
     "reservedAnonymous": "Zarezerwowane przez kogoś",
     "addButton": "Dodaj prezent",
@@ -425,7 +427,7 @@
     "emptyList": "Nie dodano jeszcze prezentów do tej listy",
     "dashboardButton": "Mój panel",
     "poweredBy": "Stworzone przez Podaruj.me",
-    "builtBy": "Stworzone przez Przemysława Gwóździa",
+    "builtBy": "Autor: Przemysław Gwóźdź",
     "createYourOwn": "Stwórz swoją listę prezentów",
     "gifts": "Prezenty",
     "errorTitle": "Coś poszło nie tak",

@@ -4,6 +4,7 @@ import { ReservationCard, ReservationGroupHeader } from "@/components/dashboard/
 import { getMyReservations } from "@/app/[locale]/lists/[slug]/reservation-actions";
 import { getCountdown } from "@/lib/countdown";
 import { Gift } from "lucide-react";
+import { DASHBOARD_MAX_WIDTH } from "@/lib/layout";
 
 export async function generateMetadata({
   params,
@@ -34,7 +35,7 @@ export default async function ReservationsPage() {
 
   if (reservations.length === 0) {
     return (
-      <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: "1280px" }}>
+      <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: DASHBOARD_MAX_WIDTH }}>
         <h1 className="mb-8 text-2xl font-bold text-landing-text">
           {t("title")}
         </h1>
@@ -75,7 +76,7 @@ export default async function ReservationsPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: DASHBOARD_MAX_WIDTH }}>
       <h1 className="mb-8 text-2xl font-bold text-landing-text">
         {t("title")}
       </h1>

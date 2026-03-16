@@ -92,10 +92,10 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
   const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time });
   const isManuallyClosable = !isClosed && (list.privacy_mode !== "full_surprise" || list.is_published);
-  const canReopen = list.is_closed && (!list.event_date || (() => {
-    // Can reopen if event date+time hasn't passed yet
-    return !isListClosed({ is_closed: false, event_date: list.event_date, event_time: list.event_time });
-  })());
+  const canReopen = list.is_closed;
+  const eventDatePassed = list.event_date
+    ? isListClosed({ is_closed: false, event_date: list.event_date, event_time: list.event_time })
+    : false;
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
@@ -222,24 +222,28 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
         </div>
 
         {/* Actions row */}
-        <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-landing-text/[0.06] pt-4">
-          {!isDraft && <SharePopover list={list} locale={locale} />}
-          {isDraft && (
-            <button
-              onClick={() => setPublishOpen(true)}
-              className="flex cursor-pointer items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark"
-            >
-              <Upload className="h-3.5 w-3.5" />
-              {t("publishButton")}
-            </button>
-          )}
-          <div className="ml-auto flex flex-wrap items-center gap-1">
+        <div className="mt-4 border-t border-landing-text/[0.06] pt-4">
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-1.5">
+            {!isDraft && (
+              <div className="col-span-2 sm:col-span-1">
+                <SharePopover list={list} locale={locale} />
+              </div>
+            )}
+            {isDraft && (
+              <button
+                onClick={() => setPublishOpen(true)}
+                className="col-span-2 flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-landing-coral-dark sm:col-span-1 sm:justify-start"
+              >
+                <Upload className="h-3.5 w-3.5" />
+                {t("publishButton")}
+              </button>
+            )}
             {isManuallyClosable && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setCloseOpen(true)}
-                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600"
+                className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-orange-50 hover:text-orange-600 sm:w-auto sm:justify-start"
               >
                 <Archive className="h-3.5 w-3.5" />
                 {tLists("close")}
@@ -251,34 +255,40 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
                 size="sm"
                 onClick={handleReopen}
                 disabled={closeLoading}
-                className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600"
+                className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-emerald-50 hover:text-emerald-600 sm:w-auto sm:justify-start"
               >
                 <ArchiveRestore className="h-3.5 w-3.5" />
                 {tLists("reopen")}
               </Button>
             )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() =>
-                router.push(`/dashboard/lists/${list.slug}/edit`)
-              }
-              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text"
-            >
-              <Pencil className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">{t("editButton")}</span>
-            </Button>
+            {!isClosed && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => router.push(`/dashboard/lists/${list.slug}/edit`)}
+                className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash hover:text-landing-text sm:w-auto sm:justify-start"
+              >
+                <Pencil className="h-3.5 w-3.5" />
+                {t("editButton")}
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setDeleteOpen(true)}
-              className="h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500"
+              className="h-9 w-full cursor-pointer justify-center gap-1.5 text-landing-text-muted hover:bg-red-50 hover:text-red-500 sm:w-auto sm:justify-start"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">{t("deleteButton")}</span>
+              {t("deleteButton")}
             </Button>
           </div>
         </div>
+
+        {canReopen && eventDatePassed && (
+          <p className="mt-3 text-xs text-landing-text-muted">
+            {t("eventPassedNote")}
+          </p>
+        )}
       </div>
 
       {list.event_date && !isClosed && (

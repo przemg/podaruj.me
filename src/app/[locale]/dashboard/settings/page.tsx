@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { FORM_MAX_WIDTH } from "@/lib/layout";
 import { ProfileSettings } from "@/components/settings/profile-settings";
 
 export async function generateMetadata({
@@ -46,7 +47,7 @@ export default async function SettingsPage() {
   const t = await getTranslations("settings");
 
   return (
-    <main className="mx-auto w-full px-4 py-16 sm:px-6 lg:px-8" style={{ maxWidth: "768px" }}>
+    <main className="mx-auto w-full px-4 py-16 sm:px-6 lg:px-8" style={{ maxWidth: FORM_MAX_WIDTH }}>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-landing-text">{t("title")}</h1>
         <p className="mt-2 text-landing-text-muted">{t("subtitle")}</p>

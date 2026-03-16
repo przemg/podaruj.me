@@ -140,6 +140,17 @@ export async function updateList(
 
   const { supabase } = await getAuthenticatedClient();
 
+  // Block editing closed lists
+  const { data: closedCheck } = await supabase
+    .from("lists")
+    .select("is_closed, event_date, event_time")
+    .eq("slug", slug)
+    .single();
+
+  if (closedCheck && isListClosed({ is_closed: closedCheck.is_closed, event_date: closedCheck.event_date, event_time: closedCheck.event_time })) {
+    return { error: "This list is closed. Reopen it to make changes." };
+  }
+
   const newSlug = generateSlug(data.name);
 
   // Save old slug to history if it changed
@@ -288,14 +299,9 @@ export async function reopenList(
   if (fetchError || !list) return { error: "List not found" };
   if (!list.is_closed) return { error: "List is not closed" };
 
-  // Cannot reopen if event date/time has passed
-  if (isListClosed({ is_closed: false, event_date: list.event_date, event_time: list.event_time })) {
-    return { error: "Cannot reopen a list whose event date has passed" };
-  }
-
   const { error } = await supabase
     .from("lists")
-    .update({ is_closed: false, closed_at: null })
+    .update({ is_closed: false, closed_at: null, confetti_shown: false })
     .eq("slug", slug);
 
   if (error) return { error: "Failed to reopen list" };
@@ -341,6 +347,25 @@ export async function revealSurprise(
   return {};
 }
 
+// ── Confetti Tracking ───────────────────────────────────────────────
+
+export async function markConfettiShown(
+  locale: string,
+  slug: string
+): Promise<ActionResult> {
+  const { supabase } = await getAuthenticatedClient();
+
+  const { error } = await supabase
+    .from("lists")
+    .update({ confetti_shown: true })
+    .eq("slug", slug);
+
+  if (error) return { error: "Failed to mark confetti as shown" };
+
+  revalidatePath(`/${locale}/dashboard/lists/${slug}`);
+  return {};
+}
+
 // ── Item Actions ────────────────────────────────────────────────────
 
 export async function createItem(
@@ -353,6 +378,17 @@ export async function createItem(
   if (error) return { error };
 
   const { supabase } = await getAuthenticatedClient();
+
+  // Block adding items to closed lists
+  const { data: parentList } = await supabase
+    .from("lists")
+    .select("is_closed, event_date, event_time")
+    .eq("id", listId)
+    .single();
+
+  if (parentList && isListClosed({ is_closed: parentList.is_closed, event_date: parentList.event_date, event_time: parentList.event_time })) {
+    return { error: "This list is closed. Reopen it to make changes." };
+  }
 
   // Calculate next position
   const { data: lastItem } = await supabase
@@ -397,11 +433,17 @@ export async function updateItem(
   // Block editing locked items on published full_surprise lists
   const { data: list } = await supabase
     .from("lists")
-    .select("privacy_mode, is_published, published_at")
+    .select("privacy_mode, is_published, published_at, is_closed, event_date, event_time")
     .eq("slug", listSlug)
     .single();
 
-  if (list?.privacy_mode === "full_surprise" && list.is_published && list.published_at) {
+  if (!list) return { error: "List not found" };
+
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time })) {
+    return { error: "This list is closed. Reopen it to make changes." };
+  }
+
+  if (list.privacy_mode === "full_surprise" && list.is_published && list.published_at) {
     const { data: item } = await supabase
       .from("items")
       .select("created_at")
@@ -442,11 +484,17 @@ export async function deleteItem(
   // Block deletion of locked items on published full_surprise lists
   const { data: list } = await supabase
     .from("lists")
-    .select("privacy_mode, is_published, published_at")
+    .select("privacy_mode, is_published, published_at, is_closed, event_date, event_time")
     .eq("slug", listSlug)
     .single();
 
-  if (list?.privacy_mode === "full_surprise" && list.is_published && list.published_at) {
+  if (!list) return { error: "List not found" };
+
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time })) {
+    return { error: "This list is closed. Reopen it to make changes." };
+  }
+
+  if (list.privacy_mode === "full_surprise" && list.is_published && list.published_at) {
     const { data: item } = await supabase
       .from("items")
       .select("created_at")
@@ -487,6 +535,17 @@ export async function reorderItems(
   itemIds: string[]
 ): Promise<ActionResult> {
   const { supabase } = await getAuthenticatedClient();
+
+  // Block reordering on closed lists
+  const { data: parentList } = await supabase
+    .from("lists")
+    .select("is_closed, event_date, event_time")
+    .eq("id", listId)
+    .single();
+
+  if (parentList && isListClosed({ is_closed: parentList.is_closed, event_date: parentList.event_date, event_time: parentList.event_time })) {
+    return { error: "This list is closed. Reopen it to make changes." };
+  }
 
   const updates = itemIds.map((id, index) =>
     supabase

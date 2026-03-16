@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { notFound } from "next/navigation";
 import { isListClosed } from "@/lib/countdown";
+import { DASHBOARD_MAX_WIDTH } from "@/lib/layout";
 import { ListHeader } from "@/components/lists/list-header";
 import { GiftList } from "@/components/lists/gift-list";
 import { SummaryCard } from "@/components/lists/summary-card";
@@ -171,17 +172,20 @@ export default async function ListDetailPage({
   }
 
   return (
-    <div className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: "1024px" }}>
+    <div className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: DASHBOARD_MAX_WIDTH }}>
       <ListHeader list={list} locale={locale} />
 
       {isClosed && summaryData && (
         <div className="mb-8">
           <SummaryCard
             listId={list.id}
+            listSlug={list.slug}
             closedAt={list.closed_at ?? list.event_date ?? ""}
             totalItems={summaryData.totalItems}
             reservedCount={summaryData.reservedCount}
             reservations={summaryData.reservations}
+            confettiShown={list.confetti_shown ?? false}
+            locale={locale}
           />
         </div>
       )}
@@ -202,6 +206,7 @@ export default async function ListDetailPage({
         reservedItemIds={reservedItemIds}
         isPublished={list.is_published}
         publishedAt={list.published_at}
+        isClosed={isClosed}
       />
     </div>
   );

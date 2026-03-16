@@ -8,7 +8,7 @@ import '../globals.css';
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
-  themeColor: '#FFFBF7',
+  themeColor: '#F97066',
 };
 
 export default async function LocaleLayout({

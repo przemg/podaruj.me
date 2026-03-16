@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { ClipboardList, Share2, Gift } from "lucide-react";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
+import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 const STEPS = [
   { key: "step1", icon: ClipboardList, color: "bg-landing-coral/10 text-landing-coral" },
@@ -12,11 +13,11 @@ const STEPS = [
 
 export function HowItWorks() {
   const t = useTranslations("landing.howItWorks");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 200 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
 
   return (
     <section id="how-it-works" className="bg-white py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("title")}
         </h2>

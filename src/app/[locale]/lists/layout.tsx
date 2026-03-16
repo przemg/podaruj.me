@@ -3,6 +3,7 @@ import { Gift, LayoutDashboard } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { AuthorCredit } from "@/components/author-credit";
+import { APP_HEADER_MAX_WIDTH } from "@/lib/layout";
 
 export default async function PublicListLayout({
   children,
@@ -22,8 +23,8 @@ export default async function PublicListLayout({
 
   return (
     <div className="min-h-dvh bg-gradient-to-b from-landing-cream via-landing-cream to-landing-peach-wash/30">
-      <header className="border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
-        <div className="mx-auto flex w-full items-center justify-between px-4 py-4" style={{ maxWidth: "1024px" }}>
+      <header className="safe-area-top border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
+        <div className="mx-auto flex w-full items-center justify-between px-4 py-4" style={{ maxWidth: APP_HEADER_MAX_WIDTH }}>
           <Link
             href="/"
             className="flex items-center gap-2 text-xl font-bold text-landing-text"
@@ -44,7 +45,7 @@ export default async function PublicListLayout({
       </header>
       <main>{children}</main>
       <footer className="mt-16 border-t border-landing-text/5 bg-white/40">
-        <div className="mx-auto w-full px-4 py-8 text-center" style={{ maxWidth: "1024px" }}>
+        <div className="mx-auto w-full px-4 py-8 text-center" style={{ maxWidth: APP_HEADER_MAX_WIDTH }}>
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm text-landing-text-muted transition-colors hover:text-landing-coral"

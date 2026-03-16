@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 export function useScrollReveal<T extends HTMLElement>(
   options: { threshold?: number; staggerDelay?: number } = {}
 ) {
-  const { threshold = 0.15, staggerDelay = 100 } = options;
+  const { threshold = 0.05, staggerDelay = 100 } = options;
   const ref = useRef<T>(null);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export function useScrollReveal<T extends HTMLElement>(
           }
         });
       },
-      { threshold }
+      { threshold, rootMargin: "0px 0px 200px 0px" }
     );
 
     observer.observe(element);
