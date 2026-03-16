@@ -271,12 +271,13 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
             </Button>
           </div>
 
-          {/* Mobile: overflow menu */}
+          {/* Mobile: overflow menu with label */}
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="ghost" size="sm"
-                className="ml-auto h-9 cursor-pointer px-2.5 text-landing-text-muted hover:bg-landing-peach-wash sm:hidden">
-                <MoreHorizontal className="h-4.5 w-4.5" />
+                className="ml-auto h-9 cursor-pointer gap-1.5 text-landing-text-muted hover:bg-landing-peach-wash sm:hidden">
+                <MoreHorizontal className="h-4 w-4" />
+                {t("actionsButton")}
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-48 p-1.5 sm:hidden">

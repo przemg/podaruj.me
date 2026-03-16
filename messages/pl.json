@@ -235,6 +235,7 @@
     "detail": {
       "pageTitle": "Szczegóły listy — Podaruj.me",
       "editButton": "Edytuj",
+      "actionsButton": "Akcje",
       "deleteButton": "Usuń listę",
       "shareButton": "Udostępnij",
       "daysLeft": "{count, plural, one {# dzień} few {# dni} many {# dni} other {# dni}}",
