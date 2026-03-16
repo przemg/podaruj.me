@@ -19,6 +19,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
   const t = useTranslations("landing.hero");
   const router = useRouter();
   const [heroEmail, setHeroEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
 
   return (
@@ -47,31 +48,46 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                   {t("goToDashboard")}
                 </Link>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (heroEmail) {
+                <>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (!heroEmail.trim()) {
+                        setEmailError(true);
+                        return;
+                      }
+                      setEmailError(false);
                       router.push(
                         `/auth/sign-in?email=${encodeURIComponent(heroEmail)}`
                       );
-                    }
-                  }}
-                  className="flex flex-col gap-3 sm:flex-row sm:gap-0"
-                >
-                  <input
-                    type="email"
-                    value={heroEmail}
-                    onChange={(e) => setHeroEmail(e.target.value)}
-                    placeholder={t("emailPlaceholder")}
-                    className="w-full rounded-xl border border-landing-text/10 bg-white px-5 py-3.5 text-landing-text placeholder:text-landing-text-muted/50 focus:border-landing-coral focus:ring-2 focus:ring-landing-coral/20 focus:outline-none sm:rounded-r-none sm:flex-1"
-                  />
-                  <button
-                    type="submit"
-                    className="rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none"
+                    }}
+                    className="flex flex-col gap-3 sm:flex-row sm:gap-0"
                   >
-                    {t("getStarted")}
-                  </button>
-                </form>
+                    <input
+                      type="email"
+                      value={heroEmail}
+                      onChange={(e) => {
+                        setHeroEmail(e.target.value);
+                        if (emailError) setEmailError(false);
+                      }}
+                      placeholder={t("emailPlaceholder")}
+                      className={`w-full rounded-xl border bg-white px-5 py-3.5 text-landing-text placeholder:text-landing-text-muted/50 focus:ring-2 focus:outline-none sm:rounded-r-none sm:flex-1 ${
+                        emailError
+                          ? "border-red-400 focus:border-red-400 focus:ring-red-200"
+                          : "border-landing-text/10 focus:border-landing-coral focus:ring-landing-coral/20"
+                      }`}
+                    />
+                    <button
+                      type="submit"
+                      className="rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none"
+                    >
+                      {t("getStarted")}
+                    </button>
+                  </form>
+                  {emailError && (
+                    <p className="mt-2 text-sm text-red-500">{t("emailRequired")}</p>
+                  )}
+                </>
               )}
             </div>
 
