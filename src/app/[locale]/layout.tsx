@@ -8,7 +8,6 @@ import '../globals.css';
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
-  themeColor: '#F97066',
 };
 
 export default async function LocaleLayout({
@@ -26,6 +25,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <meta name="theme-color" content="#F97066" />
+      </head>
       <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
