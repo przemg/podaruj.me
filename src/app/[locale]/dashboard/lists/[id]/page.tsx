@@ -178,10 +178,13 @@ export default async function ListDetailPage({
         <div className="mb-8">
           <SummaryCard
             listId={list.id}
+            listSlug={list.slug}
             closedAt={list.closed_at ?? list.event_date ?? ""}
             totalItems={summaryData.totalItems}
             reservedCount={summaryData.reservedCount}
             reservations={summaryData.reservations}
+            confettiShown={list.confetti_shown ?? false}
+            locale={locale}
           />
         </div>
       )}
@@ -202,6 +205,7 @@ export default async function ListDetailPage({
         reservedItemIds={reservedItemIds}
         isPublished={list.is_published}
         publishedAt={list.published_at}
+        isClosed={isClosed}
       />
     </div>
   );

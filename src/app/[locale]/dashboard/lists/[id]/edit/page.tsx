@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { isListClosed } from "@/lib/countdown";
 import { ListForm } from "@/components/lists/list-form";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -30,6 +31,10 @@ export default async function EditListPage({
     .single();
 
   if (!list) notFound();
+
+  if (isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time })) {
+    redirect(`/${locale}/dashboard/lists/${slug}`);
+  }
 
   const t = await getTranslations("lists.edit");
 

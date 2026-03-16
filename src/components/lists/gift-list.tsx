@@ -38,7 +38,7 @@ import {
   deleteItem,
   reorderItems,
 } from "@/app/[locale]/dashboard/lists/actions";
-import { Plus, Gift, ArrowUpDown } from "lucide-react";
+import { Plus, Gift, ArrowUpDown, Archive } from "lucide-react";
 
 type ItemData = {
   id: string;
@@ -66,6 +66,7 @@ type GiftListProps = {
   reservedItemIds?: string[];
   isPublished?: boolean;
   publishedAt?: string | null;
+  isClosed?: boolean;
 };
 
 function SortableGiftCard({
@@ -122,6 +123,7 @@ export function GiftList({
   reservedItemIds,
   isPublished,
   publishedAt,
+  isClosed,
 }: GiftListProps) {
   const t = useTranslations("items");
   const tSort = useTranslations("items.sort");
@@ -324,54 +326,61 @@ export function GiftList({
   return (
     <div>
       {/* Section header */}
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2.5">
-          <h2 className="text-lg font-semibold text-landing-text">
-            {t("sectionTitle")}
-          </h2>
-          <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-landing-text/5 px-2 text-xs font-medium text-landing-text-muted">
-            {orderedItems.length}
-          </span>
+      {isClosed ? (
+        <div className="mb-5 flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-3 ring-1 ring-gray-200/60">
+          <Archive className="h-4.5 w-4.5 shrink-0 text-gray-400" />
+          <p className="text-sm text-gray-600">{t("closedBanner")}</p>
         </div>
-        <div className="flex items-center gap-2">
-          {orderedItems.length > 1 && (
-            <Select value={sortMode} onValueChange={handleSortChange}>
-              <SelectTrigger className="h-8 w-auto gap-1.5 border-landing-text/10 px-2.5 text-xs">
-                <ArrowUpDown className="h-3 w-3 text-landing-text-muted" />
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="custom">{tSort("custom")}</SelectItem>
-                <SelectItem value="priority">{tSort("priority")}</SelectItem>
-                <SelectItem value="price_low">{tSort("priceLow")}</SelectItem>
-                <SelectItem value="price_high">
-                  {tSort("priceHigh")}
-                </SelectItem>
-                <SelectItem value="name_az">{tSort("nameAz")}</SelectItem>
-                <SelectItem value="date_newest">
-                  {tSort("dateNewest")}
-                </SelectItem>
-                <SelectItem value="date_oldest">
-                  {tSort("dateOldest")}
-                </SelectItem>
-                {privacyMode !== "full_surprise" && (
-                  <SelectItem value="available_first">
-                    {tSort("availableFirst")}
+      ) : (
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-lg font-semibold text-landing-text">
+              {t("sectionTitle")}
+            </h2>
+            <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-landing-text/5 px-2 text-xs font-medium text-landing-text-muted">
+              {orderedItems.length}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            {orderedItems.length > 1 && (
+              <Select value={sortMode} onValueChange={handleSortChange}>
+                <SelectTrigger className="h-8 w-auto gap-1.5 border-landing-text/10 px-2.5 text-xs">
+                  <ArrowUpDown className="h-3 w-3 text-landing-text-muted" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="custom">{tSort("custom")}</SelectItem>
+                  <SelectItem value="priority">{tSort("priority")}</SelectItem>
+                  <SelectItem value="price_low">{tSort("priceLow")}</SelectItem>
+                  <SelectItem value="price_high">
+                    {tSort("priceHigh")}
                   </SelectItem>
-                )}
-              </SelectContent>
-            </Select>
-          )}
-          <Button
-            onClick={() => setAddDialogOpen(true)}
-            size="sm"
-            className="cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover"
-          >
-            <Plus className="mr-1.5 h-4 w-4" />
-            {t("addButton")}
-          </Button>
+                  <SelectItem value="name_az">{tSort("nameAz")}</SelectItem>
+                  <SelectItem value="date_newest">
+                    {tSort("dateNewest")}
+                  </SelectItem>
+                  <SelectItem value="date_oldest">
+                    {tSort("dateOldest")}
+                  </SelectItem>
+                  {privacyMode !== "full_surprise" && (
+                    <SelectItem value="available_first">
+                      {tSort("availableFirst")}
+                    </SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
+            )}
+            <Button
+              onClick={() => setAddDialogOpen(true)}
+              size="sm"
+              className="cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover"
+            >
+              <Plus className="mr-1.5 h-4 w-4" />
+              {t("addButton")}
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Gift list or empty state */}
       {orderedItems.length === 0 ? (
@@ -388,13 +397,15 @@ export function GiftList({
           <p className="mt-1 text-sm text-landing-text-muted">
             {t("empty.description")}
           </p>
-          <Button
-            onClick={() => setAddDialogOpen(true)}
-            className="mt-4 cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover"
-          >
-            <Plus className="mr-1.5 h-4 w-4" />
-            {t("addButton")}
-          </Button>
+          {!isClosed && (
+            <Button
+              onClick={() => setAddDialogOpen(true)}
+              className="mt-4 cursor-pointer bg-landing-coral-dark text-white hover:bg-landing-coral-hover"
+            >
+              <Plus className="mr-1.5 h-4 w-4" />
+              {t("addButton")}
+            </Button>
+          )}
         </div>
       ) : (
         <DndContext
@@ -419,7 +430,7 @@ export function GiftList({
                   <SortableGiftCard
                     key={item.id}
                     item={item}
-                    isDragDisabled={isDragDisabled}
+                    isDragDisabled={isDragDisabled || !!isClosed}
                     isFirst={index === 0}
                     isLast={index === orderedItems.length - 1}
                     locale={locale}
@@ -429,11 +440,11 @@ export function GiftList({
                       (reservedItemIds?.length ?? 0) > 0 ||
                       Object.keys(reservations ?? {}).length > 0
                     }
-                    isLocked={itemLocked}
+                    isLocked={itemLocked || !!isClosed}
                     onMoveUp={() => handleMoveUp(index)}
                     onMoveDown={() => handleMoveDown(index)}
-                    onEdit={() => handleEdit(item)}
-                    onDelete={() => handleDeleteClick(item)}
+                    onEdit={() => !isClosed && handleEdit(item)}
+                    onDelete={() => !isClosed && handleDeleteClick(item)}
                   />
                 );
               })}

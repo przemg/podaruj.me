@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Gift, PartyPopper, User, UserX } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { markConfettiShown } from "@/app/[locale]/dashboard/lists/actions";
 
 type ReservationSummaryItem = {
   itemName: string;
@@ -11,52 +12,48 @@ type ReservationSummaryItem = {
 
 type SummaryCardProps = {
   listId: string;
+  listSlug: string;
   closedAt: string;
   totalItems: number;
   reservedCount: number;
   reservations: ReservationSummaryItem[];
+  confettiShown: boolean;
+  locale: string;
 };
 
-export function SummaryCard({ listId, closedAt, totalItems, reservedCount, reservations }: SummaryCardProps) {
+export function SummaryCard({ listId, listSlug, closedAt, totalItems, reservedCount, reservations, confettiShown, locale }: SummaryCardProps) {
   const t = useTranslations("lists.summary");
   const confettiFired = useRef(false);
 
   useEffect(() => {
-    if (confettiFired.current) return;
+    if (confettiFired.current || confettiShown) return;
     confettiFired.current = true;
 
-    // Use closedAt as part of the key — new close = new confetti
-    const storageKey = `confetti-shown-${listId}`;
-    const stored = localStorage.getItem(storageKey);
-    if (stored === closedAt) return;
-    localStorage.setItem(storageKey, closedAt);
+    // Mark as shown in DB
+    markConfettiShown(locale, listSlug);
 
     import("canvas-confetti").then((confettiModule) => {
       const confetti = confettiModule.default;
       const colors = ["#f97316", "#fbbf24", "#fb923c", "#f472b6", "#a855f7", "#ec4899"];
 
-      // Wave 1 — both sides
       confetti({ particleCount: 120, spread: 80, origin: { x: 0.1, y: 0.6 }, colors });
       confetti({ particleCount: 120, spread: 80, origin: { x: 0.9, y: 0.6 }, colors });
 
-      // Wave 2
       setTimeout(() => {
         confetti({ particleCount: 100, spread: 90, origin: { x: 0.3, y: 0.5 }, colors });
         confetti({ particleCount: 100, spread: 90, origin: { x: 0.7, y: 0.5 }, colors });
       }, 400);
 
-      // Wave 3
       setTimeout(() => {
         confetti({ particleCount: 80, spread: 100, origin: { x: 0.5, y: 0.4 }, colors });
       }, 800);
 
-      // Wave 4 — final burst
       setTimeout(() => {
         confetti({ particleCount: 60, spread: 120, origin: { x: 0.2, y: 0.7 }, colors });
         confetti({ particleCount: 60, spread: 120, origin: { x: 0.8, y: 0.7 }, colors });
       }, 1200);
     });
-  }, [listId, closedAt]);
+  }, [listId, closedAt, confettiShown, locale, listSlug]);
 
   const percentage = totalItems > 0 ? Math.round((reservedCount / totalItems) * 100) : 0;
 
