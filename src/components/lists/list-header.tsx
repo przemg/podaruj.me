@@ -98,10 +98,10 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
 
   const isClosed = isListClosed({ is_closed: list.is_closed, event_date: list.event_date, event_time: list.event_time });
   const isManuallyClosable = !isClosed && (list.privacy_mode !== "full_surprise" || list.is_published);
-  const canReopen = list.is_closed;
   const eventDatePassed = list.event_date
     ? isListClosed({ is_closed: false, event_date: list.event_date, event_time: list.event_time })
     : false;
+  const canReopen = list.is_closed && !eventDatePassed;
 
   const OccasionIcon = OCCASION_ICONS[list.occasion] ?? Gift;
   const PrivacyIcon = PRIVACY_ICONS[list.privacy_mode] ?? HelpCircle;
@@ -311,11 +311,6 @@ export function ListHeader({ list, locale }: ListHeaderProps) {
           </Popover>
         </div>
 
-        {canReopen && eventDatePassed && (
-          <p className="mt-3 text-xs text-landing-text-muted">
-            {t("eventPassedNote")}
-          </p>
-        )}
       </div>
 
       {list.event_date && !isClosed && (

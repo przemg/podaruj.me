@@ -299,6 +299,11 @@ export async function reopenList(
   if (fetchError || !list) return { error: "List not found" };
   if (!list.is_closed) return { error: "List is not closed" };
 
+  // Cannot reopen if event date/time has passed
+  if (isListClosed({ is_closed: false, event_date: list.event_date, event_time: list.event_time })) {
+    return { error: "Cannot reopen a list whose event date has passed" };
+  }
+
   const { error } = await supabase
     .from("lists")
     .update({ is_closed: false, closed_at: null, confetti_shown: false })
