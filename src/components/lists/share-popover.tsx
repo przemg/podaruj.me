@@ -65,31 +65,29 @@ export function SharePopover({ list, locale }: SharePopoverProps) {
 
   return (
     <>
-      {/* Split button: prominent share with text + dropdown */}
-      <div className="flex h-9 items-stretch rounded-lg border-2 border-landing-coral bg-white shadow-sm">
+      {/* Split button: filled share + dropdown */}
+      <div className="flex h-9 items-stretch overflow-hidden rounded-lg bg-landing-coral shadow-sm">
         {/* Primary action — copy link */}
         <button
           onClick={handleCopyLink}
-          className="flex cursor-pointer items-center gap-1.5 rounded-l-md px-3 text-sm font-semibold text-landing-coral transition-colors hover:bg-landing-coral/5 active:bg-landing-coral/10"
+          className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap px-3.5 text-sm font-semibold text-white transition-colors hover:bg-landing-coral-dark active:bg-landing-coral-hover"
         >
           {copied ? (
-            <Check className="h-4 w-4 text-emerald-500" />
+            <Check className="h-4 w-4" />
           ) : (
             <Share2 className="h-4 w-4" />
           )}
-          <span className="hidden sm:inline">
-            {copied ? t("linkCopied") : tShare("shareButton")}
-          </span>
+          {copied ? t("linkCopied") : tShare("shareButton")}
         </button>
 
         {/* Divider */}
-        <div className="w-px self-stretch bg-landing-coral/30" />
+        <div className="w-px self-stretch bg-white/25" />
 
         {/* Dropdown trigger */}
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
           <PopoverTrigger asChild>
             <button
-              className="flex cursor-pointer items-center rounded-r-md px-2 text-landing-coral transition-colors hover:bg-landing-coral/5 active:bg-landing-coral/10"
+              className="flex cursor-pointer items-center px-2.5 text-white transition-colors hover:bg-landing-coral-dark active:bg-landing-coral-hover"
               aria-label="More sharing options"
             >
               <ChevronDown className="h-3.5 w-3.5" />
