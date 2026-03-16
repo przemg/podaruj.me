@@ -6,7 +6,7 @@ import { useScrollReveal } from "@/lib/use-scroll-reveal";
 
 export function CtaSection({ userEmail }: { userEmail?: string }) {
   const t = useTranslations("landing.cta");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 60 });
+  const revealRef = useScrollReveal<HTMLDivElement>({});
 
   return (
     <section className="bg-gradient-to-br from-landing-peach-wash via-white to-landing-lavender-wash py-20 sm:py-28">

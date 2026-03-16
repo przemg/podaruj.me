@@ -181,7 +181,7 @@
 }
 
 .scroll-reveal.revealed {
-  animation: fade-in-up 0.45s ease-out forwards;
+  animation: fade-in-up 0.6s ease-out forwards;
 }
 
 .scroll-reveal-right {
@@ -190,7 +190,7 @@
 }
 
 .scroll-reveal-right.revealed {
-  animation: fade-in-right 0.45s ease-out forwards;
+  animation: fade-in-right 0.6s ease-out forwards;
 }
 
 .scroll-reveal-scale {
@@ -199,7 +199,7 @@
 }
 
 .scroll-reveal-scale.revealed {
-  animation: scale-in 0.45s ease-out forwards;
+  animation: scale-in 0.6s ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

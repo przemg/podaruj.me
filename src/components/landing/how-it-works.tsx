@@ -13,7 +13,7 @@ const STEPS = [
 
 export function HowItWorks() {
   const t = useTranslations("landing.howItWorks");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 200 });
 
   return (
     <section id="how-it-works" className="bg-white py-20 sm:py-28">

@@ -20,7 +20,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
   const router = useRouter();
   const [heroEmail, setHeroEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 150 });
 
   return (
     <section

@@ -13,7 +13,7 @@ const FAQ_KEYS = ["q1", "q2", "q3", "q4", "q5"] as const;
 
 export function Faq() {
   const t = useTranslations("landing.faq");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 60 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 100 });
 
   return (
     <section id="faq" className="bg-landing-peach-wash py-20 sm:py-28">

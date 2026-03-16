@@ -15,8 +15,8 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   const t = useTranslations("landing.testimonials");
-  const leftRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 60 });
-  const rightRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 80 });
+  const leftRef = useScrollReveal<HTMLDivElement>();
+  const rightRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
     <section id="testimonials" className="bg-white py-20 sm:py-28">

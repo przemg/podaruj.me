@@ -7,7 +7,7 @@ import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
 export function Features() {
   const t = useTranslations("landing.features");
-  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 60 });
+  const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
     <section id="features" className="relative overflow-hidden bg-[#2D2545] py-20 sm:py-28">
