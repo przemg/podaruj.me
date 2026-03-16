@@ -2,7 +2,7 @@ Read CLAUDE.md and PROJECT.md. Use the frontend-design skill for UI quality.
 
 Fix all of these issues. No new features — only fixes.
 
-1. CLOSED LIST STILL ALLOWS ADDING ITEMS: When a list is closed, the owner can still add new gifts. Block this — hide or disable the "Add gift" button on closed lists. Show a message like "This list is closed. Reopen it to add more gifts."
+1. CLOSED LIST STILL ALLOWS ADDING ITEMS AND EDITING: When a list is closed, the owner can still add new gifts and edit the list. Both should be blocked — hide or disable the "Add gift" button, the edit button, and any editing functionality on closed lists. Show a message like "This list is closed. Reopen it to make changes."
 
 2. REOPEN BUTTON MISSING AFTER EVENT DATE: When the event date has passed and the list auto-closed, there is no way to reopen it. Add a "Reopen list" button for the owner, with a note explaining that the event date has passed but they can still reopen if needed.
 
