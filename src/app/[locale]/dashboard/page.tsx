@@ -6,6 +6,7 @@ import { ListCard } from "@/components/dashboard/list-card";
 import { DashboardEmptyState } from "@/components/dashboard/dashboard-empty-state";
 import { Plus, ClipboardList } from "lucide-react";
 import { getCountdown, isListClosed } from "@/lib/countdown";
+import { DASHBOARD_MAX_WIDTH } from "@/lib/layout";
 
 export async function generateMetadata({
   params,
@@ -41,7 +42,7 @@ export default async function DashboardPage() {
   const hasLists = lists && lists.length > 0;
 
   return (
-    <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: "1280px" }}>
+    <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: DASHBOARD_MAX_WIDTH }}>
       {/* Page header */}
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-landing-text">{t("title")}</h1>

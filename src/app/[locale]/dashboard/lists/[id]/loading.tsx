@@ -1,6 +1,8 @@
+import { DASHBOARD_MAX_WIDTH } from "@/lib/layout";
+
 export default function ListDetailLoading() {
   return (
-    <div className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: "1024px" }}>
+    <div className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: DASHBOARD_MAX_WIDTH }}>
         {/* Back link skeleton */}
         <div className="mb-4 h-4 w-32 animate-pulse rounded bg-landing-text/10" />
 

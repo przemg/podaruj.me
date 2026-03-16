@@ -6,6 +6,7 @@ import { DashboardNav } from "@/components/dashboard/dashboard-nav";
 import { MobileMenu } from "@/components/dashboard/mobile-menu";
 import { AuthorCredit } from "@/components/author-credit";
 import { Gift } from "lucide-react";
+import { APP_HEADER_MAX_WIDTH } from "@/lib/layout";
 
 export default async function DashboardLayout({
   children,
@@ -33,8 +34,8 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-landing-cream via-landing-cream to-landing-peach-wash">
-      <header className="relative z-20 border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
-        <div className="mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8" style={{ maxWidth: "1280px" }}>
+      <header className="safe-area-top relative z-20 border-b border-landing-text/5 bg-white/80 backdrop-blur-sm">
+        <div className="mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8" style={{ maxWidth: APP_HEADER_MAX_WIDTH }}>
           <Link
             href="/"
             className="flex items-center gap-2 text-xl font-bold text-landing-text"
@@ -57,7 +58,7 @@ export default async function DashboardLayout({
       </header>
       {children}
       <footer className="mt-auto border-t border-landing-text/5 bg-white/30 py-4">
-        <div className="mx-auto px-4 text-landing-text-muted/50 sm:px-6 lg:px-8" style={{ maxWidth: "1280px" }}>
+        <div className="mx-auto px-4 text-landing-text-muted/50 sm:px-6 lg:px-8" style={{ maxWidth: APP_HEADER_MAX_WIDTH }}>
           <AuthorCredit label={t("builtBy")} />
         </div>
       </footer>

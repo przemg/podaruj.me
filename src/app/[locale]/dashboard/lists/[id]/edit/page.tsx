@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { notFound, redirect } from "next/navigation";
 import { isListClosed } from "@/lib/countdown";
+import { FORM_MAX_WIDTH } from "@/lib/layout";
 import { ListForm } from "@/components/lists/list-form";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -39,7 +40,7 @@ export default async function EditListPage({
   const t = await getTranslations("lists.edit");
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8">
+    <div className="mx-auto w-full px-4 py-8" style={{ maxWidth: FORM_MAX_WIDTH }}>
         <Link
           href={`/dashboard/lists/${list.slug}`}
           className="mb-6 inline-flex items-center gap-2 text-sm text-landing-text-muted transition-colors hover:text-landing-text"
