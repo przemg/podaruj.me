@@ -1,6 +1,6 @@
 export default function PublicListLoading() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
+    <div className="mx-auto w-full px-4 py-8" style={{ maxWidth: "1024px" }}>
       <div className="mb-8 text-center">
         <div className="mb-4 flex justify-center gap-2">
           <div className="h-7 w-24 animate-pulse rounded-full bg-landing-text/10" />

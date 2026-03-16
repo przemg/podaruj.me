@@ -1,6 +1,6 @@
 export default function DashboardLoading() {
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: "1280px" }}>
       <div className="mb-8 flex items-center justify-between">
         <div className="h-8 w-32 animate-pulse rounded-lg bg-landing-text/5" />
         <div className="h-10 w-28 animate-pulse rounded-xl bg-landing-text/5" />

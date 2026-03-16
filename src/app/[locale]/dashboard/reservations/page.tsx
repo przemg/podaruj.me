@@ -34,7 +34,7 @@ export default async function ReservationsPage() {
 
   if (reservations.length === 0) {
     return (
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8" style={{ maxWidth: "1280px" }}>
         <h1 className="mb-8 text-2xl font-bold text-landing-text">
           {t("title")}
         </h1>

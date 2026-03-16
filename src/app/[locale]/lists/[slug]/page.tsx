@@ -188,7 +188,7 @@ export default async function PublicListPage({ params }: PageProps) {
     <>
       {isOwner && <OwnerBanner listSlug={list.slug} />}
 
-      <div className="mx-auto max-w-4xl px-4 py-8">
+      <div className="mx-auto w-full px-4 py-8" style={{ maxWidth: "1024px" }}>
         <PublicListHeader
           name={list.name}
           description={list.description}

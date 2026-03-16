@@ -85,7 +85,7 @@ export function ProfileSettings({
   }, [locale]);
 
   return (
-    <div className="space-y-8">
+    <div className="w-full space-y-8">
       {/* Google linked toast */}
       {linkSuccess && (
         <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-700">
