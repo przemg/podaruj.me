@@ -50,6 +50,7 @@ src/
   lib/
     supabase/       # Supabase client utilities (client, server, service)
     countdown.ts    # Shared countdown utility
+    layout.ts       # Centralized content width constants (LANDING/DASHBOARD/FORM_MAX_WIDTH)
     utils.ts        # General utilities (cn helper)
   i18n/             # Internationalization config
   types/            # Shared TypeScript types
@@ -61,7 +62,7 @@ supabase/
 ## Database Tables
 
 - **profiles** — user profiles (auto-created on signup)
-- **lists** — gift lists with occasion, privacy mode, event date, optional `event_time` (HH:MM), slug, `is_published`, `published_at`, `is_closed`, `closed_at`, `surprise_revealed` (RLS: owner-only). Slug is used in URLs instead of UUID. Full Surprise lists start as drafts (`is_published=false`); all others default to `true`. Lists close automatically when event date/time passes or manually via owner action. If `event_time` is set, closing and countdown use that exact time; otherwise, list closes at end of day.
+- **lists** — gift lists with occasion, privacy mode, event date, optional `event_time` (HH:MM), slug, `is_published`, `published_at`, `is_closed`, `closed_at`, `surprise_revealed`, `confetti_shown` (RLS: owner-only). Slug is used in URLs instead of UUID. Full Surprise lists start as drafts (`is_published=false`); all others default to `true`. Lists close automatically when event date/time passes or manually via owner action. If `event_time` is set, closing and countdown use that exact time; otherwise, list closes at end of day. Closed lists block all mutations (add/edit/delete items, edit list) via server-side guards. Owners can always reopen closed lists, even after event date passes.
 - **items** — gift items within lists with priority, position (RLS: owner of parent list)
 - **reservations** — gift reservations with privacy modes, guest nickname for anonymous reservations. RLS: logged-in users can SELECT/DELETE own reservations; all other access via service client.
 - **list_slug_history** — stores old slugs for redirect after list rename (FK cascade to lists). Accessed via service client on public routes.
@@ -113,6 +114,15 @@ Full Surprise lists use a **draft → published** lifecycle. Non-surprise lists 
 - **Publish action:** `publishList()` sets `is_published=true` and `published_at=now()`. Items created before `published_at` become locked (no edit/delete via server action guards). New items added after publish are also locked immediately.
 - **UI:** Draft badge + Publish button (with confirmation dialog) in list header. Dashboard cards show "Draft" badge. Add-gift dialog warns that items can't be edited after adding to a published list.
 - **Full Surprise is permanent:** Once a list is created with Full Surprise mode, it cannot be changed. Edit form locks the privacy selector (not-allowed cursor + warning). Both create and edit forms show inline warning + confirmation dialog when selecting Full Surprise. "Available first" sort option is hidden for Full Surprise lists.
+
+## Content Widths
+
+All content widths are centralized in `src/lib/layout.ts`. Use these constants instead of hardcoded values:
+
+- `LANDING_MAX_WIDTH` (1440px) — landing page sections, site header, site footer
+- `APP_HEADER_MAX_WIDTH` (1440px) — dashboard header, public page header
+- `DASHBOARD_MAX_WIDTH` (1024px) — My Lists, My Reservations, list detail pages
+- `FORM_MAX_WIDTH` (800px) — create list, edit list, profile settings
 
 ## Key Principles
 
