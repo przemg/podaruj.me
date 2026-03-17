@@ -105,7 +105,7 @@
     /* ── App header (matches dashboard layout.tsx) ── */
     .hdr {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 24px;
+      padding: 12px max(24px, calc((100% - 860px) / 2));
       border-bottom: 1px solid var(--border-subtle);
       background: rgba(255,255,255,0.8);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -350,7 +350,7 @@
     /* ── SCENE 5: Guest ── */
     #s-guest { padding: 0; }
     .guest-hdr {
-      padding: 12px 24px; border-bottom: 1px solid var(--border-subtle);
+      padding: 12px max(24px, calc((100% - 860px) / 2)); border-bottom: 1px solid var(--border-subtle);
       background: rgba(255,255,255,0.8); backdrop-filter: blur(8px);
       display: flex; align-items: center; justify-content: space-between;
     }
