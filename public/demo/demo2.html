@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podaruj.me — See How It Works (v2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Exact app colors */
+      --coral: #F97066;
+      --coral-dark: #C13A30;
+      --coral-hover: #A83229;
+      --lavender: #A78BFA;
+      --lavender-wash: #F5F0FF;
+      --mint: #6EE7B7;
+      --cream: #FFFBF7;
+      --peach: #FFF5F0;
+      --text: #1F1717;
+      --text-muted: #6B5E5E;
+      --text-light: #A89E9E;
+      --footer-bg: #2A2020;
+      --ring: rgba(31,23,23,0.04);
+      --ring-hover: rgba(31,23,23,0.08);
+      --border-subtle: rgba(31,23,23,0.05);
+      /* Layout */
+      --bw: 940px;
+      --bh: 500px;
+      --chrome: 38px;
+      --px: 0;
+      --content-max: 720px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(155deg, var(--peach) 0%, var(--cream) 35%, var(--lavender-wash) 70%, var(--cream) 100%);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      overflow: hidden;
+    }
+    .bg-orb { position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+    .bg-orb-1 { width: 450px; height: 450px; background: rgba(249,112,102,0.07); top: -120px; right: -80px; animation: orbDrift 12s ease-in-out infinite; }
+    .bg-orb-2 { width: 350px; height: 350px; background: rgba(167,139,250,0.06); bottom: -80px; left: -60px; animation: orbDrift 14s ease-in-out infinite reverse; }
+    @keyframes orbDrift {
+      0%, 100% { transform: translate(0,0); }
+      50% { transform: translate(15px,-20px); }
+    }
+
+    .page { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .page-title { font-size: 18px; font-weight: 600; color: var(--text-muted); letter-spacing: -0.01em; }
+
+    /* Browser frame */
+    .browser {
+      width: var(--bw); border-radius: 10px;
+      background: white; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(31,23,23,0.06), 0 20px 60px rgba(31,23,23,0.12), 0 6px 20px rgba(31,23,23,0.05);
+    }
+    .chrome-bar {
+      height: var(--chrome); background: #f8f5f3;
+      border-bottom: 1px solid rgba(31,23,23,0.06);
+      display: flex; align-items: center; padding: 0 12px; gap: 8px;
+    }
+    .dots { display: flex; gap: 6px; }
+    .dot-r, .dot-y, .dot-g { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #FF5F57; } .dot-y { background: #FEBC2E; } .dot-g { background: #28C840; }
+    .url-bar {
+      flex: 1; max-width: 380px; margin: 0 auto;
+      background: white; border: 1px solid rgba(31,23,23,0.08); border-radius: 5px;
+      padding: 3px 10px; font-size: 11px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .url-lock { font-size: 8px; opacity: 0.4; }
+    .url-text { opacity: 0.6; }
+
+    .screen { height: var(--bh); position: relative; overflow: hidden; }
+    .progress-track { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(31,23,23,0.03); z-index: 50; }
+    .progress-fill { height: 100%; background: var(--coral); width: 0%; transition: width 0.3s linear; }
+
+    /* Scene */
+    .sc {
+      position: absolute; inset: 0;
+      opacity: 0; transform: scale(0.97) translateZ(0);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      display: flex; flex-direction: column; overflow: hidden;
+      will-change: opacity, transform;
+    }
+    .sc.on { opacity: 1; transform: scale(1) translateZ(0); }
+
+    /* Stagger */
+    .an { opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .sc.on .an { opacity: 1; transform: translateY(0); }
+    .sc.on .an.d1 { transition-delay: .1s; }
+    .sc.on .an.d2 { transition-delay: .2s; }
+    .sc.on .an.d3 { transition-delay: .3s; }
+    .sc.on .an.d4 { transition-delay: .4s; }
+    .sc.on .an.d5 { transition-delay: .5s; }
+    .sc.on .an.d6 { transition-delay: .6s; }
+    .sc.on .an.d7 { transition-delay: .7s; }
+    .sc.on .an.d8 { transition-delay: .85s; }
+    .sc.on .an.d9 { transition-delay: 1.1s; }
+
+    /* ── App header (matches dashboard layout.tsx) ── */
+    .hdr {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .hdr-logo { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; }
+    .hdr-logo svg { width: 16px; height: 16px; color: var(--coral); }
+    .hdr-nav { display: flex; align-items: center; gap: 3px; }
+    .nav-pill {
+      padding: 5px 12px; border-radius: 10px; font-size: 12px; font-weight: 500;
+      color: var(--text-muted);
+    }
+    .nav-pill.act { background: rgba(249,112,102,0.08); color: var(--coral-dark); position: relative; }
+    .nav-pill.act::after {
+      content: ''; position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 2px; border-radius: 1px; background: var(--coral);
+    }
+    .hdr-av {
+      width: 26px; height: 26px; border-radius: 50%; margin-left: 6px;
+      background: linear-gradient(135deg, var(--coral), var(--lavender));
+    }
+
+    /* ── App body (cream→peach gradient) ── */
+    .body-grad {
+      flex: 1; overflow: hidden;
+      background: linear-gradient(to bottom right, var(--cream), var(--cream), var(--peach));
+    }
+    .body-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 20px 32px;
+      height: 100%;
+      display: flex; flex-direction: column;
+    }
+
+    /* ── Cards (exact app pattern) ── */
+    .app-card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(31,23,23,0.04);
+      border: 1px solid var(--ring);
+    }
+
+    /* ── Gift card (exact app pattern with left accent) ── */
+    .g-card {
+      display: flex; border-radius: 16px; overflow: hidden;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--ring);
+      box-shadow: 0 1px 3px rgba(31,23,23,0.04);
+      transition: all 0.2s;
+    }
+    .g-card:hover { box-shadow: 0 4px 12px rgba(31,23,23,0.06); border-color: var(--ring-hover); }
+    .g-accent { width: 3px; flex-shrink: 0; }
+    .g-accent.mh { background: rgba(249,112,102,0.5); }
+    .g-accent.wl { background: rgba(167,139,250,0.4); }
+    .g-accent.nth { background: #e5e7eb; }
+    .g-body { flex: 1; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
+    .g-thumb {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(31,23,23,0.04); border: 1px solid rgba(31,23,23,0.06);
+      display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+    }
+    .g-info { flex: 1; min-width: 0; }
+    .g-name { font-size: 13px; font-weight: 600; }
+    .g-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 1px; }
+    .g-meta { display: flex; align-items: center; gap: 6px; margin-top: 3px; }
+    .g-price { font-size: 12px; font-weight: 600; background: rgba(31,23,23,0.04); padding: 1px 5px; border-radius: 4px; }
+    .g-link { font-size: 10px; color: var(--coral); font-weight: 500; }
+    .g-pri { display: flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 500; white-space: nowrap; }
+    .pri-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .pri-dot.mh { background: var(--coral-dark); }
+    .pri-dot.wl { background: var(--lavender); }
+    .pri-dot.nth { background: var(--text-light); }
+
+    /* Drag handle */
+    .drag { color: var(--text-light); font-size: 11px; cursor: grab; letter-spacing: 2px; padding: 0 2px; }
+
+    /* ── Reserve pill (exact app style) ── */
+    .rpill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 12px; border-radius: 999px;
+      font-size: 11px; font-weight: 600; white-space: nowrap; transition: all 0.25s;
+    }
+    .rpill.avail { background: rgba(249,112,102,0.9); color: white; box-shadow: 0 1px 3px rgba(249,112,102,0.2); }
+    .rpill.mine { background: rgba(167,139,250,0.1); color: var(--lavender); border: 1px solid rgba(167,139,250,0.2); }
+    .rpill.taken { background: rgba(31,23,23,0.04); color: var(--text-muted); border: 1px solid rgba(31,23,23,0.1); }
+
+    /* Reserved card state */
+    .g-card.is-res { background: rgba(167,139,250,0.04); border-color: rgba(167,139,250,0.12); }
+    .g-res-strip {
+      width: 100%; margin-top: 8px; padding: 6px 0 0;
+      border-top: 1px solid rgba(167,139,250,0.1);
+      font-size: 10.5px; font-weight: 500; color: var(--lavender);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    /* ── Drop animation ── */
+    .gdrop { opacity: 0; }
+    .sc.on .gdrop { animation: drop 0.45s cubic-bezier(0.34,1.56,0.64,1) both; }
+    .sc.on .gdrop.gd1 { animation-delay: .25s; }
+    .sc.on .gdrop.gd2 { animation-delay: .6s; }
+    .sc.on .gdrop.gd3 { animation-delay: .95s; }
+    @keyframes drop {
+      0% { opacity: 0; transform: translateY(-24px) scale(0.93); }
+      60% { transform: translateY(3px) scale(1.01); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── SCENE 1: Intro ── */
+    #s-intro {
+      background: linear-gradient(180deg, var(--peach) 0%, var(--cream) 50%, var(--lavender-wash) 100%);
+      align-items: center; justify-content: center; gap: 14px; text-align: center;
+      padding: 40px 32px;
+    }
+    .intro-logo {
+      width: 64px; height: 64px; border-radius: 18px;
+      background: var(--coral); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 28px rgba(249,112,102,0.3);
+    }
+    .intro-logo svg { width: 32px; height: 32px; color: white; }
+    .sc.on .intro-logo { animation: introLogoIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both 0.1s; }
+    @keyframes introLogoIn {
+      from { opacity: 0; transform: scale(0.5) rotate(-8deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    .intro-name {
+      font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.02em;
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+    }
+    .intro-name svg { width: 24px; height: 24px; color: var(--coral); }
+    .intro-tagline { font-size: 15px; color: var(--text-muted); line-height: 1.5; max-width: 340px; }
+    .intro-pills { display: flex; gap: 8px; margin-top: 4px; }
+    .intro-pill {
+      padding: 5px 14px; border-radius: 999px; font-size: 11.5px; font-weight: 500;
+      background: white; box-shadow: 0 1px 4px rgba(31,23,23,0.06);
+      color: var(--text); display: flex; align-items: center; gap: 4px;
+    }
+
+    /* ── SCENE 2: Create ── */
+    #s-create { padding: 0; }
+    .form-card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px; padding: 18px 22px;
+      box-shadow: 0 1px 3px rgba(31,23,23,0.04);
+    }
+    .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .ff { display: flex; flex-direction: column; gap: 3px; }
+    .ff-label { font-size: 11.5px; font-weight: 500; color: var(--text); }
+    .ff-label .req { color: #EF4444; }
+    .ff-input {
+      background: white; border: 1px solid rgba(31,23,23,0.1);
+      border-radius: 8px; padding: 7px 10px; font-size: 13px;
+      font-family: inherit; color: var(--text);
+    }
+    .ff-input.foc { border-color: rgba(249,112,102,0.3); box-shadow: 0 0 0 3px rgba(249,112,102,0.08); }
+    .tcur { display: inline-block; width: 2px; height: 13px; background: var(--coral); animation: blink .7s step-end infinite; vertical-align: text-bottom; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Privacy radio cards (exact app pattern) */
+    .pr-cards { display: flex; flex-direction: column; gap: 6px; }
+    .pr-card {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 14px;
+      border: 2px solid transparent;
+      background: white; box-shadow: 0 1px 2px rgba(31,23,23,0.04);
+      transition: all 0.3s;
+    }
+    .pr-card.sel-bc { border-color: rgba(167,139,250,0.4); background: var(--lavender-wash); }
+    .pr-ic {
+      width: 30px; height: 30px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; transition: transform 0.2s;
+    }
+    .pr-card.sel-bc .pr-ic { transform: scale(1.08); }
+    .pr-txt h4 { font-size: 12px; font-weight: 600; }
+    .pr-txt p { font-size: 9.5px; color: var(--text-muted); }
+    .pr-ck {
+      margin-left: auto; width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: white; opacity: 0; transition: opacity 0.3s;
+    }
+    .pr-card.sel-bc .pr-ck { opacity: 1; background: var(--lavender); }
+
+    .btn-row { display: flex; gap: 8px; margin-top: auto; }
+    .btn-ghost { padding: 8px 16px; border-radius: 8px; border: 1px solid rgba(31,23,23,0.1); background: white; font-size: 12px; font-weight: 500; color: var(--text-muted); font-family: inherit; }
+    .btn-primary { padding: 8px 18px; border-radius: 8px; border: none; background: var(--coral-dark); color: white; font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; }
+    .btn-success { background: var(--mint) !important; color: #065F46 !important; }
+
+    /* ── SCENE 3: Gifts ── */
+    #s-gifts { padding: 0; }
+    .gifts-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .gifts-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+    .gifts-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 1px; }
+    .gifts-add {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 6px 12px; border-radius: 8px;
+      background: var(--coral-dark); color: white;
+      font-size: 11px; font-weight: 600;
+    }
+    .g-list { display: flex; flex-direction: column; gap: 6px; }
+
+    /* ── SCENE 4: Share ── */
+    #s-share { padding: 0; }
+    .share-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+    .share-l { display: flex; flex-direction: column; gap: 6px; }
+    /* Split button (exact app share-popover style) */
+    .split-btn {
+      display: inline-flex; align-items: stretch; border-radius: 8px;
+      overflow: hidden; background: var(--coral);
+      box-shadow: 0 1px 3px rgba(249,112,102,0.2);
+      margin-bottom: 6px; align-self: flex-start;
+    }
+    .split-main { display: flex; align-items: center; gap: 4px; padding: 7px 12px; color: white; font-size: 11.5px; font-weight: 600; }
+    .split-div { width: 1px; background: rgba(255,255,255,0.25); }
+    .split-chev { display: flex; align-items: center; padding: 0 7px; color: white; font-size: 9px; }
+    .sh-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 10px; font-size: 12.5px; font-weight: 500;
+      background: rgba(255,255,255,0.6); border: 1px solid rgba(31,23,23,0.04);
+      opacity: 0; transform: translateX(-10px);
+    }
+    .sc.on .sh-opt { animation: slL 0.3s ease both; }
+    .sc.on .sh-opt:nth-child(1) { animation-delay: .45s; }
+    .sc.on .sh-opt:nth-child(2) { animation-delay: .6s; }
+    .sc.on .sh-opt:nth-child(3) { animation-delay: .75s; }
+    @keyframes slL { to { opacity: 1; transform: translateX(0); } }
+    .sh-ic {
+      width: 26px; height: 26px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0;
+    }
+    .share-r { display: flex; align-items: center; justify-content: center; }
+    .qr-wrap { opacity: 0; transform: scale(0.7); }
+    .sc.on .qr-wrap { animation: qrIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both 1s; }
+    @keyframes qrIn { to { opacity: 1; transform: scale(1); } }
+    .qr-box { background: white; border-radius: 16px; padding: 22px; box-shadow: 0 4px 20px rgba(31,23,23,0.07); text-align: center; }
+    .qr-box p { font-size: 10px; color: var(--text-muted); margin-top: 8px; }
+
+    /* ── SCENE 5: Guest ── */
+    #s-guest { padding: 0; }
+    .guest-hdr {
+      padding: 12px 24px; border-bottom: 1px solid var(--border-subtle);
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .guest-body { flex: 1; overflow: hidden; background: linear-gradient(to bottom right, var(--cream), var(--peach)); }
+    .guest-inner { max-width: var(--content-max); margin: 0 auto; padding: 16px 32px; }
+    /* Public page header (exact app pattern — centered) */
+    .pub-hdr { text-align: center; margin-bottom: 14px; }
+    .pub-icon {
+      width: 38px; height: 38px; border-radius: 12px; margin: 0 auto 6px;
+      background: linear-gradient(135deg, rgba(249,112,102,0.15), rgba(167,139,250,0.15));
+      border: 1px solid rgba(249,112,102,0.1);
+      box-shadow: 0 1px 3px rgba(31,23,23,0.04);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .pub-title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+    .pub-by { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .pub-badges { display: flex; justify-content: center; gap: 5px; margin-top: 5px; }
+    .pub-badge {
+      display: flex; align-items: center; gap: 3px;
+      padding: 3px 9px; border-radius: 999px; font-size: 10.5px; font-weight: 500;
+      box-shadow: 0 1px 2px rgba(31,23,23,0.03);
+    }
+    .pub-badge-occ { background: var(--peach); border: 1px solid rgba(249,112,102,0.1); }
+    .pub-badge-cd { background: rgba(110,231,183,0.15); color: #065F46; border: 1px solid rgba(110,231,183,0.1); }
+    .guest-cards { display: flex; flex-direction: column; gap: 6px; }
+    .g-item { position: relative; transition: all 0.35s; }
+
+    /* ── SCENE 5b: Reserve Flow ── */
+    #s-reserve { padding: 0; }
+    .res-body {
+      flex: 1; overflow: hidden;
+      background: linear-gradient(to bottom right, var(--cream), var(--peach));
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .res-card-wrap {
+      width: 480px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .res-card-label {
+      font-size: 11px; font-weight: 500; color: var(--text-muted);
+      text-align: center; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    /* Modal overlay */
+    .res-modal-bg {
+      position: absolute; inset: 0;
+      background: rgba(31,23,23,0.3);
+      backdrop-filter: blur(3px);
+      opacity: 0; transition: opacity 0.3s ease;
+      z-index: 10; will-change: opacity;
+    }
+    .res-modal-bg.show { opacity: 1; }
+    .res-modal {
+      position: absolute; z-index: 11;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+      will-change: transform, opacity;
+      background: white; border-radius: 16px; padding: 24px;
+      box-shadow: 0 16px 48px rgba(31,23,23,0.18);
+      width: 340px; text-align: center;
+    }
+    .res-modal.show {
+      opacity: 1; transform: translate(-50%, -50%) scale(1);
+    }
+    .res-modal-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .res-modal-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+    .res-modal-input {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid rgba(31,23,23,0.1); border-radius: 10px;
+      font-size: 14px; font-family: inherit; color: var(--text);
+      margin-bottom: 12px; text-align: center;
+      transition: border-color 0.2s;
+    }
+    .res-modal-input.foc {
+      border-color: rgba(249,112,102,0.4);
+      box-shadow: 0 0 0 3px rgba(249,112,102,0.08);
+    }
+    .res-modal-confirm {
+      width: 100%; padding: 10px;
+      border: none; border-radius: 10px;
+      background: var(--coral-dark); color: white;
+      font-size: 13px; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: transform 0.15s, opacity 0.15s;
+      will-change: transform;
+    }
+    .res-modal-confirm.clicked { transform: scale(0.95); }
+    /* Success badge pop */
+    .res-success-badge {
+      display: none; align-items: center; gap: 5px;
+      padding: 5px 14px; border-radius: 999px;
+      background: rgba(167,139,250,0.1); color: var(--lavender);
+      border: 1px solid rgba(167,139,250,0.2);
+      font-size: 12px; font-weight: 600; margin-left: auto;
+      will-change: transform, opacity;
+    }
+    .res-success-badge.pop {
+      display: inline-flex;
+      animation: badgePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes badgePop {
+      0% { opacity: 0; transform: scale(0.3) rotate(-10deg); }
+      50% { transform: scale(1.15) rotate(3deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    /* Card glow on success */
+    .res-glow {
+      transition: box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .res-glow.success {
+      border-color: rgba(167,139,250,0.25);
+      box-shadow: 0 0 0 4px rgba(167,139,250,0.08), 0 4px 16px rgba(167,139,250,0.1);
+    }
+
+    /* ── Cursor pointer ── */
+    .demo-cursor {
+      position: absolute;
+      width: 24px; height: 24px;
+      z-index: 20;
+      opacity: 0;
+      left: 0; top: 0;
+      will-change: left, top, opacity;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 3px rgba(31,23,23,0.18));
+      transition: left 0.45s cubic-bezier(0.4,0,0.2,1), top 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+    }
+    .demo-cursor svg { width: 100%; height: 100%; }
+    .click-ripple {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(249,112,102,0.3);
+      z-index: 19;
+      pointer-events: none;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+    .click-ripple.pop {
+      animation: rippleOut 0.35s ease-out forwards;
+    }
+    @keyframes rippleOut {
+      0% { opacity: 0.7; transform: scale(0.3); }
+      100% { opacity: 0; transform: scale(2.5); }
+    }
+
+    /* ── SCENE 6: Privacy ── */
+    #s-priv { padding: 0; }
+    .priv-body { flex: 1; overflow: hidden; background: linear-gradient(to bottom right, var(--cream), var(--peach)); }
+    .priv-inner { max-width: var(--content-max); margin: 0 auto; padding: 18px 32px; display: flex; flex-direction: column; gap: 8px; height: 100%; }
+    .priv-title { font-size: 16px; font-weight: 700; }
+    .priv-desc { font-size: 11px; color: var(--text-muted); }
+    .priv-cards { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .priv-card {
+      flex: 1; display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 16px;
+      background: rgba(255,255,255,0.75); backdrop-filter: blur(6px);
+      border: 1px solid var(--ring);
+      box-shadow: 0 1px 3px rgba(31,23,23,0.04);
+      opacity: 0;
+    }
+    .sc.on .priv-card { animation: pSlide 0.4s ease both; }
+    .sc.on .priv-card:nth-child(1) { animation-delay: .2s; }
+    .sc.on .priv-card:nth-child(2) { animation-delay: .4s; }
+    .sc.on .priv-card:nth-child(3) { animation-delay: .6s; }
+    @keyframes pSlide { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+    .pv-ic { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .pv-info { flex: 1; }
+    .pv-info h4 { font-size: 13px; font-weight: 600; }
+    .pv-info p { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+    .pv-preview { padding: 4px 9px; border-radius: 7px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+
+    /* ── SCENE 7: Countdown ── */
+    #s-cd { padding: 0; }
+    .cd-body {
+      flex: 1; background: linear-gradient(to bottom right, var(--cream), var(--peach));
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+      position: relative;
+    }
+    .cd-em { font-size: 30px; }
+    .cd-lbl { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+    .cd-n { font-size: 68px; font-weight: 700; color: var(--coral); line-height: 1; }
+    .cd-u { font-size: 18px; color: var(--text-muted); }
+    .cd-td { font-size: 28px; font-weight: 700; color: var(--coral); opacity: 0; transform: scale(0.5); display: none; }
+    .cd-td.show { display: block; animation: pop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes pop { to { opacity: 1; transform: scale(1); } }
+    .conf-box { position: absolute; inset: 0; pointer-events: none; z-index: 10; overflow: hidden; }
+    .conf { position: absolute; top: -10px; border-radius: 2px; }
+    @keyframes confFall {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(520px) rotate(1080deg); opacity: 0; }
+    }
+    .sum-card {
+      background: white; border-radius: 14px; padding: 14px 22px;
+      box-shadow: 0 4px 16px rgba(31,23,23,0.07);
+      text-align: center; opacity: 0; transform: translateY(16px);
+    }
+    .sum-card.show { animation: sumUp 0.4s ease forwards; }
+    @keyframes sumUp { to { opacity: 1; transform: translateY(0); } }
+    .sum-stat { font-size: 20px; font-weight: 700; }
+    .sum-stat em { color: var(--coral); font-style: normal; }
+    .sum-dots { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
+    .sum-dot { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+
+    /* ── SCENE 8: End ── */
+    #s-end {
+      background: linear-gradient(180deg, var(--peach) 0%, var(--cream) 50%, var(--lavender-wash) 100%);
+      align-items: center; justify-content: center; gap: 8px; text-align: center;
+      padding: 20px 32px;
+    }
+    .end-logo {
+      width: 52px; height: 52px; background: var(--coral); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; font-size: 26px;
+      box-shadow: 0 6px 20px rgba(249,112,102,0.3);
+    }
+    .sc.on .end-logo { animation: logoPulse 2s ease-in-out infinite; }
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(249,112,102,0.3); }
+      50% { box-shadow: 0 6px 32px rgba(249,112,102,0.5); }
+    }
+    .end-name { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px; justify-content: center; }
+    .end-tag { font-size: 13px; color: var(--text-muted); }
+    .end-url { margin-top: 4px; padding: 6px 18px; background: white; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: var(--coral); box-shadow: 0 2px 8px rgba(31,23,23,0.05); }
+
+    /* Indicators */
+    .indicators { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .ind-dots { display: flex; gap: 5px; }
+    .ind-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-light); transition: all 0.3s; }
+    .ind-dot.on { background: var(--coral); width: 16px; border-radius: 3px; }
+    .ind-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+    .pp-btn {
+      position: fixed; bottom: 16px; right: 16px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: white; border: 1px solid var(--ring);
+      box-shadow: 0 2px 8px rgba(31,23,23,0.06);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 11px; z-index: 100;
+    }
+
+    @media (max-width: 980px) { :root { --bw: 94vw; } }
+    @media (max-height: 620px) { :root { --bh: 410px; } }
+  </style>
+</head>
+<body>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+
+  <div class="page">
+    <h1 class="page-title">See how it works</h1>
+    <div class="browser">
+      <div class="chrome-bar">
+        <div class="dots"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div></div>
+        <div class="url-bar"><span class="url-lock">🔒</span><span class="url-text" id="url">podaruj.me</span></div>
+      </div>
+      <div class="screen">
+
+        <!-- S1: Intro -->
+        <div id="s-intro" class="sc on">
+          <div class="intro-logo an"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+          <div class="intro-name an d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div>
+          <div class="intro-tagline an d3">Create gift lists, share with anyone, and let guests reserve — no account needed.</div>
+          <div class="intro-pills an d5">
+            <div class="intro-pill">📋 Create</div>
+            <div class="intro-pill">🔗 Share</div>
+            <div class="intro-pill">🎁 Reserve</div>
+          </div>
+        </div>
+
+        <!-- S2: Create -->
+        <div id="s-create" class="sc">
+          <div class="hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><div class="hdr-nav"><div class="nav-pill act">My Lists</div><div class="nav-pill">My Reservations</div><div class="hdr-av"></div></div></div>
+          <div class="body-grad"><div class="body-inner">
+            <div style="font-size:18px;font-weight:700;margin-bottom:10px;" class="an">Create new list</div>
+            <div class="form-card an d1">
+              <div class="form-2col">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div class="ff"><div class="ff-label">List name <span class="req">*</span></div><div class="ff-input foc" id="ci"><span id="tt"></span><span class="tcur"></span></div></div>
+                  <div class="ff"><div class="ff-label">Occasion</div><div class="ff-input" style="color:var(--text-muted);" id="occ-sel">Select occasion...</div></div>
+                  <div class="ff"><div class="ff-label">Event date</div><div class="ff-input" style="color:var(--text-muted);">📅 March 20, 2026</div></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <div class="ff"><div class="ff-label">Privacy mode <span class="req">*</span></div>
+                    <div class="pr-cards">
+                      <div class="pr-card" id="pr-bc"><div class="pr-ic" style="background:rgba(167,139,250,0.15);">🤷</div><div class="pr-txt"><h4>Buyer's Choice</h4><p>Buyer decides visibility</p></div><div class="pr-ck">✓</div></div>
+                      <div class="pr-card"><div class="pr-ic" style="background:rgba(110,231,183,0.15);">👁</div><div class="pr-txt"><h4>Visible</h4><p>Owner sees all</p></div><div class="pr-ck">✓</div></div>
+                      <div class="pr-card"><div class="pr-ic" style="background:rgba(249,112,102,0.1);">🎁</div><div class="pr-txt"><h4>Full Surprise</h4><p>Total surprise</p></div><div class="pr-ck">✓</div></div>
+                    </div>
+                  </div>
+                  <div class="btn-row"><div class="btn-ghost">Cancel</div><div class="btn-primary" id="cbtn">Create list</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="demo-cursor" id="cur-create"><svg viewBox="0 0 24 24" fill="none"><path d="M5 3l14 8-6 2-4 6z" fill="white" stroke="#1F1717" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+            <div class="click-ripple" id="rip-create"></div>
+          </div></div>
+        </div>
+
+        <!-- S3: Gifts -->
+        <div id="s-gifts" class="sc">
+          <div class="hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><div class="hdr-nav"><div class="nav-pill act">My Lists</div><div class="nav-pill">My Reservations</div><div class="hdr-av"></div></div></div>
+          <div class="body-grad"><div class="body-inner">
+            <div class="gifts-top an">
+              <div><div class="gifts-title">Birthday Gifts 2026</div><div class="gifts-sub">3 items · Buyer's Choice · March 20</div></div>
+              <div class="gifts-add">+ Add Gift</div>
+            </div>
+            <div class="g-list">
+              <div class="gdrop gd1"><div class="g-card"><div class="g-accent mh"></div><div class="g-body"><div class="drag">⋮⋮</div><div class="g-thumb">🎧</div><div class="g-info"><div class="g-name">Wireless Headphones</div><div class="g-sub">Sony WH-1000XM5</div><div class="g-meta"><div class="g-price">$89</div><div class="g-link">↗ amazon.com</div></div></div><div class="g-pri"><div class="pri-dot mh"></div><span style="color:var(--coral-dark)">Must have</span></div></div></div></div>
+              <div class="gdrop gd2"><div class="g-card"><div class="g-accent wl"></div><div class="g-body"><div class="drag">⋮⋮</div><div class="g-thumb">📚</div><div class="g-info"><div class="g-name">Book about space</div><div class="g-sub">Any popular science book</div><div class="g-meta"><div class="g-price">$25</div></div></div><div class="g-pri"><div class="pri-dot wl"></div><span style="color:var(--lavender)">Would love</span></div></div></div></div>
+              <div class="gdrop gd3"><div class="g-card"><div class="g-accent nth"></div><div class="g-body"><div class="drag">⋮⋮</div><div class="g-thumb">☕</div><div class="g-info"><div class="g-name">Coffee machine</div><div class="g-sub">Espresso preferred</div><div class="g-meta"><div class="g-price">$149</div></div></div><div class="g-pri"><div class="pri-dot nth"></div><span style="color:var(--text-muted)">Nice to have</span></div></div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- S4: Share -->
+        <div id="s-share" class="sc">
+          <div class="hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><div class="hdr-nav"><div class="nav-pill act">My Lists</div><div class="nav-pill">My Reservations</div><div class="hdr-av"></div></div></div>
+          <div class="body-grad"><div class="body-inner" style="justify-content:center;">
+            <div class="share-grid">
+              <div class="share-l">
+                <div class="an" style="margin-bottom:6px;"><div class="gifts-title">Birthday Gifts 2026</div><div class="gifts-sub">Share with friends & family</div></div>
+                <div class="split-btn an d1"><div class="split-main">↗ Copy link</div><div class="split-div"></div><div class="split-chev">▾</div></div>
+                <div class="sh-opt"><div class="sh-ic" style="background:rgba(249,112,102,0.1);">🔗</div><div><div style="font-weight:600;">Copy link</div><div style="font-size:9.5px;color:var(--text-muted);">podaruj.me/lists/birthday-a3x7</div></div></div>
+                <div class="sh-opt"><div class="sh-ic" style="background:var(--lavender-wash);">📧</div><div><div style="font-weight:600;">Send by email</div><div style="font-size:9.5px;color:var(--text-muted);">Opens your email client</div></div></div>
+                <div class="sh-opt"><div class="sh-ic" style="background:rgba(110,231,183,0.15);">📱</div><div><div style="font-weight:600;">Show QR code</div><div style="font-size:9.5px;color:var(--text-muted);">Scan to open on any device</div></div></div>
+              </div>
+              <div class="share-r"><div class="qr-wrap"><div class="qr-box">
+                <svg viewBox="0 0 100 100" width="120" height="120" style="display:block;margin:0 auto;">
+                  <rect x="5" y="5" width="22" height="22" rx="3" fill="#1F1717"/><rect x="8" y="8" width="16" height="16" rx="2" fill="white"/><rect x="11" y="11" width="10" height="10" rx="1.5" fill="#1F1717"/>
+                  <rect x="73" y="5" width="22" height="22" rx="3" fill="#1F1717"/><rect x="76" y="8" width="16" height="16" rx="2" fill="white"/><rect x="79" y="11" width="10" height="10" rx="1.5" fill="#1F1717"/>
+                  <rect x="5" y="73" width="22" height="22" rx="3" fill="#1F1717"/><rect x="8" y="76" width="16" height="16" rx="2" fill="white"/><rect x="11" y="79" width="10" height="10" rx="1.5" fill="#1F1717"/>
+                  <rect x="33" y="5" width="7" height="7" fill="#1F1717"/><rect x="45" y="5" width="7" height="7" fill="#1F1717"/><rect x="57" y="11" width="7" height="7" fill="#1F1717"/><rect x="33" y="17" width="7" height="7" fill="#1F1717"/><rect x="51" y="17" width="7" height="7" fill="#1F1717"/><rect x="5" y="33" width="7" height="7" fill="#1F1717"/><rect x="17" y="33" width="7" height="7" fill="#1F1717"/><rect x="33" y="33" width="7" height="7" fill="#1F1717"/><rect x="45" y="33" width="7" height="7" fill="#1F1717"/><rect x="57" y="33" width="7" height="7" fill="#1F1717"/><rect x="73" y="33" width="7" height="7" fill="#1F1717"/><rect x="87" y="33" width="7" height="7" fill="#1F1717"/><rect x="5" y="45" width="7" height="7" fill="#1F1717"/><rect x="21" y="45" width="7" height="7" fill="#1F1717"/><rect x="39" y="45" width="7" height="7" fill="#1F1717"/><rect x="51" y="45" width="7" height="7" fill="#1F1717"/><rect x="69" y="45" width="7" height="7" fill="#1F1717"/><rect x="87" y="45" width="7" height="7" fill="#1F1717"/><rect x="11" y="57" width="7" height="7" fill="#1F1717"/><rect x="27" y="57" width="7" height="7" fill="#1F1717"/><rect x="45" y="57" width="7" height="7" fill="#1F1717"/><rect x="63" y="57" width="7" height="7" fill="#1F1717"/><rect x="81" y="57" width="7" height="7" fill="#1F1717"/><rect x="33" y="69" width="7" height="7" fill="#1F1717"/><rect x="45" y="69" width="7" height="7" fill="#1F1717"/><rect x="63" y="69" width="7" height="7" fill="#1F1717"/><rect x="33" y="81" width="7" height="7" fill="#1F1717"/><rect x="51" y="81" width="7" height="7" fill="#1F1717"/><rect x="69" y="81" width="7" height="7" fill="#1F1717"/><rect x="87" y="81" width="7" height="7" fill="#1F1717"/>
+                  <rect x="42" y="42" width="16" height="16" rx="3" fill="#F97066"/>
+                </svg>
+                <p>Scan to open list</p>
+              </div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- S5: Guest -->
+        <div id="s-guest" class="sc">
+          <div class="guest-hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><span style="font-size:12px;color:var(--coral);font-weight:600;">Sign in</span></div>
+          <div class="guest-body"><div class="guest-inner">
+            <div class="pub-hdr an">
+              <div class="pub-icon">🎁</div>
+              <div class="pub-title">Birthday Gifts 2026</div>
+              <div class="pub-by">by Anna</div>
+              <div class="pub-badges"><div class="pub-badge pub-badge-occ">🎂 Birthday</div><div class="pub-badge pub-badge-cd">3 days left</div></div>
+            </div>
+            <div class="guest-cards">
+              <div class="g-item an d2"><div class="g-card"><div class="g-accent mh"></div><div class="g-body"><div class="g-thumb">🎧</div><div class="g-info"><div class="g-name">Wireless Headphones</div><div class="g-meta"><div class="g-price">$89</div><div class="g-link">↗ amazon.com</div></div></div><div class="g-pri" style="margin-left:auto;"><div class="pri-dot mh"></div><span style="color:var(--coral-dark)">Must have</span></div><div class="rpill avail" style="margin-left:6px;">Reserve</div></div></div></div>
+              <div class="g-item an d3"><div class="g-card"><div class="g-accent wl"></div><div class="g-body"><div class="g-thumb">📚</div><div class="g-info"><div class="g-name">Book about space</div><div class="g-meta"><div class="g-price">$25</div></div></div><div class="g-pri" style="margin-left:auto;"><div class="pri-dot wl"></div><span style="color:var(--lavender)">Would love</span></div><div class="rpill avail" style="margin-left:6px;">Reserve</div></div></div></div>
+              <div class="g-item an d4"><div class="g-card is-res"><div class="g-accent wl" style="background:linear-gradient(180deg,rgba(167,139,250,0.6),rgba(167,139,250,0.2));"></div><div class="g-body" style="flex-wrap:wrap;"><div class="g-thumb">☕</div><div class="g-info"><div class="g-name">Coffee machine</div><div class="g-meta"><div class="g-price">$149</div></div></div><div class="rpill taken" style="margin-left:auto;">Reserved</div><div class="g-res-strip">♥ Reserved by Tomek</div></div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- S5b: Reserve Flow -->
+        <div id="s-reserve" class="sc">
+          <div class="guest-hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><span style="font-size:12px;color:var(--coral);font-weight:600;">Sign in</span></div>
+          <div class="res-body">
+            <div class="res-modal-bg" id="res-bg"></div>
+            <div class="res-modal" id="res-modal">
+              <div class="res-modal-title" style="text-align:left;display:flex;align-items:center;gap:6px;"><span style="color:var(--coral);">♥</span> Reserve as guest</div>
+              <div style="display:flex;flex-direction:column;gap:4px;text-align:left;margin:12px 0 10px;">
+                <label style="font-size:12px;font-weight:500;color:var(--text);">Your nickname</label>
+                <input class="res-modal-input" id="res-input" value="" placeholder="Enter your name..." readonly style="margin-bottom:0;text-align:left;">
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:10px;background:rgba(31,23,23,0.02);border:1px solid rgba(31,23,23,0.06);margin-bottom:10px;">
+                <span style="font-size:12px;color:var(--text);">Show my name to list owner</span>
+                <div style="width:34px;height:20px;border-radius:10px;background:var(--coral);position:relative;flex-shrink:0;"><div style="width:16px;height:16px;border-radius:50%;background:white;position:absolute;top:2px;right:2px;box-shadow:0 1px 2px rgba(0,0,0,0.1);"></div></div>
+              </div>
+              <p style="font-size:10.5px;color:var(--text-muted);margin-bottom:12px;text-align:left;">Reserving as guest. <span style="color:var(--coral);font-weight:500;">Create an account</span> to manage later.</p>
+              <div style="display:flex;gap:8px;justify-content:flex-end;">
+                <button style="padding:7px 14px;border-radius:8px;border:1px solid rgba(31,23,23,0.1);background:white;font-size:12px;font-weight:500;color:var(--text-muted);font-family:inherit;">Cancel</button>
+                <button class="res-modal-confirm" id="res-confirm" style="width:auto;padding:7px 16px;">Reserve gift</button>
+              </div>
+            </div>
+            <div class="res-card-wrap">
+              <div class="res-card-label an d1">🎧 Reserving a gift...</div>
+              <div class="g-card res-glow an d1" id="res-card">
+                <div class="g-accent mh"></div>
+                <div class="g-body">
+                  <div class="g-thumb">🎧</div>
+                  <div class="g-info">
+                    <div class="g-name">Wireless Headphones</div>
+                    <div class="g-sub">Sony WH-1000XM5</div>
+                    <div class="g-meta"><div class="g-price">$89</div><div class="g-link">↗ amazon.com</div></div>
+                  </div>
+                  <div class="g-pri" style="margin-left:auto;"><div class="pri-dot mh"></div><span style="color:var(--coral-dark)">Must have</span></div>
+                  <div class="rpill avail" id="res-rbtn" style="margin-left:6px;">Reserve</div>
+                  <div class="res-success-badge" id="res-badge">♥ Ania</div>
+                </div>
+              </div>
+            </div>
+            <div class="demo-cursor" id="cur-res"><svg viewBox="0 0 24 24" fill="none"><path d="M5 3l14 8-6 2-4 6z" fill="white" stroke="#1F1717" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+            <div class="click-ripple" id="rip-res"></div>
+          </div>
+        </div>
+
+        <!-- S6: Privacy -->
+        <div id="s-priv" class="sc">
+          <div class="hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><div class="hdr-nav"><div class="nav-pill act">My Lists</div><div class="nav-pill">My Reservations</div><div class="hdr-av"></div></div></div>
+          <div class="priv-body"><div class="priv-inner">
+            <div class="an"><div class="priv-title">Reservation Privacy Modes</div><div class="priv-desc">Each list has one privacy mode — set by the owner at creation</div></div>
+            <div class="priv-cards">
+              <div class="priv-card"><div class="pv-ic" style="background:rgba(167,139,250,0.15);">🤷</div><div class="pv-info"><h4>Buyer's Choice</h4><p>The buyer decides whether to reveal their name to the list owner</p></div><div class="pv-preview" style="background:#FEF3C7;color:#92400E;">Reserved by ?</div></div>
+              <div class="priv-card"><div class="pv-ic" style="background:rgba(110,231,183,0.15);">👁</div><div class="pv-info"><h4>Visible</h4><p>Owner always sees who reserved — best for coordination</p></div><div class="pv-preview" style="background:rgba(167,139,250,0.1);color:var(--lavender);">♥ Ania</div></div>
+              <div class="priv-card"><div class="pv-ic" style="background:rgba(249,112,102,0.1);">🎁</div><div class="pv-info"><h4>Full Surprise</h4><p>Owner sees nothing at all — maximum surprise on the big day</p></div><div class="pv-preview" style="background:#F3F4F6;color:#6B7280;">? ? ?</div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- S7: Countdown -->
+        <div id="s-cd" class="sc">
+          <div class="hdr"><div class="hdr-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div><div class="hdr-nav"><div class="nav-pill act">My Lists</div><div class="nav-pill">My Reservations</div><div class="hdr-av"></div></div></div>
+          <div class="cd-body">
+            <div class="conf-box" id="cbox"></div>
+            <div class="cd-em an">🎂</div>
+            <div class="cd-lbl an d1">Birthday in...</div>
+            <div class="cd-n an d2" id="cdn">3</div>
+            <div class="cd-u an d2" id="cdu">days</div>
+            <div class="cd-td" id="cdtd">🎉 Today!</div>
+            <div class="sum-card" id="scard"><div class="sum-stat"><em>2</em> of 3 gifts reserved!</div><div class="sum-dots"><div class="sum-dot" style="background:rgba(167,139,250,0.15);">🎧</div><div class="sum-dot" style="background:#F3F4F6;">📚</div><div class="sum-dot" style="background:rgba(167,139,250,0.15);">☕</div></div></div>
+          </div>
+        </div>
+
+        <!-- S8: End -->
+        <div id="s-end" class="sc">
+          <div class="end-logo an">🎁</div>
+          <div class="end-name an d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#F97066;"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div>
+          <div class="end-tag an d2">Gift lists made simple</div>
+          <div class="end-url an d3">podaruj.me</div>
+        </div>
+
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="pbar"></div></div>
+    </div>
+
+    <div class="indicators">
+      <div class="ind-dots" id="idots"></div>
+      <div class="ind-label" id="ilabel"></div>
+    </div>
+  </div>
+
+  <button class="pp-btn" id="pp">⏸</button>
+
+  <script>
+    const S=[
+      {id:'s-intro',dur:3000,lbl:'Podaruj.me',url:'podaruj.me'},
+      {id:'s-create',dur:3500,lbl:'Create a List',url:'podaruj.me/dashboard/lists/new'},
+      {id:'s-gifts',dur:3000,lbl:'Add Gifts',url:'podaruj.me/dashboard/lists/birthday-gifts-a3x7'},
+      {id:'s-share',dur:3000,lbl:'Share Your List',url:'podaruj.me/dashboard/lists/birthday-gifts-a3x7'},
+      {id:'s-guest',dur:3000,lbl:'Guest View',url:'podaruj.me/lists/birthday-gifts-a3x7'},
+      {id:'s-reserve',dur:4500,lbl:'Reserve a Gift',url:'podaruj.me/lists/birthday-gifts-a3x7'},
+      {id:'s-priv',dur:3000,lbl:'Privacy Modes',url:'podaruj.me/lists/birthday-gifts-a3x7'},
+      {id:'s-cd',dur:4500,lbl:'Countdown & Close',url:'podaruj.me/dashboard/lists/birthday-gifts-a3x7'},
+      {id:'s-end',dur:2500,lbl:'Get Started',url:'podaruj.me'},
+    ];
+    let cur=0,paused=false,sto=null,st=[];
+    const total=S.reduce((a,s)=>a+s.dur,0);
+    const dots=document.getElementById('idots');
+    S.forEach((_,i)=>{const d=document.createElement('div');d.className='ind-dot'+(i===0?' on':'');dots.appendChild(d);});
+    function ct(){st.forEach(t=>clearTimeout(t));st=[];}
+
+    /* Cursor helper: glide cursor to a target element, then click */
+    function moveCursor(curId, ripId, targetEl, sceneEl, delay, clickDelay) {
+      const c=document.getElementById(curId), r=document.getElementById(ripId);
+      const sr=sceneEl.getBoundingClientRect(), tr=targetEl.getBoundingClientRect();
+      const x=tr.left-sr.left+tr.width*0.6, y=tr.top-sr.top+tr.height*0.6;
+      // Start offset (below-right of target)
+      c.style.transition='none';
+      c.style.left=(x+40)+'px'; c.style.top=(y+35)+'px'; c.style.opacity='0';
+      r.className='click-ripple';
+      // Appear and glide to target
+      st.push(setTimeout(()=>{
+        c.style.transition='left 0.4s cubic-bezier(0.4,0,0.2,1), top 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease';
+        c.style.left=x+'px'; c.style.top=y+'px'; c.style.opacity='1';
+      },delay));
+      // Click ripple
+      if(clickDelay){
+        st.push(setTimeout(()=>{
+          r.style.left=(x+4)+'px'; r.style.top=(y+2)+'px';
+          r.classList.add('pop');
+        },delay+clickDelay));
+      }
+    }
+
+    function fx(i){
+      ct();const sid=S[i].id;
+      if(sid==='s-create'){
+        const t=document.getElementById('tt'),tx='Birthday Gifts 2026';t.textContent='';let c=0;
+        function tc(){if(c<tx.length){t.textContent+=tx[c];c++;st.push(setTimeout(tc,40));}
+        else{st.push(setTimeout(()=>{document.getElementById('occ-sel').textContent='🎂 Birthday';document.getElementById('occ-sel').style.color='var(--text)';},200));
+        st.push(setTimeout(()=>document.getElementById('pr-bc').classList.add('sel-bc'),400));
+        // Cursor moves to Create button, clicks
+        const cbtn=document.getElementById('cbtn'),cscene=document.getElementById('s-create');
+        moveCursor('cur-create','rip-create',cbtn,cscene,500,400);
+        st.push(setTimeout(()=>{cbtn.classList.add('btn-success');cbtn.textContent='✓ Created!';},1100));}}
+        st.push(setTimeout(tc,300));
+      }
+      if(sid==='s-reserve'){
+        const bg=document.getElementById('res-bg'),modal=document.getElementById('res-modal'),
+              inp=document.getElementById('res-input'),conf=document.getElementById('res-confirm'),
+              rbtn=document.getElementById('res-rbtn'),badge=document.getElementById('res-badge'),
+              card=document.getElementById('res-card');
+        // Reset
+        bg.classList.remove('show');modal.classList.remove('show');
+        inp.value='';inp.classList.remove('foc');conf.classList.remove('clicked');
+        rbtn.style.display='';badge.classList.remove('pop');badge.style.display='none';
+        card.classList.remove('success');
+        const curR=document.getElementById('cur-res'),ripR=document.getElementById('rip-res');
+        const rbody=rbtn.closest('.res-body');
+        curR.className='demo-cursor';curR.style.opacity='0';ripR.className='click-ripple';
+        // 0.3s: cursor glides to Reserve button
+        moveCursor('cur-res','rip-res',rbtn,rbody,300,500);
+        // 0.8s: click reserve button
+        st.push(setTimeout(()=>{rbtn.style.transform='scale(0.9)';},800));
+        // 1.0s: show modal, hide cursor
+        st.push(setTimeout(()=>{rbtn.style.display='none';bg.classList.add('show');modal.classList.add('show');inp.classList.add('foc');curR.style.opacity='0';},1000));
+        // 1.4s: type nickname
+        const nk='Ania';let ni=0;
+        function typeN(){if(ni<nk.length){inp.value+=nk[ni];ni++;st.push(setTimeout(typeN,90));}}
+        st.push(setTimeout(typeN,1400));
+        // 2.1s: cursor moves to confirm button
+        st.push(setTimeout(()=>{moveCursor('cur-res','rip-res',conf,rbody,0,400);},2100));
+        // 2.5s: click confirm
+        st.push(setTimeout(()=>{conf.classList.add('clicked');},2500));
+        // 2.7s: hide modal + cursor
+        st.push(setTimeout(()=>{modal.classList.remove('show');bg.classList.remove('show');curR.style.opacity='0';},2700));
+        // 3.1s: show badge with pop + card glow
+        st.push(setTimeout(()=>{badge.classList.add('pop');card.classList.add('success');},3100));
+      }
+      if(sid==='s-cd'){
+        const n=document.getElementById('cdn'),u=document.getElementById('cdu'),td=document.getElementById('cdtd'),cb=document.getElementById('cbox'),sc=document.getElementById('scard');
+        n.style.display='';u.style.display='';td.classList.remove('show');td.style.display='none';sc.classList.remove('show');cb.innerHTML='';
+        n.textContent='3';u.textContent='days';
+        st.push(setTimeout(()=>n.textContent='2',700));
+        st.push(setTimeout(()=>{n.textContent='1';u.textContent='day';},1400));
+        st.push(setTimeout(()=>{n.style.display='none';u.style.display='none';td.style.display='';td.classList.add('show');
+          const cols=['#F97066','#A78BFA','#6EE7B7','#FCD34D','#F472B6','#60A5FA'];
+          for(let i=0;i<50;i++){const p=document.createElement('div');p.className='conf';p.style.left=(3+Math.random()*94)+'%';p.style.background=cols[Math.floor(Math.random()*cols.length)];p.style.width=(4+Math.random()*6)+'px';p.style.height=(4+Math.random()*8)+'px';p.style.borderRadius=Math.random()>0.5?'50%':'2px';p.style.animation=`confFall ${1+Math.random()*1}s ease-out ${Math.random()*0.4}s forwards`;cb.appendChild(p);}
+        },2100));
+        st.push(setTimeout(()=>sc.classList.add('show'),2900));
+      }
+    }
+
+    function rst(i){
+      const sid=S[i].id;
+      if(sid==='s-create'){document.getElementById('tt').textContent='';document.getElementById('occ-sel').textContent='Select occasion...';document.getElementById('occ-sel').style.color='var(--text-muted)';document.getElementById('pr-bc').classList.remove('sel-bc');const b=document.getElementById('cbtn');b.classList.remove('btn-success');b.textContent='Create list';document.getElementById('cur-create').className='demo-cursor';document.getElementById('cur-create').style.opacity='0';document.getElementById('rip-create').className='click-ripple';}
+      if(sid==='s-reserve'){
+        document.getElementById('res-bg').classList.remove('show');
+        document.getElementById('res-modal').classList.remove('show');
+        document.getElementById('res-input').value='';
+        document.getElementById('res-input').classList.remove('foc');
+        document.getElementById('res-confirm').classList.remove('clicked');
+        const rb=document.getElementById('res-rbtn');rb.style.display='';rb.style.transform='';
+        document.getElementById('res-badge').classList.remove('pop');
+        document.getElementById('res-badge').style.display='none';
+        document.getElementById('res-card').classList.remove('success');
+        document.getElementById('cur-res').className='demo-cursor';document.getElementById('cur-res').style.opacity='0';document.getElementById('rip-res').className='click-ripple';
+      }
+      if(sid==='s-cd'){document.getElementById('cbox').innerHTML='';document.getElementById('scard').classList.remove('show');document.getElementById('cdtd').classList.remove('show');}
+    }
+
+    function go(i){
+      ct();clearTimeout(sto);
+      const prev=cur;document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));rst(prev);
+      const el=document.getElementById(S[i].id);
+      el.querySelectorAll('.gdrop').forEach(g=>{g.style.animation='none';g.offsetHeight;g.style.animation='';});
+      cur=i;el.classList.add('on');
+      document.getElementById('url').textContent=S[i].url;
+      document.querySelectorAll('.ind-dot').forEach((d,j)=>d.classList.toggle('on',j===i));
+      document.getElementById('ilabel').textContent=S[i].lbl;
+      const el2=S.slice(0,i).reduce((a,s)=>a+s.dur,0),bar=document.getElementById('pbar');
+      bar.style.transition='none';bar.style.width=((el2/total)*100)+'%';
+      requestAnimationFrame(()=>{bar.style.transition=`width ${S[i].dur}ms linear`;bar.style.width=(((el2+S[i].dur)/total)*100)+'%';});
+      fx(i);
+      if(!paused)sto=setTimeout(()=>go((i+1)%S.length),S[i].dur);
+    }
+
+    document.getElementById('pp').addEventListener('click',()=>{paused=!paused;document.getElementById('pp').textContent=paused?'▶':'⏸';if(!paused)go((cur+1)%S.length);else{clearTimeout(sto);ct();}});
+    go(0);
+  </script>
+</body>
+</html>
