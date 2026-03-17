@@ -22,6 +22,10 @@ export function DemoVideoSection({ locale }: { locale: string }) {
     void videoRef.current?.play();
   }
 
+  function handlePlayEnd() {
+    setIsPlaying(false);
+  }
+
   function handleError() {
     setIsPlaying(false);
   }
@@ -42,24 +46,29 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             ref={videoRef}
             src={videoSrc}
             controls
+            playsInline
+            onEnded={handlePlayEnd}
+            onPause={handlePlayEnd}
             onError={handleError}
             className="aspect-video w-full bg-black"
           />
 
           {/* Branded overlay — fades out when isPlaying */}
           <div
+            aria-hidden={isPlaying}
             className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ${
               isPlaying ? "pointer-events-none opacity-0" : "opacity-100"
             }`}
             style={{
               background:
-                "linear-gradient(135deg, var(--landing-coral) 0%, #FFB88C 50%, var(--landing-peach-wash) 100%)",
+                "linear-gradient(135deg, var(--landing-coral) 0%, var(--landing-coral-light) 50%, var(--landing-peach-wash) 100%)",
             }}
           >
             <button
               onClick={handlePlay}
               aria-label={t("playAriaLabel")}
-              className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg transition-transform hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              tabIndex={isPlaying ? -1 : 0}
+              className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg transition-transform hover:scale-105 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
             >
               <Play className="ml-1 h-8 w-8 text-landing-coral" fill="currentColor" />
             </button>
