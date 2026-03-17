@@ -99,7 +99,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           })}
         </div>
 
-        {/* Gradient video box — video fills the bottom of the box */}
+        {/* Gradient video box — heading overlaid on video */}
         <div
           id="demo-video"
           className="mt-20 overflow-hidden rounded-3xl"
@@ -108,16 +108,9 @@ export function DemoVideoSection({ locale }: { locale: string }) {
               "linear-gradient(135deg, var(--landing-coral) 0%, var(--landing-coral-light) 50%, var(--landing-peach-wash) 100%)",
           }}
         >
-          <h3
-            className="px-8 pt-10 pb-8 text-center text-2xl font-bold text-white sm:px-16 sm:pt-14 sm:pb-10 sm:text-3xl"
-            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.18)" }}
-          >
-            {td("title")}
-          </h3>
-
-          {/* Video fills to bottom edge of gradient box */}
+          {/* Fixed-height container so video doesn't grow too tall */}
           <div
-            className="relative cursor-pointer group"
+            className="relative h-[280px] cursor-pointer group sm:h-[360px] lg:h-[420px]"
             onClick={handlePlay}
           >
             <video
@@ -125,11 +118,20 @@ export function DemoVideoSection({ locale }: { locale: string }) {
               src={videoSrc}
               preload="metadata"
               playsInline
-              className="aspect-video w-full bg-black block"
+              className="absolute inset-0 h-full w-full object-cover block"
             />
 
-            {/* Overlay — darkens slightly on hover for tactile feedback */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors duration-200 group-hover:bg-black/30">
+            {/* Overlay — heading at top, play button centered */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors duration-200 group-hover:bg-black/35">
+              {/* Heading overlaid at top center of video */}
+              <h3
+                className="absolute top-7 sm:top-9 left-0 right-0 text-center text-2xl font-bold text-white sm:text-3xl"
+                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}
+              >
+                {td("title")}
+              </h3>
+
+              {/* Play button centered */}
               <button
                 onClick={handlePlay}
                 aria-label={td("playAriaLabel")}
