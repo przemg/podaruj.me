@@ -1,6 +1,5 @@
 import { Navigation } from "@/components/landing/navigation";
 import { Hero } from "@/components/landing/hero";
-import { HowItWorks } from "@/components/landing/how-it-works";
 import { DemoVideoSection } from "@/components/landing/demo-video-section";
 import { Features } from "@/components/landing/features";
 import { Testimonials } from "@/components/landing/testimonials";
@@ -66,7 +65,6 @@ export default async function Home({
       <Navigation locale={locale} userEmail={userEmail} displayName={displayName} />
       <main>
         <Hero userEmail={userEmail} />
-        <HowItWorks />
         <DemoVideoSection locale={locale} />
         <Features />
         <Testimonials />
