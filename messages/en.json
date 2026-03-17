@@ -32,6 +32,12 @@
       "step3Title": "Friends reserve gifts",
       "step3Description": "No duplicates, no spoiled surprises. Everyone picks something unique."
     },
+    "demoVideo": {
+      "title": "See it in action",
+      "subtitle": "Watch how Podaruj.me works end to end. Create a list in seconds, share it via link or QR code, and let friends pick unique gifts — no duplicates, no account needed.",
+      "playAriaLabel": "Play demo",
+      "closeAriaLabel": "Close video"
+    },
     "features": {
       "title": "Everything you need",
       "subtitle": "Powerful features that make gift giving simple and fun",

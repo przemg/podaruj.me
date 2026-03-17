@@ -21,13 +21,16 @@ test.describe("Landing page", () => {
     await expect(page.getByText("Share the link")).toBeVisible();
     await expect(page.getByText("Friends reserve gifts")).toBeVisible();
 
+    // Demo video
+    await expect(page.getByRole("heading", { name: "See it in action" })).toBeVisible();
+
     // Features
     await expect(page.getByText("Everything you need")).toBeVisible();
-    await expect(page.getByText("Privacy modes")).toBeVisible();
-    await expect(page.getByText("QR code sharing")).toBeVisible();
+    await expect(page.locator("#features").getByRole("heading", { name: "Privacy modes" }).first()).toBeVisible();
+    await expect(page.locator("#features").getByRole("heading", { name: "QR code sharing" }).first()).toBeVisible();
 
     // Testimonials
-    await expect(page.getByText("People love Podaruj.me")).toBeVisible();
+    await expect(page.getByText("Loved by gift givers")).toBeVisible();
 
     // FAQ
     await expect(page.getByText("Frequently asked questions")).toBeVisible();
