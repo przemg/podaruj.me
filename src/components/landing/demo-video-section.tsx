@@ -99,45 +99,56 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           })}
         </div>
 
-        {/* Gradient video box — heading overlaid on video */}
+        {/* Video-first card — video background, text left, play button right */}
         <div
           id="demo-video"
-          className="mt-20 overflow-hidden rounded-3xl"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--landing-coral) 0%, var(--landing-coral-light) 50%, var(--landing-peach-wash) 100%)",
-          }}
+          className="relative mt-20 overflow-hidden rounded-3xl cursor-pointer group h-[240px] sm:h-[320px] lg:h-[380px]"
+          onClick={handlePlay}
         >
-          {/* Fixed-height container so video doesn't grow too tall */}
-          <div
-            className="relative h-[280px] cursor-pointer group sm:h-[360px] lg:h-[420px]"
-            onClick={handlePlay}
-          >
-            <video
-              ref={videoRef}
-              src={videoSrc}
-              preload="metadata"
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover block"
-            />
+          {/* Video fills the entire card */}
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            preload="metadata"
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover block"
+          />
 
-            {/* Overlay — heading at top, play button centered */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors duration-200 group-hover:bg-black/35">
-              {/* Heading overlaid at top center of video */}
+          {/* Dark gradient overlay — heavier on left for text contrast, lighter on right */}
+          <div
+            className="absolute inset-0 transition-opacity duration-200 group-hover:opacity-90"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(15,10,10,0.72) 0%, rgba(15,10,10,0.52) 55%, rgba(15,10,10,0.38) 100%)",
+            }}
+          />
+
+          {/* Content: heading+desc left, play button right */}
+          <div className="absolute inset-0 flex items-center px-8 sm:px-12 lg:px-16">
+            {/* Left: heading + description */}
+            <div className="flex-1 pr-6 sm:pr-12">
               <h3
-                className="absolute top-7 sm:top-9 left-0 right-0 text-center text-2xl font-bold text-white sm:text-3xl"
-                style={{ textShadow: "0 2px 16px rgba(0,0,0,0.55)" }}
+                className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl leading-tight"
+                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
               >
                 {td("title")}
               </h3>
+              <p
+                className="mt-3 hidden text-sm text-white/80 sm:block sm:text-base max-w-sm"
+                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
+              >
+                {td("subtitle")}
+              </p>
+            </div>
 
-              {/* Play button centered */}
+            {/* Right: play button */}
+            <div className="flex-shrink-0">
               <button
                 onClick={handlePlay}
                 aria-label={td("playAriaLabel")}
-                className="animate-pulse-soft flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-2xl transition-transform duration-200 group-hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-2xl transition-transform duration-200 group-hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
               >
-                <Play className="ml-1 h-8 w-8 text-landing-coral" fill="currentColor" />
+                <Play className="ml-1 h-7 w-7 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" fill="currentColor" />
               </button>
             </div>
           </div>
