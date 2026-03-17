@@ -105,7 +105,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
         {/* Video card — background video with overlay, opens modal on click */}
         <div
           id="demo-video"
-          className="relative mt-20 overflow-hidden rounded-3xl cursor-pointer group h-[240px] sm:h-[320px] lg:h-[380px]"
+          className="relative mt-28 overflow-hidden rounded-3xl cursor-pointer group h-[240px] sm:h-[320px] lg:h-[380px]"
           onClick={openModal}
         >
           <video
