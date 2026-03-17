@@ -124,7 +124,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             className="absolute inset-0 transition-opacity duration-200 group-hover:opacity-90"
             style={{
               background:
-                "linear-gradient(to right, rgba(15,10,10,0.85) 0%, rgba(15,10,10,0.78) 55%, rgba(15,10,10,0.72) 100%)",
+                "linear-gradient(to right, rgba(15,10,10,0.80) 0%, rgba(15,10,10,0.62) 55%, rgba(15,10,10,0.48) 100%)",
             }}
           />
 
