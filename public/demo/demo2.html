@@ -591,6 +591,28 @@
       font-size: 11px; z-index: 100;
     }
 
+    /* Recording mode: ?record in URL */
+    .record .page-title,
+    .record .indicators,
+    .record .pp-btn,
+    .record .progress-track { display: none !important; }
+    .record .bg-orb { display: none; }
+    .record {
+      background: linear-gradient(145deg, #FFF5F0 0%, #FFFBF7 25%, #F5F0FF 55%, #FFFBF7 80%, #FFF5F0 100%);
+    }
+    .record .page {
+      width: 100vw; height: 100vh;
+      justify-content: center;
+      padding: 48px;
+    }
+    .record .browser {
+      width: 100%; max-width: calc(100vw - 96px);
+      height: calc(100vh - 96px);
+      box-shadow: 0 0 0 1px rgba(31,23,23,0.05), 0 30px 90px rgba(31,23,23,0.14), 0 10px 30px rgba(31,23,23,0.06);
+    }
+    .record .screen { height: calc(100vh - 96px - var(--chrome)); }
+    .record .chrome-bar { flex-shrink: 0; }
+
     @media (max-width: 980px) { :root { --bw: 94vw; } }
     @media (max-height: 620px) { :root { --bh: 410px; } }
   </style>
@@ -604,7 +626,7 @@
     <div class="browser">
       <div class="chrome-bar">
         <div class="dots"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div></div>
-        <div class="url-bar"><span class="url-lock">🔒</span><span class="url-text" id="url">podaruj.me</span></div>
+        <div class="url-bar"><span class="url-lock">🔒</span><span class="url-text" id="url">podarujme.vercel.app</span></div>
       </div>
       <div class="screen">
 
@@ -673,7 +695,7 @@
               <div class="share-l">
                 <div class="an" style="margin-bottom:6px;"><div class="gifts-title">Birthday Gifts 2026</div><div class="gifts-sub">Share with friends & family</div></div>
                 <div class="split-btn an d1"><div class="split-main">↗ Copy link</div><div class="split-div"></div><div class="split-chev">▾</div></div>
-                <div class="sh-opt"><div class="sh-ic" style="background:rgba(249,112,102,0.1);">🔗</div><div><div style="font-weight:600;">Copy link</div><div style="font-size:9.5px;color:var(--text-muted);">podaruj.me/lists/birthday-a3x7</div></div></div>
+                <div class="sh-opt"><div class="sh-ic" style="background:rgba(249,112,102,0.1);">🔗</div><div><div style="font-weight:600;">Copy link</div><div style="font-size:9.5px;color:var(--text-muted);">podarujme.vercel.app/lists/birthday-a3x7</div></div></div>
                 <div class="sh-opt"><div class="sh-ic" style="background:var(--lavender-wash);">📧</div><div><div style="font-weight:600;">Send by email</div><div style="font-size:9.5px;color:var(--text-muted);">Opens your email client</div></div></div>
                 <div class="sh-opt"><div class="sh-ic" style="background:rgba(110,231,183,0.15);">📱</div><div><div style="font-weight:600;">Show QR code</div><div style="font-size:9.5px;color:var(--text-muted);">Scan to open on any device</div></div></div>
               </div>
@@ -781,10 +803,10 @@
 
         <!-- S8: End -->
         <div id="s-end" class="sc">
-          <div class="end-logo an">🎁</div>
+          <div class="end-logo an"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:white;"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
           <div class="end-name an d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;color:#F97066;"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg> Podaruj.me</div>
           <div class="end-tag an d2">Gift lists made simple</div>
-          <div class="end-url an d3">podaruj.me</div>
+          <div class="end-url an d3">podarujme.vercel.app</div>
         </div>
 
       </div>
@@ -801,15 +823,15 @@
 
   <script>
     const S=[
-      {id:'s-intro',dur:3000,lbl:'Podaruj.me',url:'podaruj.me'},
-      {id:'s-create',dur:3500,lbl:'Create a List',url:'podaruj.me/dashboard/lists/new'},
-      {id:'s-gifts',dur:3000,lbl:'Add Gifts',url:'podaruj.me/dashboard/lists/birthday-gifts-a3x7'},
-      {id:'s-share',dur:3000,lbl:'Share Your List',url:'podaruj.me/dashboard/lists/birthday-gifts-a3x7'},
-      {id:'s-guest',dur:3000,lbl:'Guest View',url:'podaruj.me/lists/birthday-gifts-a3x7'},
-      {id:'s-reserve',dur:4500,lbl:'Reserve a Gift',url:'podaruj.me/lists/birthday-gifts-a3x7'},
-      {id:'s-priv',dur:3000,lbl:'Privacy Modes',url:'podaruj.me/lists/birthday-gifts-a3x7'},
-      {id:'s-cd',dur:4500,lbl:'Countdown & Close',url:'podaruj.me/dashboard/lists/birthday-gifts-a3x7'},
-      {id:'s-end',dur:2500,lbl:'Get Started',url:'podaruj.me'},
+      {id:'s-intro',dur:3000,lbl:'Podaruj.me',url:'podarujme.vercel.app'},
+      {id:'s-create',dur:3500,lbl:'Create a List',url:'podarujme.vercel.app/dashboard/lists/new'},
+      {id:'s-gifts',dur:3000,lbl:'Add Gifts',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7'},
+      {id:'s-share',dur:3000,lbl:'Share Your List',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7'},
+      {id:'s-guest',dur:3000,lbl:'Guest View',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7'},
+      {id:'s-reserve',dur:4500,lbl:'Reserve a Gift',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7'},
+      {id:'s-priv',dur:3000,lbl:'Privacy Modes',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7'},
+      {id:'s-cd',dur:4500,lbl:'Countdown & Close',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7'},
+      {id:'s-end',dur:2500,lbl:'Get Started',url:'podarujme.vercel.app'},
     ];
     let cur=0,paused=false,sto=null,st=[];
     const total=S.reduce((a,s)=>a+s.dur,0);
@@ -934,6 +956,7 @@
     }
 
     document.getElementById('pp').addEventListener('click',()=>{paused=!paused;document.getElementById('pp').textContent=paused?'▶':'⏸';if(!paused)go((cur+1)%S.length);else{clearTimeout(sto);ct();}});
+    if(location.search.includes('record'))document.body.classList.add('record');
     go(0);
   </script>
 </body>
