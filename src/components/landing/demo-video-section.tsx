@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Play } from "lucide-react";
 import { LANDING_MAX_WIDTH } from "@/lib/layout";
@@ -17,13 +17,30 @@ export function DemoVideoSection({ locale }: { locale: string }) {
 
   const videoSrc = VIDEO_SOURCES[locale] ?? VIDEO_SOURCES["en"];
 
-  function handlePlay() {
-    setIsPlaying(true);
-    void videoRef.current?.play();
-  }
+  useEffect(() => {
+    function onFullscreenChange() {
+      if (!document.fullscreenElement) {
+        setIsPlaying(false);
+        videoRef.current?.pause();
+      }
+    }
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", onFullscreenChange);
+    };
+  }, []);
 
-  function handlePlayEnd() {
-    setIsPlaying(false);
+  function handlePlay() {
+    const video = videoRef.current;
+    if (!video) return;
+    setIsPlaying(true);
+    void video.play();
+    const el = video as HTMLVideoElement & {
+      webkitRequestFullscreen?: () => Promise<void>;
+    };
+    void (el.requestFullscreen?.() ?? el.webkitRequestFullscreen?.());
   }
 
   function handleError() {
@@ -41,40 +58,31 @@ export function DemoVideoSection({ locale }: { locale: string }) {
         </h2>
 
         <div className="relative mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl shadow-xl">
-          {/* Native video — always in DOM, src set immediately */}
+          {/* Native video — always in DOM */}
           <video
             ref={videoRef}
             src={videoSrc}
             controls
             playsInline
-            onEnded={handlePlayEnd}
-            onPause={handlePlayEnd}
             onError={handleError}
             className="aspect-video w-full bg-black"
           />
 
-          {/* Branded overlay — fades out when isPlaying */}
+          {/* Overlay — simple dark scrim, shows poster, hides when playing */}
           <div
             aria-hidden={isPlaying}
-            className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ${
+            className={`absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-200 ${
               isPlaying ? "pointer-events-none opacity-0" : "opacity-100"
             }`}
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(10,4,4,0.38) 0%, rgba(155,35,22,0.72) 60%, rgba(130,25,15,0.90) 100%)",
-            }}
           >
             <button
               onClick={handlePlay}
               aria-label={t("playAriaLabel")}
               tabIndex={isPlaying ? -1 : 0}
-              className="flex h-24 w-24 items-center justify-center rounded-full bg-white/95 shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+              className="flex h-20 w-20 items-center justify-center rounded-full bg-landing-coral shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
             >
-              <Play className="ml-1.5 h-9 w-9 text-landing-coral" fill="currentColor" />
+              <Play className="ml-1 h-8 w-8 text-white" fill="currentColor" />
             </button>
-            <p className="mt-5 text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">
-              Podaruj.me
-            </p>
           </div>
         </div>
       </div>
