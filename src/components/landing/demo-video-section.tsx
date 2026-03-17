@@ -148,7 +148,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
               <button
                 onClick={(e) => { e.stopPropagation(); openModal(); }}
                 aria-label={td("playAriaLabel")}
-                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-[0_0_64px_rgba(229,77,61,0.75)] transition-all duration-200 hover:scale-105 hover:bg-landing-coral-dark hover:shadow-[0_0_64px_rgba(229,77,61,0.7)] active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-[0_0_64px_rgba(229,77,61,0.75)] transition-all duration-200 hover:scale-105 hover:bg-landing-coral-dark hover:shadow-xl active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
               >
                 <Play className="ml-1 h-7 w-7 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" fill="currentColor" />
               </button>
