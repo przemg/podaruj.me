@@ -1,8 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Check } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
+
+const TRUST_BADGES = ["trustFree", "trustGuests", "trustSetup"] as const;
 
 export function CtaSection({ userEmail }: { userEmail?: string }) {
   const t = useTranslations("landing.cta");
@@ -15,7 +18,9 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
         ref={revealRef}
       >
         <h2 className="scroll-reveal text-3xl font-bold text-landing-text sm:text-4xl">
-          {t("title")}
+          {t("titleTop")}
+          <br />
+          <span className="text-landing-coral">{t("titleBottom")}</span>
         </h2>
         <p className="scroll-reveal mt-4 text-lg text-landing-text-muted">
           {t("subtitle")}
@@ -27,6 +32,18 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
           >
             {t("button")}
           </Link>
+        </div>
+        {/* Trust badges */}
+        <div className="scroll-reveal mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {TRUST_BADGES.map((key) => (
+            <div
+              key={key}
+              className="flex items-center gap-1.5 text-sm text-landing-text-muted"
+            >
+              <Check className="h-3.5 w-3.5 text-landing-mint" strokeWidth={3} />
+              {t(key)}
+            </div>
+          ))}
         </div>
       </div>
     </section>
