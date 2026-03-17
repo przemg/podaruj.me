@@ -15,7 +15,7 @@
 Podaruj.me solves a universal problem: buying gifts without duplicates and awkward guessing. A user creates a wishlist for any occasion — birthday, holidays, wedding — shares a link, and guests can browse and reserve items instantly. No account required for guests. Three privacy modes let the list owner control exactly how much they see, from full transparency to complete surprise.
 
 ## 🎬 See it in action
-> 🔊 Unmute for voiceover narration · 🇵🇱 [Wersja polska](https://github.com/user-attachments/assets/27e2d8d0-7284-463d-9457-4dac18eecba0)
+> 🔊 Unmute for English voiceover · 🇵🇱 [Wersja polska](https://github.com/user-attachments/assets/27e2d8d0-7284-463d-9457-4dac18eecba0)
 
 https://github.com/user-attachments/assets/08b42f80-7438-4cbd-ac0a-e5829cdee67f
 
