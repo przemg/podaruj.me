@@ -123,10 +123,10 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             }}
           />
 
-          {/* Content: heading+desc left, play button right (inset from edge) */}
-          <div className="absolute inset-0 flex items-center gap-10 sm:gap-16 pl-8 pr-12 sm:pl-12 sm:pr-20 lg:pl-16 lg:pr-28">
-            {/* Left: heading + description */}
-            <div className="flex-1">
+          {/* Content: text left (~half), play button centered in remaining space */}
+          <div className="absolute inset-0 flex items-center pl-8 sm:pl-12 lg:pl-16">
+            {/* Left: heading + description — fixed width */}
+            <div className="w-1/2 max-w-sm sm:max-w-md pr-4">
               <h3
                 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl leading-tight"
                 style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
@@ -134,15 +134,15 @@ export function DemoVideoSection({ locale }: { locale: string }) {
                 {td("title")}
               </h3>
               <p
-                className="mt-3 text-sm text-white/80 sm:text-base max-w-md"
+                className="mt-3 text-sm text-white/80 sm:text-base"
                 style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
               >
                 {td("subtitle")}
               </p>
             </div>
 
-            {/* Right: play button with CTA-style animation */}
-            <div className="flex-shrink-0">
+            {/* Right: button centered in remaining space */}
+            <div className="flex flex-1 items-center justify-center">
               <button
                 onClick={handlePlay}
                 aria-label={td("playAriaLabel")}
