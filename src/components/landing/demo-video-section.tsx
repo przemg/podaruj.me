@@ -123,10 +123,10 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             }}
           />
 
-          {/* Content: heading+desc left, play button right */}
-          <div className="absolute inset-0 flex items-center px-8 sm:px-12 lg:px-16">
+          {/* Content: heading+desc left, play button right (inset from edge) */}
+          <div className="absolute inset-0 flex items-center gap-10 sm:gap-16 pl-8 pr-12 sm:pl-12 sm:pr-20 lg:pl-16 lg:pr-28">
             {/* Left: heading + description */}
-            <div className="flex-1 pr-6 sm:pr-12">
+            <div className="flex-1">
               <h3
                 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl leading-tight"
                 style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
@@ -134,19 +134,19 @@ export function DemoVideoSection({ locale }: { locale: string }) {
                 {td("title")}
               </h3>
               <p
-                className="mt-3 hidden text-sm text-white/80 sm:block sm:text-base max-w-sm"
+                className="mt-3 text-sm text-white/80 sm:text-base max-w-md"
                 style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
               >
                 {td("subtitle")}
               </p>
             </div>
 
-            {/* Right: play button */}
+            {/* Right: play button with CTA-style animation */}
             <div className="flex-shrink-0">
               <button
                 onClick={handlePlay}
                 aria-label={td("playAriaLabel")}
-                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-2xl transition-transform duration-200 group-hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-2xl transition-all duration-200 hover:scale-105 hover:bg-landing-coral-dark hover:shadow-xl active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
               >
                 <Play className="ml-1 h-7 w-7 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" fill="currentColor" />
               </button>
