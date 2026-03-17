@@ -32,6 +32,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
       if (!document.fullscreenElement) {
         video.controls = false;
         video.muted = true;
+        video.playbackRate = 0.5;
         video.currentTime = 0;
         void video.play();
       }
@@ -49,6 +50,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
     if (!video) return;
     video.muted = false;
     video.controls = true;
+    video.playbackRate = 1;
     const el = video as HTMLVideoElement & {
       webkitRequestFullscreen?: () => Promise<void>;
     };
@@ -114,6 +116,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             muted
             loop
             playsInline
+            onPlay={(e) => { (e.currentTarget as HTMLVideoElement).playbackRate = 0.5; }}
             className="absolute inset-0 h-full w-full object-cover block"
           />
 
