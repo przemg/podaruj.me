@@ -27,14 +27,21 @@ test.describe("Demo video section", () => {
     await expect(playButton).toBeVisible();
   });
 
-  test("play button remains visible after click (fullscreen-only mode)", async ({ page }) => {
+  test("clicking play opens video modal", async ({ page }) => {
     await page.goto("/en");
     const section = page.locator("#demo-video");
     await section.scrollIntoViewIfNeeded();
-    const playButton = section.getByRole("button", { name: "Play demo" });
-    await playButton.click();
-    // Overlay stays visible — video plays in fullscreen, not inline
-    await expect(playButton).toBeVisible();
+    await section.getByRole("button", { name: "Play demo" }).click();
+    await expect(page.getByRole("button", { name: "Close video" })).toBeVisible();
+  });
+
+  test("close button dismisses the modal", async ({ page }) => {
+    await page.goto("/en");
+    const section = page.locator("#demo-video");
+    await section.scrollIntoViewIfNeeded();
+    await section.getByRole("button", { name: "Play demo" }).click();
+    await page.getByRole("button", { name: "Close video" }).click();
+    await expect(page.getByRole("button", { name: "Close video" })).not.toBeVisible();
   });
 
   test("English locale uses English video", async ({ page }) => {

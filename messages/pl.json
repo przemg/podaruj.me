@@ -35,7 +35,8 @@
     "demoVideo": {
       "title": "Zobacz jak to działa",
       "subtitle": "Przekonaj się, jak działa Podaruj.me. Stwórz listę w kilka sekund, udostępnij ją przez link lub kod QR i pozwól bliskim wybrać wyjątkowe prezenty — bez duplikatów, bez konta.",
-      "playAriaLabel": "Odtwórz demo"
+      "playAriaLabel": "Odtwórz demo",
+      "closeAriaLabel": "Zamknij wideo"
     },
     "features": {
       "title": "Wszystko, czego potrzebujesz",
