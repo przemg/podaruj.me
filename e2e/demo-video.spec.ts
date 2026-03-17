@@ -27,23 +27,21 @@ test.describe("Demo video section", () => {
     await expect(playButton).toBeVisible();
   });
 
-  test("clicking play hides the overlay", async ({ page }) => {
+  test("play button remains visible after click (fullscreen-only mode)", async ({ page }) => {
     await page.goto("/en");
     const section = page.locator("#demo-video");
     await section.scrollIntoViewIfNeeded();
     const playButton = section.getByRole("button", { name: "Play demo" });
     await playButton.click();
-    // Overlay transitions to opacity-0 / pointer-events-none
-    await expect(playButton).not.toBeVisible();
+    // Overlay stays visible — video plays in fullscreen, not inline
+    await expect(playButton).toBeVisible();
   });
 
   test("English locale uses English video", async ({ page }) => {
     await page.goto("/en");
     const section = page.locator("#demo-video");
     await section.scrollIntoViewIfNeeded();
-    await section.getByRole("button", { name: "Play demo" }).click();
     const video = section.locator("video");
-    await expect(video).toBeVisible();
     const src = await video.getAttribute("src");
     expect(src).toContain("demo-en.mp4");
   });
@@ -52,9 +50,7 @@ test.describe("Demo video section", () => {
     await page.goto("/pl");
     const section = page.locator("#demo-video");
     await section.scrollIntoViewIfNeeded();
-    await section.getByRole("button", { name: "Odtwórz demo" }).click();
     const video = section.locator("video");
-    await expect(video).toBeVisible();
     const src = await video.getAttribute("src");
     expect(src).toContain("demo-pl.mp4");
   });

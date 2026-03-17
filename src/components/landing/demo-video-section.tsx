@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Play, ClipboardList, Share2, Gift } from "lucide-react";
 import { LANDING_MAX_WIDTH } from "@/lib/layout";
@@ -20,7 +20,6 @@ const STEPS = [
 export function DemoVideoSection({ locale }: { locale: string }) {
   const t = useTranslations("landing.howItWorks");
   const td = useTranslations("landing.demoVideo");
-  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 200 });
 
@@ -28,9 +27,12 @@ export function DemoVideoSection({ locale }: { locale: string }) {
 
   useEffect(() => {
     function onFullscreenChange() {
+      const video = videoRef.current;
+      if (!video) return;
       if (!document.fullscreenElement) {
-        setIsPlaying(false);
-        videoRef.current?.pause();
+        video.controls = false;
+        video.pause();
+        video.currentTime = 0;
       }
     }
     document.addEventListener("fullscreenchange", onFullscreenChange);
@@ -44,16 +46,12 @@ export function DemoVideoSection({ locale }: { locale: string }) {
   function handlePlay() {
     const video = videoRef.current;
     if (!video) return;
-    setIsPlaying(true);
+    video.controls = true;
     void video.play();
     const el = video as HTMLVideoElement & {
       webkitRequestFullscreen?: () => Promise<void>;
     };
     void (el.requestFullscreen?.() ?? el.webkitRequestFullscreen?.());
-  }
-
-  function handleError() {
-    setIsPlaying(false);
   }
 
   return (
@@ -101,41 +99,41 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           })}
         </div>
 
-        {/* Gradient video box */}
+        {/* Gradient video box — video fills the bottom of the box */}
         <div
           id="demo-video"
-          className="mt-20 rounded-3xl p-8 sm:p-12"
+          className="mt-20 overflow-hidden rounded-3xl"
           style={{
             background:
               "linear-gradient(135deg, var(--landing-coral) 0%, var(--landing-coral-light) 50%, var(--landing-peach-wash) 100%)",
           }}
         >
-          <h3 className="mb-8 text-center text-2xl font-bold text-white sm:text-3xl">
+          <h3
+            className="px-8 pt-10 pb-8 text-center text-2xl font-bold text-white sm:px-16 sm:pt-14 sm:pb-10 sm:text-3xl"
+            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.18)" }}
+          >
             {td("title")}
           </h3>
 
-          {/* Video player */}
-          <div className="relative mx-auto max-w-3xl overflow-hidden rounded-2xl shadow-[0_32px_80px_rgba(0,0,0,0.35)]">
+          {/* Video fills to bottom edge of gradient box */}
+          <div
+            className="relative cursor-pointer group"
+            onClick={handlePlay}
+          >
             <video
               ref={videoRef}
               src={videoSrc}
-              controls
+              preload="metadata"
               playsInline
-              onError={handleError}
-              className="aspect-video w-full bg-black"
+              className="aspect-video w-full bg-black block"
             />
 
-            <div
-              aria-hidden={isPlaying}
-              className={`absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-200 ${
-                isPlaying ? "pointer-events-none opacity-0" : "opacity-100"
-              }`}
-            >
+            {/* Overlay — darkens slightly on hover for tactile feedback */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors duration-200 group-hover:bg-black/30">
               <button
                 onClick={handlePlay}
                 aria-label={td("playAriaLabel")}
-                tabIndex={isPlaying ? -1 : 0}
-                className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+                className="animate-pulse-soft flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-2xl transition-transform duration-200 group-hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
               >
                 <Play className="ml-1 h-8 w-8 text-landing-coral" fill="currentColor" />
               </button>
