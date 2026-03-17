@@ -118,6 +118,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             playsInline
             onPlay={(e) => { (e.currentTarget as HTMLVideoElement).playbackRate = 0.5; }}
             className="absolute inset-0 h-full w-full object-cover block"
+            style={{ objectPosition: "50% 60%" }}
           />
 
           {/* Dark gradient overlay — heavier on left for text contrast, lighter on right */}
