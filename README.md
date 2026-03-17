@@ -14,12 +14,10 @@
 
 Podaruj.me solves a universal problem: buying gifts without duplicates and awkward guessing. A user creates a wishlist for any occasion — birthday, holidays, wedding — shares a link, and guests can browse and reserve items instantly. No account required for guests. Three privacy modes let the list owner control exactly how much they see, from full transparency to complete surprise.
 
-<!-- 
-  SCREENSHOT / GIF PLACEHOLDER
-  Replace with actual screenshots or an animated GIF showing the app flow.
-  Recommended: hero image showing mobile + desktop side by side,
-  or a short GIF of the create list → share → reserve flow.
--->
+## 🎬 See it in action
+> 🔊 Unmute for voiceover narration · 🇵🇱 [Wersja polska](https://github.com/user-attachments/assets/27e2d8d0-7284-463d-9457-4dac18eecba0)
+
+https://github.com/user-attachments/assets/08b42f80-7438-4cbd-ac0a-e5829cdee67f
 
 **Three things that make this more than a CRUD app:**
 
@@ -34,6 +32,8 @@ Podaruj.me solves a universal problem: buying gifts without duplicates and awkwa
 Gift lists sound simple — until you think about privacy. Who sees what? Can the birthday person find out what's coming? What happens when the event passes? These questions turned a "simple CRUD app" into a product with real UX depth: three privacy modes, a Full Surprise lifecycle with draft/publish/reveal stages, guest access without sign-up walls, and a celebration screen after the event.
 
 I wanted a portfolio project that demonstrates product thinking, not just code output — something with real user flows, edge cases worth solving, and a UI polished enough to pass as a shipped product.
+
+**Built in 3 days** — from concept to deployed product, using document-driven agentic orchestration.
 
 ## Features
 
@@ -112,7 +112,7 @@ I deliberately chose to build this through **document-driven agentic orchestrati
 
 This isn't about avoiding code — it's about operating at a higher level of abstraction. Defining the product, validating the output, maintaining quality, and steering agents when they drift. The same skills that make a good tech lead or product engineer, applied to a new kind of toolchain.
 
-Zero hand-written code. Full product control.
+**Built in 3 days. Zero hand-written code. Full product control.**
 
 ### The Process
 
