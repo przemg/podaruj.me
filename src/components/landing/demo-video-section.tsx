@@ -61,7 +61,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             }`}
             style={{
               background:
-                "linear-gradient(135deg, var(--landing-coral) 0%, var(--landing-coral-light) 50%, var(--landing-peach-wash) 100%)",
+                "linear-gradient(135deg, rgba(180, 40, 30, 0.92) 0%, rgba(210, 80, 50, 0.82) 50%, rgba(230, 120, 70, 0.60) 100%)",
             }}
           >
             <button
