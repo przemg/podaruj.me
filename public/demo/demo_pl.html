@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Podaruj.me — See How It Works (v2)</title>
+  <title>Podaruj.me — Zobacz jak to działa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -591,6 +591,27 @@
       font-size: 11px; z-index: 100;
     }
 
+    /* ── Subtitles ── */
+    .subtitle {
+      position: absolute;
+      bottom: 20px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      padding: 8px 22px;
+      border-radius: 10px;
+      background: rgba(31,23,23,0.7);
+      backdrop-filter: blur(6px);
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+    }
+    .subtitle.show { opacity: 1; }
+
     /* Recording mode: ?record in URL */
     .record .page-title,
     .record .indicators,
@@ -809,6 +830,7 @@
           <div class="end-url an d3">podarujme.vercel.app</div>
         </div>
 
+        <div class="subtitle" id="sub"></div>
       </div>
       <div class="progress-track"><div class="progress-fill" id="pbar"></div></div>
     </div>
@@ -823,15 +845,15 @@
 
   <script>
     const S=[
-      {id:'s-intro',dur:3000,lbl:'Podaruj.me',url:'podarujme.vercel.app'},
-      {id:'s-create',dur:3500,lbl:'Create a List',url:'podarujme.vercel.app/dashboard/lists/new'},
-      {id:'s-gifts',dur:3000,lbl:'Add Gifts',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7'},
-      {id:'s-share',dur:3000,lbl:'Share Your List',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7'},
-      {id:'s-guest',dur:3000,lbl:'Guest View',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7'},
-      {id:'s-reserve',dur:4500,lbl:'Reserve a Gift',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7'},
-      {id:'s-priv',dur:3000,lbl:'Privacy Modes',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7'},
-      {id:'s-cd',dur:4500,lbl:'Countdown & Close',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7'},
-      {id:'s-end',dur:2500,lbl:'Get Started',url:'podarujme.vercel.app'},
+      {id:'s-intro',dur:3000,lbl:'Podaruj.me',url:'podarujme.vercel.app',sub:'Stwórz listę prezentów w kilka sekund'},
+      {id:'s-create',dur:3500,lbl:'Create a List',url:'podarujme.vercel.app/dashboard/lists/new',sub:'Wybierz okazję i tryb prywatności'},
+      {id:'s-gifts',dur:3000,lbl:'Add Gifts',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7',sub:'Dodaj prezenty które chcesz dostać'},
+      {id:'s-share',dur:3000,lbl:'Share Your List',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7',sub:'Udostępnij jednym linkiem, mailem lub QR'},
+      {id:'s-guest',dur:3000,lbl:'Guest View',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7',sub:'Goście rezerwują bez zakładania konta'},
+      {id:'s-reserve',dur:4500,lbl:'Reserve a Gift',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7',sub:''},
+      {id:'s-priv',dur:3000,lbl:'Privacy Modes',url:'podarujme.vercel.app/lists/birthday-gifts-a3x7',sub:'Trzy tryby prywatności — Ty decydujesz'},
+      {id:'s-cd',dur:4500,lbl:'Countdown & Close',url:'podarujme.vercel.app/dashboard/lists/birthday-gifts-a3x7',sub:'Kiedy nadejdzie ten dzień — świętuj!'},
+      {id:'s-end',dur:2500,lbl:'Get Started',url:'podarujme.vercel.app',sub:'Podaruj.me — listy prezentów po prostu'},
     ];
     let cur=0,paused=false,sto=null,st=[];
     const total=S.reduce((a,s)=>a+s.dur,0);
@@ -951,6 +973,11 @@
       const el2=S.slice(0,i).reduce((a,s)=>a+s.dur,0),bar=document.getElementById('pbar');
       bar.style.transition='none';bar.style.width=((el2/total)*100)+'%';
       requestAnimationFrame(()=>{bar.style.transition=`width ${S[i].dur}ms linear`;bar.style.width=(((el2+S[i].dur)/total)*100)+'%';});
+      // Subtitle
+      const sub=document.getElementById('sub');
+      sub.classList.remove('show');
+      st.push(setTimeout(()=>{sub.textContent=S[i].sub||'';if(S[i].sub)sub.classList.add('show');},400));
+      st.push(setTimeout(()=>{sub.classList.remove('show');},S[i].dur-500));
       fx(i);
       if(!paused)sto=setTimeout(()=>go((i+1)%S.length),S[i].dur);
     }
