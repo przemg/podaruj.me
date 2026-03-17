@@ -76,7 +76,11 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                     className="flex flex-col gap-3 sm:flex-row sm:gap-0"
                   >
                     <input
+                      id="hero-email"
                       type="email"
+                      aria-label="Email address"
+                      aria-describedby={emailError ? "hero-email-error" : undefined}
+                      aria-invalid={emailError}
                       value={heroEmail}
                       onChange={(e) => {
                         setHeroEmail(e.target.value);
@@ -97,7 +101,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                     </button>
                   </form>
                   {emailError && (
-                    <p className="mt-2 text-sm text-red-500">{t("emailRequired")}</p>
+                    <p id="hero-email-error" className="mt-2 text-sm text-red-500">{t("emailRequired")}</p>
                   )}
                 </>
               )}
@@ -109,6 +113,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                 {AVATAR_STYLES.map((avatar) => (
                   <div
                     key={avatar.initials}
+                    aria-hidden="true"
                     className={`flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold ring-2 ring-white ${avatar.className}`}
                   >
                     {avatar.initials}

@@ -62,6 +62,7 @@ export function HowItWorks() {
                     <Icon className="h-9 w-9" />
                   </div>
                   <div
+                    aria-label={`Step ${index + 1}`}
                     className={`absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold ${step.badgeClass}`}
                   >
                     {index + 1}

@@ -12,7 +12,7 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
   const revealRef = useScrollReveal<HTMLDivElement>({});
 
   return (
-    <section className="bg-gradient-to-br from-landing-peach-wash via-white to-landing-lavender-wash py-20 sm:py-28">
+    <section id="cta" className="bg-gradient-to-br from-landing-peach-wash via-white to-landing-lavender-wash py-20 sm:py-28">
       <div
         className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8"
         ref={revealRef}

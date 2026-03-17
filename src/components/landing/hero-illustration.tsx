@@ -2,7 +2,7 @@ import { QrCode, Gift } from "lucide-react";
 
 export function HeroIllustration() {
   return (
-    <div className="relative mx-auto w-full max-w-sm">
+    <div className="relative mx-auto w-full max-w-sm" aria-hidden="true">
       {/* Notification badge */}
       <div className="absolute -top-4 -right-2 z-10 flex items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
         <span>+</span>
@@ -42,7 +42,7 @@ export function HeroIllustration() {
           {/* Item 1 — reserved with privacy badge */}
           <div className="flex items-center gap-3 px-5 py-3">
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
-              <svg className="h-3.5 w-3.5 text-landing-mint" viewBox="0 0 12 12" fill="none">
+              <svg aria-hidden="true" className="h-3.5 w-3.5 text-landing-mint" viewBox="0 0 12 12" fill="none">
                 <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
@@ -70,7 +70,7 @@ export function HeroIllustration() {
           {/* Item 3 — reserved with QR chip */}
           <div className="flex items-center gap-3 px-5 py-3">
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
-              <svg className="h-3.5 w-3.5 text-landing-mint" viewBox="0 0 12 12" fill="none">
+              <svg aria-hidden="true" className="h-3.5 w-3.5 text-landing-mint" viewBox="0 0 12 12" fill="none">
                 <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>

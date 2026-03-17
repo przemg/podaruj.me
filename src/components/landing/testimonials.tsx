@@ -40,11 +40,8 @@ export function Testimonials() {
               className="scroll-reveal rounded-2xl border border-landing-text/5 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
               {/* Stars */}
-              <div
-                className="mb-3 text-xl text-amber-400"
-                aria-label="5 out of 5 stars"
-              >
-                ★★★★★
+              <div aria-label="5 out of 5 stars">
+                <span aria-hidden="true" className="mb-3 block text-xl text-amber-400">★★★★★</span>
               </div>
               {/* Quote */}
               <p className="leading-relaxed text-landing-text-muted">
