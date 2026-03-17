@@ -32,6 +32,10 @@
       "step3Title": "Bliscy rezerwują prezenty",
       "step3Description": "Bez duplikatów, bez psutych niespodzianek. Każdy wybiera coś wyjątkowego."
     },
+    "demoVideo": {
+      "title": "Zobacz jak to działa",
+      "playAriaLabel": "Odtwórz demo"
+    },
     "features": {
       "title": "Wszystko, czego potrzebujesz",
       "subtitle": "Funkcje, które sprawiają, że obdarowywanie jest proste i przyjemne",

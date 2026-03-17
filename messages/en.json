@@ -32,6 +32,10 @@
       "step3Title": "Friends reserve gifts",
       "step3Description": "No duplicates, no spoiled surprises. Everyone picks something unique."
     },
+    "demoVideo": {
+      "title": "See it in action",
+      "playAriaLabel": "Play demo"
+    },
     "features": {
       "title": "Everything you need",
       "subtitle": "Powerful features that make gift giving simple and fun",
