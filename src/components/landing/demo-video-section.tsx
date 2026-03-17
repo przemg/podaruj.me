@@ -61,18 +61,18 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             }`}
             style={{
               background:
-                "linear-gradient(135deg, rgba(180, 40, 30, 0.92) 0%, rgba(210, 80, 50, 0.82) 50%, rgba(230, 120, 70, 0.60) 100%)",
+                "radial-gradient(ellipse at center, rgba(10,4,4,0.38) 0%, rgba(155,35,22,0.72) 60%, rgba(130,25,15,0.90) 100%)",
             }}
           >
             <button
               onClick={handlePlay}
               aria-label={t("playAriaLabel")}
               tabIndex={isPlaying ? -1 : 0}
-              className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg transition-transform hover:scale-105 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+              className="flex h-24 w-24 items-center justify-center rounded-full bg-white/95 shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
             >
-              <Play className="ml-1 h-8 w-8 text-landing-coral" fill="currentColor" />
+              <Play className="ml-1.5 h-9 w-9 text-landing-coral" fill="currentColor" />
             </button>
-            <p className="mt-4 text-sm font-medium tracking-wide text-white/80 uppercase">
+            <p className="mt-5 text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">
               Podaruj.me
             </p>
           </div>
