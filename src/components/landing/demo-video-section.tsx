@@ -164,7 +164,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-5xl"
+            className="relative w-full max-w-[70rem]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
