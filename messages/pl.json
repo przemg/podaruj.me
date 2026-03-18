@@ -45,7 +45,8 @@
     },
     "features": {
       "label": "FUNKCJE",
-      "title": "Wszystko, czego potrzebujesz",
+      "titleTop": "Wszystko, czego",
+      "titleBottom": "potrzebujesz",
       "subtitle": "Funkcje, które sprawiają, że obdarowywanie jest proste i przyjemne",
       "privacyTitle": "Tryby prywatności",
       "privacyDescription": "Kontroluj, kto co widzi. Pełna niespodzianka lub otwarta koordynacja — Ty decydujesz, jak działają rezerwacje.",

@@ -10,14 +10,18 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="bg-[#F0EFF2] py-20 sm:py-28">
+    <section id="features" className="bg-[#F9F9FB] py-20 sm:py-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
           {t("label")}
         </p>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
-          {t("title")}
+          {t("titleTop")}
+          <br />
+          <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
+            {t("titleBottom")}
+          </span>
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-landing-text-muted">
           {t("subtitle")}

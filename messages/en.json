@@ -45,7 +45,8 @@
     },
     "features": {
       "label": "FEATURES",
-      "title": "Everything you need",
+      "titleTop": "Everything",
+      "titleBottom": "you need",
       "subtitle": "Powerful features that make gift giving simple and fun",
       "privacyTitle": "Privacy modes",
       "privacyDescription": "Control who sees what. Full surprise or open coordination — you decide how reservations work.",
