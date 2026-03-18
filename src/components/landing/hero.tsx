@@ -147,8 +147,8 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                   key={key}
                   className="scroll-reveal flex items-center gap-2 text-sm font-medium text-white"
                 >
-                  <div className="flex h-5 w-5 items-center justify-center rounded-full bg-landing-mint">
-                    <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                  <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400">
+                    <Check className="h-3 w-3 text-emerald-950" strokeWidth={3} />
                   </div>
                   {t(key)}
                 </div>
