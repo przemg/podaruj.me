@@ -43,7 +43,7 @@ export function Features() {
           <div className="hidden min-[1000px]:grid min-[1000px]:grid-cols-3 min-[1000px]:gap-4">
             {/* Privacy — spans 2 cols, dark hero card */}
             <div
-              className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all hover:shadow-2xl hover:scale-[1.01]"
+              className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-white/10 shadow-md transition-all hover:shadow-lg hover:scale-[1.01]"
               style={{
                 background: [
                   "radial-gradient(circle at 0% 0%, rgba(167,139,250,0.25) 0%, transparent 50%)",
@@ -96,7 +96,7 @@ export function Features() {
 
             {/* QR card — light with coral glow */}
             <div
-              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]"
+              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]"
               style={{ background: "radial-gradient(circle at 100% 0%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" }}
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
@@ -126,7 +126,7 @@ export function Features() {
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", glow: "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" },
               { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", glow: "radial-gradient(circle at 100% 0%, rgba(167,139,250,0.2) 0%, transparent 60%), #fff" },
             ].map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/60 p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]" style={{ background: card.glow }}>
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]" style={{ background: card.glow }}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                 <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
@@ -137,7 +137,7 @@ export function Features() {
           <div className="hidden min-[768px]:flex min-[768px]:flex-col min-[768px]:gap-4 min-[1000px]:hidden">
             {/* Row 1: Privacy card full width — dark */}
             <div
-              className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all hover:shadow-2xl hover:scale-[1.01]"
+              className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-white/10 shadow-md transition-all hover:shadow-lg hover:scale-[1.01]"
               style={{ background: "radial-gradient(circle at 0% 0%, rgba(167,139,250,0.25) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(249,112,102,0.12) 0%, transparent 50%), #1a1520" }}
             >
               <div className="flex flex-1 flex-col p-6">
@@ -179,7 +179,7 @@ export function Features() {
             <div className="grid grid-cols-2 gap-4">
               {/* QR card */}
               <div
-                className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]"
+                className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]"
                 style={{ background: "radial-gradient(circle at 100% 0%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" }}
               >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
@@ -209,7 +209,7 @@ export function Features() {
                   { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", glow: "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" },
                   { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", glow: "radial-gradient(circle at 100% 0%, rgba(167,139,250,0.2) 0%, transparent 60%), #fff" },
                 ].map((card) => (
-                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-gray-200/60 p-5 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]" style={{ background: card.glow }}>
+                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-gray-200/60 p-5 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]" style={{ background: card.glow }}>
                     <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                     <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
                   </div>
@@ -222,7 +222,7 @@ export function Features() {
           <div className="flex flex-col gap-4 min-[768px]:hidden">
             {/* Privacy card — dark, 2-col internal between 600-768px */}
             <div
-              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all hover:shadow-2xl hover:scale-[1.01] min-[600px]:flex-row"
+              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 shadow-md transition-all hover:shadow-lg hover:scale-[1.01] min-[600px]:flex-row"
               style={{ background: "radial-gradient(circle at 0% 0%, rgba(167,139,250,0.25) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(249,112,102,0.12) 0%, transparent 50%), #1a1520" }}
             >
               <div className="flex flex-col p-6 min-[600px]:flex-1">
@@ -262,7 +262,7 @@ export function Features() {
 
             {/* QR card — 2-col internal between 600-768px */}
             <div
-              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01] min-[600px]:flex-row min-[600px]:items-center"
+              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01] min-[600px]:flex-row min-[600px]:items-center"
               style={{ background: "radial-gradient(circle at 100% 0%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" }}
             >
               <div className="min-[600px]:flex-1">
@@ -294,7 +294,7 @@ export function Features() {
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", glow: "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" },
               { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", glow: "radial-gradient(circle at 100% 0%, rgba(167,139,250,0.2) 0%, transparent 60%), #fff" },
             ].map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/60 p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]" style={{ background: card.glow }}>
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]" style={{ background: card.glow }}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                 <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
