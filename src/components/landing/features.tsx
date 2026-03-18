@@ -10,7 +10,7 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="relative overflow-hidden bg-white py-20 sm:py-28">
+    <section id="features" className="relative overflow-hidden bg-gray-50 py-20 sm:py-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
@@ -39,7 +39,7 @@ export function Features() {
           {/* === DESKTOP LAYOUT (>=1000px) === */}
           <div className="hidden min-[1000px]:grid min-[1000px]:grid-cols-3 min-[1000px]:gap-4">
             {/* Privacy — spans 2 cols, side-by-side */}
-            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-landing-text/[0.06] bg-landing-cream shadow-sm transition-all hover:shadow-lg">
+            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all hover:shadow-xl">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
                   <Shield className="h-6 w-6 text-landing-lavender" />
@@ -64,7 +64,7 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-landing-text/5 bg-white px-6">
+              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-gray-100 bg-gray-50 px-6">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -121,7 +121,7 @@ export function Features() {
           {/* === TABLET LAYOUT (768-999px) === */}
           <div className="hidden min-[768px]:flex min-[768px]:flex-col min-[768px]:gap-4 min-[1000px]:hidden">
             {/* Row 1: Privacy card full width, 2-col internal */}
-            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-landing-text/[0.06] bg-landing-cream shadow-sm transition-all hover:shadow-lg">
+            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all hover:shadow-xl">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -139,7 +139,7 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-landing-text/5 bg-white px-5">
+              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-gray-100 bg-gray-50 px-5">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -200,7 +200,7 @@ export function Features() {
           {/* === MOBILE LAYOUT (<768px) === */}
           <div className="flex flex-col gap-4 min-[768px]:hidden">
             {/* Privacy card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-landing-text/[0.06] bg-landing-cream shadow-sm transition-all hover:shadow-lg min-[600px]:flex-row">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all hover:shadow-xl min-[600px]:flex-row">
               <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -218,7 +218,7 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-landing-text/5 bg-white px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+              <div className="flex items-center justify-center border-t border-gray-100 bg-gray-50 px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
                 <div className="flex gap-3 min-[600px]:flex-col">
                   <div className="flex flex-col items-center rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
