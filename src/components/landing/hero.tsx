@@ -102,7 +102,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                     />
                     <button
                       type="submit"
-                      className="rounded-xl bg-landing-coral-dark px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-hover hover:shadow-lg sm:rounded-l-none"
+                      className="rounded-xl bg-landing-coral px-8 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:bg-landing-coral-dark hover:shadow-lg sm:rounded-l-none"
                     >
                       {t("getStarted")}
                     </button>
