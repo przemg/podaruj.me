@@ -10,10 +10,17 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="relative overflow-hidden bg-[#2D2545] py-20 sm:py-28">
-      {/* Decorative gradient orbs */}
-      <div className="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-landing-lavender/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 -bottom-32 h-72 w-72 rounded-full bg-landing-coral/10 blur-3xl" />
+    <section
+      id="features"
+      className="relative overflow-hidden py-20 sm:py-28"
+      style={{
+        background: [
+          "radial-gradient(ellipse at 0% 0%, rgba(167,139,250,0.12) 0%, transparent 50%)",
+          "radial-gradient(ellipse at 100% 100%, rgba(249,112,102,0.1) 0%, transparent 50%)",
+          "#151015",
+        ].join(", "),
+      }}
+    >
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-lavender">
