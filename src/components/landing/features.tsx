@@ -68,11 +68,11 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-gray-100 bg-gray-50/80 px-6">
+              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-gray-200/50 bg-white/80 px-6">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-coral/30" /><div className="h-1 w-14 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-coral/30" /><div className="h-1 w-14 rounded-full bg-gray-300" /></div>
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
@@ -80,7 +80,7 @@ export function Features() {
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-lavender/30" /><div className="h-1 w-14 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-lavender/30" /><div className="h-1 w-14 rounded-full bg-gray-300" /></div>
                   </div>
                 </div>
               </div>
@@ -143,11 +143,11 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-gray-100 bg-gray-50/80 px-5">
+              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-gray-200/50 bg-white/80 px-5">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-coral/30" /><div className="h-1 w-10 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-coral/30" /><div className="h-1 w-10 rounded-full bg-gray-300" /></div>
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
@@ -155,7 +155,7 @@ export function Features() {
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-lavender/30" /><div className="h-1 w-10 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-lavender/30" /><div className="h-1 w-10 rounded-full bg-gray-300" /></div>
                   </div>
                 </div>
               </div>
@@ -222,11 +222,11 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-gray-100 bg-gray-50/80 px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+              <div className="flex items-center justify-center border-t border-gray-200/50 bg-white/80 px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
                 <div className="flex gap-3 min-[600px]:flex-col">
                   <div className="flex flex-col items-center rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-landing-text/10" /></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-gray-300" /></div>
                   </div>
                   <div className="flex flex-col items-center rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
@@ -234,7 +234,7 @@ export function Features() {
                   </div>
                   <div className="flex flex-col items-center rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-lavender/30" /><div className="h-1 w-8 rounded-full bg-landing-text/10" /></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-lavender/30" /><div className="h-1 w-8 rounded-full bg-gray-300" /></div>
                   </div>
                 </div>
               </div>
