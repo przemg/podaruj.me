@@ -13,9 +13,9 @@ const VIDEO_SOURCES: Record<string, string> = {
 };
 
 const STEPS = [
-  { key: "step1", icon: ClipboardList, iconClass: "bg-landing-coral/10 text-landing-coral", badgeClass: "bg-landing-coral text-white" },
-  { key: "step2", icon: Share2, iconClass: "bg-landing-lavender/10 text-landing-lavender", badgeClass: "bg-landing-lavender text-white" },
-  { key: "step3", icon: Gift, iconClass: "bg-landing-mint/10 text-landing-mint", badgeClass: "bg-landing-mint text-landing-text" },
+  { key: "step1", icon: ClipboardList, iconBg: "bg-gradient-to-br from-landing-coral/25 to-landing-peach-wash", iconColor: "text-landing-coral", badgeClass: "bg-landing-coral text-white" },
+  { key: "step2", icon: Share2, iconBg: "bg-gradient-to-br from-landing-lavender/25 to-landing-lavender-wash", iconColor: "text-landing-lavender", badgeClass: "bg-landing-lavender text-white" },
+  { key: "step3", icon: Gift, iconBg: "bg-gradient-to-br from-landing-mint/25 to-landing-cream", iconColor: "text-landing-mint", badgeClass: "bg-landing-mint text-landing-text" },
 ] as const;
 
 export function DemoVideoSection({ locale }: { locale: string }) {
@@ -71,7 +71,9 @@ export function DemoVideoSection({ locale }: { locale: string }) {
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("titleTop")}
           <br />
-          <span className="text-landing-coral">{t("titleBottom")}</span>
+          <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
+            {t("titleBottom")}
+          </span>
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-landing-text-muted">
           {t("subtitle")}
@@ -92,7 +94,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
                 {/* Icon box with number badge */}
                 <div className="relative mb-5 inline-flex">
                   <div
-                    className={`flex h-20 w-20 items-center justify-center rounded-2xl ${step.iconClass}`}
+                    className={`flex h-20 w-20 items-center justify-center rounded-2xl ${step.iconBg} ${step.iconColor}`}
                   >
                     <Icon className="h-9 w-9" />
                   </div>

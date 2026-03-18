@@ -43,7 +43,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
             <h1 className="scroll-reveal text-4xl font-bold tracking-tight text-landing-text sm:text-5xl lg:text-6xl">
               {t("taglineTop")}
               <br />
-              <span className="text-landing-coral">{t("taglineBottom")}</span>
+              <span className="bg-gradient-to-r from-landing-coral to-landing-coral-light bg-clip-text text-transparent">{t("taglineBottom")}</span>
             </h1>
 
             <p className="scroll-reveal mt-6 text-lg leading-relaxed text-landing-text-muted sm:text-xl">
@@ -120,9 +120,9 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col gap-0.5">
                 <span
-                  className="text-amber-400"
+                  className="text-amber-400 leading-none"
                   aria-label="5 out of 5 stars"
                 >
                   ★★★★★
