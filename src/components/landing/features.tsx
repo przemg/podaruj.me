@@ -13,6 +13,9 @@ export function Features() {
     <section id="features" className="relative overflow-hidden bg-landing-cream py-20 sm:py-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-lavender">
+          {t("label")}
+        </p>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("title")}
         </h2>
@@ -36,7 +39,7 @@ export function Features() {
           {/* === DESKTOP LAYOUT (>=1000px) === */}
           <div className="hidden min-[1000px]:grid min-[1000px]:grid-cols-3 min-[1000px]:gap-4">
             {/* Privacy — spans 2 cols, side-by-side */}
-            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-landing-text/5 bg-white transition-all hover:shadow-md">
+            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl rounded-2xl border border-landing-text/5 bg-white shadow-sm transition-all hover:shadow-lg">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
                   <Shield className="h-6 w-6 text-landing-lavender" />
@@ -61,19 +64,19 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-landing-text/5 bg-landing-cream/50 px-6">
+              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-landing-text/5 bg-landing-cream px-6">
                 <div className="flex w-full flex-col gap-3">
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/25 bg-landing-coral/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-coral/30" /><div className="h-1 w-14 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-coral/30" /><div className="h-1 w-14 rounded-full bg-landing-text/15" /></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
+                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/50 bg-landing-mint/10 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
                     <div className="flex-1 space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-mint/40" /><div className="h-4 w-16 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/25 bg-landing-lavender/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-lavender/30" /><div className="h-1 w-14 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-lavender/30" /><div className="h-1 w-14 rounded-full bg-landing-text/15" /></div>
                   </div>
                 </div>
               </div>
@@ -118,7 +121,7 @@ export function Features() {
           {/* === TABLET LAYOUT (768-999px) === */}
           <div className="hidden min-[768px]:flex min-[768px]:flex-col min-[768px]:gap-4 min-[1000px]:hidden">
             {/* Row 1: Privacy card full width, 2-col internal */}
-            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-landing-text/5 bg-white transition-all hover:shadow-md">
+            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl rounded-2xl border border-landing-text/5 bg-white shadow-sm transition-all hover:shadow-lg">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -136,19 +139,19 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-landing-text/5 bg-landing-cream/50 px-5">
+              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-landing-text/5 bg-landing-cream px-5">
                 <div className="flex w-full flex-col gap-3">
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/25 bg-landing-coral/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-coral/30" /><div className="h-1 w-10 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-coral/30" /><div className="h-1 w-10 rounded-full bg-landing-text/15" /></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
+                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/50 bg-landing-mint/10 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
                     <div className="flex-1 space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/25 bg-landing-lavender/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-lavender/30" /><div className="h-1 w-10 rounded-full bg-landing-text/10" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-lavender/30" /><div className="h-1 w-10 rounded-full bg-landing-text/15" /></div>
                   </div>
                 </div>
               </div>
@@ -197,7 +200,7 @@ export function Features() {
           {/* === MOBILE LAYOUT (<768px) === */}
           <div className="flex flex-col gap-4 min-[768px]:hidden">
             {/* Privacy card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-landing-text/5 bg-white transition-all hover:shadow-md min-[600px]:flex-row">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl rounded-2xl border border-landing-text/5 bg-white shadow-sm transition-all hover:shadow-lg min-[600px]:flex-row">
               <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -215,19 +218,19 @@ export function Features() {
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-landing-text/5 bg-landing-cream/50 px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+              <div className="flex items-center justify-center border-t border-landing-text/5 bg-landing-cream px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
                 <div className="flex gap-3 min-[600px]:flex-col">
-                  <div className="flex flex-col items-center rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
+                  <div className="flex flex-col items-center rounded-xl border border-landing-coral/25 bg-landing-coral/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-landing-text/10" /></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-landing-text/15" /></div>
                   </div>
-                  <div className="flex flex-col items-center rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
+                  <div className="flex flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-landing-mint/10 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
                     <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
                   </div>
-                  <div className="flex flex-col items-center rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
+                  <div className="flex flex-col items-center rounded-xl border border-landing-lavender/25 bg-landing-lavender/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-lavender/30" /><div className="h-1 w-8 rounded-full bg-landing-text/10" /></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-lavender/30" /><div className="h-1 w-8 rounded-full bg-landing-text/15" /></div>
                   </div>
                 </div>
               </div>
