@@ -27,12 +27,19 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   const pathname = usePathname();
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLocaleOpen, setIsLocaleOpen] = useState(false);
   const localeRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 20);
+      setIsVisible(currentY < 20 || currentY < lastScrollY.current);
+      lastScrollY.current = currentY;
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -81,7 +88,9 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   return (
     <>
       <nav
-        className={`safe-area-top fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        className={`safe-area-top fixed right-0 left-0 z-50 transition-all duration-300 ${
+          isVisible ? "top-0" : "-top-24"
+        } ${
           isScrolled
             ? "bg-white/95 shadow-sm backdrop-blur-sm"
             : "bg-transparent"
