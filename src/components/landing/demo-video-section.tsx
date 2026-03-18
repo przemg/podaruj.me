@@ -68,7 +68,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           {t("label")}
         </p>
         {/* Section heading */}
-        <h2 className="text-center text-4xl font-bold text-landing-text sm:text-5xl lg:text-6xl">
+        <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl lg:text-5xl">
           {t("titleTop")}
           <br />
           <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
@@ -78,7 +78,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
 
         {/* Steps */}
         <div
-          className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3"
+          className="mt-24 grid grid-cols-1 gap-12 md:grid-cols-3"
           ref={revealRef}
         >
           {STEPS.map((step, index) => {
