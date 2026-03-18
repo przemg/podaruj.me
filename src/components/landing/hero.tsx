@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Check, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 import { useRouter, Link } from "@/i18n/navigation";
 import { useScrollReveal } from "@/lib/use-scroll-reveal";
 import { HeroIllustration } from "./hero-illustration";
@@ -13,8 +13,9 @@ const TRUST_BADGES = ["trustFree", "trustNoAccount", "trustMobile"] as const;
 const AVATAR_STYLES = [
   { initials: "A", className: "bg-landing-coral text-white" },
   { initials: "K", className: "bg-landing-lavender text-white" },
-  { initials: "M", className: "bg-landing-mint text-landing-text" },
-  { initials: "P", className: "bg-landing-coral-dark text-white" },
+  { initials: "M", className: "bg-emerald-400 text-emerald-950" },
+  { initials: "J", className: "bg-amber-400 text-amber-950" },
+  { initials: "P", className: "bg-sky-400 text-sky-950" },
 ] as const;
 
 export function Hero({ userEmail }: { userEmail?: string }) {
@@ -141,15 +142,13 @@ export function Hero({ userEmail }: { userEmail?: string }) {
             </div>
 
             {/* Trust badges */}
-            <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 lg:justify-start">
+            <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start">
               {TRUST_BADGES.map((key) => (
                 <div
                   key={key}
-                  className="scroll-reveal flex items-center gap-2 text-sm font-medium text-white"
+                  className="scroll-reveal flex items-center gap-1.5 text-sm text-white/70"
                 >
-                  <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400">
-                    <Check className="h-3 w-3 text-emerald-950" strokeWidth={3} />
-                  </div>
+                  <span className="text-emerald-400">✓</span>
                   {t(key)}
                 </div>
               ))}
