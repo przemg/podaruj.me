@@ -27,9 +27,8 @@ export function FeaturesDark() {
           {t("label")}
         </p>
         <h2 className="text-center text-3xl font-bold text-white sm:text-4xl">
-          {t("titleTop")}
-          <br />
-          <span className="bg-gradient-to-r from-sky-500 to-landing-lavender bg-clip-text text-transparent">
+          {t("titleTop")}{" "}
+          <span className="bg-gradient-to-r from-sky-400 to-landing-lavender bg-clip-text text-transparent">
             {t("titleBottom")}
           </span>
         </h2>
@@ -122,8 +121,8 @@ export function FeaturesDark() {
             {/* 3 small cards */}
             {[
               { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", gradient: "from-white/[0.07] from-10% to-landing-mint/[0.08]" },
-              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", gradient: "from-white via-white to-landing-peach-wash" },
-              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", gradient: "from-white via-white to-landing-lavender-wash" },
+              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", gradient: "from-white/[0.07] from-10% to-landing-coral/[0.08]" },
+              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", gradient: "from-white/[0.07] from-10% to-landing-lavender/[0.08]" },
             ].map((card) => (
               <div key={card.titleKey} className={`scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-gradient-to-br ${card.gradient} p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10`}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
@@ -278,8 +277,8 @@ export function FeaturesDark() {
             {/* 3 small cards */}
             {[
               { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", gradient: "from-white/[0.07] from-10% to-landing-mint/[0.08]" },
-              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", gradient: "from-white via-white to-landing-peach-wash" },
-              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", gradient: "from-white via-white to-landing-lavender-wash" },
+              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", gradient: "from-white/[0.07] from-10% to-landing-coral/[0.08]" },
+              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", gradient: "from-white/[0.07] from-10% to-landing-lavender/[0.08]" },
             ].map((card) => (
               <div key={card.titleKey} className={`scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-gradient-to-br ${card.gradient} p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10`}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>

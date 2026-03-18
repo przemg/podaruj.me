@@ -17,8 +17,7 @@ export function Features() {
           {t("label")}
         </p>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
-          {t("titleTop")}
-          <br />
+          {t("titleTop")}{" "}
           <span className="bg-gradient-to-r from-sky-500 to-landing-lavender bg-clip-text text-transparent">
             {t("titleBottom")}
           </span>
