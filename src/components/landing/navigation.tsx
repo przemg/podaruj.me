@@ -92,7 +92,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 text-xl font-bold text-landing-text"
+              className={`flex items-center gap-2 text-xl font-bold transition-colors ${isScrolled ? "text-landing-text" : "text-white"}`}
             >
               <Gift className="h-6 w-6 text-landing-coral" />
               <span>Podaruj.me</span>
@@ -102,7 +102,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             <div className="relative" ref={localeRef}>
               <button
                 onClick={() => setIsLocaleOpen(!isLocaleOpen)}
-                className="flex items-center gap-1 rounded-lg border border-landing-text/10 py-1.5 pr-1.5 pl-2.5 text-xs text-landing-text-muted transition-colors hover:border-landing-text/20 hover:bg-landing-peach-wash"
+                className={`flex items-center gap-1 rounded-lg border py-1.5 pr-1.5 pl-2.5 text-xs transition-colors ${isScrolled ? "border-landing-text/10 text-landing-text-muted hover:border-landing-text/20 hover:bg-landing-peach-wash" : "border-white/20 text-white/70 hover:border-white/30 hover:bg-white/10"}`}
                 aria-expanded={isLocaleOpen}
                 aria-haspopup="listbox"
               >
@@ -145,7 +145,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="py-2 text-sm font-medium text-landing-text-muted transition-colors hover:text-landing-coral"
+                  className={`py-2 text-sm font-medium transition-colors hover:text-landing-coral ${isScrolled ? "text-landing-text-muted" : "text-white/70"}`}
                 >
                   {t(section.key)}
                 </button>
@@ -165,7 +165,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             )}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="rounded-lg p-2 text-landing-text transition-colors hover:bg-landing-peach-wash lg:hidden"
+              className={`rounded-lg p-2 transition-colors lg:hidden ${isScrolled ? "text-landing-text hover:bg-landing-peach-wash" : "text-white hover:bg-white/10"}`}
               aria-label="Open menu"
             >
               <Menu className="h-6 w-6" />
