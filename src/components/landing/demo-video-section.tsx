@@ -71,7 +71,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl lg:text-5xl">
           {t("titleTop")}
           <br />
-          <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-landing-coral-dark to-purple-600 bg-clip-text text-transparent">
             {t("titleBottom")}
           </span>
         </h2>
@@ -86,7 +86,14 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             return (
               <div key={step.key} className="scroll-reveal relative flex flex-col items-center">
                 {index < STEPS.length - 1 && (
-                  <div className="absolute top-10 left-[calc(50%+40px)] hidden h-[2px] w-[calc(100%-80px)] border-t-2 border-landing-text/10 md:block" />
+                  <div
+                    className="absolute top-10 left-[calc(50%+52px)] hidden h-[2px] w-[calc(100%-104px)] md:block"
+                    style={{
+                      background: index === 0
+                        ? "linear-gradient(to right, rgba(249,112,102,0.4), rgba(167,139,250,0.3))"
+                        : "linear-gradient(to right, rgba(167,139,250,0.3), rgba(110,231,183,0.3))",
+                    }}
+                  />
                 )}
                 {/* Icon box with number badge */}
                 <div className="relative mb-5 inline-flex">

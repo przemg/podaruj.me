@@ -136,7 +136,10 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                   ★★★★★
                 </span>
                 <span className="text-sm text-white/50">
-                  {t("socialProof", { count: "2,500" })}
+                  {t.rich("socialProof", {
+                    count: "2,500",
+                    bold: (chunks) => <span className="font-semibold text-white">{chunks}</span>,
+                  })}
                 </span>
               </div>
             </div>

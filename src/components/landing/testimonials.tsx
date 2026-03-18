@@ -19,7 +19,7 @@ export function Testimonials() {
     <section id="testimonials" className="bg-white py-20 sm:py-28">
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         {/* Section header */}
-        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-emerald-500">
           {t("label")}
         </p>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">

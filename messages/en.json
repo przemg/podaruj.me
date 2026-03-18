@@ -15,7 +15,7 @@
       "taglineBottom": "everyone loves",
       "subtitle": "Create a shareable wish list in seconds. Share before any occasion — friends reserve gifts without duplicates or spoilers.",
       "badge": "Free forever · No credit card needed",
-      "socialProof": "Loved by {count}+ happy users",
+      "socialProof": "Loved by <bold>{count}+</bold> happy users",
       "trustFree": "Free forever",
       "trustNoAccount": "No account for guests",
       "trustMobile": "Works on mobile",

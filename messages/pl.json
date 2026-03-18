@@ -15,7 +15,7 @@
       "taglineBottom": "które wszyscy kochają",
       "subtitle": "Stwórz listę życzeń w kilka sekund. Udostępnij przed każdą okazją — znajomi rezerwują prezenty bez duplikatów i spoilerów.",
       "badge": "Zawsze za darmo · Bez karty kredytowej",
-      "socialProof": "Używa już {count}+ zadowolonych użytkowników",
+      "socialProof": "Używa już <bold>{count}+</bold> zadowolonych użytkowników",
       "trustFree": "Zawsze za darmo",
       "trustNoAccount": "Goście bez konta",
       "trustMobile": "Działa na telefonie",
