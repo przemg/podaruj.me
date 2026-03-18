@@ -37,7 +37,7 @@ export function Testimonials() {
           {TESTIMONIALS.map((item) => (
             <div
               key={item.key}
-              className="scroll-reveal rounded-2xl border border-landing-text/5 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="scroll-reveal rounded-2xl bg-landing-cream p-6 transition-shadow hover:shadow-md"
             >
               {/* Stars */}
               <div aria-label="5 out of 5 stars">
