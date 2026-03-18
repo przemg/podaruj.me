@@ -68,7 +68,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           {t("label")}
         </p>
         {/* Section heading */}
-        <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl lg:text-5xl">
+        <h2 className="text-center text-2xl font-extrabold text-landing-text sm:text-3xl lg:text-4xl">
           {t("titleTop")}
           <br />
           <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
@@ -84,7 +84,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           {STEPS.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={step.key} className="scroll-reveal relative text-center">
+              <div key={step.key} className="scroll-reveal relative flex flex-col items-center">
                 {index < STEPS.length - 1 && (
                   <div className="absolute top-10 left-[calc(50%+40px)] hidden h-[2px] w-[calc(100%-80px)] border-t-2 border-landing-text/10 md:block" />
                 )}
