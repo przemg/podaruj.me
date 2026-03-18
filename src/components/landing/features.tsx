@@ -10,7 +10,7 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="bg-white py-20 sm:py-28">
+    <section id="features" className="bg-white pt-12 pb-20 sm:pt-16 sm:pb-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-sky-500">

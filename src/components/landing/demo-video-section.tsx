@@ -58,7 +58,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
   }, [isModalOpen]);
 
   return (
-    <section id="how-it-works" className="bg-white py-20 sm:py-28">
+    <section id="how-it-works" className="bg-white pt-20 pb-10 sm:pt-28 sm:pb-14">
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8"
         style={{ maxWidth: LANDING_MAX_WIDTH }}
