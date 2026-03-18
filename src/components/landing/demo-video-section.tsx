@@ -155,15 +155,22 @@ export function DemoVideoSection({ locale }: { locale: string }) {
               {td("subtitle")}
             </p>
 
-            {/* Play button with glow */}
-            <button
-              onClick={(e) => { e.stopPropagation(); openModal(); }}
-              aria-label={td("playAriaLabel")}
-              className="mt-8 flex h-16 w-16 items-center justify-center rounded-full bg-landing-coral transition-all duration-200 hover:scale-110 active:scale-95 sm:h-20 sm:w-20"
-              style={{ boxShadow: "0 0 60px rgba(249,112,102,0.5), 0 0 120px rgba(249,112,102,0.2)" }}
-            >
-              <Play className="ml-1 h-7 w-7 text-white sm:h-8 sm:w-8" fill="currentColor" />
-            </button>
+            {/* Play button — large with pulsing glow ring */}
+            <div className="relative mt-10">
+              <div className="absolute inset-0 animate-ping rounded-full bg-landing-coral/20" style={{ animationDuration: "2s" }} />
+              <div
+                className="absolute -inset-3 rounded-full bg-landing-coral/10 blur-md"
+                style={{ animation: "pulse 2s ease-in-out infinite" }}
+              />
+              <button
+                onClick={(e) => { e.stopPropagation(); openModal(); }}
+                aria-label={td("playAriaLabel")}
+                className="relative flex h-20 w-20 items-center justify-center rounded-full bg-landing-coral transition-all duration-200 hover:scale-110 active:scale-95 sm:h-24 sm:w-24"
+                style={{ boxShadow: "0 0 80px rgba(249,112,102,0.5), 0 0 160px rgba(249,112,102,0.15)" }}
+              >
+                <Play className="ml-1 h-8 w-8 text-white sm:h-10 sm:w-10" fill="currentColor" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
