@@ -16,7 +16,7 @@ export function HeroIllustration() {
 
       {/* Floating glass card — Privacy (left side, overlaps item 1) */}
       <div
-        className="animate-item-fade-in absolute -left-2 z-20 flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 shadow-lg backdrop-blur-md"
+        className="animate-item-fade-in absolute -left-2 z-20 flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.12] px-3 py-2 shadow-xl backdrop-blur-lg"
         style={{ top: "154px", animationDelay: "1.4s" }}
       >
         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20">
@@ -30,7 +30,7 @@ export function HeroIllustration() {
 
       {/* Floating glass card — QR Code (right side, overlaps item 3) */}
       <div
-        className="animate-item-fade-in absolute -right-2 z-20 flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 shadow-lg backdrop-blur-md"
+        className="animate-item-fade-in absolute -right-2 z-20 flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.12] px-3 py-2 shadow-xl backdrop-blur-lg"
         style={{ top: "248px", animationDelay: "1.55s" }}
       >
         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-coral/15">
@@ -42,8 +42,11 @@ export function HeroIllustration() {
         </div>
       </div>
 
-      {/* Main card — glassmorphism */}
-      <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/10 shadow-2xl backdrop-blur-xl">
+      {/* Main card — glassmorphism with glow */}
+      <div
+        className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.08] shadow-2xl backdrop-blur-2xl"
+        style={{ boxShadow: "0 0 60px rgba(249,112,102,0.08), 0 0 120px rgba(110,231,183,0.05), 0 25px 50px rgba(0,0,0,0.4)" }}
+      >
         {/* Card header */}
         <div className="flex items-start justify-between px-5 pt-5 pb-3">
           <div>

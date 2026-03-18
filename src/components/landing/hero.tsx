@@ -30,9 +30,9 @@ export function Hero({ userEmail }: { userEmail?: string }) {
       className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-20"
       style={{
         background: [
-          "radial-gradient(ellipse at 0% 0%, rgba(249,112,102,0.18) 0%, transparent 50%)",
-          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.12) 0%, transparent 50%)",
-          "#151015",
+          "radial-gradient(ellipse at 0% 0%, rgba(249,112,102,0.25) 0%, transparent 55%)",
+          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.18) 0%, transparent 55%)",
+          "#131015",
         ].join(", "),
       }}
     >
