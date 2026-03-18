@@ -83,7 +83,7 @@ export function Features() {
             </div>
 
             {/* QR card */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-6 shadow-lg transition-all hover:shadow-xl">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
               <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
               <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
@@ -111,7 +111,7 @@ export function Features() {
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
               { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
             ].map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-6 shadow-lg transition-all hover:shadow-xl">
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                 <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
@@ -160,7 +160,7 @@ export function Features() {
             {/* Row 2: QR left + 3 small cards stacked right */}
             <div className="grid grid-cols-2 gap-4">
               {/* QR card */}
-              <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-6 shadow-lg transition-all hover:shadow-xl">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
                 <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
@@ -188,7 +188,7 @@ export function Features() {
                   { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
                   { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
                 ].map((card) => (
-                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-5 shadow-lg transition-all hover:shadow-xl">
                     <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                     <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
                   </div>
@@ -237,7 +237,7 @@ export function Features() {
             </div>
 
             {/* QR card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[600px]:flex-row min-[600px]:items-center">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-6 shadow-lg transition-all hover:shadow-xl min-[600px]:flex-row min-[600px]:items-center">
               <div className="min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
@@ -267,7 +267,7 @@ export function Features() {
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
               { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
             ].map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-6 shadow-lg transition-all hover:shadow-xl">
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                 <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
