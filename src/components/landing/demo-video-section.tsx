@@ -109,10 +109,10 @@ export function DemoVideoSection({ locale }: { locale: string }) {
                     {index + 1}
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold text-landing-text">
+                <h3 className="text-center text-xl font-semibold text-landing-text">
                   {t(`${step.key}Title`)}
                 </h3>
-                <p className="mx-auto mt-3 max-w-xs text-landing-text-muted">
+                <p className="mx-auto mt-3 max-w-xs text-center text-landing-text-muted">
                   {t(`${step.key}Description`)}
                 </p>
               </div>
