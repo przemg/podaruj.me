@@ -10,7 +10,7 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="bg-white py-20 sm:py-28">
+    <section id="features" className="bg-[#F5F5F7] py-20 sm:py-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
@@ -39,7 +39,7 @@ export function Features() {
           {/* === DESKTOP LAYOUT (>=1000px) === */}
           <div className="hidden min-[1000px]:grid min-[1000px]:grid-cols-3 min-[1000px]:gap-4">
             {/* Privacy — spans 2 cols, side-by-side */}
-            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-landing-lavender-wash shadow-lg transition-all hover:shadow-xl">
+            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white from-50% to-landing-lavender-wash shadow-md transition-all hover:shadow-xl hover:scale-[1.01]">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
                   <Shield className="h-6 w-6 text-landing-lavender" />
@@ -83,7 +83,7 @@ export function Features() {
             </div>
 
             {/* QR card */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-landing-peach-wash p-6 shadow-lg transition-all hover:shadow-xl">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white from-50% to-landing-peach-wash p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
               <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
               <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
@@ -107,11 +107,11 @@ export function Features() {
 
             {/* 3 small cards */}
             {[
-              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", gradient: "from-white via-white to-emerald-50" },
+              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", gradient: "from-white from-50% to-emerald-50" },
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", gradient: "from-white via-white to-landing-peach-wash" },
               { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", gradient: "from-white via-white to-landing-lavender-wash" },
             ].map((card) => (
-              <div key={card.titleKey} className={`scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/80 bg-gradient-to-br ${card.gradient} p-6 shadow-lg transition-all hover:shadow-xl`}>
+              <div key={card.titleKey} className={`scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/80 bg-gradient-to-br ${card.gradient} p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]`}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                 <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
@@ -121,7 +121,7 @@ export function Features() {
           {/* === TABLET LAYOUT (768-999px) === */}
           <div className="hidden min-[768px]:flex min-[768px]:flex-col min-[768px]:gap-4 min-[1000px]:hidden">
             {/* Row 1: Privacy card full width, 2-col internal */}
-            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-landing-lavender-wash shadow-lg transition-all hover:shadow-xl">
+            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white from-50% to-landing-lavender-wash shadow-md transition-all hover:shadow-xl hover:scale-[1.01]">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -160,7 +160,7 @@ export function Features() {
             {/* Row 2: QR left + 3 small cards stacked right */}
             <div className="grid grid-cols-2 gap-4">
               {/* QR card */}
-              <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-landing-peach-wash p-6 shadow-lg transition-all hover:shadow-xl">
+              <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white from-50% to-landing-peach-wash p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
                 <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
@@ -188,7 +188,7 @@ export function Features() {
                   { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
                   { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
                 ].map((card) => (
-                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-5 shadow-lg transition-all hover:shadow-xl">
+                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-gray-200/80 bg-white p-5 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]">
                     <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                     <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
                   </div>
@@ -200,7 +200,7 @@ export function Features() {
           {/* === MOBILE LAYOUT (<768px) === */}
           <div className="flex flex-col gap-4 min-[768px]:hidden">
             {/* Privacy card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-landing-lavender-wash shadow-lg transition-all hover:shadow-xl min-[600px]:flex-row">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white from-50% to-landing-lavender-wash shadow-md transition-all hover:shadow-xl hover:scale-[1.01] min-[600px]:flex-row">
               <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -237,7 +237,7 @@ export function Features() {
             </div>
 
             {/* QR card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white via-white to-landing-peach-wash p-6 shadow-lg transition-all hover:shadow-xl min-[600px]:flex-row min-[600px]:items-center">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white from-50% to-landing-peach-wash p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01] min-[600px]:flex-row min-[600px]:items-center">
               <div className="min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
@@ -263,11 +263,11 @@ export function Features() {
 
             {/* 3 small cards */}
             {[
-              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", gradient: "from-white via-white to-emerald-50" },
+              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", gradient: "from-white from-50% to-emerald-50" },
               { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", gradient: "from-white via-white to-landing-peach-wash" },
               { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", gradient: "from-white via-white to-landing-lavender-wash" },
             ].map((card) => (
-              <div key={card.titleKey} className={`scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/80 bg-gradient-to-br ${card.gradient} p-6 shadow-lg transition-all hover:shadow-xl`}>
+              <div key={card.titleKey} className={`scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/80 bg-gradient-to-br ${card.gradient} p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.01]`}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
                 <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
