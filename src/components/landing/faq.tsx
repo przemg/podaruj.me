@@ -16,8 +16,11 @@ export function Faq() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 100 });
 
   return (
-    <section id="faq" className="bg-landing-peach-wash py-20 sm:py-28">
+    <section id="faq" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-sky-500">
+          {t("label")}
+        </p>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("title")}
         </h2>
@@ -28,7 +31,7 @@ export function Faq() {
               <AccordionItem
                 key={key}
                 value={key}
-                className="scroll-reveal rounded-xl border-none bg-white px-6 shadow-sm"
+                className="scroll-reveal rounded-xl border-none bg-landing-cream px-6"
               >
                 <AccordionTrigger className="py-5 text-left text-base font-semibold text-landing-text hover:no-underline">
                   {t(key)}

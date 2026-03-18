@@ -71,7 +71,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl lg:text-5xl">
           {t("titleTop")}
           <br />
-          <span className="bg-gradient-to-r from-landing-coral-dark to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
             {t("titleBottom")}
           </span>
         </h2>

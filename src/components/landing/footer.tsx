@@ -13,18 +13,27 @@ export function Footer() {
   const t = useTranslations("landing");
 
   return (
-    <footer className="bg-landing-footer-bg py-12 sm:py-16">
+    <footer
+      className="py-12 sm:py-16"
+      style={{
+        background: [
+          "radial-gradient(ellipse at 0% 100%, rgba(249,112,102,0.08) 0%, transparent 50%)",
+          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.06) 0%, transparent 50%)",
+          "#151015",
+        ].join(", "),
+      }}
+    >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Logo + tagline */}
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center gap-2 sm:justify-start">
               <Gift className="h-5 w-5 text-landing-coral" />
-              <span className="text-lg font-bold text-landing-footer-text">
+              <span className="text-lg font-bold text-white">
                 Podaruj.me
               </span>
             </div>
-            <p className="mt-2 text-sm text-landing-footer-text/60">
+            <p className="mt-2 text-sm text-white/40">
               {t("footer.tagline")}
             </p>
           </div>
@@ -35,7 +44,7 @@ export function Footer() {
               <a
                 key={link.id}
                 href={`#${link.id}`}
-                className="py-2 text-sm text-landing-footer-text/60 transition-colors hover:text-landing-footer-text"
+                className="py-2 text-sm text-white/50 transition-colors hover:text-white"
               >
                 {t(`nav.${link.key}`)}
               </a>
@@ -44,15 +53,15 @@ export function Footer() {
 
           {/* Made with love */}
           <div className="text-center sm:text-right">
-            <p className="text-sm text-landing-footer-text/60">
+            <p className="text-sm text-white/40">
               {t("footer.madeWith")}
             </p>
-            <p className="mt-1 text-sm text-landing-footer-text/60">
+            <p className="mt-1 text-sm text-white/40">
               {t("footer.copyright", { year: new Date().getFullYear() })}
             </p>
           </div>
         </div>
-        <div className="mt-8 border-t border-landing-footer-text/10 pt-6 text-landing-footer-text/40">
+        <div className="mt-8 border-t border-white/10 pt-6 text-white/30">
           <AuthorCredit label={t("footer.builtBy")} />
         </div>
       </div>
