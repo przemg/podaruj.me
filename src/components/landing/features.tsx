@@ -13,13 +13,13 @@ export function Features() {
     <section id="features" className="bg-[#F9F9FB] py-20 sm:py-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
-        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-sky-500">
           {t("label")}
         </p>
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
           {t("titleTop")}
           <br />
-          <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-sky-500 to-landing-lavender bg-clip-text text-transparent">
             {t("titleBottom")}
           </span>
         </h2>
