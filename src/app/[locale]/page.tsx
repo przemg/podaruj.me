@@ -3,6 +3,7 @@ import { Hero } from "@/components/landing/hero";
 import { DemoVideoSection } from "@/components/landing/demo-video-section";
 import { Features } from "@/components/landing/features";
 import { FeaturesDark } from "@/components/landing/features-dark";
+import { FeaturesColored } from "@/components/landing/features-colored";
 import { Testimonials } from "@/components/landing/testimonials";
 import { Faq } from "@/components/landing/faq";
 import { CtaSection } from "@/components/landing/cta-section";
@@ -69,6 +70,7 @@ export default async function Home({
         <DemoVideoSection locale={locale} />
         <FeaturesDark />
         <Features />
+        <FeaturesColored />
         <Testimonials />
         <Faq />
         <CtaSection userEmail={userEmail} />
