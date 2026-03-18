@@ -12,7 +12,7 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
   const revealRef = useScrollReveal<HTMLDivElement>({});
 
   return (
-    <section id="cta" className="bg-white py-16 sm:py-20">
+    <section id="cta" className="bg-landing-cream py-12 sm:py-16">
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div
           className="relative overflow-hidden rounded-3xl px-8 py-20 text-center sm:px-16"
