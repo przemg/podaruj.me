@@ -133,7 +133,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           }}
           onClick={openModal}
         >
-          {/* Background video — full cover */}
+          {/* Background video — subtle, low opacity */}
           <video
             ref={bgVideoRef}
             src={videoSrc}
@@ -142,11 +142,9 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             loop
             playsInline
             onPlay={(e) => { (e.currentTarget as HTMLVideoElement).playbackRate = 0.5; }}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover opacity-15"
             style={{ objectPosition: "50% 60%" }}
           />
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/60" />
 
           {/* Content */}
           <div className="relative flex flex-col items-center px-8 py-16 text-center sm:py-20 lg:py-24">
