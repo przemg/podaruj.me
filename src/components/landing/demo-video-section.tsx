@@ -43,7 +43,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
     const bgVideo = bgVideoRef.current;
     if (bgVideo) {
       bgVideo.playbackRate = 0.5;
-      void bgVideo.play();
+      bgVideo.play().catch(() => {});
     }
   }
 

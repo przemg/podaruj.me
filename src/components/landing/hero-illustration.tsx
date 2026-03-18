@@ -1,5 +1,10 @@
 import { QrCode, Gift } from "lucide-react";
 
+/**
+ * Decorative product mockup — intentionally hardcoded English demo content.
+ * The entire element is aria-hidden="true" so it does not affect screen readers.
+ * Strings are illustrative and not translated (by design per landing-redesign spec).
+ */
 export function HeroIllustration() {
   return (
     <div className="relative mx-auto w-full max-w-sm" aria-hidden="true">
