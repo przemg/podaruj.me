@@ -2,6 +2,7 @@ import { Navigation } from "@/components/landing/navigation";
 import { Hero } from "@/components/landing/hero";
 import { DemoVideoSection } from "@/components/landing/demo-video-section";
 import { Features } from "@/components/landing/features";
+import { FeaturesDark } from "@/components/landing/features-dark";
 import { Testimonials } from "@/components/landing/testimonials";
 import { Faq } from "@/components/landing/faq";
 import { CtaSection } from "@/components/landing/cta-section";
@@ -66,6 +67,7 @@ export default async function Home({
       <main>
         <Hero userEmail={userEmail} />
         <DemoVideoSection locale={locale} />
+        <FeaturesDark />
         <Features />
         <Testimonials />
         <Faq />
