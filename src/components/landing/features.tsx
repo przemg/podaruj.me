@@ -43,7 +43,7 @@ export function Features() {
           {/* === DESKTOP LAYOUT (>=1000px) === */}
           <div className="hidden min-[1000px]:grid min-[1000px]:grid-cols-3 min-[1000px]:gap-4">
             {/* Privacy — spans 2 cols, side-by-side */}
-            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-white/80 bg-gradient-to-br from-white from-30% to-landing-lavender-wash shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-white/60 backdrop-blur-sm transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
+            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-white/80 bg-gradient-to-br from-white from-10% to-landing-lavender-wash shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-white/60 backdrop-blur-sm transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
                   <Shield className="h-6 w-6 text-landing-lavender" />
@@ -125,7 +125,7 @@ export function Features() {
           {/* === TABLET LAYOUT (768-999px) === */}
           <div className="hidden min-[768px]:flex min-[768px]:flex-col min-[768px]:gap-4 min-[1000px]:hidden">
             {/* Row 1: Privacy card full width, 2-col internal */}
-            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-white/80 bg-gradient-to-br from-white from-30% to-landing-lavender-wash shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-white/60 backdrop-blur-sm transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
+            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-white/80 bg-gradient-to-br from-white from-10% to-landing-lavender-wash shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-white/60 backdrop-blur-sm transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-[1.01]">
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
@@ -204,7 +204,7 @@ export function Features() {
           {/* === MOBILE LAYOUT (<768px) === */}
           <div className="flex flex-col gap-4 min-[768px]:hidden">
             {/* Privacy card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/80 bg-gradient-to-br from-white from-30% to-landing-lavender-wash shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-white/60 backdrop-blur-sm transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-[1.01] min-[600px]:flex-row">
+            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/80 bg-gradient-to-br from-white from-10% to-landing-lavender-wash shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-white/60 backdrop-blur-sm transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:scale-[1.01] min-[600px]:flex-row">
               <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-landing-text">{t("privacyTitle")}</h3>
