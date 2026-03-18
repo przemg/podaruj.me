@@ -1,5 +1,7 @@
+"use client";
+
 import { useTranslations } from "next-intl";
-import { Gift } from "lucide-react";
+import { Gift, Heart } from "lucide-react";
 import { AuthorCredit } from "@/components/author-credit";
 import { LANDING_MAX_WIDTH } from "@/lib/layout";
 
@@ -53,8 +55,10 @@ export function Footer() {
 
           {/* Made with love */}
           <div className="text-center sm:text-right">
-            <p className="text-sm text-white/40">
-              {t("footer.madeWith")}
+            <p className="flex items-center justify-center gap-1 text-sm text-white/40 sm:justify-end">
+              {t.rich("footer.madeWith", {
+                heart: () => <Heart className="inline h-3.5 w-3.5 fill-landing-coral text-landing-coral" />,
+              })}
             </p>
             <p className="mt-1 text-sm text-white/40">
               {t("footer.copyright", { year: new Date().getFullYear() })}

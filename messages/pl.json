@@ -106,7 +106,7 @@
     },
     "footer": {
       "tagline": "Listy prezentów w prosty sposób",
-      "madeWith": "Stworzone z miłością w Polsce",
+      "madeWith": "Stworzone z {heart} w Polsce",
       "copyright": "© {year} Podaruj.me. Wszelkie prawa zastrzeżone.",
       "builtBy": "Autor: Przemysław Gwóźdź"
     },
