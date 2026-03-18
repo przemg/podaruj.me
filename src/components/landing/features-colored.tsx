@@ -67,19 +67,19 @@ export function FeaturesColored() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-indigo-200/30 bg-indigo-50/50 px-6">
+              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-white/30 bg-white/20 px-6">
                 <div className="flex w-full flex-col gap-3">
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-white/60 bg-white/40 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-coral/30" /><div className="h-1 w-14 rounded-full bg-gray-300" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-coral/30" /><div className="h-1 w-14 rounded-full bg-white/50" /></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
+                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-white/70 bg-white/50 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
                     <div className="flex-1 space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-mint/40" /><div className="h-4 w-16 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-white/60 bg-white/40 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-lavender/30" /><div className="h-1 w-14 rounded-full bg-gray-300" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-lavender/30" /><div className="h-1 w-14 rounded-full bg-white/50" /></div>
                   </div>
                 </div>
               </div>
@@ -92,8 +92,8 @@ export function FeaturesColored() {
               <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
               <div className="mt-auto flex items-end justify-center pt-6">
                 <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(0,0,0,0.08)" strokeWidth="2" fill="rgba(0,0,0,0.02)" />
-                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(0,0,0,0.05)" />
+                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.6)" strokeWidth="2" fill="rgba(255,255,255,0.3)" />
+                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)" />
                   <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
                   <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
                   <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
@@ -102,8 +102,8 @@ export function FeaturesColored() {
                   <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
                   <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
                   <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(0,0,0,0.05)" />
-                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(0,0,0,0.03)" />
+                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.4)" />
+                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
                 </svg>
               </div>
             </div>
@@ -142,19 +142,19 @@ export function FeaturesColored() {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-indigo-200/30 bg-indigo-50/50 px-5">
+              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-white/30 bg-white/20 px-5">
                 <div className="flex w-full flex-col gap-3">
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-white/60 bg-white/40 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-coral/30" /><div className="h-1 w-10 rounded-full bg-gray-300" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-coral/30" /><div className="h-1 w-10 rounded-full bg-white/50" /></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
+                  <div className="flex w-full items-center gap-3 rounded-xl border-2 border-white/70 bg-white/50 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
                     <div className="flex-1 space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
                   </div>
-                  <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
+                  <div className="flex w-full items-center gap-3 rounded-xl border border-white/60 bg-white/40 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-lavender/30" /><div className="h-1 w-10 rounded-full bg-gray-300" /></div>
+                    <div className="space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-lavender/30" /><div className="h-1 w-10 rounded-full bg-white/50" /></div>
                   </div>
                 </div>
               </div>
@@ -169,8 +169,8 @@ export function FeaturesColored() {
                 <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
                 <div className="mt-auto flex items-end justify-center pt-6">
                   <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                    <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(0,0,0,0.08)" strokeWidth="2" fill="rgba(0,0,0,0.02)" />
-                    <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(0,0,0,0.05)" />
+                    <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.6)" strokeWidth="2" fill="rgba(255,255,255,0.3)" />
+                    <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)" />
                     <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
                     <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
                     <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
@@ -179,8 +179,8 @@ export function FeaturesColored() {
                     <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
                     <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
                     <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                    <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(0,0,0,0.05)" />
-                    <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(0,0,0,0.03)" />
+                    <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.4)" />
+                    <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
                   </svg>
                 </div>
               </div>
@@ -221,19 +221,19 @@ export function FeaturesColored() {
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-indigo-200/30 bg-indigo-50/50 px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+              <div className="flex items-center justify-center border-t border-white/30 bg-white/20 px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
                 <div className="flex gap-3 min-[600px]:flex-col">
-                  <div className="flex flex-col items-center rounded-xl border border-landing-coral/20 bg-landing-coral/5 px-3 py-3">
+                  <div className="flex flex-col items-center rounded-xl border border-white/60 bg-white/40 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-gray-300" /></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-coral/30" /><div className="h-1 w-8 rounded-full bg-white/50" /></div>
                   </div>
-                  <div className="flex flex-col items-center rounded-xl border-2 border-landing-mint/40 bg-landing-mint/5 px-3 py-3 shadow-lg shadow-landing-mint/10">
+                  <div className="flex flex-col items-center rounded-xl border-2 border-white/70 bg-white/50 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
                     <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
                   </div>
-                  <div className="flex flex-col items-center rounded-xl border border-landing-lavender/20 bg-landing-lavender/5 px-3 py-3">
+                  <div className="flex flex-col items-center rounded-xl border border-white/60 bg-white/40 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-lavender/30" /><div className="h-1 w-8 rounded-full bg-gray-300" /></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-lavender/30" /><div className="h-1 w-8 rounded-full bg-white/50" /></div>
                   </div>
                 </div>
               </div>
@@ -248,8 +248,8 @@ export function FeaturesColored() {
               </div>
               <div className="mt-6 flex items-center justify-center min-[600px]:mt-0 min-[600px]:ml-6">
                 <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(0,0,0,0.08)" strokeWidth="2" fill="rgba(0,0,0,0.02)" />
-                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(0,0,0,0.05)" />
+                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.6)" strokeWidth="2" fill="rgba(255,255,255,0.3)" />
+                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.4)" />
                   <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
                   <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
                   <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
@@ -258,8 +258,8 @@ export function FeaturesColored() {
                   <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
                   <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
                   <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(0,0,0,0.05)" />
-                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(0,0,0,0.03)" />
+                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.4)" />
+                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
                 </svg>
               </div>
             </div>
