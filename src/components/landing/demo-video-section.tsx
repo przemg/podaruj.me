@@ -64,11 +64,11 @@ export function DemoVideoSection({ locale }: { locale: string }) {
         style={{ maxWidth: LANDING_MAX_WIDTH }}
       >
         {/* Section label */}
-        <p className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-landing-coral">
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
           {t("label")}
         </p>
         {/* Section heading */}
-        <h2 className="text-center text-2xl font-extrabold text-landing-text sm:text-3xl lg:text-4xl">
+        <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl lg:text-5xl">
           {t("titleTop")}
           <br />
           <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
