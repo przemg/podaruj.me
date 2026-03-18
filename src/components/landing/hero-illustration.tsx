@@ -1,4 +1,4 @@
-import { QrCode, Gift } from "lucide-react";
+import { QrCode, Gift, Lock } from "lucide-react";
 
 /**
  * Decorative product mockup — intentionally hardcoded English demo content.
@@ -7,11 +7,39 @@ import { QrCode, Gift } from "lucide-react";
  */
 export function HeroIllustration() {
   return (
-    <div className="animate-float relative mx-auto w-full max-w-sm" aria-hidden="true">
+    <div className="animate-float relative mx-auto w-full max-w-md px-8" aria-hidden="true">
       {/* Notification badge — bounces in from above, then nudges periodically */}
-      <div className="animate-badge-entrance absolute -top-4 -right-2 z-10 flex items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+      <div className="animate-badge-entrance absolute -top-4 right-4 z-20 flex items-center gap-1.5 rounded-full bg-landing-coral px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
         <span>+</span>
         <span>Anna just reserved!</span>
+      </div>
+
+      {/* Floating glass card — Privacy (left side, overlaps item 1) */}
+      <div
+        className="animate-item-fade-in absolute -left-2 z-20 flex items-center gap-2 rounded-xl border border-landing-lavender/20 bg-white/80 px-3 py-2 shadow-lg backdrop-blur-sm"
+        style={{ top: "154px", animationDelay: "1.4s" }}
+      >
+        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-lavender/15">
+          <Lock className="h-3.5 w-3.5 text-landing-lavender" />
+        </div>
+        <div>
+          <p className="text-xs leading-none text-landing-text-muted">Privacy</p>
+          <p className="mt-0.5 text-sm font-semibold leading-none text-landing-text">Protected</p>
+        </div>
+      </div>
+
+      {/* Floating glass card — QR Code (right side, overlaps item 3) */}
+      <div
+        className="animate-item-fade-in absolute -right-2 z-20 flex items-center gap-2 rounded-xl border border-landing-coral/20 bg-white/80 px-3 py-2 shadow-lg backdrop-blur-sm"
+        style={{ top: "248px", animationDelay: "1.55s" }}
+      >
+        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-coral/10">
+          <QrCode className="h-3.5 w-3.5 text-landing-coral" />
+        </div>
+        <div>
+          <p className="text-xs leading-none text-landing-text-muted">Share via</p>
+          <p className="mt-0.5 text-sm font-semibold leading-none text-landing-text">QR Code</p>
+        </div>
       </div>
 
       {/* Main card */}
@@ -44,7 +72,7 @@ export function HeroIllustration() {
 
         {/* Gift items — staggered fade-in */}
         <div className="divide-y divide-landing-text/5 border-t border-landing-text/5">
-          {/* Item 1 — reserved, price shown, privacy badge */}
+          {/* Item 1 — reserved */}
           <div className="animate-item-fade-in flex items-center gap-3 px-5 py-3" style={{ animationDelay: "0.9s" }}>
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
               <svg aria-hidden="true" className="h-3.5 w-3.5 text-landing-mint" viewBox="0 0 12 12" fill="none">
@@ -57,10 +85,6 @@ export function HeroIllustration() {
                 <p className="shrink-0 text-xs font-medium text-landing-text-muted">299 PLN</p>
               </div>
               <p className="text-xs text-landing-coral/80">Reserved by Anna K.</p>
-            </div>
-            <div className="flex items-center gap-1 rounded-full bg-landing-lavender-wash px-2 py-0.5 text-xs text-landing-lavender">
-              <span>🔒</span>
-              <span className="font-medium">Protected</span>
             </div>
           </div>
 
@@ -77,7 +101,7 @@ export function HeroIllustration() {
             </div>
           </div>
 
-          {/* Item 3 — reserved, price shown, QR chip */}
+          {/* Item 3 — reserved */}
           <div className="animate-item-fade-in flex items-center gap-3 px-5 py-3" style={{ animationDelay: "1.2s" }}>
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-landing-mint/20">
               <svg aria-hidden="true" className="h-3.5 w-3.5 text-landing-mint" viewBox="0 0 12 12" fill="none">
@@ -90,10 +114,6 @@ export function HeroIllustration() {
                 <p className="shrink-0 text-xs font-medium text-landing-text-muted">159 PLN</p>
               </div>
               <p className="text-xs text-landing-coral/80">Reserved by Marcin T.</p>
-            </div>
-            <div className="flex items-center gap-1 rounded-full bg-landing-peach-wash px-2 py-0.5 text-xs text-landing-coral">
-              <QrCode className="h-3 w-3" />
-              <span className="font-medium">QR Code</span>
             </div>
           </div>
 
