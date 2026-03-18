@@ -128,7 +128,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             background: [
               "radial-gradient(ellipse at 30% 50%, rgba(249,112,102,0.12) 0%, transparent 60%)",
               "radial-gradient(ellipse at 70% 50%, rgba(56,189,248,0.08) 0%, transparent 60%)",
-              "#151015",
+              "#2a2535",
             ].join(", "),
           }}
           onClick={openModal}
