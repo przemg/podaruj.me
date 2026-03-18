@@ -13,9 +13,9 @@ const VIDEO_SOURCES: Record<string, string> = {
 };
 
 const STEPS = [
-  { key: "step1", icon: ClipboardList, color: "bg-landing-coral/10 text-landing-coral" },
-  { key: "step2", icon: Share2, color: "bg-landing-lavender/10 text-landing-lavender" },
-  { key: "step3", icon: Gift, color: "bg-landing-mint/10 text-landing-mint" },
+  { key: "step1", icon: ClipboardList, iconClass: "bg-landing-coral/10 text-landing-coral", badgeClass: "bg-landing-coral text-white" },
+  { key: "step2", icon: Share2, iconClass: "bg-landing-lavender/10 text-landing-lavender", badgeClass: "bg-landing-lavender text-white" },
+  { key: "step3", icon: Gift, iconClass: "bg-landing-mint/10 text-landing-mint", badgeClass: "bg-landing-mint text-landing-text" },
 ] as const;
 
 export function DemoVideoSection({ locale }: { locale: string }) {
@@ -27,16 +27,6 @@ export function DemoVideoSection({ locale }: { locale: string }) {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 200 });
 
   const videoSrc = VIDEO_SOURCES[locale] ?? VIDEO_SOURCES["en"];
-
-  // Close modal on Escape
-  useEffect(() => {
-    if (!isModalOpen) return;
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") closeModal();
-    }
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isModalOpen]);
 
   function openModal() {
     bgVideoRef.current?.pause();
@@ -57,15 +47,31 @@ export function DemoVideoSection({ locale }: { locale: string }) {
     }
   }
 
+  // Close modal on Escape
+  useEffect(() => {
+    if (!isModalOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeModal();
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isModalOpen]);
+
   return (
     <section id="how-it-works" className="bg-white py-20 sm:py-28">
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8"
         style={{ maxWidth: LANDING_MAX_WIDTH }}
       >
+        {/* Section label */}
+        <p className="mb-3 text-center text-sm font-semibold uppercase tracking-widest text-landing-coral">
+          {t("label")}
+        </p>
         {/* Section heading */}
         <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
-          {t("title")}
+          {t("titleTop")}
+          <br />
+          <span className="text-landing-coral">{t("titleBottom")}</span>
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-landing-text-muted">
           {t("subtitle")}
@@ -81,15 +87,21 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             return (
               <div key={step.key} className="scroll-reveal relative text-center">
                 {index < STEPS.length - 1 && (
-                  <div className="absolute top-10 left-[calc(50%+40px)] hidden h-[2px] w-[calc(100%-80px)] border-t-2 border-dashed border-landing-text/10 md:block" />
+                  <div className="absolute top-10 left-[calc(50%+40px)] hidden h-[2px] w-[calc(100%-80px)] border-t-2 border-landing-text/10 md:block" />
                 )}
-                <div className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-landing-peach-wash text-sm font-bold text-landing-coral">
-                  {index + 1}
-                </div>
-                <div
-                  className={`mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl ${step.color}`}
-                >
-                  <Icon className="h-9 w-9" />
+                {/* Icon box with number badge */}
+                <div className="relative mb-5 inline-flex">
+                  <div
+                    className={`flex h-20 w-20 items-center justify-center rounded-2xl ${step.iconClass}`}
+                  >
+                    <Icon className="h-9 w-9" />
+                  </div>
+                  <div
+                    aria-label={`Step ${index + 1}`}
+                    className={`absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold ${step.badgeClass}`}
+                  >
+                    {index + 1}
+                  </div>
                 </div>
                 <h3 className="text-xl font-semibold text-landing-text">
                   {t(`${step.key}Title`)}

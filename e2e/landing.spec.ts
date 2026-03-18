@@ -23,7 +23,8 @@ test.describe("Landing page", () => {
     await expect(page.getByText(/Loved by.*happy users/)).toBeVisible();
 
     // How it works
-    await expect(page.getByText("HOW IT WORKS")).toBeVisible();
+    const howItWorks = page.locator("#how-it-works");
+    await expect(howItWorks.getByText("HOW IT WORKS", { exact: true })).toBeVisible();
     await expect(page.getByText("Three steps to")).toBeVisible();
     await expect(page.getByText("perfect gifting")).toBeVisible();
     await expect(page.getByText("Create your list").first()).toBeVisible();
@@ -35,17 +36,19 @@ test.describe("Landing page", () => {
     await expect(page.getByText("Everything you need")).toBeVisible();
 
     // Testimonials — new layout
-    await expect(page.getByText("TESTIMONIALS")).toBeVisible();
+    const testimonialsSection = page.locator("#testimonials");
+    await expect(testimonialsSection.getByText("TESTIMONIALS", { exact: true })).toBeVisible();
     await expect(page.getByText("People actually love it")).toBeVisible();
     await expect(page.getByText("Karolina W.")).toBeVisible();
-    await expect(page.getByText("Marcin T.")).toBeVisible();
+    await expect(testimonialsSection.getByText("Marcin T.", { exact: true })).toBeVisible();
 
     // FAQ (unchanged)
     await expect(page.getByText("Frequently asked questions")).toBeVisible();
 
     // CTA — new headline
-    await expect(page.getByText("Start your first list")).toBeVisible();
-    await expect(page.getByText("in 2 minutes")).toBeVisible();
+    const ctaSection = page.locator("#cta");
+    await expect(ctaSection.getByText("Start your first list")).toBeVisible();
+    await expect(ctaSection.getByText("in 2 minutes", { exact: true })).toBeVisible();
     await expect(page.getByText("Guests don't need an account")).toBeVisible();
 
     // Footer (unchanged)
