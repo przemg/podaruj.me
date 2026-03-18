@@ -16,7 +16,7 @@ export function Testimonials() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="testimonials" className="bg-landing-cream py-20 sm:py-28">
+    <section id="testimonials" className="bg-white py-20 sm:py-28">
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         {/* Section header */}
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-emerald-500">
@@ -37,7 +37,7 @@ export function Testimonials() {
           {TESTIMONIALS.map((item) => (
             <div
               key={item.key}
-              className="scroll-reveal rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="scroll-reveal rounded-2xl bg-landing-cream p-6 transition-shadow hover:shadow-md"
             >
               {/* Stars */}
               <div aria-label="5 out of 5 stars">
