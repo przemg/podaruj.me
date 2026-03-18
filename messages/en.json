@@ -107,7 +107,7 @@
     },
     "footer": {
       "tagline": "Gift lists made simple",
-      "madeWith": "Made with {heart} in Poland",
+      "madeWith": "Made with <heart></heart> in Poland",
       "copyright": "© {year} Podaruj.me. All rights reserved.",
       "builtBy": "Built by Przemysław Gwóźdź"
     },

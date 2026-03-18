@@ -120,12 +120,20 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           })}
         </div>
 
-        {/* Video card — background video with overlay, opens modal on click */}
+        {/* Video card — dark glassmorphism with centered content */}
         <div
           id="demo-video"
-          className="relative mt-28 overflow-hidden rounded-3xl cursor-pointer group h-[240px] sm:h-[320px] lg:h-[380px]"
+          className="group relative mt-28 cursor-pointer overflow-hidden rounded-3xl border border-white/10"
+          style={{
+            background: [
+              "radial-gradient(ellipse at 30% 50%, rgba(249,112,102,0.12) 0%, transparent 60%)",
+              "radial-gradient(ellipse at 70% 50%, rgba(56,189,248,0.08) 0%, transparent 60%)",
+              "#151015",
+            ].join(", "),
+          }}
           onClick={openModal}
         >
+          {/* Background video — subtle, low opacity */}
           <video
             ref={bgVideoRef}
             src={videoSrc}
@@ -134,43 +142,28 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             loop
             playsInline
             onPlay={(e) => { (e.currentTarget as HTMLVideoElement).playbackRate = 0.5; }}
-            className="absolute inset-0 h-full w-full object-cover block"
+            className="absolute inset-0 h-full w-full object-cover opacity-15"
             style={{ objectPosition: "50% 60%" }}
           />
 
-          <div
-            className="absolute inset-0 transition-opacity duration-200 group-hover:opacity-90"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(15,10,10,0.80) 0%, rgba(15,10,10,0.62) 55%, rgba(15,10,10,0.48) 100%)",
-            }}
-          />
+          {/* Content */}
+          <div className="relative flex flex-col items-center px-8 py-16 text-center sm:py-20 lg:py-24">
+            <h3 className="text-2xl font-bold text-white sm:text-3xl">
+              {td("title")}
+            </h3>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-white/50 sm:text-base">
+              {td("subtitle")}
+            </p>
 
-          <div className="absolute inset-0 flex items-center pl-8 sm:pl-12 lg:pl-16">
-            <div className="w-1/2 max-w-sm sm:max-w-md pr-4">
-              <h3
-                className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl leading-tight"
-                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
-              >
-                {td("title")}
-              </h3>
-              <p
-                className="mt-3 text-sm text-white/80 sm:text-base"
-                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
-              >
-                {td("subtitle")}
-              </p>
-            </div>
-
-            <div className="flex flex-1 items-center justify-center">
-              <button
-                onClick={(e) => { e.stopPropagation(); openModal(); }}
-                aria-label={td("playAriaLabel")}
-                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-[0_0_64px_rgba(229,77,61,0.75)] transition-all duration-200 hover:scale-110 hover:shadow-[0_0_48px_rgba(229,77,61,0.65)] active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
-              >
-                <Play className="ml-1 h-7 w-7 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" fill="currentColor" />
-              </button>
-            </div>
+            {/* Play button with glow */}
+            <button
+              onClick={(e) => { e.stopPropagation(); openModal(); }}
+              aria-label={td("playAriaLabel")}
+              className="mt-8 flex h-16 w-16 items-center justify-center rounded-full bg-landing-coral transition-all duration-200 hover:scale-110 active:scale-95 sm:h-20 sm:w-20"
+              style={{ boxShadow: "0 0 60px rgba(249,112,102,0.5), 0 0 120px rgba(249,112,102,0.2)" }}
+            >
+              <Play className="ml-1 h-7 w-7 text-white sm:h-8 sm:w-8" fill="currentColor" />
+            </button>
           </div>
         </div>
       </div>
