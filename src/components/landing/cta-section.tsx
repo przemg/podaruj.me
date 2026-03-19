@@ -29,7 +29,7 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
         style={{ maxWidth: LANDING_MAX_WIDTH }}
         ref={revealRef}
       >
-        <h2 className="scroll-reveal text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+        <h2 className="scroll-reveal text-3xl font-bold leading-[1.1] text-white sm:text-4xl lg:text-5xl">
           {t("titleTop")}
           <br />
           <span className="bg-gradient-to-r from-landing-coral to-amber-400 bg-clip-text text-transparent">
