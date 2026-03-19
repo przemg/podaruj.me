@@ -59,7 +59,7 @@ export function Features() {
                 </div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
                 <p className="mt-2 text-white/60">{t("privacyDescription")}</p>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-8 space-y-4">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
                     { key: "privacyVisible", descKey: "privacyVisibleDesc", icon: Eye, color: "text-landing-mint", bg: "bg-landing-mint/20" },
@@ -145,7 +145,7 @@ export function Features() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
                 <p className="mt-2 text-white/60">{t("privacyDescription")}</p>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-8 space-y-4">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
                     { key: "privacyVisible", descKey: "privacyVisibleDesc", icon: Eye, color: "text-landing-mint", bg: "bg-landing-mint/20" },
@@ -230,7 +230,7 @@ export function Features() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
                 <p className="mt-2 text-white/60">{t("privacyDescription")}</p>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-8 space-y-4">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
                     { key: "privacyVisible", descKey: "privacyVisibleDesc", icon: Eye, color: "text-landing-mint", bg: "bg-landing-mint/20" },
