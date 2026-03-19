@@ -17,21 +17,14 @@ export function Footer() {
   return (
     <footer
       className="py-12 sm:py-16"
-      style={{
-        background: [
-          "radial-gradient(ellipse at 0% 100%, rgba(249,112,102,0.12) 0%, transparent 50%)",
-          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.1) 0%, transparent 50%)",
-          "#131015",
-        ].join(", "),
-      }}
+      style={{ background: "#131015" }}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
-        {/* Top divider — subtle gradient line */}
+        {/* Gradient divider from CTA */}
         <div
-          className="mb-10 h-px"
-          style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent)" }}
+          className="mx-auto mb-12 h-px"
+          style={{ maxWidth: 600, background: "linear-gradient(to right, transparent, rgba(249,112,102,0.25), rgba(167,139,250,0.2), transparent)" }}
         />
-
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Logo + tagline */}
           <div className="text-center sm:text-left">
