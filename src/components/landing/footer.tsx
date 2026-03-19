@@ -19,13 +19,19 @@ export function Footer() {
       className="py-12 sm:py-16"
       style={{
         background: [
-          "radial-gradient(ellipse at 0% 100%, rgba(249,112,102,0.15) 0%, transparent 50%)",
-          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.12) 0%, transparent 50%)",
+          "radial-gradient(ellipse at 0% 100%, rgba(249,112,102,0.12) 0%, transparent 50%)",
+          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.1) 0%, transparent 50%)",
           "#131015",
         ].join(", "),
       }}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
+        {/* Top divider — subtle gradient line */}
+        <div
+          className="mb-10 h-px"
+          style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent)" }}
+        />
+
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Logo + tagline */}
           <div className="text-center sm:text-left">
@@ -65,7 +71,7 @@ export function Footer() {
             </p>
           </div>
         </div>
-        <div className="mt-8 border-t border-white/10 pt-6 text-white/30">
+        <div className="mt-8 border-t border-white/[0.06] pt-6 text-white/30">
           <AuthorCredit label={t("footer.builtBy")} />
         </div>
       </div>

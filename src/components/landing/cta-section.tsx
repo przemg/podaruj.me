@@ -14,54 +14,54 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
   return (
     <section
       id="cta"
-      className="py-16 sm:py-20"
-      style={{ background: "#131015" }}
+      className="relative overflow-hidden py-24 sm:py-32"
+      style={{
+        background: [
+          "radial-gradient(ellipse at 50% 0%, rgba(249,112,102,0.15) 0%, transparent 60%)",
+          "radial-gradient(ellipse at 20% 80%, rgba(167,139,250,0.08) 0%, transparent 50%)",
+          "radial-gradient(ellipse at 80% 80%, rgba(110,231,183,0.08) 0%, transparent 50%)",
+          "#131015",
+        ].join(", "),
+      }}
     >
-      <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
-        <div
-          className="relative overflow-hidden rounded-3xl px-8 py-20 text-center sm:px-16"
-          style={{
-            background: [
-              "radial-gradient(circle at 0% 0%, rgba(249,112,102,0.18) 0%, transparent 45%)",
-              "radial-gradient(circle at 100% 100%, rgba(110,231,183,0.12) 0%, transparent 45%)",
-              "radial-gradient(circle at 50% 50%, rgba(167,139,250,0.06) 0%, transparent 50%)",
-              "#131015",
-            ].join(", "),
-            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.07), 0 0 80px rgba(249,112,102,0.06), 0 0 120px rgba(110,231,183,0.04)",
-          }}
-          ref={revealRef}
-        >
-          <h2 className="scroll-reveal text-3xl font-bold text-white sm:text-4xl">
-            {t("titleTop")}
-            <br />
-            <span className="bg-gradient-to-r from-landing-coral to-amber-400 bg-clip-text text-transparent">
-              {t("titleBottom")}
-            </span>
-          </h2>
-          <p className="scroll-reveal mt-4 text-lg text-white/60">
-            {t("subtitle")}
-          </p>
-          <div className="scroll-reveal mt-8">
-            <Link
-              href={userEmail ? "/dashboard" : "/auth/sign-in"}
-              className="inline-block rounded-xl px-10 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:shadow-lg"
-              style={{ background: "linear-gradient(to right, #F97066, #F59E0B)" }}
+      <div
+        className="mx-auto px-4 text-center sm:px-6 lg:px-8"
+        style={{ maxWidth: LANDING_MAX_WIDTH }}
+        ref={revealRef}
+      >
+        <h2 className="scroll-reveal text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+          {t("titleTop")}
+          <br />
+          <span className="bg-gradient-to-r from-landing-coral to-amber-400 bg-clip-text text-transparent">
+            {t("titleBottom")}
+          </span>
+        </h2>
+        <p className="scroll-reveal mx-auto mt-5 max-w-xl text-lg text-white/50">
+          {t("subtitle")}
+        </p>
+        <div className="scroll-reveal mt-10">
+          <Link
+            href={userEmail ? "/dashboard" : "/auth/sign-in"}
+            className="inline-block rounded-xl px-12 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:shadow-lg"
+            style={{
+              background: "linear-gradient(to right, #F97066, #F59E0B)",
+              boxShadow: "0 0 40px rgba(249,112,102,0.3), 0 0 80px rgba(245,158,11,0.15)",
+            }}
+          >
+            {t("button")}
+          </Link>
+        </div>
+        {/* Trust badges */}
+        <div className="scroll-reveal mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {TRUST_BADGES.map((key) => (
+            <div
+              key={key}
+              className="flex items-center gap-1.5 text-sm text-white/40"
             >
-              {t("button")}
-            </Link>
-          </div>
-          {/* Trust badges */}
-          <div className="scroll-reveal mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-            {TRUST_BADGES.map((key) => (
-              <div
-                key={key}
-                className="flex items-center gap-1.5 text-sm text-white/50"
-              >
-                <span className="text-emerald-400">✓</span>
-                {t(key)}
-              </div>
-            ))}
-          </div>
+              <span className="text-emerald-400">✓</span>
+              {t(key)}
+            </div>
+          ))}
         </div>
       </div>
     </section>
