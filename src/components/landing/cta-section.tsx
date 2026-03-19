@@ -12,15 +12,19 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
   const revealRef = useScrollReveal<HTMLDivElement>({});
 
   return (
-    <section id="cta" className="bg-white py-16 sm:py-20">
+    <section
+      id="cta"
+      className="py-16 sm:py-20"
+      style={{ background: "#151015" }}
+    >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div
-          className="relative overflow-hidden rounded-3xl px-8 py-20 text-center sm:px-16"
+          className="relative overflow-hidden rounded-3xl border border-white/10 px-8 py-20 text-center sm:px-16"
           style={{
             background: [
               "radial-gradient(ellipse at 5% 50%, rgba(249,112,102,0.3) 0%, transparent 55%)",
               "radial-gradient(ellipse at 95% 50%, rgba(56,189,248,0.15) 0%, transparent 55%)",
-              "#151015",
+              "#1e1828",
             ].join(", "),
           }}
           ref={revealRef}
