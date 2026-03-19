@@ -15,12 +15,7 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
     <section
       id="cta"
       className="py-16 sm:py-20"
-      style={{
-        background: [
-          "radial-gradient(ellipse at 50% 0%, rgba(249,112,102,0.08) 0%, transparent 50%)",
-          "#131015",
-        ].join(", "),
-      }}
+      style={{ background: "#131015" }}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div

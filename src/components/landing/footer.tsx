@@ -19,9 +19,9 @@ export function Footer() {
       className="py-12 sm:py-16"
       style={{
         background: [
-          "radial-gradient(ellipse at 0% 100%, rgba(249,112,102,0.08) 0%, transparent 50%)",
-          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.06) 0%, transparent 50%)",
-          "#151015",
+          "radial-gradient(ellipse at 0% 100%, rgba(249,112,102,0.15) 0%, transparent 50%)",
+          "radial-gradient(ellipse at 100% 100%, rgba(110,231,183,0.12) 0%, transparent 50%)",
+          "#131015",
         ].join(", "),
       }}
     >
