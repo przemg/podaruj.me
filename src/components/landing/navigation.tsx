@@ -36,8 +36,18 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
+      const heroEl = document.getElementById("hero");
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 600;
+      const pastHero = currentY > heroBottom - 80;
+
       setIsScrolled(currentY > 20);
-      setIsVisible(currentY < 20 || currentY < lastScrollY.current);
+      if (!pastHero) {
+        // Inside hero — always visible
+        setIsVisible(true);
+      } else {
+        // Past hero — show only when scrolling up
+        setIsVisible(currentY < lastScrollY.current);
+      }
       lastScrollY.current = currentY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
