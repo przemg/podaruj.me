@@ -70,8 +70,8 @@ export function Features() {
                         <mode.icon className={`h-4 w-4 ${mode.color}`} />
                       </div>
                       <div>
-                        <span className="text-sm font-semibold text-white">{t(mode.key)}</span>
-                        <p className="text-xs text-white/40">{t(mode.descKey)}</p>
+                        <span className="text-base font-semibold text-white">{t(mode.key)}</span>
+                        <p className="text-sm text-white/50">{t(mode.descKey)}</p>
                       </div>
                     </li>
                   ))}
@@ -153,7 +153,7 @@ export function Features() {
                   ].map((mode) => (
                     <li key={mode.key} className="flex items-start gap-3">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}><mode.icon className={`h-4 w-4 ${mode.color}`} /></div>
-                      <div><span className="text-sm font-semibold text-white">{t(mode.key)}</span><p className="text-xs text-white/40">{t(mode.descKey)}</p></div>
+                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/50">{t(mode.descKey)}</p></div>
                     </li>
                   ))}
                 </ul>
@@ -238,7 +238,7 @@ export function Features() {
                   ].map((mode) => (
                     <li key={mode.key} className="flex items-start gap-3">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}><mode.icon className={`h-4 w-4 ${mode.color}`} /></div>
-                      <div><span className="text-sm font-semibold text-white">{t(mode.key)}</span><p className="text-xs text-white/40">{t(mode.descKey)}</p></div>
+                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/50">{t(mode.descKey)}</p></div>
                     </li>
                   ))}
                 </ul>

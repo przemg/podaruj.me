@@ -109,7 +109,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
                     </button>
                   </form>
                   {emailError && (
-                    <p id="hero-email-error" className="mt-2 text-sm text-red-500">{t("emailRequired")}</p>
+                    <p id="hero-email-error" className="mt-2 text-sm text-red-400">{t("emailRequired")}</p>
                   )}
                 </>
               )}

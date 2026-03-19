@@ -141,7 +141,7 @@ export function HeroIllustration() {
         <div className="p-4">
           <div
             className="w-full rounded-xl py-2.5 text-center text-sm font-semibold text-white"
-            style={{ background: "linear-gradient(to right, #F97066, #F59E0B)" }}
+            style={{ background: "linear-gradient(to right, #C9403A, #B87308)" }}
           >
             Share this list →
           </div>

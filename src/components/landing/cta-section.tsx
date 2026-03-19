@@ -44,7 +44,7 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
             href={userEmail ? "/dashboard" : "/auth/sign-in"}
             className="inline-block rounded-xl px-12 py-4 text-lg font-semibold text-white transition-all hover:scale-105 hover:shadow-lg"
             style={{
-              background: "linear-gradient(to right, #F97066, #F59E0B)",
+              background: "linear-gradient(to right, #C9403A, #B87308)",
               boxShadow: "0 0 40px rgba(249,112,102,0.3), 0 0 80px rgba(245,158,11,0.15)",
             }}
           >
