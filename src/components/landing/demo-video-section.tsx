@@ -13,9 +13,9 @@ const VIDEO_SOURCES: Record<string, string> = {
 };
 
 const STEPS = [
-  { key: "step1", icon: ClipboardList, color: "bg-landing-coral/10 text-landing-coral" },
-  { key: "step2", icon: Share2, color: "bg-landing-lavender/10 text-landing-lavender" },
-  { key: "step3", icon: Gift, color: "bg-landing-mint/10 text-landing-mint" },
+  { key: "step1", icon: ClipboardList, iconBg: "bg-gradient-to-br from-landing-coral/25 to-landing-peach-wash", iconColor: "text-landing-coral", badgeClass: "bg-landing-coral text-white" },
+  { key: "step2", icon: Share2, iconBg: "bg-gradient-to-br from-landing-lavender/30 to-landing-lavender/15", iconColor: "text-landing-lavender", badgeClass: "bg-landing-lavender text-white" },
+  { key: "step3", icon: Gift, iconBg: "bg-gradient-to-br from-landing-mint/25 to-landing-cream", iconColor: "text-landing-mint", badgeClass: "bg-landing-mint text-landing-text" },
 ] as const;
 
 export function DemoVideoSection({ locale }: { locale: string }) {
@@ -27,16 +27,6 @@ export function DemoVideoSection({ locale }: { locale: string }) {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 200 });
 
   const videoSrc = VIDEO_SOURCES[locale] ?? VIDEO_SOURCES["en"];
-
-  // Close modal on Escape
-  useEffect(() => {
-    if (!isModalOpen) return;
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") closeModal();
-    }
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isModalOpen]);
 
   function openModal() {
     bgVideoRef.current?.pause();
@@ -53,48 +43,76 @@ export function DemoVideoSection({ locale }: { locale: string }) {
     const bgVideo = bgVideoRef.current;
     if (bgVideo) {
       bgVideo.playbackRate = 0.5;
-      void bgVideo.play();
+      bgVideo.play().catch(() => {});
     }
   }
 
+  // Close modal on Escape
+  useEffect(() => {
+    if (!isModalOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeModal();
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isModalOpen]);
+
   return (
-    <section id="how-it-works" className="bg-white py-20 sm:py-28">
+    <section id="how-it-works" className="bg-white pt-20 pb-10 sm:pt-28 sm:pb-14">
       <div
         className="mx-auto px-4 sm:px-6 lg:px-8"
         style={{ maxWidth: LANDING_MAX_WIDTH }}
       >
-        {/* Section heading */}
-        <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl">
-          {t("title")}
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-landing-text-muted">
-          {t("subtitle")}
+        {/* Section label */}
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-landing-coral">
+          {t("label")}
         </p>
+        {/* Section heading */}
+        <h2 className="text-center text-3xl font-bold leading-[1.1] text-landing-text sm:text-4xl lg:text-5xl">
+          {t("titleTop")}
+          <br />
+          <span className="bg-gradient-to-r from-landing-coral to-landing-lavender bg-clip-text text-transparent">
+            {t("titleBottom")}
+          </span>
+        </h2>
 
         {/* Steps */}
         <div
-          className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3"
+          className="mt-24 grid grid-cols-1 gap-12 md:grid-cols-3"
           ref={revealRef}
         >
           {STEPS.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={step.key} className="scroll-reveal relative text-center">
+              <div key={step.key} className="scroll-reveal relative flex flex-col items-center">
                 {index < STEPS.length - 1 && (
-                  <div className="absolute top-10 left-[calc(50%+40px)] hidden h-[2px] w-[calc(100%-80px)] border-t-2 border-dashed border-landing-text/10 md:block" />
+                  <div
+                    className="absolute top-10 left-[calc(50%+68px)] hidden h-[2px] w-[calc(100%-88px)] md:block"
+                    style={{
+                      background: index === 0
+                        ? "linear-gradient(to right, rgba(249,112,102,0.4), rgba(167,139,250,0.3))"
+                        : "linear-gradient(to right, rgba(167,139,250,0.3), rgba(110,231,183,0.3))",
+                    }}
+                  />
                 )}
-                <div className="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-landing-peach-wash text-sm font-bold text-landing-coral">
-                  {index + 1}
+                {/* Icon box with number badge */}
+                <div className="relative mb-5 inline-flex">
+                  <div
+                    className={`flex h-20 w-20 items-center justify-center rounded-2xl ${step.iconBg} ${step.iconColor}`}
+                  >
+                    <Icon className="h-9 w-9" />
+                  </div>
+                  <div
+                    aria-label={`Step ${index + 1}`}
+                    className={`absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold ${step.badgeClass}`}
+                  >
+                    {index + 1}
+                  </div>
                 </div>
-                <div
-                  className={`mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl ${step.color}`}
-                >
-                  <Icon className="h-9 w-9" />
-                </div>
-                <h3 className="text-xl font-semibold text-landing-text">
+                <h3 className="text-center text-xl font-semibold text-landing-text">
                   {t(`${step.key}Title`)}
                 </h3>
-                <p className="mx-auto mt-3 max-w-xs text-landing-text-muted">
+                <p className="mx-auto mt-3 max-w-xs text-center text-landing-text-muted">
                   {t(`${step.key}Description`)}
                 </p>
               </div>
@@ -102,12 +120,20 @@ export function DemoVideoSection({ locale }: { locale: string }) {
           })}
         </div>
 
-        {/* Video card — background video with overlay, opens modal on click */}
+        {/* Video card — dark glassmorphism with centered content */}
         <div
           id="demo-video"
-          className="relative mt-28 overflow-hidden rounded-3xl cursor-pointer group h-[240px] sm:h-[320px] lg:h-[380px]"
+          className="group relative mt-28 cursor-pointer overflow-hidden rounded-3xl border border-white/10"
+          style={{
+            background: [
+              "radial-gradient(ellipse at 30% 50%, rgba(249,112,102,0.12) 0%, transparent 60%)",
+              "radial-gradient(ellipse at 70% 50%, rgba(56,189,248,0.08) 0%, transparent 60%)",
+              "#151015",
+            ].join(", "),
+          }}
           onClick={openModal}
         >
+          {/* Background video — subtle, low opacity */}
           <video
             ref={bgVideoRef}
             src={videoSrc}
@@ -116,41 +142,33 @@ export function DemoVideoSection({ locale }: { locale: string }) {
             loop
             playsInline
             onPlay={(e) => { (e.currentTarget as HTMLVideoElement).playbackRate = 0.5; }}
-            className="absolute inset-0 h-full w-full object-cover block"
+            className="absolute inset-0 h-full w-full object-cover opacity-15"
             style={{ objectPosition: "50% 60%" }}
           />
 
-          <div
-            className="absolute inset-0 transition-opacity duration-200 group-hover:opacity-90"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(15,10,10,0.80) 0%, rgba(15,10,10,0.62) 55%, rgba(15,10,10,0.48) 100%)",
-            }}
-          />
+          {/* Content */}
+          <div className="relative flex flex-col items-center px-8 py-16 text-center sm:py-20 lg:py-24">
+            <h3 className="text-2xl font-bold text-white sm:text-3xl">
+              {td("title")}
+            </h3>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-white/50 sm:text-base">
+              {td("subtitle")}
+            </p>
 
-          <div className="absolute inset-0 flex items-center pl-8 sm:pl-12 lg:pl-16">
-            <div className="w-1/2 max-w-sm sm:max-w-md pr-4">
-              <h3
-                className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl leading-tight"
-                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}
-              >
-                {td("title")}
-              </h3>
-              <p
-                className="mt-3 text-sm text-white/80 sm:text-base"
-                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.4)" }}
-              >
-                {td("subtitle")}
-              </p>
-            </div>
-
-            <div className="flex flex-1 items-center justify-center">
+            {/* Play button — large with pulsing glow ring */}
+            <div className="relative mt-10">
+              <div className="absolute inset-0 animate-ping rounded-full bg-landing-coral/20" style={{ animationDuration: "2s" }} />
+              <div
+                className="absolute -inset-3 rounded-full bg-landing-coral/10 blur-md"
+                style={{ animation: "pulse 2s ease-in-out infinite" }}
+              />
               <button
                 onClick={(e) => { e.stopPropagation(); openModal(); }}
                 aria-label={td("playAriaLabel")}
-                className="animate-pulse-soft flex h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 items-center justify-center rounded-full bg-landing-coral shadow-[0_0_64px_rgba(229,77,61,0.75)] transition-all duration-200 hover:scale-110 hover:shadow-[0_0_48px_rgba(229,77,61,0.65)] active:scale-95 focus-visible:ring-[3px] focus-visible:ring-white/80"
+                className="relative flex h-20 w-20 items-center justify-center rounded-full bg-landing-coral transition-all duration-200 hover:scale-110 active:scale-95 sm:h-24 sm:w-24"
+                style={{ boxShadow: "0 0 80px rgba(249,112,102,0.5), 0 0 160px rgba(249,112,102,0.15)" }}
               >
-                <Play className="ml-1 h-7 w-7 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-white" fill="currentColor" />
+                <Play className="ml-1 h-8 w-8 text-white sm:h-10 sm:w-10" fill="currentColor" />
               </button>
             </div>
           </div>

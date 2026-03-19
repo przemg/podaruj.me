@@ -10,37 +10,49 @@ test.describe("Landing page", () => {
     await expect(page.locator("nav")).toBeVisible();
     await expect(page.getByText("Podaruj.me").first()).toBeVisible();
 
-    // Hero
-    await expect(page.getByText("The perfect gift, every time")).toBeVisible();
+    // Hero — new headline
+    await expect(page.getByText("Gift lists that")).toBeVisible();
+    await expect(page.getByText("everyone loves")).toBeVisible();
     await expect(page.getByPlaceholder("Enter your email")).toBeVisible();
     await expect(page.getByRole("button", { name: "Get Started" })).toBeVisible();
 
-    // How it works
-    await expect(page.getByRole("heading", { name: "How it works" })).toBeVisible();
-    await expect(page.getByText("Create your list").first()).toBeVisible();
-    await expect(page.getByText("Share the link")).toBeVisible();
-    await expect(page.getByText("Friends reserve gifts")).toBeVisible();
+    // Hero badge pill
+    await expect(page.getByText("Free forever · No credit card needed")).toBeVisible();
 
-    // Demo video
+    // Hero social proof
+    await expect(page.getByText(/Loved by.*happy users/)).toBeVisible();
+
+    // How it works
+    const howItWorks = page.locator("#how-it-works");
+    await expect(howItWorks.getByText("HOW IT WORKS", { exact: true })).toBeVisible();
+    await expect(page.getByText("Three steps to")).toBeVisible();
+    await expect(page.getByText("perfect gifting")).toBeVisible();
+    await expect(page.getByText("Create your list").first()).toBeVisible();
+
+    // Demo video (unchanged)
     await expect(page.getByRole("heading", { name: "See it in action" })).toBeVisible();
 
-    // Features
+    // Features (unchanged)
     await expect(page.getByText("Everything you need")).toBeVisible();
-    await expect(page.locator("#features").getByRole("heading", { name: "Privacy modes" }).first()).toBeVisible();
-    await expect(page.locator("#features").getByRole("heading", { name: "QR code sharing" }).first()).toBeVisible();
 
-    // Testimonials
-    await expect(page.getByText("Loved by gift givers")).toBeVisible();
+    // Testimonials — new layout
+    const testimonialsSection = page.locator("#testimonials");
+    await expect(testimonialsSection.getByText("TESTIMONIALS", { exact: true })).toBeVisible();
+    await expect(page.getByText("People actually love it")).toBeVisible();
+    await expect(page.getByText("Karolina W.")).toBeVisible();
+    await expect(testimonialsSection.getByText("Marcin T.", { exact: true })).toBeVisible();
 
-    // FAQ
+    // FAQ (unchanged)
     await expect(page.getByText("Frequently asked questions")).toBeVisible();
 
-    // CTA
-    await expect(page.getByText("Ready to create your first gift list?")).toBeVisible();
+    // CTA — new headline
+    const ctaSection = page.locator("#cta");
+    await expect(ctaSection.getByText("Start your first list")).toBeVisible();
+    await expect(ctaSection.getByText("in 2 minutes", { exact: true })).toBeVisible();
+    await expect(page.getByText("Guests don't need an account")).toBeVisible();
 
-    // Footer
+    // Footer (unchanged)
     await expect(page.getByText("Gift lists made simple")).toBeVisible();
-    await expect(page.getByText(/Made with love in Poland/)).toBeVisible();
   });
 
   test("language switcher navigates to PL", async ({ page }) => {
@@ -50,7 +62,8 @@ test.describe("Landing page", () => {
     // Click Polski option
     await page.getByRole("link", { name: "Polski" }).click();
     await expect(page).toHaveURL(/\/pl/);
-    await expect(page.getByText("Idealny prezent, za każdym razem")).toBeVisible();
+    await expect(page.getByText("Listy prezentów,")).toBeVisible();
+    await expect(page.getByText("które wszyscy kochają")).toBeVisible();
   });
 
   test("FAQ accordion opens and closes", async ({ page }) => {
@@ -67,10 +80,29 @@ test.describe("Landing page", () => {
 
   test("trust badges are visible in hero", async ({ page }) => {
     const hero = page.locator("#hero");
-    await expect(hero.getByText("Free", { exact: true })).toBeVisible();
-    await expect(hero.getByText("Secure")).toBeVisible();
-    await expect(hero.getByText("Easy to use")).toBeVisible();
-    await expect(hero.getByText("No account needed to browse")).toBeVisible();
+    await expect(hero.getByText("Free forever").first()).toBeVisible();
+    await expect(hero.getByText("No account for guests")).toBeVisible();
+    await expect(hero.getByText("Works on mobile")).toBeVisible();
+  });
+
+  test("hero product mockup is visible", async ({ page }) => {
+    const hero = page.locator("#hero");
+    await expect(hero.getByText("Birthday Wishlist")).toBeVisible();
+    await expect(hero.getByText(/Karolina.*30/)).toBeVisible();
+    await expect(hero.getByText(/Anna just reserved/)).toBeVisible();
+    await expect(hero.getByText("Wireless Headphones")).toBeVisible();
+  });
+
+  test("testimonials render as grid with star ratings", async ({ page }) => {
+    const testimonials = page.locator("#testimonials");
+    await testimonials.scrollIntoViewIfNeeded();
+    await expect(testimonials.getByText("People actually love it")).toBeVisible();
+    await expect(testimonials.getByText("Karolina W.")).toBeVisible();
+    await expect(testimonials.getByText("Marcin T.")).toBeVisible();
+    await expect(testimonials.getByText("Aleksandra B.")).toBeVisible();
+    await expect(testimonials.getByText("Piotr K.")).toBeVisible();
+    const stars = testimonials.locator('[aria-label="5 out of 5 stars"]');
+    await expect(stars).toHaveCount(4);
   });
 
   test("mobile menu opens and closes", async ({ page }) => {

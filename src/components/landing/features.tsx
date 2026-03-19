@@ -10,16 +10,20 @@ export function Features() {
   const revealRef = useScrollReveal<HTMLDivElement>({ staggerDelay: 120 });
 
   return (
-    <section id="features" className="relative overflow-hidden bg-[#2D2545] py-20 sm:py-28">
-      {/* Decorative gradient orbs */}
-      <div className="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-landing-lavender/10 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 -bottom-32 h-72 w-72 rounded-full bg-landing-coral/10 blur-3xl" />
+    <section id="features" className="bg-white pt-12 pb-20 sm:pt-16 sm:pb-28">
 
       <div className="relative mx-auto px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
-        <h2 className="text-center text-3xl font-bold text-white sm:text-4xl">
-          {t("title")}
+        <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-sky-500">
+          {t("label")}
+        </p>
+        <h2 className="text-center text-3xl font-bold leading-[1.1] text-landing-text sm:text-4xl lg:text-5xl">
+          {t("titleTop")}
+          <br />
+          <span className="bg-gradient-to-r from-sky-500 to-landing-lavender bg-clip-text text-transparent">
+            {t("titleBottom")}
+          </span>
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-white/50">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-lg text-landing-text-muted">
           {t("subtitle")}
         </p>
 
@@ -38,14 +42,23 @@ export function Features() {
 
           {/* === DESKTOP LAYOUT (>=1000px) === */}
           <div className="hidden min-[1000px]:grid min-[1000px]:grid-cols-3 min-[1000px]:gap-4">
-            {/* Privacy — spans 2 cols, side-by-side */}
-            <div className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+            {/* Privacy — spans 2 cols, dark hero card */}
+            <div
+              className="scroll-reveal-scale col-span-2 flex flex-row overflow-hidden rounded-2xl border border-white/10 shadow-md transition-all hover:shadow-lg hover:scale-[1.01]"
+              style={{
+                background: [
+                  "radial-gradient(circle at 0% 0%, rgba(167,139,250,0.25) 0%, transparent 50%)",
+                  "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.12) 0%, transparent 50%)",
+                  "#1a1520",
+                ].join(", "),
+              }}
+            >
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20">
                   <Shield className="h-6 w-6 text-landing-lavender" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
-                <p className="mt-2 text-white/50">{t("privacyDescription")}</p>
+                <p className="mt-2 text-white/70">{t("privacyDescription")}</p>
                 <ul className="mt-5 space-y-3">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
@@ -57,14 +70,14 @@ export function Features() {
                         <mode.icon className={`h-4 w-4 ${mode.color}`} />
                       </div>
                       <div>
-                        <span className="text-sm font-semibold text-white">{t(mode.key)}</span>
-                        <p className="text-xs text-white/40">{t(mode.descKey)}</p>
+                        <span className="text-base font-semibold text-white">{t(mode.key)}</span>
+                        <p className="text-sm text-white/60">{t(mode.descKey)}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-6">
+              <div aria-hidden="true" className="flex w-[280px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-6">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -72,7 +85,7 @@ export function Features() {
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
-                    <div className="flex-1 space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-mint/40" /><div className="h-4 w-16 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
+                    <div className="flex-1 space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-mint/40" /><div className="h-4 w-16 rounded-full bg-landing-mint text-center text-[10px] leading-4 font-bold text-white">Active</div></div>
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
@@ -82,15 +95,18 @@ export function Features() {
               </div>
             </div>
 
-            {/* QR card */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+            {/* QR card — light with coral glow */}
+            <div
+              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]"
+              style={{ background: "radial-gradient(circle at 100% 0%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" }}
+            >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
-              <h3 className="text-xl font-semibold text-white">{t("qrTitle")}</h3>
-              <p className="mt-2 text-white/50">{t("qrDescription")}</p>
+              <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
+              <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
               <div className="mt-auto flex items-end justify-center pt-6">
                 <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
-                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
+                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(0,0,0,0.08)" strokeWidth="2" fill="rgba(0,0,0,0.02)" />
+                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(0,0,0,0.05)" />
                   <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
                   <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
                   <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
@@ -99,33 +115,36 @@ export function Features() {
                   <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
                   <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
                   <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
-                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
+                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(0,0,0,0.05)" />
+                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(0,0,0,0.03)" />
                 </svg>
               </div>
             </div>
 
-            {/* 3 small cards */}
+            {/* 3 small cards — radial corner glows */}
             {[
-              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", glow: "radial-gradient(circle at 0% 100%, rgba(110,231,183,0.2) 0%, transparent 60%), #fff" },
+              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", glow: "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" },
+              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", glow: "radial-gradient(circle at 100% 0%, rgba(167,139,250,0.2) 0%, transparent 60%), #fff" },
             ].map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]" style={{ background: card.glow }}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
-                <div><h3 className="font-semibold text-white">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p></div>
+                <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
             ))}
           </div>
 
           {/* === TABLET LAYOUT (768-999px) === */}
           <div className="hidden min-[768px]:flex min-[768px]:flex-col min-[768px]:gap-4 min-[1000px]:hidden">
-            {/* Row 1: Privacy card full width, 2-col internal */}
-            <div className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+            {/* Row 1: Privacy card full width — dark */}
+            <div
+              className="scroll-reveal-scale flex flex-row overflow-hidden rounded-2xl border border-white/10 shadow-md transition-all hover:shadow-lg hover:scale-[1.01]"
+              style={{ background: "radial-gradient(circle at 0% 0%, rgba(167,139,250,0.25) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(249,112,102,0.12) 0%, transparent 50%), #1a1520" }}
+            >
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
-                <p className="mt-2 text-white/50">{t("privacyDescription")}</p>
+                <p className="mt-2 text-white/70">{t("privacyDescription")}</p>
                 <ul className="mt-5 space-y-3">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
@@ -134,12 +153,12 @@ export function Features() {
                   ].map((mode) => (
                     <li key={mode.key} className="flex items-start gap-3">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}><mode.icon className={`h-4 w-4 ${mode.color}`} /></div>
-                      <div><span className="text-sm font-semibold text-white">{t(mode.key)}</span><p className="text-xs text-white/40">{t(mode.descKey)}</p></div>
+                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/60">{t(mode.descKey)}</p></div>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-5">
+              <div aria-hidden="true" className="flex w-[240px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-5">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -147,7 +166,7 @@ export function Features() {
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
-                    <div className="flex-1 space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
+                    <div className="flex-1 space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[10px] leading-4 font-bold text-white">Active</div></div>
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
@@ -160,14 +179,17 @@ export function Features() {
             {/* Row 2: QR left + 3 small cards stacked right */}
             <div className="grid grid-cols-2 gap-4">
               {/* QR card */}
-              <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div
+                className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]"
+                style={{ background: "radial-gradient(circle at 100% 0%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" }}
+              >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
-                <h3 className="text-xl font-semibold text-white">{t("qrTitle")}</h3>
-                <p className="mt-2 text-white/50">{t("qrDescription")}</p>
+                <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
+                <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
                 <div className="mt-auto flex items-end justify-center pt-6">
                   <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                    <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
-                    <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
+                    <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(0,0,0,0.08)" strokeWidth="2" fill="rgba(0,0,0,0.02)" />
+                    <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(0,0,0,0.05)" />
                     <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
                     <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
                     <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
@@ -176,21 +198,21 @@ export function Features() {
                     <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
                     <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
                     <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                    <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
-                    <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
+                    <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(0,0,0,0.05)" />
+                    <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(0,0,0,0.03)" />
                   </svg>
                 </div>
               </div>
               {/* 3 small cards stacked */}
               <div className="flex flex-col gap-4">
                 {[
-                  { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-                  { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-                  { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+                  { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", glow: "radial-gradient(circle at 0% 100%, rgba(110,231,183,0.2) 0%, transparent 60%), #fff" },
+                  { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", glow: "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" },
+                  { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", glow: "radial-gradient(circle at 100% 0%, rgba(167,139,250,0.2) 0%, transparent 60%), #fff" },
                 ].map((card) => (
-                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-5 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                  <div key={card.titleKey} className="scroll-reveal-scale flex flex-1 items-start gap-4 rounded-2xl border border-gray-200/60 p-5 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]" style={{ background: card.glow }}>
                     <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
-                    <div><h3 className="font-semibold text-white">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p></div>
+                    <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
                   </div>
                 ))}
               </div>
@@ -199,12 +221,15 @@ export function Features() {
 
           {/* === MOBILE LAYOUT (<768px) === */}
           <div className="flex flex-col gap-4 min-[768px]:hidden">
-            {/* Privacy card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[600px]:flex-row">
+            {/* Privacy card — dark, 2-col internal between 600-768px */}
+            <div
+              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 shadow-md transition-all hover:shadow-lg hover:scale-[1.01] min-[600px]:flex-row"
+              style={{ background: "radial-gradient(circle at 0% 0%, rgba(167,139,250,0.25) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(249,112,102,0.12) 0%, transparent 50%), #1a1520" }}
+            >
               <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
-                <p className="mt-2 text-white/50">{t("privacyDescription")}</p>
+                <p className="mt-2 text-white/70">{t("privacyDescription")}</p>
                 <ul className="mt-5 space-y-3">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
@@ -213,12 +238,12 @@ export function Features() {
                   ].map((mode) => (
                     <li key={mode.key} className="flex items-start gap-3">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}><mode.icon className={`h-4 w-4 ${mode.color}`} /></div>
-                      <div><span className="text-sm font-semibold text-white">{t(mode.key)}</span><p className="text-xs text-white/40">{t(mode.descKey)}</p></div>
+                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/60">{t(mode.descKey)}</p></div>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+              <div aria-hidden="true" className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
                 <div className="flex gap-3 min-[600px]:flex-col">
                   <div className="flex flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -226,7 +251,7 @@ export function Features() {
                   </div>
                   <div className="flex flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[10px] leading-4 font-bold text-white">Active</div></div>
                   </div>
                   <div className="flex flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
@@ -237,16 +262,19 @@ export function Features() {
             </div>
 
             {/* QR card — 2-col internal between 600-768px */}
-            <div className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10 min-[600px]:flex-row min-[600px]:items-center">
+            <div
+              className="scroll-reveal-scale flex flex-col overflow-hidden rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01] min-[600px]:flex-row min-[600px]:items-center"
+              style={{ background: "radial-gradient(circle at 100% 0%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" }}
+            >
               <div className="min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-coral/20"><QrCode className="h-6 w-6 text-landing-coral" /></div>
-                <h3 className="text-xl font-semibold text-white">{t("qrTitle")}</h3>
-                <p className="mt-2 text-white/50">{t("qrDescription")}</p>
+                <h3 className="text-xl font-semibold text-landing-text">{t("qrTitle")}</h3>
+                <p className="mt-2 text-landing-text-muted">{t("qrDescription")}</p>
               </div>
               <div className="mt-6 flex items-center justify-center min-[600px]:mt-0 min-[600px]:ml-6">
                 <svg width="140" height="160" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="rgba(255,255,255,0.05)" />
-                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
+                  <rect x="20" y="0" width="100" height="160" rx="16" stroke="rgba(0,0,0,0.08)" strokeWidth="2" fill="rgba(0,0,0,0.02)" />
+                  <rect x="55" y="6" width="30" height="4" rx="2" fill="rgba(0,0,0,0.05)" />
                   <rect x="40" y="35" width="60" height="60" rx="4" fill="rgba(167,139,250,0.1)" />
                   <rect x="46" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
                   <rect x="78" y="41" width="16" height="16" rx="2" fill="#A78BFA" opacity="0.6" />
@@ -255,21 +283,21 @@ export function Features() {
                   <rect x="78" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.3" />
                   <rect x="66" y="73" width="8" height="8" rx="1" fill="#A78BFA" opacity="0.2" />
                   <rect x="35" y="110" width="70" height="3" rx="1.5" fill="#F97066" opacity="0.4" />
-                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(255,255,255,0.1)" />
-                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
+                  <rect x="45" y="125" width="50" height="6" rx="3" fill="rgba(0,0,0,0.05)" />
+                  <rect x="55" y="135" width="30" height="4" rx="2" fill="rgba(0,0,0,0.03)" />
                 </svg>
               </div>
             </div>
 
-            {/* 3 small cards */}
+            {/* 3 small cards — radial corner glows */}
             {[
-              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20" },
-              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20" },
-              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20" },
+              { titleKey: "emailShareTitle", descKey: "emailShareDescription", icon: Mail, color: "text-landing-mint", bg: "bg-landing-mint/20", glow: "radial-gradient(circle at 0% 100%, rgba(110,231,183,0.2) 0%, transparent 60%), #fff" },
+              { titleKey: "noAccountTitle", descKey: "noAccountDescription", icon: UserX, color: "text-landing-coral", bg: "bg-landing-coral/20", glow: "radial-gradient(circle at 100% 100%, rgba(249,112,102,0.15) 0%, transparent 60%), #fff" },
+              { titleKey: "countdownTitle", descKey: "countdownDescription", icon: Clock, color: "text-landing-lavender", bg: "bg-landing-lavender/20", glow: "radial-gradient(circle at 100% 0%, rgba(167,139,250,0.2) 0%, transparent 60%), #fff" },
             ].map((card) => (
-              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.07] p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div key={card.titleKey} className="scroll-reveal-scale flex items-start gap-4 rounded-2xl border border-gray-200/60 p-6 shadow-sm transition-all hover:shadow-md hover:scale-[1.01]" style={{ background: card.glow }}>
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${card.bg}`}><card.icon className={`h-5 w-5 ${card.color}`} /></div>
-                <div><h3 className="font-semibold text-white">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-white/40">{t(card.descKey)}</p></div>
+                <div><h3 className="font-semibold text-landing-text">{t(card.titleKey)}</h3><p className="mt-1 text-sm text-landing-text-muted">{t(card.descKey)}</p></div>
               </div>
             ))}
           </div>

@@ -26,13 +26,36 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   const tAuth = useTranslations("auth.userMenu");
   const pathname = usePathname();
   const router = useRouter();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLocaleOpen, setIsLocaleOpen] = useState(false);
   const localeRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const isScrolled = isSticky;
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const heroEl = document.getElementById("hero");
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 600;
+      const pastHero = currentY > heroBottom - 80;
+      const scrollingUp = currentY < lastScrollY.current;
+
+      if (!pastHero) {
+        // Inside hero — nav is static (part of page), not sticky
+        setIsSticky(false);
+        setIsVisible(false);
+      } else if (scrollingUp) {
+        // Past hero + scrolling up — show sticky nav
+        setIsSticky(true);
+        setIsVisible(true);
+      } else {
+        // Past hero + scrolling down — hide sticky nav
+        setIsVisible(false);
+      }
+      lastScrollY.current = currentY;
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -81,10 +104,10 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   return (
     <>
       <nav
-        className={`safe-area-top fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/95 shadow-sm backdrop-blur-sm"
-            : "bg-transparent"
+        className={`safe-area-top right-0 left-0 z-50 transition-all duration-300 ${
+          isSticky
+            ? `fixed ${isVisible ? "top-0" : "-top-24"} bg-white/95 shadow-sm backdrop-blur-sm`
+            : "absolute top-0 bg-transparent"
         }`}
       >
         <div className="mx-auto flex items-center justify-between px-4 py-5 sm:px-6 sm:py-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
@@ -92,7 +115,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="flex items-center gap-2 text-xl font-bold text-landing-text"
+              className={`flex items-center gap-2 text-xl font-bold transition-colors ${isScrolled ? "text-landing-text" : "text-white"}`}
             >
               <Gift className="h-6 w-6 text-landing-coral" />
               <span>Podaruj.me</span>
@@ -102,7 +125,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             <div className="relative" ref={localeRef}>
               <button
                 onClick={() => setIsLocaleOpen(!isLocaleOpen)}
-                className="flex items-center gap-1 rounded-lg border border-landing-text/10 py-1.5 pr-1.5 pl-2.5 text-xs text-landing-text-muted transition-colors hover:border-landing-text/20 hover:bg-landing-peach-wash"
+                className={`flex items-center gap-1 rounded-lg border py-1.5 pr-1.5 pl-2.5 text-xs transition-colors ${isScrolled ? "border-landing-text/10 text-landing-text-muted hover:border-landing-text/20 hover:bg-landing-peach-wash" : "border-white/20 text-white/70 hover:border-white/30 hover:bg-white/10"}`}
                 aria-expanded={isLocaleOpen}
                 aria-haspopup="listbox"
               >
@@ -145,7 +168,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className="py-2 text-sm font-medium text-landing-text-muted transition-colors hover:text-landing-coral"
+                  className={`py-2 text-sm font-medium transition-colors hover:text-landing-coral ${isScrolled ? "text-landing-text-muted" : "text-white/70"}`}
                 >
                   {t(section.key)}
                 </button>
@@ -165,7 +188,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             )}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="rounded-lg p-2 text-landing-text transition-colors hover:bg-landing-peach-wash lg:hidden"
+              className={`rounded-lg p-2 transition-colors lg:hidden ${isScrolled ? "text-landing-text hover:bg-landing-peach-wash" : "text-white hover:bg-white/10"}`}
               aria-label="Open menu"
             >
               <Menu className="h-6 w-6" />
