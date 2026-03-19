@@ -176,7 +176,7 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
             </div>
             {userEmail ? (
               <div className="hidden lg:block lg:ml-4">
-                <UserMenu email={userEmail} displayName={displayName} />
+                <UserMenu email={userEmail} displayName={displayName} variant={isScrolled ? "light" : "dark"} />
               </div>
             ) : (
               <Link

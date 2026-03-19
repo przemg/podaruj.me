@@ -7,7 +7,7 @@ import { useRouter } from "@/i18n/navigation";
 import { signOut } from "@/lib/supabase/auth";
 import { User, LogOut, Plus, ChevronDown, Settings, LayoutList } from "lucide-react";
 
-export function UserMenu({ email, displayName }: { email: string; displayName?: string | null }) {
+export function UserMenu({ email, displayName, variant = "light" }: { email: string; displayName?: string | null; variant?: "light" | "dark" }) {
   const t = useTranslations("auth.userMenu");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,11 @@ export function UserMenu({ email, displayName }: { email: string; displayName?: 
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-xl bg-landing-coral/10 px-4 py-2.5 text-sm font-medium text-landing-text transition-all hover:bg-landing-coral/15 hover:shadow-sm"
+        className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all hover:shadow-sm ${
+          variant === "dark"
+            ? "bg-white/10 text-white hover:bg-white/15"
+            : "bg-landing-coral/10 text-landing-text hover:bg-landing-coral/15"
+        }`}
         aria-expanded={isOpen}
         aria-haspopup="menu"
       >
