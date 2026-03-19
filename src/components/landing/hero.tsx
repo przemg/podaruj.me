@@ -38,9 +38,9 @@ export function Hero({ userEmail }: { userEmail?: string }) {
       }}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
-        <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
+        <div className="flex flex-col items-center gap-12 min-[850px]:flex-row min-[850px]:gap-16">
           {/* Text content */}
-          <div className="flex-1 text-center lg:text-left" ref={revealRef}>
+          <div className="flex-1 text-center min-[850px]:text-left" ref={revealRef}>
             {/* Badge pill */}
             <div className="scroll-reveal mb-6 inline-flex items-center gap-1.5 rounded-full border border-landing-coral/20 bg-landing-coral/10 px-4 py-1.5 text-sm font-medium text-landing-coral">
               <Zap className="h-3.5 w-3.5" />
@@ -116,7 +116,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
             </div>
 
             {/* Social proof */}
-            <div className="scroll-reveal mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div className="scroll-reveal mt-8 flex flex-wrap items-center justify-center gap-3 min-[850px]:justify-start">
               <div className="flex -space-x-2">
                 {AVATAR_STYLES.map((avatar) => (
                   <div
@@ -145,7 +145,7 @@ export function Hero({ userEmail }: { userEmail?: string }) {
             </div>
 
             {/* Trust badges */}
-            <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start">
+            <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 min-[850px]:justify-start">
               {TRUST_BADGES.map((key) => (
                 <div
                   key={key}
