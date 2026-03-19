@@ -24,13 +24,15 @@ export function CtaSection({ userEmail }: { userEmail?: string }) {
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
         <div
-          className="relative overflow-hidden rounded-3xl border border-white/[0.06] px-8 py-20 text-center sm:px-16"
+          className="relative overflow-hidden rounded-3xl px-8 py-20 text-center sm:px-16"
           style={{
             background: [
-              "radial-gradient(ellipse at 10% 50%, rgba(249,112,102,0.12) 0%, transparent 55%)",
-              "radial-gradient(ellipse at 90% 50%, rgba(110,231,183,0.08) 0%, transparent 55%)",
-              "#161218",
+              "radial-gradient(circle at 0% 0%, rgba(249,112,102,0.18) 0%, transparent 45%)",
+              "radial-gradient(circle at 100% 100%, rgba(110,231,183,0.12) 0%, transparent 45%)",
+              "radial-gradient(circle at 50% 50%, rgba(167,139,250,0.06) 0%, transparent 50%)",
+              "#131015",
             ].join(", "),
+            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.07), 0 0 80px rgba(249,112,102,0.06), 0 0 120px rgba(110,231,183,0.04)",
           }}
           ref={revealRef}
         >
