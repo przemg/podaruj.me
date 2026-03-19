@@ -14,7 +14,7 @@ const VIDEO_SOURCES: Record<string, string> = {
 
 const STEPS = [
   { key: "step1", icon: ClipboardList, iconBg: "bg-gradient-to-br from-landing-coral/25 to-landing-peach-wash", iconColor: "text-landing-coral", badgeClass: "bg-landing-coral text-white" },
-  { key: "step2", icon: Share2, iconBg: "bg-gradient-to-br from-landing-lavender/25 to-landing-lavender-wash", iconColor: "text-landing-lavender", badgeClass: "bg-landing-lavender text-white" },
+  { key: "step2", icon: Share2, iconBg: "bg-gradient-to-br from-landing-lavender/30 to-landing-lavender/15", iconColor: "text-landing-lavender", badgeClass: "bg-landing-lavender text-white" },
   { key: "step3", icon: Gift, iconBg: "bg-gradient-to-br from-landing-mint/25 to-landing-cream", iconColor: "text-landing-mint", badgeClass: "bg-landing-mint text-landing-text" },
 ] as const;
 
@@ -87,7 +87,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
               <div key={step.key} className="scroll-reveal relative flex flex-col items-center">
                 {index < STEPS.length - 1 && (
                   <div
-                    className="absolute top-10 left-[calc(50%+52px)] hidden h-[2px] w-[calc(100%-104px)] md:block"
+                    className="absolute top-10 left-[calc(50%+48px)] hidden h-[2px] w-[calc(100%-96px)] md:block"
                     style={{
                       background: index === 0
                         ? "linear-gradient(to right, rgba(249,112,102,0.4), rgba(167,139,250,0.3))"
