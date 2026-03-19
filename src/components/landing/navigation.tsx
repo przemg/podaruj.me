@@ -26,12 +26,13 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   const tAuth = useTranslations("auth.userMenu");
   const pathname = usePathname();
   const router = useRouter();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLocaleOpen, setIsLocaleOpen] = useState(false);
   const localeRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
+  const isScrolled = isSticky;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,14 +40,19 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
       const heroEl = document.getElementById("hero");
       const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : 600;
       const pastHero = currentY > heroBottom - 80;
+      const scrollingUp = currentY < lastScrollY.current;
 
-      setIsScrolled(currentY > 20);
       if (!pastHero) {
-        // Inside hero — always visible
+        // Inside hero — nav is static (part of page), not sticky
+        setIsSticky(false);
+        setIsVisible(false);
+      } else if (scrollingUp) {
+        // Past hero + scrolling up — show sticky nav
+        setIsSticky(true);
         setIsVisible(true);
       } else {
-        // Past hero — show only when scrolling up
-        setIsVisible(currentY < lastScrollY.current);
+        // Past hero + scrolling down — hide sticky nav
+        setIsVisible(false);
       }
       lastScrollY.current = currentY;
     };
@@ -98,12 +104,10 @@ export function Navigation({ locale, userEmail, displayName }: { locale: string;
   return (
     <>
       <nav
-        className={`safe-area-top fixed right-0 left-0 z-50 transition-all duration-300 ${
-          isVisible ? "top-0" : "-top-24"
-        } ${
-          isScrolled
-            ? "bg-white/95 shadow-sm backdrop-blur-sm"
-            : "bg-transparent"
+        className={`safe-area-top right-0 left-0 z-50 transition-all duration-300 ${
+          isSticky
+            ? `fixed ${isVisible ? "top-0" : "-top-24"} bg-white/95 shadow-sm backdrop-blur-sm`
+            : "absolute top-0 bg-transparent"
         }`}
       >
         <div className="mx-auto flex items-center justify-between px-4 py-5 sm:px-6 sm:py-6 lg:px-8" style={{ maxWidth: LANDING_MAX_WIDTH }}>
