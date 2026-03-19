@@ -58,7 +58,7 @@ export function Features() {
                   <Shield className="h-6 w-6 text-landing-lavender" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
-                <p className="mt-2 text-white/60">{t("privacyDescription")}</p>
+                <p className="mt-2 text-white/70">{t("privacyDescription")}</p>
                 <ul className="mt-5 space-y-3">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
@@ -71,13 +71,13 @@ export function Features() {
                       </div>
                       <div>
                         <span className="text-base font-semibold text-white">{t(mode.key)}</span>
-                        <p className="text-sm text-white/50">{t(mode.descKey)}</p>
+                        <p className="text-sm text-white/60">{t(mode.descKey)}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[280px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-6">
+              <div aria-hidden="true" className="flex w-[280px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-6">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -85,7 +85,7 @@ export function Features() {
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
-                    <div className="flex-1 space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-mint/40" /><div className="h-4 w-16 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
+                    <div className="flex-1 space-y-1"><div className="h-1.5 w-20 rounded-full bg-landing-mint/40" /><div className="h-4 w-16 rounded-full bg-landing-mint text-center text-[10px] leading-4 font-bold text-white">Active</div></div>
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
@@ -144,7 +144,7 @@ export function Features() {
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
-                <p className="mt-2 text-white/60">{t("privacyDescription")}</p>
+                <p className="mt-2 text-white/70">{t("privacyDescription")}</p>
                 <ul className="mt-5 space-y-3">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
@@ -153,12 +153,12 @@ export function Features() {
                   ].map((mode) => (
                     <li key={mode.key} className="flex items-start gap-3">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}><mode.icon className={`h-4 w-4 ${mode.color}`} /></div>
-                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/50">{t(mode.descKey)}</p></div>
+                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/60">{t(mode.descKey)}</p></div>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex w-[240px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-5">
+              <div aria-hidden="true" className="flex w-[240px] shrink-0 items-center justify-center border-l border-white/10 bg-white/[0.05] px-5">
                 <div className="flex w-full flex-col gap-3">
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -166,7 +166,7 @@ export function Features() {
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
-                    <div className="flex-1 space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
+                    <div className="flex-1 space-y-1"><div className="h-1.5 w-16 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[10px] leading-4 font-bold text-white">Active</div></div>
                   </div>
                   <div className="flex w-full items-center gap-3 rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
@@ -229,7 +229,7 @@ export function Features() {
               <div className="flex flex-col p-6 min-[600px]:flex-1">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-landing-lavender/20"><Shield className="h-6 w-6 text-landing-lavender" /></div>
                 <h3 className="text-xl font-semibold text-white">{t("privacyTitle")}</h3>
-                <p className="mt-2 text-white/60">{t("privacyDescription")}</p>
+                <p className="mt-2 text-white/70">{t("privacyDescription")}</p>
                 <ul className="mt-5 space-y-3">
                   {[
                     { key: "privacyBuyersChoice", descKey: "privacyBuyersChoiceDesc", icon: HelpCircle, color: "text-landing-coral", bg: "bg-landing-coral/20" },
@@ -238,12 +238,12 @@ export function Features() {
                   ].map((mode) => (
                     <li key={mode.key} className="flex items-start gap-3">
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${mode.bg}`}><mode.icon className={`h-4 w-4 ${mode.color}`} /></div>
-                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/50">{t(mode.descKey)}</p></div>
+                      <div><span className="text-base font-semibold text-white">{t(mode.key)}</span><p className="text-sm text-white/60">{t(mode.descKey)}</p></div>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
+              <div aria-hidden="true" className="flex items-center justify-center border-t border-white/10 bg-white/[0.05] px-8 py-6 min-[600px]:w-[200px] min-[600px]:shrink-0 min-[600px]:border-t-0 min-[600px]:border-l">
                 <div className="flex gap-3 min-[600px]:flex-col">
                   <div className="flex flex-col items-center rounded-xl border border-landing-coral/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-coral/20"><HelpCircle className="h-4 w-4 text-landing-coral" /></div>
@@ -251,7 +251,7 @@ export function Features() {
                   </div>
                   <div className="flex flex-col items-center rounded-xl border-2 border-landing-mint/50 bg-white/15 px-3 py-3 shadow-lg shadow-landing-mint/10">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-mint/20"><Eye className="h-4 w-4 text-landing-mint" /></div>
-                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[8px] leading-4 font-bold text-white">Active</div></div>
+                    <div className="mt-2 space-y-1"><div className="h-1.5 w-12 rounded-full bg-landing-mint/40" /><div className="h-4 w-14 rounded-full bg-landing-mint text-center text-[10px] leading-4 font-bold text-white">Active</div></div>
                   </div>
                   <div className="flex flex-col items-center rounded-xl border border-landing-lavender/30 bg-white/10 px-3 py-3">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-landing-lavender/20"><EyeOff className="h-4 w-4 text-landing-lavender" /></div>
