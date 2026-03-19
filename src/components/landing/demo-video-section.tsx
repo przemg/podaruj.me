@@ -87,7 +87,7 @@ export function DemoVideoSection({ locale }: { locale: string }) {
               <div key={step.key} className="scroll-reveal relative flex flex-col items-center">
                 {index < STEPS.length - 1 && (
                   <div
-                    className="absolute top-10 left-[calc(50%+48px)] hidden h-[2px] w-[calc(100%-96px)] md:block"
+                    className="absolute top-10 left-[calc(50%+68px)] hidden h-[2px] w-[calc(100%-88px)] md:block"
                     style={{
                       background: index === 0
                         ? "linear-gradient(to right, rgba(249,112,102,0.4), rgba(167,139,250,0.3))"
