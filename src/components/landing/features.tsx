@@ -16,7 +16,7 @@ export function Features() {
         <p className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-sky-500">
           {t("label")}
         </p>
-        <h2 className="text-center text-3xl font-bold text-landing-text sm:text-4xl lg:text-5xl">
+        <h2 className="text-center text-3xl font-bold leading-[1.1] text-landing-text sm:text-4xl lg:text-5xl">
           {t("titleTop")}
           <br />
           <span className="bg-gradient-to-r from-sky-500 to-landing-lavender bg-clip-text text-transparent">
