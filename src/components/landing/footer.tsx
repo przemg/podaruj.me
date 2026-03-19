@@ -27,7 +27,7 @@ export function Footer() {
         />
         <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-start sm:justify-between">
           {/* Logo + tagline */}
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:flex-1 sm:text-left">
             <div className="flex items-center justify-center gap-2 sm:justify-start">
               <Gift className="h-5 w-5 text-landing-coral" />
               <span className="text-lg font-bold text-white">
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex gap-8">
+          <div className="flex justify-center gap-8 sm:flex-1">
             {FOOTER_LINKS.map((link) => (
               <a
                 key={link.id}
@@ -53,7 +53,7 @@ export function Footer() {
           </div>
 
           {/* Made with love */}
-          <div className="text-center sm:text-right">
+          <div className="text-center sm:flex-1 sm:text-right">
             <p className="flex items-center justify-center gap-1 text-sm text-white/40 sm:justify-end">
               {t.rich("footer.madeWith", {
                 heart: () => <Heart className="inline h-3.5 w-3.5 fill-landing-coral text-landing-coral" />,
